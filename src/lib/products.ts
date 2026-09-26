@@ -12,8 +12,13 @@ export const products: Product[] = [
     name: "La Petite Lanterne Feline",
     brandLine: "Maison Loravie",
     badge: "NOUVEAUTE",
+    // Headline retenue parmi 3 propositions :
+    // A) "Une petite touche feline qui illumine votre interieur." (retenue)
+    // B) "Le petit detail qui change tout dans une piece."
+    // C) "Une presence feline pleine de douceur, ou que vous la posiez."
+    headline: "Une petite touche féline qui illumine votre intérieur.",
     subtitle:
-      "Une petite touche qui change tout : pensee pour celles et ceux qui aiment les details qui rendent une maison unique.",
+      "Un crochet décoratif en forme de chat, avec une petite lanterne intégrée — à poser sur une étagère, un bureau ou une table de nuit.",
     h1: "Crochet mural pour chat avec lanterne decorative",
     shortDescription:
       "Un crochet decoratif en forme de chat, associe a une petite lanterne lumineuse, pour habiller une etagere, une chambre ou un bureau.",
@@ -21,6 +26,52 @@ export const products: Product[] = [
       "La Petite Lanterne Feline est un petit objet decoratif pense pour les amoureux des chats qui aiment soigner les details de leur interieur. Il associe une silhouette de chat, un crochet fonctionnel et une petite lanterne lumineuse, dans un seul objet compact.",
       "Pose sur une etagere, un rebord ou un meuble, il ajoute immediatement du caractere a une piece, tout en offrant un petit point d'accroche pratique pour un bijou, une cle ou une petite plante.",
       "Une fois la nuit tombee, sa lanterne integree diffuse une lumiere douce, ideale pour creer une ambiance chaleureuse dans une chambre ou un coin lecture, sans avoir besoin d'allumer une lumiere principale.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits details comptent",
+      title: "Les petits details font souvent toute la difference.",
+      paragraphs: [
+        "Un interieur chaleureux ne tient pas toujours a de grands changements. Parfois, c'est un seul objet bien choisi qui donne du caractere a une piece entiere.",
+        "La Petite Lanterne Feline a ete pensee pour ca : une silhouette de chat pleine de douceur, une lumiere qui s'allume doucement le soir, et un petit crochet qui rend service au quotidien.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que ce sera vraiment joli chez moi, et pas juste sur une photo ?",
+        response:
+          "Pense comme un objet de decoration a part entiere : sa silhouette sobre et ses tons naturels s'integrent facilement a un interieur deja existant.",
+      },
+      {
+        doubt: "Est-ce que c'est vraiment utile, ou juste un joli gadget ?",
+        response:
+          "C'est avant tout un objet decoratif : le crochet et la lanterne ajoutent une fonction pratique, mais son role premier est d'apporter du caractere a une etagere ou un coin de piece.",
+      },
+      {
+        doubt: "Est-ce que ce sera facile a installer ?",
+        response:
+          "Il se pose ou se fixe simplement sur une etagere, un rebord ou une surface plane, sans outillage complexe.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expediee sous 24h, pour une reception estimee entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne me convient pas une fois recu ?",
+        response:
+          "Vous disposez de 30 jours apres reception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un objet decoratif original : silhouette de chat, crochet et lanterne reunis",
+      "Une ambiance lumineuse douce pour vos soirees",
+      "Livraison offerte, expedition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement a 100% securise",
+    ],
+    midCtaTexts: [
+      "Convaincue par ces quelques details ?",
+      "Prete a lui trouver sa place chez vous ?",
     ],
     costPriceUSD: 8.49,
     priceCHF: 21.9,
@@ -210,6 +261,23 @@ export const products: Product[] = [
     ratingAverageDemo: 4.7,
     ratingCountDemo: 1250,
     collections: ["chats", "decoration", "maison", "cadeaux"],
+    // Structure editoriale propre a ce produit (chaque produit peut avoir un ordre different).
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "gift",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
   },
 ];
 

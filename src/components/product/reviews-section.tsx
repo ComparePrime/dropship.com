@@ -5,7 +5,7 @@ export function ReviewsSection({ product }: { product: Product }) {
   const hasDemoReviews = product.reviewsDemo.length > 0;
 
   return (
-    <section className="container-content py-16 md:py-24">
+    <section id="avis" className="container-content scroll-mt-24 py-16 md:py-24">
       <div className="text-center">
         <h2 className="section-title">Avis clients</h2>
         {hasDemoReviews && (

@@ -4,7 +4,6 @@ import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
-import { RatingStars } from "@/components/product/rating-stars";
 import { Countdown } from "@/components/product/countdown";
 import { TrustBadges } from "@/components/trust-badges";
 import { Icon } from "@/components/icons";
@@ -25,15 +24,25 @@ export function BuyBox({ product }: { product: Product }) {
         {product.badge}
       </span>
 
-      <h1 className="mt-4 font-display text-3xl leading-tight text-ink md:text-4xl">
+      <p className="mt-4 text-xs font-medium uppercase tracking-widest text-sage">
         {product.name}
+      </p>
+
+      {/* Headline oriente benefice : le vrai H1 de la page, pas le titre fournisseur. */}
+      <h1 className="mt-2 font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">
+        {product.headline}
       </h1>
 
       <p className="mt-3 text-base text-ink/70">{product.subtitle}</p>
 
-      <div className="mt-4 flex items-center gap-2">
-        <RatingStars />
-      </div>
+      {/*
+        Pas d'etoiles ni de note affichees ici tant qu'aucune donnee d'avis reelle
+        n'existe (regle "note reelle uniquement"). Un lien discret renvoie vers la
+        section avis des qu'elle existe.
+      */}
+      <a href="#avis" className="mt-3 inline-block text-sm text-sage underline underline-offset-2">
+        Voir les avis
+      </a>
 
       <div className="mt-6 flex items-baseline gap-3">
         {compareAt && (

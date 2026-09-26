@@ -55,16 +55,59 @@ export interface ProductSeo {
   keywords: string[];
 }
 
+export interface StorytellingContent {
+  eyebrow: string;
+  title: string;
+  paragraphs: string[];
+}
+
+export interface Objection {
+  /** Le doute exprime par la cliente, formule a la premiere personne. */
+  doubt: string;
+  response: string;
+}
+
+/**
+ * Chaque section est optionnelle et l'ordre est defini par produit (champ `layout`).
+ * Cela permet a un produit different d'avoir une structure de page totalement differente
+ * (ex: "avant/apres" pour un produit demonstratif, "probleme/solution" pour un autre),
+ * sans jamais forcer le meme gabarit pour tous les produits.
+ */
+export type ProductSectionKey =
+  | "storytelling"
+  | "benefits"
+  | "cta-1"
+  | "editorial"
+  | "useCases"
+  | "objections"
+  | "value"
+  | "cta-2"
+  | "gift"
+  | "reviews"
+  | "shipping-returns"
+  | "faq"
+  | "related"
+  | "final-cta";
+
 export interface Product {
   id: string;
   slug: string;
   name: string;
   brandLine: string;
   badge: string;
+  /** Headline oriente benefice affiche en H1 dans le hero (pas le titre fournisseur). */
+  headline: string;
   subtitle: string;
+  /** Variante du H1 utilisee pour le SEO/le maillage (title de page, ancres de blog). */
   h1: string;
   shortDescription: string;
   description: string[];
+  storytelling: StorytellingContent;
+  objections: Objection[];
+  /** Ce que la cliente obtient reellement pour ce prix (justification de valeur, pas de faux prix barre). */
+  valueStack: string[];
+  /** Textes des CTA intermediaires (cta-1, cta-2), chacun formule une nouvelle raison d'acheter. */
+  midCtaTexts: string[];
   costPriceUSD: number;
   priceCHF: number;
   priceEUR: number;
@@ -81,6 +124,8 @@ export interface Product {
   ratingAverageDemo: number;
   ratingCountDemo: number;
   collections: string[];
+  /** Ordre des sections editoriales pour ce produit specifiquement. */
+  layout: ProductSectionKey[];
 }
 
 export interface CartLine {
