@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <rect width="1000" height="1000" fill="#EAE3D7"/>
+  <rect x="100" y="700" width="800" height="20" fill="#8A8477"/>
+  <circle cx="350" cy="600" r="110" fill="#2C2B28"/>
+  <rect x="600" y="500" width="220" height="200" fill="#2C2B28" opacity="0.85"/>
+  <text x="500" y="900" font-family="Georgia, serif" font-size="34" fill="#8A8477" text-anchor="middle">
+    Photo produit a remplacer — Ambiance bureau
+  </text>
+</svg>

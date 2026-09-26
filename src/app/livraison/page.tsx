@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+import { getAllProducts } from "@/lib/products";
+import { TrustBadges } from "@/components/trust-badges";
+
+export const metadata: Metadata = {
+  title: "Livraison",
+  description: "Nos conditions de livraison : livraison offerte, expedition sous 24h.",
+};
+
+export default function ShippingPage() {
+  const shipping = getAllProducts()[0].shipping;
+
+  return (
+    <section className="container-content max-w-2xl py-14">
+      <h1 className="section-title">Livraison</h1>
+      <div className="mt-6">
+        <TrustBadges />
+      </div>
+      <div className="mt-8 flex flex-col gap-4 text-ink/80">
+        <p>
+          Toutes les commandes beneficient de la livraison offerte, sans minimum d&apos;achat.
+        </p>
+        <p>
+          Chaque commande est expediee sous {shipping.dispatchWithinHours} heures. Le delai de
+          livraison estime est de {shipping.minDays} a {shipping.maxDays} jours ouvrables selon
+          votre pays de livraison.
+        </p>
+        <p>
+          Un numero de suivi vous est communique des l&apos;expedition de votre colis, afin de
+          suivre son acheminement jusqu&apos;a votre domicile.
+        </p>
+      </div>
+    </section>
+  );
+}
