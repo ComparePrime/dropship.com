@@ -1,0 +1,41 @@
+import {
+  Truck,
+  Clock,
+  MapPin,
+  RotateCcw,
+  ShieldCheck,
+  Cat,
+  Lamp,
+  Home,
+  Gift,
+  Star,
+  ChevronDown,
+  ChevronRight,
+  ShoppingBag,
+  Minus,
+  Plus,
+  X,
+  Check,
+} from "lucide-react";
+
+export const Icon = {
+  truck: Truck,
+  clock: Clock,
+  "map-pin": MapPin,
+  "rotate-ccw": RotateCcw,
+  "shield-check": ShieldCheck,
+  cat: Cat,
+  lamp: Lamp,
+  home: Home,
+  gift: Gift,
+  star: Star,
+  "chevron-down": ChevronDown,
+  "chevron-right": ChevronRight,
+  bag: ShoppingBag,
+  minus: Minus,
+  plus: Plus,
+  close: X,
+  check: Check,
+} as const;
+
+export type IconName = keyof typeof Icon;

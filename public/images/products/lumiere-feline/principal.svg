@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <rect width="1000" height="1000" fill="#EAE3D7"/>
+  <circle cx="500" cy="430" r="180" fill="#2C2B28"/>
+  <polygon points="380,300 430,380 340,380" fill="#2C2B28"/>
+  <polygon points="620,300 660,380 570,380" fill="#2C2B28"/>
+  <circle cx="500" cy="620" r="70" fill="#B98A5E"/>
+  <text x="500" y="900" font-family="Georgia, serif" font-size="34" fill="#8A8477" text-anchor="middle">
+    Photo produit a remplacer — Lumiere Feline
+  </text>
+</svg>
