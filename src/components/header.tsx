@@ -17,18 +17,16 @@ export function Header() {
           {siteConfig.name}
         </Link>
 
+        {/*
+          Header volontairement minimal (regle mono-produit) :
+          pas de recherche, pas de catalogue, pas de mega-menu.
+        */}
         <nav className="hidden items-center gap-8 text-sm tracking-wide text-ink/80 md:flex">
-          <Link href="/collections/chats" className="hover:text-ink">
-            Chats
+          <Link href="/a-propos" className="hover:text-ink">
+            À propos
           </Link>
-          <Link href="/collections/decoration" className="hover:text-ink">
-            Decoration
-          </Link>
-          <Link href="/collections/cadeaux" className="hover:text-ink">
-            Idees cadeaux
-          </Link>
-          <Link href="/blog" className="hover:text-ink">
-            Journal
+          <Link href="/contact" className="hover:text-ink">
+            Contact
           </Link>
         </nav>
 

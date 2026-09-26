@@ -13,6 +13,7 @@ import { ReviewsSection } from "@/components/product/reviews-section";
 import { ShippingReturnsSection } from "@/components/product/shipping-returns-section";
 import { FaqSection } from "@/components/product/faq-section";
 import { RelatedProducts } from "@/components/product/related-products";
+import { FinalCtaSection } from "@/components/product/final-cta-section";
 import { ProductJsonLd } from "@/components/product/product-jsonld";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -60,11 +61,7 @@ export default function ProductPage({ params }: Props) {
     <>
       <ProductJsonLd product={product} />
       <Breadcrumbs
-        items={[
-          { label: "Accueil", href: "/" },
-          { label: "Collections", href: "/collections" },
-          { label: product.name },
-        ]}
+        items={[{ label: "Accueil", href: "/" }, { label: product.name }]}
       />
 
       <section className="container-content grid grid-cols-1 gap-10 py-8 md:grid-cols-2 md:gap-16 md:py-14">
@@ -80,6 +77,7 @@ export default function ProductPage({ params }: Props) {
       <ShippingReturnsSection shipping={product.shipping} />
       <FaqSection faq={product.faq} />
       <RelatedProducts products={related} />
+      <FinalCtaSection product={product} />
 
       <StickyBar product={product} />
     </>

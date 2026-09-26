@@ -58,13 +58,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: siteConfig.domain },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Collections",
-        item: `${siteConfig.domain}/collections`,
-      },
-      { "@type": "ListItem", position: 3, name: product.name, item: url },
+      { "@type": "ListItem", position: 2, name: product.name, item: url },
     ],
   };
 

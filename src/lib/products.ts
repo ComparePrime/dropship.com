@@ -7,10 +7,10 @@ import { Product } from "./types";
  */
 export const products: Product[] = [
   {
-    id: "lumiere-feline",
+    id: "petite-lanterne-feline",
     slug: "crochet-chat-lanterne",
-    name: "Lumiere Feline",
-    brandLine: "Collection Maison",
+    name: "La Petite Lanterne Feline",
+    brandLine: "Maison Loravie",
     badge: "NOUVEAUTE",
     subtitle:
       "Une petite touche qui change tout : pensee pour celles et ceux qui aiment les details qui rendent une maison unique.",
@@ -18,7 +18,7 @@ export const products: Product[] = [
     shortDescription:
       "Un crochet decoratif en forme de chat, associe a une petite lanterne lumineuse, pour habiller une etagere, une chambre ou un bureau.",
     description: [
-      "Lumiere Feline est un petit objet decoratif pense pour les amoureux des chats qui aiment soigner les details de leur interieur. Il associe une silhouette de chat, un crochet fonctionnel et une petite lanterne lumineuse, dans un seul objet compact.",
+      "La Petite Lanterne Feline est un petit objet decoratif pense pour les amoureux des chats qui aiment soigner les details de leur interieur. Il associe une silhouette de chat, un crochet fonctionnel et une petite lanterne lumineuse, dans un seul objet compact.",
       "Pose sur une etagere, un rebord ou un meuble, il ajoute immediatement du caractere a une piece, tout en offrant un petit point d'accroche pratique pour un bijou, une cle ou une petite plante.",
       "Une fois la nuit tombee, sa lanterne integree diffuse une lumiere douce, ideale pour creer une ambiance chaleureuse dans une chambre ou un coin lecture, sans avoir besoin d'allumer une lumiere principale.",
     ],
@@ -29,17 +29,17 @@ export const products: Product[] = [
     images: [
       {
         src: "/images/products/lumiere-feline/principal.svg",
-        alt: "Crochet decoratif en forme de chat avec lanterne lumineuse pose sur une etagere",
-        caption: "Lumiere Feline sur une etagere de chambre",
+        alt: "Crochet decoratif en forme de chat avec element lumineux pose sur une etagere",
+        caption: "La Petite Lanterne Feline sur une etagere de chambre",
       },
       {
         src: "/images/products/lumiere-feline/detail-figurine.svg",
-        alt: "Detail de la figurine de chat du crochet decoratif Lumiere Feline",
+        alt: "Detail de la figurine de chat du crochet decoratif La Petite Lanterne Feline",
         caption: "Le detail de la silhouette du chat",
       },
       {
         src: "/images/products/lumiere-feline/lanterne-allumee.svg",
-        alt: "Lanterne decorative allumee du crochet mural pour chat",
+        alt: "Element lumineux allume du crochet mural pour chat",
         caption: "La lanterne diffuse une lumiere douce le soir",
       },
       {
@@ -127,6 +127,11 @@ export const products: Product[] = [
           "Les dimensions precises seront communiquees prochainement par notre equipe. Elles restent compactes, pensees pour une etagere ou un petit espace.",
       },
       {
+        question: "La lanterne fonctionne-t-elle avec des piles ou une batterie ?",
+        answer:
+          "Information a confirmer par notre equipe des que la fiche technique du fournisseur sera disponible.",
+      },
+      {
         question: "Comment entretenir le produit ?",
         answer:
           "Un simple depoussierage avec un chiffon sec ou legerement humide suffit a l'entretien courant.",
@@ -152,9 +157,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Crochet mural pour chat avec lanterne decorative | Maison Felin",
+      title: "Crochet mural pour chat avec lanterne decorative | Maison Loravie",
       metaDescription:
-        "Decouvrez Lumiere Feline, un crochet decoratif en forme de chat avec lanterne lumineuse. Ideal pour la chambre ou le bureau. Livraison offerte, retours gratuits 30 jours.",
+        "Decouvrez La Petite Lanterne Feline, un crochet decoratif en forme de chat avec element lumineux. Ideal pour la chambre ou le bureau. Livraison offerte, retours gratuits 30 jours.",
       keywords: [
         "crochet chat decoration",
         "crochet mural chat",
@@ -216,6 +221,7 @@ export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
-export function getRelatedProducts(currentSlug: string, limit = 3): Product[] {
+/** Max 1-2 produits complementaires : le produit principal doit rester dominant. */
+export function getRelatedProducts(currentSlug: string, limit = 2): Product[] {
   return products.filter((p) => p.slug !== currentSlug).slice(0, limit);
 }

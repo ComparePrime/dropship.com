@@ -15,7 +15,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-09-01",
     content: [
       "Ajouter une touche feline a une chambre ne demande pas de tout transformer. Quelques objets bien choisis suffisent a creer une ambiance chaleureuse et personnelle.",
-      "Un objet decoratif comme Lumiere Feline, avec sa silhouette de chat et sa petite lanterne, s'integre facilement sur une etagere ou une table de nuit, tout en apportant une lumiere douce le soir.",
+      "Un objet decoratif comme La Petite Lanterne Feline, avec sa silhouette de chat et sa petite lanterne, s'integre facilement sur une etagere ou une table de nuit, tout en apportant une lumiere douce le soir.",
       "L'idee est de miser sur un ou deux details marquants plutot que de multiplier les objets, pour garder une decoration equilibree et raffinee.",
     ],
   },

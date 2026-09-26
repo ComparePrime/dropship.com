@@ -1,10 +1,11 @@
 export const siteConfig = {
-  name: "Maison Félin",
-  legalName: "Maison Félin Sàrl",
-  domain: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.maisonfelin.com",
+  name: "Maison Loravie",
+  legalName: "Maison Loravie Sàrl",
+  domain: process.env.NEXT_PUBLIC_SITE_URL ?? "https://maisonloravie.com",
+  slogan: "Les petits détails qui rendent la vie plus belle.",
   description:
-    "Objets de décoration originaux inspirés des chats, pensés pour la chambre, le bureau et le salon.",
-  supportEmail: "bonjour@maisonfelin.com",
+    "Une sélection d'objets pensés pour la maison, la famille et ceux que vous aimez.",
+  supportEmail: "bonjour@maisonloravie.com",
   social: {
     instagram: "https://instagram.com",
     tiktok: "https://tiktok.com",

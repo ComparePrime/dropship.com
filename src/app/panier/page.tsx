@@ -115,7 +115,7 @@ export default function CartPage() {
               <div className="mt-10">
                 <p className="text-sm font-medium text-ink">Vous pourriez aussi aimer</p>
                 <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
-                  {suggestions.slice(0, 3).map((p) => (
+                  {suggestions.slice(0, 2).map((p) => (
                     <Link key={p.id} href={`/produit/${p.slug}`} className="group">
                       <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
                         {p.images[0] && (

@@ -25,7 +25,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
-    default: `${siteConfig.name} — Decoration originale inspiree des chats`,
+    default: `${siteConfig.name} — ${siteConfig.slogan}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
