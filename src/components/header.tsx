@@ -42,7 +42,7 @@ export function Header() {
           >
             <Icon.bag className="h-5 w-5" strokeWidth={1.5} />
             {totalItems > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[11px] font-medium text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-sage text-[11px] font-medium text-white">
                 {totalItems}
               </span>
             )}

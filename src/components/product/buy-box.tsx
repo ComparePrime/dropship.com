@@ -21,7 +21,7 @@ export function BuyBox({ product }: { product: Product }) {
 
   return (
     <div id="acheter">
-      <span className="inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-medium tracking-wide text-accentDark">
+      <span className="inline-block rounded-full bg-blush/40 px-3 py-1 text-xs font-medium tracking-wide text-terracottaText">
         {product.badge}
       </span>
 
@@ -46,7 +46,7 @@ export function BuyBox({ product }: { product: Product }) {
 
       {product.promotion.active && (
         <div className="mt-2">
-          <p className="text-sm font-medium text-accentDark">{product.promotion.label}</p>
+          <p className="text-sm font-medium text-terracottaText">{product.promotion.label}</p>
           <Countdown endsAt={product.promotion.endsAt} />
         </div>
       )}

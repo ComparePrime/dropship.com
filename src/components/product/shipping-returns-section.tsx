@@ -8,7 +8,7 @@ export function ShippingReturnsSection({ shipping }: { shipping: ShippingConfig 
     <section className="bg-sand/60 py-16 md:py-24">
       <div className="container-content grid grid-cols-1 gap-10 md:grid-cols-2">
         <div>
-          <Icon.truck className="h-6 w-6 text-accentDark" strokeWidth={1.5} />
+          <Icon.truck className="h-6 w-6 text-sage" strokeWidth={1.5} />
           <h2 className="mt-4 font-display text-2xl">Livraison offerte</h2>
           <p className="mt-3 text-ink/70">
             Votre commande est expediee sous {shipping.dispatchWithinHours} heures. Comptez
@@ -17,7 +17,7 @@ export function ShippingReturnsSection({ shipping }: { shipping: ShippingConfig 
           </p>
         </div>
         <div>
-          <RotateCcw className="h-6 w-6 text-accentDark" strokeWidth={1.5} />
+          <RotateCcw className="h-6 w-6 text-sage" strokeWidth={1.5} />
           <h2 className="mt-4 font-display text-2xl">
             {shipping.returnDays} jours pour changer d&apos;avis
           </h2>

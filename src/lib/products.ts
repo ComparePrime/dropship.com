@@ -13,7 +13,7 @@ export const products: Product[] = [
     brandLine: "Collection Maison",
     badge: "NOUVEAUTE",
     subtitle:
-      "Une petite touche feline qui transforme instantanement votre interieur.",
+      "Une petite touche qui change tout : pensee pour celles et ceux qui aiment les details qui rendent une maison unique.",
     h1: "Crochet mural pour chat avec lanterne decorative",
     shortDescription:
       "Un crochet decoratif en forme de chat, associe a une petite lanterne lumineuse, pour habiller une etagere, une chambre ou un bureau.",

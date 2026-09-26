@@ -13,7 +13,7 @@ export function CurrencySwitcher() {
         onClick={() => setCurrency("CHF")}
         className={clsx(
           "rounded-full px-2.5 py-1.5 transition-colors",
-          currency === "CHF" ? "bg-ink text-cream" : "text-ink/70 hover:text-ink"
+          currency === "CHF" ? "bg-sage text-white" : "text-ink/70 hover:text-ink"
         )}
       >
         CH CHF
@@ -23,7 +23,7 @@ export function CurrencySwitcher() {
         onClick={() => setCurrency("EUR")}
         className={clsx(
           "rounded-full px-2.5 py-1.5 transition-colors",
-          currency === "EUR" ? "bg-ink text-cream" : "text-ink/70 hover:text-ink"
+          currency === "EUR" ? "bg-sage text-white" : "text-ink/70 hover:text-ink"
         )}
       >
         EU EUR

@@ -11,15 +11,16 @@ export default function HomePage() {
     <>
       <section className="container-content grid grid-cols-1 items-center gap-10 py-12 md:grid-cols-2 md:gap-16 md:py-20">
         <div>
-          <span className="inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-medium tracking-wide text-accentDark">
+          <span className="inline-block rounded-full bg-blush/40 px-3 py-1 text-xs font-medium tracking-wide text-terracottaText">
             Collection Maison
           </span>
-          <h1 className="mt-4 font-display text-4xl leading-tight text-ink md:text-5xl">
-            Une decoration originale, inspiree des chats.
+          <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-ink md:text-5xl">
+            Une petite touche qui change tout.
           </h1>
-          <p className="mt-4 max-w-md text-ink/70">
-            Des objets penses pour ajouter du caractere a une chambre, un bureau ou un salon —
-            avec une touche feline et lumineuse.
+          <p className="mt-4 max-w-md text-ink/80">
+            Des objets pensés pour celles et ceux qui aiment les détails qui rendent une maison
+            unique — une touche féline, chaleureuse et lumineuse, pour une chambre, un bureau ou
+            un salon.
           </p>
           <Link href={`/produit/${featured.slug}`} className="btn-primary mt-8">
             Decouvrir {featured.name}

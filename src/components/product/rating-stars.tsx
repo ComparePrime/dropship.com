@@ -7,7 +7,7 @@ export function RatingStars({ value = 5 }: { value?: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Icon.star
           key={i}
-          className={i < value ? "h-4 w-4 fill-accent text-accent" : "h-4 w-4 text-ink/20"}
+          className={i < value ? "h-4 w-4 fill-terracotta text-terracotta" : "h-4 w-4 text-ink/20"}
         />
       ))}
     </div>

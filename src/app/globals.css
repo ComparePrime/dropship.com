@@ -2,17 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
 body {
   @apply bg-cream text-ink antialiased;
+  font-size: 17px;
+  line-height: 1.65;
 }
 
 .container-content {
@@ -20,13 +17,13 @@ body {
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-full bg-ink px-8 py-4 text-sm font-medium tracking-wide text-cream transition-colors hover:bg-charcoal disabled:opacity-50;
+  @apply inline-flex items-center justify-center rounded-full bg-sage px-8 py-4 text-[15px] font-medium tracking-wide text-white transition-colors hover:bg-sageDeep disabled:opacity-50;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center rounded-full border border-ink/15 bg-transparent px-8 py-4 text-sm font-medium tracking-wide text-ink transition-colors hover:bg-ink/5;
+  @apply inline-flex items-center justify-center rounded-full border border-ink/20 bg-transparent px-8 py-4 text-[15px] font-medium tracking-wide text-ink transition-colors hover:bg-sand;
 }
 
 .section-title {
-  @apply font-display text-3xl md:text-4xl text-ink;
+  @apply font-display text-3xl md:text-4xl font-semibold text-ink;
 }

@@ -5,13 +5,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#F7F4EF",
-        sand: "#EAE3D7",
-        ink: "#1C1B19",
-        charcoal: "#2C2B28",
-        stone: "#8A8477",
-        accent: "#B98A5E",
-        accentDark: "#96703F",
+        cream: "#F8F5EF",
+        sand: "#EEE7DC",
+        ink: "#292722",
+        charcoal: "#3A372F",
+        stone: "#6B655A",
+        // Vert sauge : couleur de marque principale (boutons, navigation, icones).
+        sage: "#6F7663",
+        sageDeep: "#4B5140",
+        // Terracotta : accent secondaire uniquement (badges, details, petits accents).
+        terracotta: "#A56B52",
+        terracottaText: "#7A4A37",
+        blush: "#D8C7B5",
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],

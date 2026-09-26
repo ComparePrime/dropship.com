@@ -37,7 +37,7 @@ export default function BlogPostPage({ params }: Props) {
         <ul className="mt-2 flex flex-col gap-1">
           {products.map((product) => (
             <li key={product.id}>
-              <Link href={`/produit/${product.slug}`} className="text-accentDark underline">
+              <Link href={`/produit/${product.slug}`} className="text-sageDeep underline">
                 {product.name} — {product.h1}
               </Link>
             </li>

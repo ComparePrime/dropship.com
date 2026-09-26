@@ -14,7 +14,7 @@ export function TrustBadges({ compact = false }: { compact?: boolean }) {
         const IconComp = Icon[item.icon as IconName];
         return (
           <li key={item.label} className="flex items-center gap-2">
-            <IconComp className="h-4 w-4 flex-shrink-0 text-accent" strokeWidth={1.5} />
+            <IconComp className="h-4 w-4 flex-shrink-0 text-sage" strokeWidth={1.5} />
             <span>{item.label}</span>
           </li>
         );
