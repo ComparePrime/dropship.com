@@ -19,6 +19,12 @@ export const products: Product[] = [
     headline: "Une petite touche féline qui illumine votre intérieur.",
     subtitle:
       "Un crochet décoratif en forme de chat, avec une petite lanterne intégrée — à poser sur une étagère, un bureau ou une table de nuit.",
+    heroBullets: [
+      "Une silhouette de chat pleine de douceur, sans surcharger l'espace",
+      "Une petite lanterne qui apporte une lumière chaleureuse le soir",
+      "Se pose ou se fixe simplement, sans outillage complexe",
+      "Livré prêt à trouver sa place : étagère, bureau ou chambre",
+    ],
     h1: "Crochet mural pour chat avec lanterne decorative",
     shortDescription:
       "Un crochet decoratif en forme de chat, associe a une petite lanterne lumineuse, pour habiller une etagere, une chambre ou un bureau.",

@@ -35,6 +35,15 @@ export function BuyBox({ product }: { product: Product }) {
 
       <p className="mt-3 text-base text-ink/70">{product.subtitle}</p>
 
+      <ul className="mt-4 flex flex-col gap-2">
+        {product.heroBullets.map((bullet) => (
+          <li key={bullet} className="flex items-start gap-2 text-sm text-ink/80">
+            <Icon.check className="mt-0.5 h-4 w-4 flex-shrink-0 text-sage" strokeWidth={2} />
+            <span>{bullet}</span>
+          </li>
+        ))}
+      </ul>
+
       {/*
         Pas d'etoiles ni de note affichees ici tant qu'aucune donnee d'avis reelle
         n'existe (regle "note reelle uniquement"). Un lien discret renvoie vers la

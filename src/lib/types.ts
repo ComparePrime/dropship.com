@@ -98,6 +98,8 @@ export interface Product {
   /** Headline oriente benefice affiche en H1 dans le hero (pas le titre fournisseur). */
   headline: string;
   subtitle: string;
+  /** 3-4 promesses courtes affichees en liste a puces dans le hero, sous le sous-titre. */
+  heroBullets: string[];
   /** Variante du H1 utilisee pour le SEO/le maillage (title de page, ancres de blog). */
   h1: string;
   shortDescription: string;
