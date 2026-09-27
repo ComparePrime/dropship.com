@@ -78,7 +78,12 @@ export function CartDrawer() {
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-medium">{line.name}</p>
+                        <div>
+                          <p className="text-sm font-medium">{line.name}</p>
+                          {line.packLabel && (
+                            <p className="text-xs text-sage">{line.packLabel}</p>
+                          )}
+                        </div>
                         <button
                           onClick={() => removeItem(line.productId)}
                           aria-label="Retirer l'article"

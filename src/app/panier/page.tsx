@@ -71,9 +71,14 @@ export default function CartPage() {
                   </div>
                   <div className="flex flex-1 flex-col justify-between">
                     <div className="flex items-start justify-between gap-2">
-                      <Link href={`/produit/${line.slug}`} className="font-medium hover:underline">
-                        {line.name}
-                      </Link>
+                      <div>
+                        <Link href={`/produit/${line.slug}`} className="font-medium hover:underline">
+                          {line.name}
+                        </Link>
+                        {line.packLabel && (
+                          <p className="text-xs text-sage">{line.packLabel}</p>
+                        )}
+                      </div>
                       <button
                         onClick={() => removeItem(line.productId)}
                         aria-label="Retirer l'article"

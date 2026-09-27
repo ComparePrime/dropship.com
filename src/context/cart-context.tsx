@@ -61,6 +61,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           priceCHF: product.priceCHF,
           priceEUR: product.priceEUR,
           quantity,
+          packLabel: product.packLabel,
         },
       ];
     });

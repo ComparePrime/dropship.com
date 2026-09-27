@@ -12,6 +12,9 @@ export function StickyBar({ product }: { product: Product }) {
   const { currency } = useCurrency();
   const { addItem } = useCart();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
+  const compareAt =
+    currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
+  const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price;
 
   useEffect(() => {
     const target = document.getElementById("acheter");
@@ -34,9 +37,21 @@ export function StickyBar({ product }: { product: Product }) {
             <Image src={product.images[0].src} alt="" fill className="object-cover" />
           )}
         </div>
-        <span className="flex-shrink-0 font-display text-lg">
-          {formatPrice(price, currency)}
-        </span>
+        <div className="flex-shrink-0">
+          {product.packLabel && (
+            <p className="text-[10px] font-medium uppercase tracking-wide text-sage">
+              {product.packLabel}
+            </p>
+          )}
+          <div className="flex items-baseline gap-1.5">
+            {hasRealPromotion && (
+              <span className="text-xs text-ink/40 line-through">
+                {formatPrice(compareAt!, currency)}
+              </span>
+            )}
+            <span className="font-display text-lg">{formatPrice(price, currency)}</span>
+          </div>
+        </div>
         <button
           type="button"
           onClick={() => addItem(product, 1)}

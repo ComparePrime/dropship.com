@@ -16,6 +16,11 @@ import {
   Plus,
   X,
   Check,
+  Wind,
+  Bug,
+  Battery,
+  Baby,
+  Flame,
 } from "lucide-react";
 
 export const Icon = {
@@ -36,6 +41,11 @@ export const Icon = {
   plus: Plus,
   close: X,
   check: Check,
+  wind: Wind,
+  bug: Bug,
+  battery: Battery,
+  baby: Baby,
+  flame: Flame,
 } as const;
 
 export type IconName = keyof typeof Icon;

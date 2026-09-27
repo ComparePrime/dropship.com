@@ -9,9 +9,11 @@ import { StickyBar } from "@/components/product/sticky-bar";
 import { StorytellingSection } from "@/components/product/storytelling-section";
 import { BenefitsSection } from "@/components/product/benefits-section";
 import { InlineCta } from "@/components/product/inline-cta";
+import { DemoSection } from "@/components/product/demo-section";
 import { EditorialSection } from "@/components/product/editorial-section";
 import { UseCasesSection } from "@/components/product/use-cases-section";
 import { ObjectionsSection } from "@/components/product/objections-section";
+import { OfferSection } from "@/components/product/offer-section";
 import { ValueStackSection } from "@/components/product/value-stack-section";
 import { GiftSection } from "@/components/product/gift-section";
 import { ReviewsSection } from "@/components/product/reviews-section";
@@ -69,12 +71,18 @@ function renderSection(key: ProductSectionKey, product: Product) {
       return <BenefitsSection key={key} benefits={product.benefits} />;
     case "cta-1":
       return <InlineCta key={key} product={product} text={product.midCtaTexts[0]} />;
+    case "demo":
+      return product.demoSteps ? (
+        <DemoSection key={key} steps={product.demoSteps} />
+      ) : null;
     case "editorial":
       return <EditorialSection key={key} product={product} />;
     case "useCases":
       return <UseCasesSection key={key} useCases={product.useCases} />;
     case "objections":
       return <ObjectionsSection key={key} objections={product.objections} />;
+    case "offer":
+      return <OfferSection key={key} product={product} />;
     case "value":
       return <ValueStackSection key={key} product={product} />;
     case "cta-2":

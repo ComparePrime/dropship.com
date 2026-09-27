@@ -3,8 +3,8 @@
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { Countdown } from "@/components/product/countdown";
+import { PromoBlock } from "@/components/product/promo-block";
 import { TrustBadges } from "@/components/trust-badges";
 import { Icon } from "@/components/icons";
 
@@ -14,9 +14,6 @@ const RotateCcw = Icon["rotate-ccw"];
 export function BuyBox({ product }: { product: Product }) {
   const { currency } = useCurrency();
   const { addItem } = useCart();
-  const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
-  const compareAt =
-    currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
 
   return (
     <div id="acheter">
@@ -53,18 +50,12 @@ export function BuyBox({ product }: { product: Product }) {
         Voir les avis
       </a>
 
-      <div className="mt-6 flex items-baseline gap-3">
-        {compareAt && (
-          <span className="text-lg text-ink/40 line-through">
-            {formatPrice(compareAt, currency)}
-          </span>
-        )}
-        <span className="font-display text-3xl text-ink">{formatPrice(price, currency)}</span>
+      <div className="mt-6">
+        <PromoBlock product={product} currency={currency} variant="compact" />
       </div>
 
-      {product.promotion.active && (
+      {product.promotion.active && product.promotion.endsAt && (
         <div className="mt-2">
-          <p className="text-sm font-medium text-terracottaText">{product.promotion.label}</p>
           <Countdown endsAt={product.promotion.endsAt} />
         </div>
       )}

@@ -67,6 +67,11 @@ export interface Objection {
   response: string;
 }
 
+export interface DemoStep {
+  title: string;
+  description: string;
+}
+
 /**
  * Chaque section est optionnelle et l'ordre est defini par produit (champ `layout`).
  * Cela permet a un produit different d'avoir une structure de page totalement differente
@@ -77,9 +82,11 @@ export type ProductSectionKey =
   | "storytelling"
   | "benefits"
   | "cta-1"
+  | "demo"
   | "editorial"
   | "useCases"
   | "objections"
+  | "offer"
   | "value"
   | "cta-2"
   | "gift"
@@ -110,6 +117,12 @@ export interface Product {
   valueStack: string[];
   /** Textes des CTA intermediaires (cta-1, cta-2), chacun formule une nouvelle raison d'acheter. */
   midCtaTexts: string[];
+  /** Etapes numerotees pour la section "Comment ca fonctionne" (optionnelle). */
+  demoSteps?: DemoStep[];
+  /** Nombre d'unites incluses dans un seul article (ex: un lot de 2). Omis si vendu a l'unite. */
+  packSize?: number;
+  /** Libelle affiche pres du prix, ex: "2 pieces incluses". */
+  packLabel?: string;
   costPriceUSD: number;
   priceCHF: number;
   priceEUR: number;
@@ -138,4 +151,5 @@ export interface CartLine {
   priceCHF: number;
   priceEUR: number;
   quantity: number;
+  packLabel?: string;
 }

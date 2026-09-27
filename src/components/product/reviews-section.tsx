@@ -8,10 +8,14 @@ export function ReviewsSection({ product }: { product: Product }) {
     <section id="avis" className="container-content scroll-mt-24 py-16 md:py-24">
       <div className="text-center">
         <h2 className="section-title">Avis clients</h2>
-        {hasDemoReviews && (
+        {hasDemoReviews ? (
           <p className="mx-auto mt-3 max-w-lg text-xs uppercase tracking-wide text-stone">
             Apercu de mise en page — DEMO. Les avis reels de nos clients remplaceront cet
             exemple des les premieres commandes.
+          </p>
+        ) : (
+          <p className="mx-auto mt-3 max-w-lg text-sm text-stone">
+            Les avis clients seront affiches ici des les premieres commandes.
           </p>
         )}
       </div>
