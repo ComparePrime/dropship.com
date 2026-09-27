@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
 import { CurrencySwitcher } from "@/components/currency-switcher";
-import { CartDrawer } from "@/components/cart-drawer";
 import { siteConfig } from "@/lib/site-config";
 
 export function Header() {
@@ -47,7 +46,6 @@ export function Header() {
           </button>
         </div>
       </div>
-      <CartDrawer />
     </header>
   );
 }
