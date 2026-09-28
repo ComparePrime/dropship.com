@@ -15,10 +15,10 @@ export const siteConfig = {
   defaultCurrency: "CHF" as const,
   shippingTrust: [
     { icon: "truck", label: "Livraison offerte" },
-    { icon: "clock", label: "Expedition sous 24h" },
+    { icon: "clock", label: "Expédition sous 24h" },
     { icon: "map-pin", label: "Livraison suivie" },
     { icon: "rotate-ccw", label: "Retours gratuits sous 30 jours" },
-    { icon: "shield-check", label: "Paiement securise" },
+    { icon: "shield-check", label: "Paiement sécurisé" },
   ],
 };
 

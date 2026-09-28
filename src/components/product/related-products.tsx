@@ -13,7 +13,7 @@ export function RelatedProducts({ products }: { products: Product[] }) {
 
   return (
     <section className="container-content py-16 md:py-24">
-      <h2 className="section-title text-center">Vous pourriez egalement aimer</h2>
+      <h2 className="section-title text-center">Vous pourriez également aimer</h2>
       <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {products.map((product) => (
           <Link

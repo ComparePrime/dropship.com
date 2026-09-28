@@ -4,9 +4,9 @@ import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 
 /**
- * N'affiche un prix barre / une economie que si une vraie promotion est
- * configuree pour ce produit (compareAtPrice reel). Aucun faux prix de
- * reference n'est jamais invente.
+ * N'affiche un prix barré / une économie que si une vraie promotion est
+ * configurée pour ce produit (compareAtPrice réel). Aucun faux prix de
+ * référence n'est jamais inventé.
  */
 export function PromoBlock({
   product,

@@ -59,8 +59,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Registre des sections editoriales. Chaque produit choisit son propre `layout`
- * (voir lib/products.ts) : la page n'impose donc pas le meme gabarit a tous les
+ * Registre des sections éditoriales. Chaque produit choisit son propre `layout`
+ * (voir lib/products.ts) : la page n'impose donc pas le même gabarit à tous les
  * produits, seul le hero (galerie + BuyBox) et le pied de page restent fixes.
  */
 function renderSection(key: ProductSectionKey, product: Product) {

@@ -20,12 +20,12 @@ export default function ConfirmationPage() {
       </div>
       <h1 className="section-title mt-6">Merci pour votre commande</h1>
       <p className="mt-3 max-w-md text-stone">
-        Votre paiement a bien ete pris en compte. Vous recevrez un email de confirmation avec
-        les details de votre commande. Expedition sous 24h, livraison estimee entre 4 et 8
+        Votre paiement a bien été pris en compte. Vous recevrez un email de confirmation avec
+        les détails de votre commande. Expédition sous 24h, livraison estimée entre 4 et 8
         jours ouvrables.
       </p>
       <Link href="/" className="btn-primary mt-8">
-        Retour a la boutique
+        Retour à la boutique
       </Link>
     </section>
   );

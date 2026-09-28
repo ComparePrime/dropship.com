@@ -15,7 +15,7 @@ export function CartDrawer() {
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Verrouille le scroll du body pendant que le panier est ouvert, et le
-  // restaure exactement comme avant a la fermeture.
+  // restaure exactement comme avant à la fermeture.
   useEffect(() => {
     if (!isOpen) return;
     const previousOverflow = document.body.style.overflow;
@@ -95,14 +95,14 @@ export function CartDrawer() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 rounded-full border border-ink/15 px-2 py-1">
                           <button
-                            aria-label="Diminuer la quantite"
+                            aria-label="Diminuer la quantité"
                             onClick={() => updateQuantity(line.productId, line.quantity - 1)}
                           >
                             <Icon.minus className="h-3.5 w-3.5" />
                           </button>
                           <span className="w-4 text-center text-sm">{line.quantity}</span>
                           <button
-                            aria-label="Augmenter la quantite"
+                            aria-label="Augmenter la quantité"
                             onClick={() => updateQuantity(line.productId, line.quantity + 1)}
                           >
                             <Icon.plus className="h-3.5 w-3.5" />

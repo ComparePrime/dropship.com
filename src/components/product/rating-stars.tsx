@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icons";
 
-/** Etoiles decoratives. N'affiche jamais de note ou de nombre d'avis invente. */
+/** Étoiles décoratives. N'affiche jamais de note ou de nombre d'avis inventé. */
 export function RatingStars({ value = 5 }: { value?: number }) {
   return (
     <div className="flex items-center gap-0.5" aria-hidden="true">

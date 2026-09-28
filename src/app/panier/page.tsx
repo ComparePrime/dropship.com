@@ -90,14 +90,14 @@ export default function CartPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 rounded-full border border-ink/15 px-2 py-1">
                         <button
-                          aria-label="Diminuer la quantite"
+                          aria-label="Diminuer la quantité"
                           onClick={() => updateQuantity(line.productId, line.quantity - 1)}
                         >
                           <Icon.minus className="h-3.5 w-3.5" />
                         </button>
                         <span className="w-4 text-center text-sm">{line.quantity}</span>
                         <button
-                          aria-label="Augmenter la quantite"
+                          aria-label="Augmenter la quantité"
                           onClick={() => updateQuantity(line.productId, line.quantity + 1)}
                         >
                           <Icon.plus className="h-3.5 w-3.5" />
@@ -163,7 +163,7 @@ export default function CartPage() {
             </button>
             {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
             <p className="mt-4 text-center text-xs text-stone">
-              Paiement securise via Stripe · Retours gratuits 30 jours
+              Paiement sécurisé via Stripe · Retours gratuits 30 jours
             </p>
           </div>
         </div>

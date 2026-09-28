@@ -44,8 +44,8 @@ export function BuyBox({ product }: { product: Product }) {
       </ul>
 
       {/*
-        Etoiles/note affichees uniquement si des avis reels existent (regle
-        "note reelle uniquement"). Sinon, simple lien discret vers la section avis.
+        Etoiles/note affichees uniquement si des avis réels existent (regle
+        "note réelle uniquement"). Sinon, simple lien discret vers la section avis.
       */}
       {hasRealReviews ? (
         <a href="#avis" className="mt-3 flex items-center gap-2 text-sm">
@@ -85,7 +85,7 @@ export function BuyBox({ product }: { product: Product }) {
       <div className="mt-4 flex items-center justify-center gap-6 text-xs text-stone">
         <span className="flex items-center gap-1.5">
           <ShieldCheck className="h-4 w-4" strokeWidth={1.5} />
-          Paiement securise
+          Paiement sécurisé
         </span>
         <span className="flex items-center gap-1.5">
           <RotateCcw className="h-4 w-4" strokeWidth={1.5} />

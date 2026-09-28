@@ -26,12 +26,12 @@ export function ReviewsSection({ product }: { product: Product }) {
           </div>
         ) : hasDemoReviews ? (
           <p className="mx-auto mt-3 max-w-lg text-xs uppercase tracking-wide text-stone">
-            Apercu de mise en page — DEMO. Les avis reels de nos clients remplaceront cet
-            exemple des les premieres commandes.
+            Aperçu de mise en page — DEMO. Les avis réels de nos clients remplaceront cet
+            exemple dès les premières commandes.
           </p>
         ) : (
           <p className="mx-auto mt-3 max-w-lg text-sm text-stone">
-            Les avis clients seront affiches ici des les premieres commandes.
+            Les avis clients seront affichés ici dès les premières commandes.
           </p>
         )}
       </div>

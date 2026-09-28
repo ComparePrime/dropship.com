@@ -4,8 +4,8 @@ import { Product } from "@/lib/types";
 import { useCart } from "@/context/cart-context";
 
 /**
- * CTA intermediaire, a placer apres une nouvelle raison d'acheter (jamais deux fois
- * consecutivement avec le meme message).
+ * CTA intermédiaire, à placer après une nouvelle raison d'acheter (jamais deux fois
+ * consécutivement avec le même message).
  */
 export function InlineCta({ product, text }: { product: Product; text: string }) {
   const { addItem } = useCart();

@@ -2,11 +2,11 @@ import Stripe from "stripe";
 
 let stripeClient: Stripe | null = null;
 
-/** Cree le client Stripe a la demande, uniquement cote serveur. */
+/** Crée le client Stripe à la demande, uniquement côté serveur. */
 export function getStripeClient(): Stripe {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) {
-    throw new Error("STRIPE_SECRET_KEY n'est pas configuree.");
+    throw new Error("STRIPE_SECRET_KEY n'est pas configurée.");
   }
   if (!stripeClient) {
     stripeClient = new Stripe(secretKey, {

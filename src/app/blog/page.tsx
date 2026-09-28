@@ -4,7 +4,7 @@ import { getAllBlogPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Journal",
-  description: "Idees de decoration et inspirations autour de l'univers des chats.",
+  description: "Idées de décoration et inspirations autour de l'univers des chats.",
 };
 
 export default function BlogIndexPage() {

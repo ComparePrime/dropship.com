@@ -24,9 +24,9 @@ export interface Order {
 }
 
 /**
- * Point d'integration pour la persistance des commandes (ex: Supabase).
- * Pour l'instant les commandes sont journalisees ; brancher un client
- * de base de donnees ici des qu'il est disponible.
+ * Point d'intégration pour la persistance des commandes (ex: Supabase).
+ * Pour l'instant les commandes sont journalisées ; brancher un client
+ * de base de données ici dès qu'il est disponible.
  */
 export async function saveOrder(order: Order): Promise<void> {
   console.log("[order:created]", JSON.stringify(order));

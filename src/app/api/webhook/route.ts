@@ -6,7 +6,7 @@ import Stripe from "stripe";
 export async function POST(req: NextRequest) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    return NextResponse.json({ error: "Webhook non configure." }, { status: 500 });
+    return NextResponse.json({ error: "Webhook non configuré." }, { status: 500 });
   }
 
   const signature = req.headers.get("stripe-signature");
@@ -21,9 +21,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Signature invalide." }, { status: 400 });
   }
 
-  // TODO: des qu'une base de donnees est branchee (Supabase), verifier ici
-  // que `event.id` / `session.id` n'a pas deja ete traite avant de creer la commande,
-  // pour eviter les doublons en cas de nouvelle tentative d'envoi par Stripe.
+  // TODO: dès qu'une base de données est branchée (Supabase), vérifier ici
+  // que `event.id` / `session.id` n'a pas déjà été traité avant de créer la commande,
+  // pour éviter les doublons en cas de nouvelle tentative d'envoi par Stripe.
 
   switch (event.type) {
     case "checkout.session.completed": {

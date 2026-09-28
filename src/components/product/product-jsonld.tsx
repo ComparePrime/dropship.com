@@ -54,7 +54,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
     },
   };
 
-  // AggregateRating uniquement lorsque des avis reels existent (jamais de note fabriquee).
+  // AggregateRating uniquement lorsque des avis réels existent (jamais de note fabriquee).
   if (realReviews.length > 0) {
     productSchema.aggregateRating = {
       "@type": "AggregateRating",

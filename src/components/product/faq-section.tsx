@@ -12,7 +12,7 @@ export function FaqSection({ faq }: { faq: FaqItem[] }) {
 
   return (
     <section className="container-content py-16 md:py-24" id="faq">
-      <h2 className="section-title text-center">Questions frequentes</h2>
+      <h2 className="section-title text-center">Questions fréquentes</h2>
       <div className="mx-auto mt-10 max-w-2xl divide-y divide-ink/10">
         {faq.map((item, idx) => {
           const isOpen = openIndex === idx;

@@ -33,7 +33,7 @@ export default function BlogPostPage({ params }: Props) {
         ))}
       </div>
       <div className="mt-10 rounded-xl2 border border-ink/10 bg-sand/60 p-6">
-        <p className="text-sm text-stone">A decouvrir dans cet article :</p>
+        <p className="text-sm text-stone">A découvrir dans cet article :</p>
         <ul className="mt-2 flex flex-col gap-1">
           {products.map((product) => (
             <li key={product.id}>

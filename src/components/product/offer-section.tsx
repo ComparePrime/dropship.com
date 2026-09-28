@@ -6,7 +6,7 @@ import { useCurrency } from "@/context/currency-context";
 import { PromoBlock } from "@/components/product/promo-block";
 import { TrustBadges } from "@/components/trust-badges";
 
-/** Bloc commercial fort, reprenant l'offre reelle sans jamais fabriquer de fausse promotion. */
+/** Bloc commercial fort, reprenant l'offre réelle sans jamais fabriquer de fausse promotion. */
 export function OfferSection({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { currency } = useCurrency();

@@ -4,7 +4,7 @@ import { TrustBadges } from "@/components/trust-badges";
 
 export const metadata: Metadata = {
   title: "Livraison",
-  description: "Nos conditions de livraison : livraison offerte, expedition sous 24h.",
+  description: "Nos conditions de livraison : livraison offerte, expédition sous 24h.",
 };
 
 export default function ShippingPage() {
@@ -18,16 +18,16 @@ export default function ShippingPage() {
       </div>
       <div className="mt-8 flex flex-col gap-4 text-ink/80">
         <p>
-          Toutes les commandes beneficient de la livraison offerte, sans minimum d&apos;achat.
+          Toutes les commandes bénéficient de la livraison offerte, sans minimum d&apos;achat.
         </p>
         <p>
-          Chaque commande est expediee sous {shipping.dispatchWithinHours} heures. Le delai de
-          livraison estime est de {shipping.minDays} a {shipping.maxDays} jours ouvrables selon
+          Chaque commande est expédiée sous {shipping.dispatchWithinHours} heures. Le délai de
+          livraison estimé est de {shipping.minDays} à {shipping.maxDays} jours ouvrables selon
           votre pays de livraison.
         </p>
         <p>
-          Un numero de suivi vous est communique des l&apos;expedition de votre colis, afin de
-          suivre son acheminement jusqu&apos;a votre domicile.
+          Un numéro de suivi vous est communiqué dès l&apos;expédition de votre colis, afin de
+          suivre son acheminement jusqu&apos;à votre domicile.
         </p>
       </div>
     </section>

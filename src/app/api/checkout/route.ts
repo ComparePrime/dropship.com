@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Le panier est vide." }, { status: 400 });
     }
 
-    // Les prix sont revalides cote serveur a partir du catalogue produit,
-    // jamais a partir de ce que le client envoie.
+    // Les prix sont revalidés côté serveur à partir du catalogue produit,
+    // jamais à partir de ce que le client envoie.
     const line_items = lines.map((line) => {
       const product = getProductBySlug(line.slug);
       if (!product) {

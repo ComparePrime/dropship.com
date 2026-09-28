@@ -1,8 +1,8 @@
 import { Review } from "./types";
 
 /**
- * Avis verifies fournis par Maison Loravie pour "Ventilateur Anti-Mouches de Table"
- * (export Excel du systeme d'avis, achats reellement verifies).
+ * Avis vérifiés fournis par Maison Loravie pour "Ventilateur Anti-Mouches de Table"
+ * (export Excel du système d'avis, achats réellement vérifiés).
  */
 export const ventilateurAntiMouchesReviews: Review[] = [
   {
@@ -51,7 +51,7 @@ export const ventilateurAntiMouchesReviews: Review[] = [
     rating: 5,
     date: "2026-09-03",
     title: "Très pratique",
-    body: "Après essai : utile pour le déjeuner dehors, surtout quand il y a des fruits sur la table.",
+    body: "Après essai : utile pour le déjeuner dehors, surtout quand il y à des fruits sur la table.",
     verified: true,
     demo: false,
   },
@@ -261,7 +261,7 @@ export const ventilateurAntiMouchesReviews: Review[] = [
     rating: 5,
     date: "2026-06-28",
     title: "Bon accessoire d'été",
-    body: "Utile pour le déjeuner dehors, surtout quand il y a des fruits sur la table.",
+    body: "Utile pour le déjeuner dehors, surtout quand il y à des fruits sur la table.",
     verified: true,
     demo: false,
   },
@@ -471,7 +471,7 @@ export const ventilateurAntiMouchesReviews: Review[] = [
     rating: 5,
     date: "2026-07-07",
     title: "Bon accessoire d'été",
-    body: "Utile pour le déjeuner dehors, surtout quand il y a des fruits sur la table.",
+    body: "Utile pour le déjeuner dehors, surtout quand il y à des fruits sur la table.",
     verified: true,
     demo: false,
   },
@@ -681,7 +681,7 @@ export const ventilateurAntiMouchesReviews: Review[] = [
     rating: 5,
     date: "2026-07-04",
     title: "Satisfait de l'utilisation",
-    body: "Utile pour le déjeuner dehors, surtout quand il y a des fruits sur la table.",
+    body: "Utile pour le déjeuner dehors, surtout quand il y à des fruits sur la table.",
     verified: true,
     demo: false,
   },
@@ -891,7 +891,7 @@ export const ventilateurAntiMouchesReviews: Review[] = [
     rating: 5,
     date: "2026-04-09",
     title: "Satisfait de l'utilisation",
-    body: "Utile pour le déjeuner dehors, surtout quand il y a des fruits sur la table.",
+    body: "Utile pour le déjeuner dehors, surtout quand il y à des fruits sur la table.",
     verified: true,
     demo: false,
   },
@@ -1101,7 +1101,7 @@ export const ventilateurAntiMouchesReviews: Review[] = [
     rating: 5,
     date: "2026-03-20",
     title: "Simple à utiliser",
-    body: "Pour les repas d'été, utile pour le déjeuner dehors, surtout quand il y a des fruits sur la table.",
+    body: "Pour les repas d'été, utile pour le déjeuner dehors, surtout quand il y à des fruits sur la table.",
     verified: true,
     demo: false,
   },

@@ -6,9 +6,9 @@ import { getAllProducts } from "@/lib/products";
 
 const collectionLabels: Record<string, string> = {
   chats: "Chats",
-  decoration: "Decoration",
+  decoration: "Décoration",
   maison: "Maison",
-  cadeaux: "Idees cadeaux",
+  cadeaux: "Idées cadeaux",
 };
 
 interface Props {
@@ -24,7 +24,7 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!label) return {};
   return {
     title: `Collection ${label}`,
-    description: `Decouvrez notre collection ${label.toLowerCase()}, une decoration originale inspiree des chats.`,
+    description: `Découvrez notre collection ${label.toLowerCase()}, une décoration originale inspirée des chats.`,
   };
 }
 

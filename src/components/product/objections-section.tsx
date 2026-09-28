@@ -2,8 +2,8 @@ import { Objection } from "@/lib/types";
 import { Icon } from "@/components/icons";
 
 /**
- * Traite directement les doutes qui empechent l'achat, sous forme affirmative
- * (contrairement a la FAQ, qui reste une liste de questions factuelles).
+ * Traite directement les doutes qui empêchent l'achat, sous forme affirmative
+ * (contrairement à la FAQ, qui reste une liste de questions factuelles).
  */
 export function ObjectionsSection({ objections }: { objections: Objection[] }) {
   if (objections.length === 0) return null;

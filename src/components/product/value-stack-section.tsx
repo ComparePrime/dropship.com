@@ -6,7 +6,7 @@ import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 
-/** Justifie le prix par ce qui est reellement inclus, sans faux prix barre. */
+/** Justifie le prix par ce qui est réellement inclus, sans faux prix barre. */
 export function ValueStackSection({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { currency } = useCurrency();

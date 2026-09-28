@@ -9,14 +9,14 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "decorer-chambre-objets-inspires-chats",
-    title: "Comment decorer une chambre avec des objets inspires des chats ?",
+    title: "Comment décorer une chambre avec des objets inspirés des chats ?",
     excerpt:
-      "Quelques idees simples pour ajouter une touche feline a votre chambre, sans surcharger l'espace.",
+      "Quelques idées simples pour ajouter une touche féline à votre chambre, sans surcharger l'espace.",
     publishedAt: "2026-09-01",
     content: [
-      "Ajouter une touche feline a une chambre ne demande pas de tout transformer. Quelques objets bien choisis suffisent a creer une ambiance chaleureuse et personnelle.",
-      "Un objet decoratif comme La Petite Lanterne Feline, avec sa silhouette de chat et sa petite lanterne, s'integre facilement sur une etagere ou une table de nuit, tout en apportant une lumiere douce le soir.",
-      "L'idee est de miser sur un ou deux details marquants plutot que de multiplier les objets, pour garder une decoration equilibree et raffinee.",
+      "Ajouter une touche féline à une chambre ne demande pas de tout transformer. Quelques objets bien choisis suffisent à créer une ambiance chaleureuse et personnelle.",
+      "Un objet décoratif comme La Petite Lanterne Féline, avec sa silhouette de chat et sa petite lanterne, s'intègre facilement sur une étagère ou une table de nuit, tout en apportant une lumière douce le soir.",
+      "L'idée est de miser sur un ou deux détails marquants plutôt que de multiplier les objets, pour garder une décoration équilibrée et raffinée.",
     ],
   },
 ];

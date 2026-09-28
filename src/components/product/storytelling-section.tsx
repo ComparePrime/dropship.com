@@ -1,6 +1,6 @@
 import { StorytellingContent } from "@/lib/types";
 
-/** Transition emotionnelle apres le hero : avant de reparler produit, on installe une idee. */
+/** Transition émotionnelle après le hero : avant de reparler produit, on installe une idée. */
 export function StorytellingSection({ content }: { content: StorytellingContent }) {
   return (
     <section className="container-content max-w-2xl py-16 text-center md:py-20">

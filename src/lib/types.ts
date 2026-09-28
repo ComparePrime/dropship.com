@@ -30,9 +30,9 @@ export interface Review {
   date: string;
   title: string;
   body: string;
-  /** true uniquement si l'achat a reellement pu etre verifie. */
+  /** true uniquement si l'achat a réellement pu être vérifié. */
   verified: boolean;
-  /** true = exemple de mise en page (marque DEMO a l'affichage), false = avis reel. */
+  /** true = exemple de mise en page (marque DEMO a l'affichage), false = avis réel. */
   demo: boolean;
 }
 
@@ -64,7 +64,7 @@ export interface StorytellingContent {
 }
 
 export interface Objection {
-  /** Le doute exprime par la cliente, formule a la premiere personne. */
+  /** Le doute exprime par la cliente, formule à la première personne. */
   doubt: string;
   response: string;
 }
@@ -75,10 +75,10 @@ export interface DemoStep {
 }
 
 /**
- * Chaque section est optionnelle et l'ordre est defini par produit (champ `layout`).
- * Cela permet a un produit different d'avoir une structure de page totalement differente
- * (ex: "avant/apres" pour un produit demonstratif, "probleme/solution" pour un autre),
- * sans jamais forcer le meme gabarit pour tous les produits.
+ * Chaque section est optionnelle et l'ordre est défini par produit (champ `layout`).
+ * Cela permet à un produit différent d'avoir une structure de page totalement differente
+ * (ex: "avant/après" pour un produit demonstratif, "problème/solution" pour un autre),
+ * sans jamais forcer le même gabarit pour tous les produits.
  */
 export type ProductSectionKey =
   | "storytelling"
@@ -104,26 +104,26 @@ export interface Product {
   name: string;
   brandLine: string;
   badge: string;
-  /** Headline oriente benefice affiche en H1 dans le hero (pas le titre fournisseur). */
+  /** Headline orienté bénéfice affiché en H1 dans le hero (pas le titre fournisseur). */
   headline: string;
   subtitle: string;
-  /** 3-4 promesses courtes affichees en liste a puces dans le hero, sous le sous-titre. */
+  /** 3-4 promesses courtes affichées en liste à puces dans le hero, sous le sous-titre. */
   heroBullets: string[];
-  /** Variante du H1 utilisee pour le SEO/le maillage (title de page, ancres de blog). */
+  /** Variante du H1 utilisée pour le SEO/le maillage (title de page, ancres de blog). */
   h1: string;
   shortDescription: string;
   description: string[];
   storytelling: StorytellingContent;
   objections: Objection[];
-  /** Ce que la cliente obtient reellement pour ce prix (justification de valeur, pas de faux prix barre). */
+  /** Ce que la cliente obtient réellement pour ce prix (justification de valeur, pas de faux prix barre). */
   valueStack: string[];
-  /** Textes des CTA intermediaires (cta-1, cta-2), chacun formule une nouvelle raison d'acheter. */
+  /** Textes des CTA intermédiaires (cta-1, cta-2), chacun formule une nouvelle raison d'acheter. */
   midCtaTexts: string[];
-  /** Etapes numerotees pour la section "Comment ca fonctionne" (optionnelle). */
+  /** Étapes numérotées pour la section "Comment ça fonctionne" (optionnelle). */
   demoSteps?: DemoStep[];
-  /** Nombre d'unites incluses dans un seul article (ex: un lot de 2). Omis si vendu a l'unite. */
+  /** Nombre d'unités incluses dans un seul article (ex: un lot de 2). Omis si vendu à l'unité. */
   packSize?: number;
-  /** Libelle affiche pres du prix, ex: "2 pieces incluses". */
+  /** Libellé affiché près du prix, ex: "2 pièces incluses". */
   packLabel?: string;
   costPriceUSD: number;
   priceCHF: number;
@@ -138,11 +138,11 @@ export interface Product {
   promotion: PromotionConfig;
   shipping: ShippingConfig;
   reviews: Review[];
-  /** Calcules a partir de `reviews` quand des avis reels existent (demo: false). 0 sinon. */
+  /** Calculés à partir de `reviews` quand des avis réels existent (demo: false). 0 sinon. */
   ratingAverage: number;
   ratingCount: number;
   collections: string[];
-  /** Ordre des sections editoriales pour ce produit specifiquement. */
+  /** Ordre des sections éditoriales pour ce produit spécifiquement. */
   layout: ProductSectionKey[];
 }
 

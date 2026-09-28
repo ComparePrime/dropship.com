@@ -17,7 +17,7 @@ export function Header() {
         </Link>
 
         {/*
-          Header volontairement minimal (regle mono-produit) :
+          Header volontairement minimal (règle mono-produit) :
           pas de recherche, pas de catalogue, pas de mega-menu.
         */}
         <nav className="hidden items-center gap-8 text-sm tracking-wide text-ink/80 md:flex">

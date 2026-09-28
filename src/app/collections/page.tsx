@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Collections",
-  description: "Decouvrez nos collections de decoration inspiree des chats.",
+  description: "Découvrez nos collections de décoration inspirée des chats.",
 };
 
 const collections = [
-  { slug: "chats", label: "Chats", description: "Tous nos objets inspires des chats." },
-  { slug: "decoration", label: "Decoration", description: "Des pieces pour habiller votre interieur." },
-  { slug: "maison", label: "Maison", description: "Des objets pour toutes les pieces de la maison." },
-  { slug: "cadeaux", label: "Idees cadeaux", description: "Des idees originales a offrir." },
+  { slug: "chats", label: "Chats", description: "Tous nos objets inspirés des chats." },
+  { slug: "decoration", label: "Décoration", description: "Des pièces pour habiller votre intérieur." },
+  { slug: "maison", label: "Maison", description: "Des objets pour toutes les pièces de la maison." },
+  { slug: "cadeaux", label: "Idées cadeaux", description: "Des idées originales à offrir." },
 ];
 
 export default function CollectionsPage() {

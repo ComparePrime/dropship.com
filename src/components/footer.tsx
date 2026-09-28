@@ -15,7 +15,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-sm font-medium text-ink">A propos</p>
+          <p className="text-sm font-medium text-ink">À propos</p>
           <ul className="mt-3 flex flex-col gap-2 text-sm text-stone">
             <li>
               <Link href="/a-propos" className="hover:text-ink">
@@ -66,12 +66,12 @@ export function Footer() {
             </li>
             <li>
               <Link href="/confidentialite" className="hover:text-ink">
-                Confidentialite
+                Confidentialité
               </Link>
             </li>
             <li>
               <Link href="/mentions-legales" className="hover:text-ink">
-                Mentions legales
+                Mentions légales
               </Link>
             </li>
           </ul>
@@ -80,7 +80,7 @@ export function Footer() {
 
       <div className="border-t border-ink/10 py-6">
         <p className="container-content text-xs text-stone">
-          © {new Date().getFullYear()} {siteConfig.legalName}. Tous droits reserves.
+          © {new Date().getFullYear()} {siteConfig.legalName}. Tous droits réservés.
         </p>
       </div>
     </footer>

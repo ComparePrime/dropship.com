@@ -8,7 +8,7 @@ export default function NotFound() {
         Le contenu que vous cherchez n&apos;existe pas ou plus.
       </p>
       <Link href="/" className="btn-primary mt-8">
-        Retour a l&apos;accueil
+        Retour à l&apos;accueil
       </Link>
     </section>
   );
