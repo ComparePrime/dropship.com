@@ -5,6 +5,7 @@ import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
 import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
+import { RatingStars } from "@/components/product/rating-stars";
 import { TrustBadges } from "@/components/trust-badges";
 import { Icon } from "@/components/icons";
 
@@ -14,6 +15,7 @@ const RotateCcw = Icon["rotate-ccw"];
 export function BuyBox({ product }: { product: Product }) {
   const { currency } = useCurrency();
   const { addItem } = useCart();
+  const hasRealReviews = product.reviews.some((r) => !r.demo);
 
   return (
     <div id="acheter">
@@ -42,13 +44,21 @@ export function BuyBox({ product }: { product: Product }) {
       </ul>
 
       {/*
-        Pas d'etoiles ni de note affichees ici tant qu'aucune donnee d'avis reelle
-        n'existe (regle "note reelle uniquement"). Un lien discret renvoie vers la
-        section avis des qu'elle existe.
+        Etoiles/note affichees uniquement si des avis reels existent (regle
+        "note reelle uniquement"). Sinon, simple lien discret vers la section avis.
       */}
-      <a href="#avis" className="mt-3 inline-block text-sm text-sage underline underline-offset-2">
-        Voir les avis
-      </a>
+      {hasRealReviews ? (
+        <a href="#avis" className="mt-3 flex items-center gap-2 text-sm">
+          <RatingStars value={Math.round(product.ratingAverage)} />
+          <span className="text-ink/70">
+            {product.ratingAverage.toFixed(1)}/5 · {product.ratingCount} avis
+          </span>
+        </a>
+      ) : (
+        <a href="#avis" className="mt-3 inline-block text-sm text-sage underline underline-offset-2">
+          Voir les avis
+        </a>
+      )}
 
       <div className="mt-6">
         <PromoBlock product={product} currency={currency} variant="compact" />

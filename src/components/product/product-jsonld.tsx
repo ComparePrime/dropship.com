@@ -3,6 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export function ProductJsonLd({ product }: { product: Product }) {
   const url = `${siteConfig.domain}/produit/${product.slug}`;
+  const realReviews = product.reviews.filter((r) => !r.demo);
 
   const productSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -52,6 +53,15 @@ export function ProductJsonLd({ product }: { product: Product }) {
       },
     },
   };
+
+  // AggregateRating uniquement lorsque des avis reels existent (jamais de note fabriquee).
+  if (realReviews.length > 0) {
+    productSchema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: product.ratingAverage.toFixed(1),
+      reviewCount: product.ratingCount,
+    };
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

@@ -23,15 +23,17 @@ export interface FaqItem {
   answer: string;
 }
 
-export interface ReviewDemo {
+export interface Review {
   id: string;
   author: string;
   rating: number;
   date: string;
   title: string;
   body: string;
+  /** true uniquement si l'achat a reellement pu etre verifie. */
   verified: boolean;
-  demo: true;
+  /** true = exemple de mise en page (marque DEMO a l'affichage), false = avis reel. */
+  demo: boolean;
 }
 
 export interface PromotionConfig {
@@ -135,9 +137,10 @@ export interface Product {
   seo: ProductSeo;
   promotion: PromotionConfig;
   shipping: ShippingConfig;
-  reviewsDemo: ReviewDemo[];
-  ratingAverageDemo: number;
-  ratingCountDemo: number;
+  reviews: Review[];
+  /** Calcules a partir de `reviews` quand des avis reels existent (demo: false). 0 sinon. */
+  ratingAverage: number;
+  ratingCount: number;
   collections: string[];
   /** Ordre des sections editoriales pour ce produit specifiquement. */
   layout: ProductSectionKey[];

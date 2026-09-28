@@ -1,4 +1,5 @@
 import { Product } from "./types";
+import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
 
 /**
  * Catalogue produits.
@@ -242,7 +243,7 @@ export const products: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    reviewsDemo: [
+    reviews: [
       {
         id: "demo-1",
         author: "Camille R.",
@@ -264,8 +265,8 @@ export const products: Product[] = [
         demo: true,
       },
     ],
-    ratingAverageDemo: 4.7,
-    ratingCountDemo: 1250,
+    ratingAverage: 0,
+    ratingCount: 0,
     collections: ["chats", "decoration", "maison", "cadeaux"],
     // Structure editoriale propre a ce produit (chaque produit peut avoir un ordre different).
     layout: [
@@ -286,30 +287,30 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "brise-anti-moustiques",
-    slug: "ventilateur-anti-moustiques-table",
-    name: "La Brise Anti-Moustiques",
+    id: "ventilateur-anti-mouches",
+    slug: "ventilateur-anti-mouches-table",
+    name: "Le Ventilateur Anti-Mouches",
     brandLine: "Maison Loravie",
     badge: "OFFRE DU MOMENT",
     // Headline retenue parmi 3 propositions :
-    // A) "Enfin des repas en terrasse sans mouches ni moustiques." (retenue)
+    // A) "Enfin des repas en terrasse sans mouches." (retenue)
     // B) "Le petit ventilateur qui garde la table tranquille."
     // C) "Une brise d'air qui change tout, repas apres repas."
-    headline: "Enfin des repas en terrasse sans mouches ni moustiques.",
+    headline: "Enfin des repas en terrasse sans mouches.",
     subtitle:
-      "Un ventilateur de table compact qui cree un flux d'air continu pour eloigner mouches et moustiques, sans insecticide.",
+      "Un ventilateur de table compact qui cree un flux d'air continu pour eloigner les mouches (et les moustiques), sans insecticide.",
     heroBullets: [
-      "Un flux d'air continu qui eloigne mouches et moustiques du repas",
+      "Un flux d'air continu qui eloigne les mouches du repas",
       "Autonomie annoncee jusqu'a 48h par le fabricant",
       "Format compact et leger, facile a emporter",
       "Materiau presente comme sans danger pour les enfants",
     ],
-    h1: "Ventilateur de table anti-moustiques et anti-mouches",
+    h1: "Ventilateur de table anti-mouches",
     shortDescription:
-      "Un ventilateur de table compact qui repousse mouches et moustiques par un flux d'air continu, sans insecticide. Vendu par lot de 2.",
+      "Un ventilateur de table compact qui repousse les mouches par un flux d'air continu, sans insecticide. Vendu par lot de 2.",
     description: [
-      "La Brise Anti-Moustiques est un ventilateur de table pense pour un probleme tres concret : les mouches et moustiques qui gachent un repas en terrasse, un pique-nique ou une soiree d'ete.",
-      "Son fonctionnement repose sur un flux d'air continu genere par une pale multifonctionnelle, qui perturbe naturellement le vol des insectes autour de la table, sans diffusion de produit ni insecticide.",
+      "Le Ventilateur Anti-Mouches est un ventilateur de table pense pour un probleme tres concret : les mouches qui gachent un repas en terrasse, un pique-nique ou une soiree d'ete.",
+      "Son fonctionnement repose sur un flux d'air continu genere par une pale multifonctionnelle, qui perturbe naturellement le vol des mouches (et des moustiques) autour de la table, sans diffusion de produit ni insecticide.",
       "Compact et leger, il se transporte facilement d'une piece a l'autre ou en exterieur, et fonctionne au choix sur cable USB ou avec des piles seches standard (non fournies dans l'emballage).",
     ],
     storytelling: {
@@ -317,7 +318,7 @@ export const products: Product[] = [
       title: "Les mouches gachent souvent les meilleurs moments a table.",
       paragraphs: [
         "Un dejeuner en terrasse, un pique-nique, un diner d'ete... et une mouche qui tourne autour de l'assiette. Un detail, mais qui suffit a casser l'ambiance.",
-        "La Brise Anti-Moustiques a ete pensee pour ca : un leger courant d'air, discret et continu, qui garde la table tranquille du debut a la fin du repas.",
+        "Le Ventilateur Anti-Mouches a ete pense pour ca : un leger courant d'air, discret et continu, qui garde la table tranquille du debut a la fin du repas.",
       ],
     },
     demoSteps: [
@@ -333,14 +334,14 @@ export const products: Product[] = [
       {
         title: "Profitez du flux d'air continu",
         description:
-          "Le courant d'air genere eloigne naturellement mouches et moustiques, pour une autonomie annoncee jusqu'a 48h.",
+          "Le courant d'air genere eloigne naturellement les mouches, pour une autonomie annoncee jusqu'a 48h.",
       },
     ],
     objections: [
       {
         doubt: "Est-ce que ca marche vraiment sans produit chimique ?",
         response:
-          "Le ventilateur agit par un flux d'air continu qui perturbe le vol des mouches et moustiques, sans diffusion de produit ni insecticide.",
+          "Le ventilateur agit par un flux d'air continu qui perturbe le vol des mouches, sans diffusion de produit ni insecticide.",
       },
       {
         doubt: "Est-ce adapte si j'ai des enfants a la maison ?",
@@ -362,7 +363,7 @@ export const products: Product[] = [
       },
     ],
     valueStack: [
-      "2 ventilateurs anti-moustiques de table (le lot complet)",
+      "2 ventilateurs anti-mouches de table (le lot complet)",
       "Un fonctionnement sans insecticide, par flux d'air continu",
       "Une autonomie annoncee jusqu'a 48h par unite",
       "Livraison offerte, expedition sous 24h",
@@ -383,12 +384,12 @@ export const products: Product[] = [
     images: [
       {
         src: "/images/products/brise-anti-moustiques/lifestyle-table.jpg",
-        alt: "Ventilateur anti-moustiques pose sur une table de petit-dejeuner en exterieur",
+        alt: "Ventilateur anti-mouches pose sur une table de petit-dejeuner en exterieur",
         caption: "Sur la table, pendant le repas",
       },
       {
         src: "/images/products/brise-anti-moustiques/lot-de-deux.jpg",
-        alt: "Lot de deux ventilateurs anti-moustiques de table Maison Loravie",
+        alt: "Lot de deux ventilateurs anti-mouches de table Maison Loravie",
         caption: "Vendu par lot de 2",
       },
     ],
@@ -397,7 +398,7 @@ export const products: Product[] = [
         icon: "wind",
         title: "Un courant d'air qui protege la table",
         description:
-          "Le ventilateur cree un flux d'air continu qui eloigne naturellement mouches et moustiques du repas.",
+          "Le ventilateur cree un flux d'air continu qui eloigne naturellement les mouches du repas.",
       },
       {
         icon: "bug",
@@ -447,7 +448,7 @@ export const products: Product[] = [
     faq: [
       {
         question: "Combien de pieces sont incluses ?",
-        answer: "Ce produit est vendu par lot de 2 ventilateurs anti-moustiques.",
+        answer: "Ce produit est vendu par lot de 2 ventilateurs anti-mouches.",
       },
       {
         question: "Les piles sont-elles fournies ?",
@@ -460,9 +461,9 @@ export const products: Product[] = [
           "Le modele fonctionne au choix sur cable USB ou avec des piles seches standard (non fournies).",
       },
       {
-        question: "Est-ce efficace contre les mouches et les moustiques ?",
+        question: "Est-ce efficace contre les mouches ?",
         answer:
-          "Le ventilateur cree un flux d'air continu qui eloigne naturellement les insectes volants, sans insecticide.",
+          "Le ventilateur cree un flux d'air continu qui eloigne naturellement les mouches (et les moustiques), sans insecticide.",
       },
       {
         question: "Quelle est l'autonomie annoncee ?",
@@ -498,17 +499,17 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Ventilateur de table anti-moustiques et anti-mouches (lot de 2) | Maison Loravie",
+      title: "Ventilateur de table anti-mouches (lot de 2) | Maison Loravie",
       metaDescription:
-        "Eloignez mouches et moustiques de vos repas avec ce ventilateur de table compact, sans insecticide. Lot de 2, autonomie annoncee jusqu'a 48h. Livraison offerte.",
+        "Eloignez les mouches de vos repas avec ce ventilateur de table compact, sans insecticide. Lot de 2, autonomie annoncee jusqu'a 48h. Livraison offerte.",
       keywords: [
         "ventilateur anti-mouches",
-        "anti-moustique table",
         "chasse mouches table",
         "repulsif mouches sans produit chimique",
+        "ventilateur anti-mouches terrasse",
+        "anti-mouches pique-nique",
         "ventilateur anti-insectes portable",
-        "anti-moustique terrasse",
-        "anti-moustique pique-nique",
+        "anti-moustique table",
       ],
     },
     promotion: {
@@ -525,9 +526,10 @@ export const products: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    reviewsDemo: [],
-    ratingAverageDemo: 0,
-    ratingCountDemo: 0,
+    // Avis reels, verifies par Maison Loravie (import du systeme d'avis).
+    reviews: ventilateurAntiMouchesReviews,
+    ratingAverage: 4.8,
+    ratingCount: ventilateurAntiMouchesReviews.length,
     collections: ["maison"],
     layout: [
       "storytelling",
