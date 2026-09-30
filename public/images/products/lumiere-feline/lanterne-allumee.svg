@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
-  <rect width="1000" height="1000" fill="#1C1B19"/>
-  <circle cx="500" cy="560" r="120" fill="#B98A5E" opacity="0.9"/>
-  <circle cx="500" cy="560" r="200" fill="#B98A5E" opacity="0.25"/>
-  <text x="500" y="900" font-family="Georgia, serif" font-size="34" fill="#8A8477" text-anchor="middle">
-    Photo produit a remplacer — Lanterne allumee
-  </text>
-</svg>

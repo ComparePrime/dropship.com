@@ -100,22 +100,22 @@ export const products: Product[] = [
     // Pas de compareAtPrice tant qu'aucun prix de référence réel n'existe.
     images: [
       {
-        src: "/images/products/lumiere-feline/principal.svg",
+        src: "/images/products/lumiere-feline/principal.jpg",
         alt: "Crochet décoratif en forme de chat avec élément lumineux posé sur une étagère",
         caption: "La Petite Lanterne Féline sur une étagère de chambre",
       },
       {
-        src: "/images/products/lumiere-feline/detail-figurine.svg",
+        src: "/images/products/lumiere-feline/detail-figurine.jpg",
         alt: "Détail de la figurine de chat du crochet décoratif La Petite Lanterne Féline",
         caption: "Le détail de la silhouette du chat",
       },
       {
-        src: "/images/products/lumiere-feline/lanterne-allumee.svg",
+        src: "/images/products/lumiere-feline/lanterne-allumee.jpg",
         alt: "Élément lumineux allumé du crochet mural pour chat",
         caption: "La lanterne diffuse une lumière douce le soir",
       },
       {
-        src: "/images/products/lumiere-feline/ambiance-bureau.svg",
+        src: "/images/products/lumiere-feline/ambiance-bureau.jpg",
         alt: "Crochet chat lanterne installé sur un bureau à côté d'un ordinateur",
         caption: "Une touche féline sur un bureau",
       },
