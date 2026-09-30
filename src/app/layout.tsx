@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.name,
     locale: "fr_CH",
+    images: [{ url: "/images/brand/logo-square.webp", width: 1254, height: 1254 }],
   },
   twitter: {
     card: "summary_large_image",

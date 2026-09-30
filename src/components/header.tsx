@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
 import { CurrencySwitcher } from "@/components/currency-switcher";
@@ -12,8 +13,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-cream/90 backdrop-blur">
       <div className="container-content flex h-16 items-center justify-between md:h-20">
-        <Link href="/" className="font-display text-xl tracking-tight md:text-2xl">
-          {siteConfig.name}
+        <Link href="/" className="flex items-center" aria-label={siteConfig.name}>
+          <Image
+            src="/images/brand/logo-header.webp"
+            alt={siteConfig.name}
+            width={1357}
+            height={705}
+            priority
+            className="h-11 w-auto md:h-12"
+          />
         </Link>
 
         {/*
