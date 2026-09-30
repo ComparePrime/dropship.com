@@ -610,6 +610,10 @@ export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
+export function getProductById(id: string): Product | undefined {
+  return products.find((p) => p.id === id);
+}
+
 /** Max 1-2 produits complementaires, publies uniquement : le produit principal doit rester dominant. */
 export function getRelatedProducts(currentSlug: string, limit = 2): Product[] {
   return products

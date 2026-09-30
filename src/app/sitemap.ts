@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedProducts } from "@/lib/products";
 import { getAllBlogPosts } from "@/lib/blog";
+import { getPublishedScenes } from "@/lib/scenes";
 import { categories } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 
@@ -20,10 +21,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const subcategoryRoutes = [
+    { url: `${siteConfig.domain}/collections/maison-decoration/art-de-la-table`, lastModified: new Date() },
+  ];
+
+  const sceneRoutes = getPublishedScenes().map((s) => ({
+    url: `${siteConfig.domain}/mises-en-scene/${s.slug}`,
+    lastModified: new Date(),
+  }));
+
   const blogRoutes = getAllBlogPosts().map((post) => ({
     url: `${siteConfig.domain}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
   }));
 
-  return [...staticRoutes, ...productRoutes, ...collectionRoutes, ...blogRoutes];
+  return [
+    ...staticRoutes,
+    ...productRoutes,
+    ...collectionRoutes,
+    ...subcategoryRoutes,
+    ...sceneRoutes,
+    ...blogRoutes,
+  ];
 }

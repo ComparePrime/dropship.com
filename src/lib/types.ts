@@ -220,3 +220,40 @@ export interface CartLine {
   quantity: number;
   packLabel?: string;
 }
+
+export type SceneStatus = "draft" | "published";
+
+/**
+ * Un point interactif ("hotspot") sur la photo d'une mise en scène, relié à
+ * un produit existant du catalogue. `x`/`y` sont des pourcentages (0-100)
+ * de la largeur/hauteur de l'image, pas des pixels : le point reste donc au
+ * bon endroit quelle que soit la taille d'affichage (mobile, tablette,
+ * desktop). Ne jamais inventer un `productId` qui n'existe pas dans
+ * `products.ts`.
+ */
+export interface SceneHotspot {
+  productId: string;
+  x: number;
+  y: number;
+}
+
+/**
+ * Une "mise en scène" (shop the look) : une photographie lifestyle réelle
+ * associée à un ou plusieurs produits réellement vendus. Sert la
+ * fonctionnalité "Recréez cette ambiance" de l'accueil et des pages
+ * catégorie.
+ */
+export interface Scene {
+  id: string;
+  slug: string;
+  status: SceneStatus;
+  title: string;
+  description: string;
+  image: ProductImage;
+  /** Doit correspondre à un slug existant dans `categories.ts`. */
+  category: string;
+  hotspots: SceneHotspot[];
+  order: number;
+  /** Occasion ou saison optionnelle, uniquement si réellement pertinente. */
+  occasion?: string;
+}

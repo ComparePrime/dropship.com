@@ -1,19 +1,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getPublishedProducts } from "@/lib/products";
+import { getPublishedScenes } from "@/lib/scenes";
 import { TrustBadges } from "@/components/trust-badges";
+import { ShopTheLook } from "@/components/shop-the-look";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/categories";
 import { Icon } from "@/components/icons";
+import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 
 const ChevronRight = Icon["chevron-right"];
 
 export default function HomePage() {
   const products = getPublishedProducts();
   const featured = products[0];
+  const scenes = getPublishedScenes();
 
   return (
     <>
+      {/* 1. Hero lifestyle */}
       <section className="container-content grid grid-cols-1 items-center gap-10 py-12 md:grid-cols-2 md:gap-16 md:py-20">
         <div>
           <span className="inline-block rounded-full bg-blush/40 px-3 py-1 text-xs font-medium tracking-wide text-terracottaText">
@@ -43,6 +48,68 @@ export default function HomePage() {
         )}
       </section>
 
+      {/*
+        2. "Recréez cette ambiance" : uniquement si au moins une mise en
+        scène réelle existe (photo + produits authentiques). Masquée sinon
+        plutôt que de la remplir artificiellement.
+      */}
+      {scenes.length > 0 && (
+        <section className="bg-white/40 py-16 md:py-24">
+          <div className="container-content">
+            <h2 className="section-title text-center">Recréez cette ambiance</h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
+              Une photo, une ambiance, et les objets qui la composent — prêts à rejoindre votre
+              intérieur.
+            </p>
+            <div className="mt-12 flex flex-col gap-16">
+              {scenes.map((scene) => (
+                <ShopTheLook key={scene.id} scene={scene} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 3. Nouveautés réellement disponibles, sans grille interminable */}
+      <section className="container-content py-16 md:py-24">
+        <h2 className="section-title text-center">Nouveautés</h2>
+        <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
+          Une sélection actuelle plutôt qu'un catalogue sans fin : voici ce qui vient d'arriver
+          chez Maison Loravie.
+        </p>
+        <div className="mx-auto mt-12 grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
+          {products.map((product) => {
+            const price = getPriceForCurrency(product.priceCHF, product.priceEUR, "CHF");
+            return (
+              <Link
+                key={product.id}
+                href={`/produit/${product.slug}`}
+                className="group flex flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-white/50 transition-shadow hover:shadow-card"
+              >
+                <div className="relative aspect-square w-full overflow-hidden bg-sand">
+                  {product.images[0] && (
+                    <Image
+                      src={product.images[0].src}
+                      alt={product.images[0].alt}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  )}
+                </div>
+                <div className="p-5">
+                  <span className="text-xs font-medium uppercase tracking-wide text-sage">
+                    {product.badge}
+                  </span>
+                  <p className="mt-1 font-display text-lg text-ink">{product.name}</p>
+                  <p className="mt-1 text-sm text-ink/70">{formatPrice(price, "CHF")}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 4. Les quatre univers éditoriaux (inclut Bébé & famille, même en attente de produits) */}
       <section className="bg-sand/60 py-16 md:py-24">
         <div className="container-content">
           <h2 className="section-title text-center">Découvrez nos univers</h2>
@@ -75,29 +142,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="container-content py-16 text-center md:py-24">
-        <h2 className="section-title">En ce moment</h2>
-        <p className="mx-auto mt-3 max-w-xl text-ink/70">
-          Une sélection actuelle, pensée pour apporter une touche féline et lumineuse à votre
-          intérieur.
-        </p>
-        <Link
-          href={`/produit/${featured.slug}`}
-          className="mx-auto mt-8 flex max-w-md flex-col items-center gap-4 rounded-xl2 border border-ink/10 bg-white/50 p-8 transition-shadow hover:shadow-card"
-        >
-          {featured.images[0] && (
-            <div className="relative h-48 w-48 overflow-hidden rounded-xl2 bg-sand">
-              <Image
-                src={featured.images[0].src}
-                alt={featured.images[0].alt}
-                fill
-                className="object-cover"
-              />
-            </div>
-          )}
-          <span className="font-display text-xl text-ink">{featured.name}</span>
-          <span className="btn-primary">Découvrir</span>
-        </Link>
+      {/* 5. Réassurance, uniquement les conditions réellement applicables (siteConfig.shippingTrust) */}
+      <section className="container-content py-16 md:py-20">
+        <div className="mx-auto max-w-4xl rounded-xl2 border border-ink/10 bg-white/50 px-6 py-10 md:px-12">
+          <TrustBadges />
+        </div>
       </section>
     </>
   );

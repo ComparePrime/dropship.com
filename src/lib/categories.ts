@@ -7,6 +7,12 @@ import { IconName } from "@/components/icons";
  *
  * Un produit peut appartenir à plusieurs univers (`product.collections`).
  */
+export interface Subcategory {
+  label: string;
+  /** Renseigné uniquement pour les sous-catégories ayant leur propre page. */
+  href?: string;
+}
+
 export interface Category {
   slug: string;
   title: string;
@@ -14,7 +20,7 @@ export interface Category {
   cardDescription: string;
   /** Introduction plus longue affichée en tête de page catégorie. */
   intro: string;
-  subcategories: string[];
+  subcategories: Subcategory[];
   icon: IconName;
   seo: {
     title: string;
@@ -31,11 +37,12 @@ export const categories: Category[] = [
     intro:
       "Une sélection pensée pour habiller un intérieur avec soin : décoration, accessoires utiles et petits objets du quotidien, choisis pour leur qualité et leur allure discrète plutôt que pour l'effet.",
     subcategories: [
-      "Décoration intérieure",
-      "Accessoires pour la maison",
-      "Rangement et organisation",
-      "Éclairage et ambiance",
-      "Objets pratiques du quotidien",
+      { label: "Décoration intérieure" },
+      { label: "Art de la table", href: "/collections/maison-decoration/art-de-la-table" },
+      { label: "Accessoires pour la maison" },
+      { label: "Rangement et organisation" },
+      { label: "Éclairage et ambiance" },
+      { label: "Objets pratiques du quotidien" },
     ],
     icon: "home",
     seo: {
@@ -52,10 +59,10 @@ export const categories: Category[] = [
     intro:
       "Des objets pensés pour simplifier le quotidien des parents et accompagner les petits moments en famille, avec la même exigence de qualité que le reste de notre sélection.",
     subcategories: [
-      "Accessoires pour bébé",
-      "Vie quotidienne des parents",
-      "Organisation familiale",
-      "Accessoires pratiques pour les enfants",
+      { label: "Accessoires pour bébé" },
+      { label: "Vie quotidienne des parents" },
+      { label: "Organisation familiale" },
+      { label: "Accessoires pratiques pour les enfants" },
     ],
     icon: "gift",
     seo: {
@@ -71,10 +78,10 @@ export const categories: Category[] = [
     intro:
       "Une sélection dédiée aux propriétaires de chats et de chiens : des objets décoratifs et pratiques inspirés de nos compagnons, pensés pour la maison autant que pour eux.",
     subcategories: [
-      "Accessoires pour chats",
-      "Accessoires pour chiens",
-      "Confort et accessoires du quotidien pour les animaux",
-      "Objets utiles pour les propriétaires d'animaux",
+      { label: "Accessoires pour chats" },
+      { label: "Accessoires pour chiens" },
+      { label: "Confort et accessoires du quotidien pour les animaux" },
+      { label: "Objets utiles pour les propriétaires d'animaux" },
     ],
     icon: "cat",
     seo: {
@@ -90,10 +97,10 @@ export const categories: Category[] = [
     intro:
       "Des idées cadeaux originales, sélectionnées pour leur qualité et leur allure, pour offrir une petite attention qui sort de l'ordinaire à toutes les occasions.",
     subcategories: [
-      "Cadeaux originaux",
-      "Petites attentions",
-      "Objets décoratifs à offrir",
-      "Idées cadeaux pour différentes occasions",
+      { label: "Cadeaux originaux" },
+      { label: "Petites attentions" },
+      { label: "Objets décoratifs à offrir" },
+      { label: "Idées cadeaux pour différentes occasions" },
     ],
     icon: "gift",
     seo: {

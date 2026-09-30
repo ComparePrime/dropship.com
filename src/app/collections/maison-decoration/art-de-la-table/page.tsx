@@ -1,52 +1,36 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { getPublishedProducts } from "@/lib/products";
-import { categories, getCategoryBySlug } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icons";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
-interface Props {
-  params: { slug: string };
-}
+const CategoryIcon = Icon.home;
 
-export function generateStaticParams() {
-  return categories.map((c) => ({ slug: c.slug }));
-}
+export const metadata: Metadata = {
+  title: "Art de la table | Maison Loravie",
+  description:
+    "Assiettes, verres, linge de table et accessoires de présentation : découvrez la sélection Art de la table de Maison Loravie.",
+  alternates: { canonical: `${siteConfig.domain}/collections/maison-decoration/art-de-la-table` },
+};
 
-export function generateMetadata({ params }: Props): Metadata {
-  const category = getCategoryBySlug(params.slug);
-  if (!category) return {};
-  const url = `${siteConfig.domain}/collections/${category.slug}`;
-  return {
-    title: category.seo.title,
-    description: category.seo.metaDescription,
-    alternates: { canonical: url },
-    openGraph: {
-      title: category.seo.title,
-      description: category.seo.metaDescription,
-      url,
-      type: "website",
-    },
-  };
-}
-
-export default function CollectionPage({ params }: Props) {
-  const category = getCategoryBySlug(params.slug);
-  if (!category) notFound();
-
-  const products = getPublishedProducts().filter((p) => p.collections.includes(category.slug));
-  const CategoryIcon = Icon[category.icon];
+/**
+ * Sous-catégorie dédiée de "Maison & décoration". Filtre sur le même tableau
+ * `collections` que les univers principaux (aucun produit n'y est encore
+ * rattaché : la section reste en état vide tant que le catalogue n'est pas
+ * élargi, plutôt que d'afficher des articles inventés).
+ */
+export default function ArtDeLaTablePage() {
+  const products = getPublishedProducts().filter((p) => p.collections.includes("art-de-la-table"));
 
   return (
     <section className="pb-16 pt-8 md:pb-24">
       <Breadcrumbs
         items={[
           { label: "Accueil", href: "/" },
-          { label: "Univers", href: "/collections" },
-          { label: category.title },
+          { label: "Maison & décoration", href: "/collections/maison-decoration" },
+          { label: "Art de la table" },
         ]}
       />
 
@@ -56,32 +40,13 @@ export default function CollectionPage({ params }: Props) {
             <CategoryIcon className="h-5 w-5" strokeWidth={1.5} />
           </span>
           <h1 className="font-display text-3xl font-semibold text-ink md:text-4xl">
-            {category.title}
+            Art de la table
           </h1>
         </div>
-        <p className="mt-4 max-w-2xl text-ink/70">{category.intro}</p>
-
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {category.subcategories.map((sub) =>
-            sub.href ? (
-              <li key={sub.label}>
-                <Link
-                  href={sub.href}
-                  className="rounded-full border border-sage/40 bg-sage/10 px-3.5 py-1.5 text-xs font-medium text-sageDeep hover:bg-sage/20"
-                >
-                  {sub.label}
-                </Link>
-              </li>
-            ) : (
-              <li
-                key={sub.label}
-                className="rounded-full border border-ink/10 bg-white/50 px-3.5 py-1.5 text-xs font-medium text-ink/70"
-              >
-                {sub.label}
-              </li>
-            )
-          )}
-        </ul>
+        <p className="mt-4 max-w-2xl text-ink/70">
+          Assiettes, bols, tasses, verres, couverts, plats de service, linge de table et objets de
+          présentation : une sélection pensée pour dresser une table qui donne envie de s'attarder.
+        </p>
       </div>
 
       <div className="container-content mt-12">
@@ -109,14 +74,14 @@ export default function CollectionPage({ params }: Props) {
               <CategoryIcon className="h-6 w-6" strokeWidth={1.5} />
             </span>
             <h2 className="mt-5 font-display text-xl text-ink">
-              Cet univers se prépare avec soin
+              Notre sélection Art de la table se prépare
             </h2>
             <p className="mt-2 text-sm text-ink/70">
-              Nous sélectionnons actuellement les prochains objets de la catégorie{" "}
-              {category.title.toLowerCase()}. Revenez bientôt les découvrir.
+              Nous choisissons actuellement les premières pièces de cette sélection : céramiques,
+              verres et linge de table. Revenez bientôt les découvrir.
             </p>
-            <Link href="/collections" className="btn-secondary mt-6">
-              Découvrir nos autres univers
+            <Link href="/collections/maison-decoration" className="btn-secondary mt-6">
+              Voir Maison & décoration
             </Link>
           </div>
         )}
