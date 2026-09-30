@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 
 const collectionLabels: Record<string, string> = {
   chats: "Chats",
@@ -32,7 +32,7 @@ export default function CollectionPage({ params }: Props) {
   const label = collectionLabels[params.slug];
   if (!label) notFound();
 
-  const products = getAllProducts().filter((p) => p.collections.includes(params.slug));
+  const products = getPublishedProducts().filter((p) => p.collections.includes(params.slug));
 
   return (
     <section className="container-content py-14">

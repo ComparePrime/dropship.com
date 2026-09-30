@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 import { getAllBlogPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site-config";
 
@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const productRoutes = getAllProducts().map((product) => ({
+  const productRoutes = getPublishedProducts().map((product) => ({
     url: `${siteConfig.domain}/produit/${product.slug}`,
     lastModified: new Date(),
   }));

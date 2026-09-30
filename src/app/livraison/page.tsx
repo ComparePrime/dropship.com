@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 import { TrustBadges } from "@/components/trust-badges";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function ShippingPage() {
-  const shipping = getAllProducts()[0].shipping;
+  const shipping = getPublishedProducts()[0].shipping;
 
   return (
     <section className="container-content max-w-2xl py-14">

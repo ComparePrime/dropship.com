@@ -74,6 +74,40 @@ export interface DemoStep {
   description: string;
 }
 
+export type ProductStatus = "draft" | "published";
+
+/**
+ * Categories qui exigent une verification de securite/conformite/tracabilite
+ * avant publication (section 9 du brief marque). La presence d'une categorie
+ * ici ne dit pas que le produit est conforme : `verified` seul en fait foi.
+ */
+export type ComplianceCategory = "baby" | "electrical" | "pet";
+
+export interface ComplianceCheck {
+  categories: ComplianceCategory[];
+  /** true uniquement si la verification a reellement ete effectuee et documentee. */
+  verified: boolean;
+  /** Ce qui reste a verifier/obtenir (ex: marquage CE, fiche de securite batterie). */
+  notes?: string;
+}
+
+/**
+ * Evaluation interne du produit (jamais affichee au client). Sert a decider
+ * s'il merite d'etre publie/pousse en publicite. Notes de 1 (faible) a 5 (fort),
+ * sauf `estimatedMarginAfterCosts` qui est une fraction (0.45 = 45%).
+ */
+export interface ProductEvaluation {
+  demandScore: number;
+  differentiationScore: number;
+  supplierQualityScore: number;
+  competitionScore: number;
+  priceScore: number;
+  returnRiskScore: number;
+  /** Marge estimee une fois publicite, livraison et frais de transaction deduits. */
+  estimatedMarginAfterCosts: number;
+  notes?: string;
+}
+
 /**
  * Chaque section est optionnelle et l'ordre est défini par produit (champ `layout`).
  * Cela permet à un produit différent d'avoir une structure de page totalement differente
@@ -101,6 +135,12 @@ export type ProductSectionKey =
 export interface Product {
   id: string;
   slug: string;
+  /** "draft" = jamais dans le sitemap, les listings ou la home ; accessible seulement par URL directe, en noindex. */
+  status: ProductStatus;
+  /** Renseigne uniquement lorsqu'une verification reelle a ete faite (jamais fabrique). */
+  compliance?: ComplianceCheck;
+  /** Evaluation interne (section 9) : outil de decision, jamais rendu cote client. */
+  evaluation?: ProductEvaluation;
   name: string;
   brandLine: string;
   badge: string;

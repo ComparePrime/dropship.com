@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 import { Icon } from "@/components/icons";
 
 export default function CartPage() {
@@ -20,7 +20,7 @@ export default function CartPage() {
     0
   );
 
-  const suggestions = getAllProducts().filter(
+  const suggestions = getPublishedProducts().filter(
     (p) => !lines.some((l) => l.productId === p.id)
   );
 

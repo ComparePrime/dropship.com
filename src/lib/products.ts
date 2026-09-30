@@ -10,6 +10,20 @@ export const products: Product[] = [
   {
     id: "petite-lanterne-feline",
     slug: "crochet-chat-lanterne",
+    status: "published",
+    // Objet decoratif simple, pas de categorie a conformite renforcee (pas de pile/batterie,
+    // pas d'usage bebe/animal direct) : aucune verification specifique requise.
+    evaluation: {
+      demandScore: 3,
+      differentiationScore: 4,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 4,
+      estimatedMarginAfterCosts: 0.45,
+      notes:
+        "Premier produit de lancement. Pas encore de donnees de vente reelles : score de demande a reevaluer apres les premieres campagnes.",
+    },
     name: "La Petite Lanterne Féline",
     brandLine: "Maison Loravie",
     badge: "NOUVEAUTÉ",
@@ -289,6 +303,28 @@ export const products: Product[] = [
   {
     id: "ventilateur-anti-mouches",
     slug: "ventilateur-anti-mouches-table",
+    status: "published",
+    // Produit electrique (USB/piles) : verification de securite/conformite/tracabilite
+    // requise avant toute nouvelle campagne d'envergure. Pas encore realisee formellement
+    // (pas de certificat CE ni de fiche de securite batterie recus du fournisseur) :
+    // verified reste false tant que ces documents ne sont pas obtenus et verifies.
+    compliance: {
+      categories: ["electrical"],
+      verified: false,
+      notes:
+        "A obtenir du fournisseur avant scale : attestation de conformite (CE ou equivalent), fiche de securite batterie/chargeur, et confirmation que le colis n'inclut reellement pas de batterie (coherent avec la fiche produit).",
+    },
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 2,
+      priceScore: 4,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0.4,
+      notes:
+        "123 avis verifies importes (note 4.8/5) : bon signal de satisfaction produit. Marge a reconfirmer une fois le cout fournisseur reel communique (costPriceUSD non renseigne).",
+    },
     name: "Le Ventilateur Anti-Mouches",
     brandLine: "Maison Loravie",
     badge: "OFFRE DU MOMENT",
@@ -550,15 +586,27 @@ export const products: Product[] = [
   },
 ];
 
+/** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
 export function getAllProducts(): Product[] {
   return products;
 }
 
+/** Produits visibles cote client : home, listings, sitemap, suggestions. Jamais les brouillons. */
+export function getPublishedProducts(): Product[] {
+  return products.filter((p) => p.status === "published");
+}
+
+/**
+ * Resout un produit par son slug, brouillon inclus : une page /produit/[slug] doit rester
+ * accessible par URL directe pour relecture avant publication (mais en noindex, voir la page).
+ */
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
-/** Max 1-2 produits complementaires : le produit principal doit rester dominant. */
+/** Max 1-2 produits complementaires, publies uniquement : le produit principal doit rester dominant. */
 export function getRelatedProducts(currentSlug: string, limit = 2): Product[] {
-  return products.filter((p) => p.slug !== currentSlug).slice(0, limit);
+  return products
+    .filter((p) => p.slug !== currentSlug && p.status === "published")
+    .slice(0, limit);
 }

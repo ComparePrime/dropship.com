@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Retours",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function ReturnsPage() {
-  const shipping = getAllProducts()[0].shipping;
+  const shipping = getPublishedProducts()[0].shipping;
 
   return (
     <section className="container-content max-w-2xl py-14">

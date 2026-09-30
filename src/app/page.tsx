@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 import { TrustBadges } from "@/components/trust-badges";
 import { siteConfig } from "@/lib/site-config";
 
@@ -24,7 +24,7 @@ const univers = [
 ];
 
 export default function HomePage() {
-  const products = getAllProducts();
+  const products = getPublishedProducts();
   const featured = products[0];
 
   return (

@@ -39,10 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${siteConfig.domain}/produit/${product.slug}`;
 
   return {
-    title: product.seo.title,
+    title: product.status === "draft" ? `[Brouillon] ${product.seo.title}` : product.seo.title,
     description: product.seo.metaDescription,
     keywords: product.seo.keywords,
     alternates: { canonical: url },
+    // Un brouillon reste accessible par lien direct pour relecture, mais ne doit jamais
+    // etre indexe ni apparaitre dans le sitemap (voir getPublishedProducts).
+    robots: product.status === "draft" ? { index: false, follow: false } : undefined,
     openGraph: {
       title: product.seo.title,
       description: product.seo.metaDescription,
@@ -111,6 +114,11 @@ export default function ProductPage({ params }: Props) {
   return (
     <>
       <ProductJsonLd product={product} />
+      {product.status === "draft" && (
+        <div className="bg-terracotta py-2 text-center text-xs font-medium uppercase tracking-wide text-white">
+          Brouillon — non publie, non indexe, visible uniquement par ce lien direct
+        </div>
+      )}
       <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: product.name }]} />
 
       <section className="container-content grid grid-cols-1 gap-10 py-8 md:grid-cols-2 md:gap-16 md:py-14">

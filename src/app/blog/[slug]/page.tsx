@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog";
-import { getAllProducts } from "@/lib/products";
+import { getPublishedProducts } from "@/lib/products";
 
 interface Props {
   params: { slug: string };
@@ -22,7 +22,7 @@ export default function BlogPostPage({ params }: Props) {
   const post = getBlogPostBySlug(params.slug);
   if (!post) notFound();
 
-  const products = getAllProducts();
+  const products = getPublishedProducts();
 
   return (
     <article className="container-content max-w-2xl py-14">
