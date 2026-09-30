@@ -39,6 +39,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  // Verification de propriete Google Search Console (methode balise HTML).
+  verification: {
+    google: "KqB5l63CHvoB4JRDSCxyTxiwKHy790LQpoMNTECs_P8",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
