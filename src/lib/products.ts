@@ -281,7 +281,10 @@ export const products: Product[] = [
     ],
     ratingAverage: 0,
     ratingCount: 0,
-    collections: ["chats", "decoration", "maison", "cadeaux"],
+    // Pas de donnee de stock fiable disponible pour ce produit : `stock` reste
+    // volontairement absent, donc aucun indicateur/barre de stock ne s'affiche
+    // (voir StockIndicator). A renseigner des qu'une source reelle existe.
+    collections: ["maison-decoration", "nos-compagnons", "idees-cadeaux"],
     // Structure editoriale propre à ce produit (chaque produit peut avoir un ordre different).
     layout: [
       "storytelling",
@@ -566,7 +569,10 @@ export const products: Product[] = [
     reviews: ventilateurAntiMouchesReviews,
     ratingAverage: 4.8,
     ratingCount: ventilateurAntiMouchesReviews.length,
-    collections: ["maison"],
+    // Idem : aucune synchronisation fournisseur ni suivi back-office n'existe
+    // encore pour ce produit, donc `stock` reste absent plutot que d'afficher
+    // un chiffre invente.
+    collections: ["maison-decoration"],
     layout: [
       "storytelling",
       "benefits",

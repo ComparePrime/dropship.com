@@ -184,6 +184,30 @@ export interface Product {
   collections: string[];
   /** Ordre des sections éditoriales pour ce produit spécifiquement. */
   layout: ProductSectionKey[];
+  /** Absent tant qu'aucune source de stock fiable n'existe pour ce produit. */
+  stock?: StockInfo;
+}
+
+/**
+ * Origine de la donnée de stock, par ordre de fiabilité decroissante (voir
+ * `docs/product-import-workflow.md`). Determine si une alerte de stock peut
+ * etre affichee : `none` = aucune donnee fiable, rien n'est affiche.
+ */
+export type StockSource = "supplier-sync" | "backoffice" | "manual" | "none";
+
+export interface StockInfo {
+  source: StockSource;
+  /** Unites reellement disponibles. Absent/0 si source = "none". */
+  quantity: number;
+  /**
+   * Capacite de reference utilisee pour la barre visuelle (ex: taille de
+   * reappro habituelle). Ne represente jamais un "stock total" invente.
+   */
+  referenceCapacity: number;
+  /** Date ISO de derniere mise a jour de cette donnee. */
+  updatedAt: string;
+  /** Pour une source "manual" : rappel de qui doit la tenir a jour et comment. */
+  notes?: string;
 }
 
 export interface CartLine {

@@ -3,25 +3,10 @@ import Image from "next/image";
 import { getPublishedProducts } from "@/lib/products";
 import { TrustBadges } from "@/components/trust-badges";
 import { siteConfig } from "@/lib/site-config";
+import { categories } from "@/lib/categories";
+import { Icon } from "@/components/icons";
 
-const univers = [
-  {
-    title: "Maison & décoration",
-    description: "Des objets qui apportent du caractère à chaque pièce, sans jamais surcharger.",
-  },
-  {
-    title: "Famille",
-    description: "De petites attentions pensées pour les moments partagés avec ceux que vous aimez.",
-  },
-  {
-    title: "Compagnons du quotidien",
-    description: "Des objets inspirés de nos animaux, pour sourire un peu chaque jour.",
-  },
-  {
-    title: "Idées cadeaux",
-    description: "Des attentions originales, choisies pour faire plaisir sans se tromper.",
-  },
-];
+const ChevronRight = Icon["chevron-right"];
 
 export default function HomePage() {
   const products = getPublishedProducts();
@@ -60,18 +45,32 @@ export default function HomePage() {
 
       <section className="bg-sand/60 py-16 md:py-24">
         <div className="container-content">
-          <h2 className="section-title text-center">De jolies choses pour le quotidien</h2>
+          <h2 className="section-title text-center">Découvrez nos univers</h2>
           <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
             Maison Loravie choisit avec soin des objets pour la maison, la famille et ceux que
-            vous aimez.
+            vous aimez, organisés en quatre univers.
           </p>
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-            {univers.map((u) => (
-              <div key={u.title} className="rounded-xl2 border border-ink/10 bg-white/50 p-6">
-                <h3 className="font-display text-lg text-ink">{u.title}</h3>
-                <p className="mt-2 text-sm text-ink/70">{u.description}</p>
-              </div>
-            ))}
+            {categories.map((c) => {
+              const CategoryIcon = Icon[c.icon];
+              return (
+                <Link
+                  key={c.slug}
+                  href={`/collections/${c.slug}`}
+                  className="group flex flex-col rounded-xl2 border border-ink/10 bg-white/60 p-6 transition-shadow hover:shadow-card"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-sage/10 text-sage">
+                    <CategoryIcon className="h-5 w-5" strokeWidth={1.5} />
+                  </span>
+                  <h3 className="mt-4 font-display text-lg text-ink">{c.title}</h3>
+                  <p className="mt-2 flex-1 text-sm text-ink/70">{c.cardDescription}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sage">
+                    Découvrir
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

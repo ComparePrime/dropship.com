@@ -15,6 +15,8 @@ export function StickyBar({ product }: { product: Product }) {
   const compareAt =
     currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
   const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price;
+  const isOutOfStock =
+    !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
 
   useEffect(() => {
     const target = document.getElementById("acheter");
@@ -55,9 +57,10 @@ export function StickyBar({ product }: { product: Product }) {
         <button
           type="button"
           onClick={() => addItem(product, 1)}
-          className="btn-primary ml-auto flex-1 py-3 text-sm"
+          disabled={isOutOfStock}
+          className="btn-primary ml-auto flex-1 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-40"
         >
-          Ajouter au panier
+          {isOutOfStock ? "Indisponible" : "Ajouter au panier"}
         </button>
       </div>
     </div>

@@ -45,11 +45,16 @@ const config: Config = {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.85" },
         },
+        "stock-glow": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.75" },
+        },
       },
       animation: {
         "cart-fade-in": "cart-fade-in 200ms ease-out",
         "cart-slide-in": "cart-slide-in 300ms cubic-bezier(0.22, 1, 0.36, 1)",
         "promo-pulse": "promo-pulse 2.4s ease-in-out infinite",
+        "stock-glow": "stock-glow 3.2s ease-in-out infinite",
       },
     },
   },

@@ -44,12 +44,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [lines, hydrated]);
 
   const addItem = (product: Product, quantity = 1) => {
+    // Le stock, quand il est suivi, plafonne la quantite ajoutable : on ne
+    // reserve/decremente rien ici (simple plafond côté panier), la
+    // disponibilite reelle est revalidee cote serveur avant paiement.
+    const cap = product.stock && product.stock.source !== "none" ? product.stock.quantity : Infinity;
+
     setLines((prev) => {
       const existing = prev.find((l) => l.productId === product.id);
       if (existing) {
-        return prev.map((l) =>
-          l.productId === product.id ? { ...l, quantity: l.quantity + quantity } : l
-        );
+        const nextQuantity = Math.min(cap, existing.quantity + quantity);
+        return prev.map((l) => (l.productId === product.id ? { ...l, quantity: nextQuantity } : l));
       }
       return [
         ...prev,
@@ -60,7 +64,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           image: product.images[0]?.src ?? "",
           priceCHF: product.priceCHF,
           priceEUR: product.priceEUR,
-          quantity,
+          quantity: Math.min(cap, quantity),
           packLabel: product.packLabel,
         },
       ];

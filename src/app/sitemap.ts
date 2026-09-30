@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedProducts } from "@/lib/products";
 import { getAllBlogPosts } from "@/lib/blog";
+import { categories } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,8 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const collectionRoutes = ["chats", "decoration", "maison", "cadeaux"].map((slug) => ({
-    url: `${siteConfig.domain}/collections/${slug}`,
+  const collectionRoutes = categories.map((c) => ({
+    url: `${siteConfig.domain}/collections/${c.slug}`,
     lastModified: new Date(),
   }));
 

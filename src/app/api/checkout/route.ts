@@ -16,7 +16,26 @@ export async function POST(req: NextRequest) {
     }
 
     // Les prix sont revalidés côté serveur à partir du catalogue produit,
-    // jamais à partir de ce que le client envoie.
+    // jamais à partir de ce que le client envoie. Idem pour la disponibilité :
+    // quand un stock est suivi, on refuse toute commande qui le dépasse.
+    for (const line of lines) {
+      const product = getProductBySlug(line.slug);
+      if (!product) {
+        return NextResponse.json({ error: `Produit inconnu: ${line.slug}` }, { status: 400 });
+      }
+      if (product.stock && product.stock.source !== "none" && line.quantity > product.stock.quantity) {
+        return NextResponse.json(
+          {
+            error:
+              product.stock.quantity <= 0
+                ? `${product.name} est temporairement indisponible.`
+                : `Il ne reste que ${product.stock.quantity} exemplaire(s) disponible(s) pour ${product.name}.`,
+          },
+          { status: 409 }
+        );
+      }
+    }
+
     const line_items = lines.map((line) => {
       const product = getProductBySlug(line.slug);
       if (!product) {
