@@ -593,7 +593,7 @@ export const products: Product[] = [
   {
     id: "coussin-bras-allaitement",
     slug: "coussin-bras-allaitement-biberon",
-    status: "draft",
+    status: "published",
     // Categorie "bebe" : verification requise avant publication/campagne.
     // Page fournisseur AliExpress inaccessible depuis cet environnement
     // (domaine bloque par la politique reseau) : composition exacte du
