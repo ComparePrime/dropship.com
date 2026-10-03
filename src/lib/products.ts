@@ -969,6 +969,236 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "ventilateur-plafond-led",
+    slug: "ventilateur-plafond-invisible-led",
+    status: "draft",
+    // Categorie "electrical" + fixation plafond (installation electrique,
+    // potentiellement cablee en dur) : risque plus eleve qu'un simple
+    // appareil USB/piles. Verification renforcee requise avant publication.
+    compliance: {
+      categories: ["electrical"],
+      verified: false,
+      notes:
+        "A obtenir du fournisseur avant publication/campagne : attestation de conformite (CE), fiche de securite electrique, methode d'installation exacte (cable/douille existante vs installation fixe necessitant un electricien), et compatibilite avec le reseau electrique suisse (230V). Une seule photo lifestyle fournie par l'operateur : pas de fiche fournisseur ni de lien source pour cette demande, donc aucune caracteristique technique (puissance, envergure des pales, portee de la telecommande, niveau sonore en dB) n'a pu etre extraite ou verifiee — uniquement ce que decrit le texte fourni par l'operateur.",
+    },
+    evaluation: {
+      demandScore: 3,
+      differentiationScore: 3,
+      supplierQualityScore: 2,
+      competitionScore: 3,
+      priceScore: 3,
+      returnRiskScore: 2,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Produit a risque de retour plus eleve qu'un petit accessoire (prix unitaire important, installation electrique, casse possible au transport). Cout fournisseur et marge non communiques (aucune fiche source fournie). A reevaluer une fois la fiche technique et le cout reel obtenus.",
+    },
+    name: "Le Ventilateur Plafonnier Lumineux",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE DU MOMENT",
+    headline: "Un souffle d'air frais, une lumière douce, sans l'ajouter au décor.",
+    subtitle:
+      "Un ventilateur de plafond au design épuré avec éclairage LED intégré, moteur DC et télécommande, pensé pour la chambre comme pour la salle à manger.",
+    heroBullets: [
+      "Pales discrètes qui se fondent dans un plafond déjà soigné",
+      "Éclairage LED intégré pour une lumière d'ambiance ou principale",
+      "Moteur DC annoncé par le fournisseur comme silencieux et économe",
+      "Télécommande incluse pour piloter vitesse et lumière sans se lever",
+    ],
+    h1: "Ventilateur de plafond invisible avec éclairage LED",
+    shortDescription:
+      "Un ventilateur de plafond au design épuré, avec éclairage LED intégré, moteur DC et télécommande, pour la chambre ou la salle à manger.",
+    description: [
+      "Le Ventilateur Plafonnier Lumineux associe deux fonctions en un seul objet discret : un ventilateur de plafond à pales rétractables et un plafonnier LED, pensés pour s'intégrer à un intérieur déjà soigné plutôt que pour s'y imposer.",
+      "Le fournisseur annonce un moteur DC, réputé plus silencieux et plus économe qu'un moteur classique, ainsi qu'un grand volume d'air brassé. Une télécommande est fournie pour régler la vitesse de ventilation et l'intensité de l'éclairage à distance.",
+      "Son format pensé pour la chambre et la salle à manger en fait une solution double usage : un point lumineux principal le soir, un peu de fraîcheur en plus dès que la pièce en a besoin.",
+    ],
+    storytelling: {
+      eyebrow: "Un objet, deux usages",
+      title: "Un plafond soigné n'a pas à choisir entre lumière et fraîcheur.",
+      paragraphs: [
+        "Entre un plafonnier et un ventilateur, il faut souvent choisir — ou superposer deux objets qui ne se répondent pas vraiment.",
+        "Le Ventilateur Plafonnier Lumineux a été pensé pour éviter ce compromis : un éclairage LED intégré et des pales qui se fondent dans le plafond, pilotés d'un seul geste depuis le canapé ou le lit.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que l'installation est compliquée ?",
+        response:
+          "La méthode d'installation exacte (remplacement d'un point lumineux existant ou pose fixe) reste à confirmer par notre équipe avant l'achat — voir la FAQ.",
+      },
+      {
+        doubt: "Est-ce que ça fait du bruit la nuit ?",
+        response:
+          "Le fournisseur annonce un moteur DC conçu pour être silencieux, un argument fréquent pour ce type de moteur, mais nous n'avons pas encore de mesure en décibels à communiquer.",
+      },
+      {
+        doubt: "Est-ce que la lumière suffit comme éclairage principal ?",
+        response:
+          "L'éclairage LED intégré est pensé pour servir à la fois de lumière d'ambiance et d'éclairage principal, selon le réglage choisi à la télécommande.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un ventilateur de plafond et un plafonnier LED réunis en un seul objet",
+      "Moteur DC et télécommande incluse",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Convaincue par ce double usage lumière et fraîcheur ?",
+      "Prête à moderniser votre plafond ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 149.99,
+    priceEUR: 149.99,
+    compareAtPriceCHF: 199.99,
+    compareAtPriceEUR: 199.99,
+    images: [
+      {
+        src: "/images/products/ventilateur-plafond-led/salle-a-manger.jpg",
+        alt: "Ventilateur de plafond invisible avec éclairage LED allumé au-dessus d'une salle à manger",
+        caption: "Au-dessus de la table à manger",
+      },
+    ],
+    benefits: [
+      {
+        icon: "fan",
+        title: "Un grand volume d'air, en discret",
+        description:
+          "Des pales rétractables qui se fondent dans le plafond à l'arrêt, pour un design épuré même en marche.",
+      },
+      {
+        icon: "lightbulb",
+        title: "Un éclairage LED intégré",
+        description:
+          "Une seule installation pour la lumière et la ventilation, réglable depuis la télécommande fournie.",
+      },
+      {
+        icon: "check",
+        title: "Télécommande incluse",
+        description: "Vitesse de ventilation et intensité lumineuse se règlent sans se lever.",
+      },
+      {
+        icon: "home",
+        title: "Pensé pour la chambre et la salle à manger",
+        description:
+          "Un format et un design pensés pour s'intégrer aux pièces à vivre comme aux chambres.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Chambre",
+        description: "Une lumière douce le soir et un peu de fraîcheur pour mieux dormir l'été.",
+      },
+      {
+        title: "Salle à manger",
+        description: "Un plafonnier élégant au-dessus de la table, qui rafraîchit la pièce aux beaux jours.",
+      },
+      {
+        title: "Salon",
+        description: "Un point lumineux central qui remplace un plafonnier classique.",
+      },
+      {
+        title: "Bureau à domicile",
+        description: "Un peu d'air en plus pendant les journées chaudes, sans ventilateur au sol.",
+      },
+    ],
+    faq: [
+      {
+        question: "Comment s'installe ce ventilateur plafonnier ?",
+        answer:
+          "Méthode d'installation à confirmer par notre équipe (remplacement d'un point lumineux existant ou pose fixe nécessitant un professionnel) avant la mise en vente définitive.",
+      },
+      {
+        question: "Est-il compatible avec le réseau électrique suisse (230V) ?",
+        answer:
+          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "Quel est le niveau sonore du moteur ?",
+        answer:
+          "Le fournisseur annonce un moteur DC pensé pour être silencieux. Nous ne disposons pas encore d'une mesure précise en décibels.",
+      },
+      {
+        question: "La télécommande est-elle fournie ?",
+        answer: "Oui, une télécommande est incluse pour régler la vitesse de ventilation et l'éclairage.",
+      },
+      {
+        question: "Quelles sont les dimensions et l'envergure des pales ?",
+        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Ventilateur de plafond invisible avec éclairage LED | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Ventilateur Plafonnier Lumineux : pales rétractables, éclairage LED intégré, moteur DC et télécommande. Pour chambre et salle à manger.",
+      keywords: [
+        "ventilateur de plafond led",
+        "ventilateur plafonnier invisible",
+        "ventilateur plafond silencieux",
+        "plafonnier ventilateur chambre",
+        "ventilateur plafond télécommande",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre du moment",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Aucun avis fourni pour ce produit : pas de bloc demo invente, la
+    // section Avis affichera simplement "les avis arriveront apres les
+    // premieres commandes" tant qu'aucun avis (demo ou reel) n'existe.
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "offer",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
