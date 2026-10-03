@@ -23,6 +23,8 @@ import {
   Flame,
   Fan,
   Lightbulb,
+  Music,
+  Move,
 } from "lucide-react";
 
 export const Icon = {
@@ -50,6 +52,8 @@ export const Icon = {
   flame: Flame,
   fan: Fan,
   lightbulb: Lightbulb,
+  music: Music,
+  move: Move,
 } as const;
 
 export type IconName = keyof typeof Icon;

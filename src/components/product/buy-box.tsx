@@ -107,7 +107,7 @@ export function BuyBox({ product }: { product: Product }) {
         {product.variants && product.variants.length > 0 && (
           <div className="mt-5">
             <span className="text-sm font-medium text-ink/70">
-              Motif{selectedVariant ? ` — ${selectedVariant.label}` : ""}
+              Choix{selectedVariant ? ` — ${selectedVariant.label}` : ""}
             </span>
             <div className="mt-2 flex flex-wrap gap-2">
               {product.variants.map((variant) => (

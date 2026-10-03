@@ -69,7 +69,7 @@ export function StickyBar({ product }: { product: Product }) {
           disabled={isOutOfStock}
           className="btn-primary ml-auto flex-1 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isOutOfStock ? "Indisponible" : hasVariants ? "Choisir un motif" : "Ajouter au panier"}
+          {isOutOfStock ? "Indisponible" : hasVariants ? "Choisir une option" : "Ajouter au panier"}
         </button>
       </div>
     </div>

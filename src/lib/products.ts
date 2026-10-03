@@ -1199,6 +1199,259 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "meduse-dansante",
+    slug: "meduse-dansante-jouet-interactif",
+    status: "draft",
+    // Jouet pour enfant + electronique/piles : double vigilance. En Suisse/UE,
+    // un jouet vendu doit porter le marquage CE et, le cas echeant, un
+    // avertissement d'age et de petites pieces (directive jouets 2009/48/CE).
+    // Rien de tout cela n'a ete fourni avec ce produit : categorie et age
+    // minimum restent "a confirmer" plutot que devines, et la page ne doit
+    // pas etre poussee en publicite tant que ce point n'est pas regle.
+    compliance: {
+      categories: ["baby", "electrical"],
+      verified: false,
+      notes:
+        "A obtenir du fournisseur avant publication/campagne : marquage CE jouet, attestation de conformite a la directive jouets (EN71), age minimum recommande et avertissement petites pieces le cas echeant, type et fourniture des piles (incluses ou non, format). Aucune fiche fournisseur ni lien source transmis pour ce produit : seules les informations visibles sur l'emballage (texte en francais sur les photos fournies) ont ete reprises, le reste reste absent plutot que devine.",
+    },
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 2,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner des que disponibles. Categorie jouet enfant : ne pas pousser en publicite avant d'avoir le marquage CE et l'age recommande reels (risque reglementaire sinon, pas seulement commercial).",
+    },
+    name: "La Méduse Dansante",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE DU MOMENT",
+    headline: "Elle tourne, elle danse, elle illumine la pièce.",
+    subtitle:
+      "Un jouet méduse interactif qui danse en musique, s'illumine de couleurs et évite les obstacles grâce à son capteur intégré.",
+    heroBullets: [
+      "Musique entraînante et lumières LED colorées",
+      "Tourne à 360° et se déplace dans tous les sens",
+      "Détection d'obstacles annoncée par le fabricant",
+      "Disponible en vert menthe ou rose",
+    ],
+    h1: "Jouet méduse dansante avec lumières LED et détection d'obstacles",
+    shortDescription:
+      "Un jouet méduse interactif qui danse en musique, s'illumine de couleurs LED et évite les obstacles. Disponible en 2 couleurs.",
+    description: [
+      "La Méduse Dansante est un jouet interactif pensé pour animer une chambre d'enfant : elle tourne sur elle-même, se déplace dans toutes les directions et danse en musique dès qu'on l'allume.",
+      "Ses lumières LED colorées s'activent avec le mouvement, et le fabricant annonce un capteur qui lui permet de détecter les obstacles et d'ajuster sa trajectoire plutôt que de rester bloquée contre un meuble.",
+      "Disponible en vert menthe ou en rose, elle est pensée comme un petit compagnon ludique autant qu'une idée cadeau facile à offrir.",
+    ],
+    storytelling: {
+      eyebrow: "Un peu de danse dans la journée",
+      title: "Un jouet qui capte l'attention sans se contenter de clignoter.",
+      paragraphs: [
+        "Entre les jouets qui s'allument et ceux qui bougent vraiment, il y a souvent un monde. La Méduse Dansante a été pensée pour réunir les deux : du mouvement, de la musique, de la couleur.",
+        "Son capteur d'obstacles annoncé par le fabricant lui permet de se déplacer sans rester coincée au premier pied de chaise venu, pour un jouet qu'on peut regarder évoluer plutôt que remettre en place sans arrêt.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "À partir de quel âge est-il adapté ?",
+        response:
+          "L'âge minimum recommandé reste à confirmer par notre équipe avant la mise en vente définitive — voir la FAQ.",
+      },
+      {
+        doubt: "Les piles sont-elles fournies ?",
+        response:
+          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        doubt: "Est-ce que ça fonctionne vraiment, la détection d'obstacles ?",
+        response:
+          "C'est une fonctionnalité annoncée par le fabricant ; nous n'avons pas encore pu la tester nous-mêmes de façon indépendante.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un jouet interactif : musique, lumières LED et mouvement à 360°",
+      "Détection d'obstacles annoncée par le fabricant",
+      "Disponible en 2 coloris",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+    ],
+    midCtaTexts: [
+      "Convaincue par ce petit compagnon dansant ?",
+      "Prête à voir la méduse en action ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 29.99,
+    priceEUR: 29.99,
+    compareAtPriceCHF: 39.99,
+    compareAtPriceEUR: 39.99,
+    images: [
+      {
+        src: "/images/products/meduse-dansante/vert-menthe.png",
+        alt: "Jouet méduse dansante vert menthe avec lumières LED, packaging Méduse Dansante",
+        caption: "La Méduse Dansante en vert menthe",
+      },
+      {
+        src: "/images/products/meduse-dansante/rose.png",
+        alt: "Jouet méduse dansante rose avec lumières LED, packaging Méduse Dansante",
+        caption: "La Méduse Dansante en rose",
+      },
+    ],
+    variants: [
+      {
+        id: "vert-menthe",
+        label: "Vert menthe",
+        image: {
+          src: "/images/products/meduse-dansante/vert-menthe.png",
+          alt: "Méduse Dansante coloris vert menthe",
+        },
+      },
+      {
+        id: "rose",
+        label: "Rose",
+        image: {
+          src: "/images/products/meduse-dansante/rose.png",
+          alt: "Méduse Dansante coloris rose",
+        },
+      },
+    ],
+    benefits: [
+      {
+        icon: "music",
+        title: "Musique et lumières LED",
+        description:
+          "Une musique entraînante accompagnée de lumières colorées qui s'activent avec le mouvement.",
+      },
+      {
+        icon: "rotate-ccw",
+        title: "Tourne à 360° et danse",
+        description: "Une rotation complète et des mouvements qui donnent vie au jouet dès l'allumage.",
+      },
+      {
+        icon: "shield-check",
+        title: "Détection d'obstacles",
+        description:
+          "Un capteur annoncé par le fabricant pour ajuster la trajectoire plutôt que rester bloquée.",
+      },
+      {
+        icon: "move",
+        title: "Se déplace dans tous les sens",
+        description: "Un jouet qui explore la pièce plutôt que de rester sur place.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Chambre d'enfant",
+        description: "Un compagnon coloré et musical qui anime la pièce.",
+      },
+      {
+        title: "Salon",
+        description: "De quoi occuper quelques minutes pendant que le repas finit de cuire.",
+      },
+      {
+        title: "Idée cadeau",
+        description: "Un jouet original à offrir, disponible en deux coloris.",
+      },
+      {
+        title: "Jeux en famille",
+        description: "Un moment à partager en regardant la méduse se déplacer et éviter les obstacles.",
+      },
+    ],
+    faq: [
+      {
+        question: "À partir de quel âge ce jouet est-il recommandé ?",
+        answer:
+          "Âge minimum à confirmer par notre équipe avant la mise en vente définitive, conformément aux exigences de sécurité applicables aux jouets.",
+      },
+      {
+        question: "Les piles sont-elles incluses ?",
+        answer:
+          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "Quels coloris sont disponibles ?",
+        answer: "Le jouet est disponible en deux coloris : vert menthe et rose.",
+      },
+      {
+        question: "Comment fonctionne la détection d'obstacles ?",
+        answer:
+          "Le fabricant annonce un capteur qui permet au jouet d'ajuster sa trajectoire face à un obstacle. Nous n'avons pas encore pu tester cette fonction nous-mêmes de façon indépendante.",
+      },
+      {
+        question: "Le jouet est-il bruyant ?",
+        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Jouet méduse dansante avec lumières LED | Maison Loravie",
+      metaDescription:
+        "Découvrez La Méduse Dansante : un jouet interactif qui tourne, danse en musique et s'illumine de couleurs LED. Disponible en vert menthe ou rose.",
+      keywords: [
+        "jouet méduse dansante",
+        "jouet interactif enfant",
+        "jouet led musical",
+        "jouet qui danse et tourne",
+        "cadeau jouet enfant",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre du moment",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["bebe-famille", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "offer",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
