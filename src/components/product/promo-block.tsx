@@ -22,6 +22,7 @@ export function PromoBlock({
     currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
   const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price;
   const savings = hasRealPromotion ? compareAt! - price : 0;
+  const discountPercent = hasRealPromotion ? Math.round((savings / compareAt!) * 100) : 0;
 
   if (!hasRealPromotion) {
     return (
@@ -53,11 +54,16 @@ export function PromoBlock({
         </p>
       )}
 
-      <div className="mt-2 flex items-baseline justify-center gap-3">
+      <div className="mt-2 flex flex-wrap items-baseline justify-center gap-3">
         <span className="text-lg text-ink/40 line-through">
           {formatPrice(compareAt!, currency)}
         </span>
         <span className="font-display text-3xl text-ink">{formatPrice(price, currency)}</span>
+        {discountPercent > 0 && (
+          <span className="rounded-full bg-terracottaText px-2 py-0.5 text-xs font-semibold text-white">
+            −{discountPercent}%
+          </span>
+        )}
       </div>
 
       <p className="mt-2 text-sm font-medium text-sage">

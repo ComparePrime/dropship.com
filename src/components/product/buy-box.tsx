@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Product } from "@/lib/types";
+import { getRelatedProducts } from "@/lib/products";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
 import { Countdown } from "@/components/product/countdown";
@@ -12,6 +13,7 @@ import { StockIndicator } from "@/components/product/stock-indicator";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { TrustBadges } from "@/components/trust-badges";
 import { Icon, IconName } from "@/components/icons";
+import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 
 export function BuyBox({ product }: { product: Product }) {
   const { currency } = useCurrency();
@@ -24,6 +26,12 @@ export function BuyBox({ product }: { product: Product }) {
   const isOutOfStock = isTracked && (product.stock?.quantity ?? 0) <= 0;
   const maxQuantity = isTracked ? Math.max(0, product.stock!.quantity) : 99;
   const topBenefits = product.benefits.slice(0, 4);
+  // Jamais plus de 2 produits complementaires, et uniquement des produits
+  // reels du catalogue (jamais invente/duplique).
+  const addOns = getRelatedProducts(product.slug, 2);
+  const [selectedAddOnIds, setSelectedAddOnIds] = useState<string[]>([]);
+  const toggleAddOn = (id: string) =>
+    setSelectedAddOnIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   return (
     <div id="acheter">
@@ -121,6 +129,38 @@ export function BuyBox({ product }: { product: Product }) {
           </div>
         )}
 
+        {addOns.length > 0 && (
+          <div className="mt-5">
+            <span className="text-sm font-medium text-ink/70">Complétez votre commande</span>
+            <div className="mt-2 flex flex-col gap-2">
+              {addOns.map((addOn) => {
+                const addOnPrice = getPriceForCurrency(addOn.priceCHF, addOn.priceEUR, currency);
+                const checked = selectedAddOnIds.includes(addOn.id);
+                return (
+                  <label
+                    key={addOn.id}
+                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-ink/10 bg-white/50 p-2.5"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleAddOn(addOn.id)}
+                      className="h-4 w-4 flex-shrink-0 accent-sage"
+                    />
+                    <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg bg-sand">
+                      {addOn.images[0] && (
+                        <Image src={addOn.images[0].src} alt="" fill className="object-cover" />
+                      )}
+                    </div>
+                    <span className="flex-1 text-sm text-ink">{addOn.name}</span>
+                    <span className="text-sm text-ink/70">{formatPrice(addOnPrice, currency)}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {!isOutOfStock && (
           <div className="mt-5 flex items-center gap-3">
             <span className="text-sm font-medium text-ink/70">Quantité</span>
@@ -149,11 +189,20 @@ export function BuyBox({ product }: { product: Product }) {
 
         <button
           type="button"
-          onClick={() => addItem(product, quantity, selectedVariant?.label)}
+          onClick={() => {
+            addItem(product, quantity, selectedVariant?.label);
+            for (const addOn of addOns) {
+              if (selectedAddOnIds.includes(addOn.id)) addItem(addOn, 1);
+            }
+          }}
           disabled={isOutOfStock}
           className="btn-primary mt-5 w-full text-base disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isOutOfStock ? "Temporairement indisponible" : "Ajouter au panier"}
+          {isOutOfStock
+            ? "Temporairement indisponible"
+            : selectedAddOnIds.length > 0
+              ? `Ajouter ${1 + selectedAddOnIds.length} articles au panier`
+              : "Ajouter au panier"}
         </button>
 
         <div className="mt-5 border-t border-ink/10 pt-4">
