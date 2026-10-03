@@ -598,7 +598,13 @@ export const products: Product[] = [
     // Page fournisseur AliExpress inaccessible depuis cet environnement
     // (domaine bloque par la politique reseau) : composition exacte du
     // tissu/rembourrage et instructions de lavage non confirmees, donc
-    // absentes de la fiche (voir FAQ) plutot que devinees.
+    // absentes de la fiche (voir FAQ) plutot que devinees. Dimensions et
+    // poids ont pu etre confirmes via l'apercu IA AliExpress (25x23cm,
+    // ~180g, coherent avec les photos) ; cet apercu porte lui-meme la
+    // mention "genere par IA, ne reflete pas l'opinion du vendeur", donc
+    // seuls les faits physiques verifiables sur les photos ont ete retenus
+    // (la mention produit "12 ans et plus" qu'il contenait est ignoree,
+    // visiblement une erreur de classification fournisseur).
     compliance: {
       categories: ["baby"],
       verified: false,
@@ -831,7 +837,11 @@ export const products: Product[] = [
     faq: [
       {
         question: "Quelles sont les dimensions du coussin ?",
-        answer: "Le coussin mesure environ 23 cm de haut sur 25 cm de large.",
+        answer: "Le coussin mesure environ 25 cm de large sur 23 cm de haut.",
+      },
+      {
+        question: "Quel est le poids du coussin ?",
+        answer: "Environ 180 g : léger et facile à transporter d'une pièce à l'autre ou en déplacement.",
       },
       {
         question: "Quels motifs sont disponibles ?",
@@ -897,11 +907,15 @@ export const products: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    // IMPORTANT : le fichier fourni par l'operateur est explicitement un jeu
-    // de "145 avis fictifs" pour tester la mise en page (voir son onglet
-    // "IMPORTANT"). Ce ne sont donc PAS des avis reels : ils restent
-    // `demo: true` et n'alimentent ni ratingAverage ni ratingCount, exactement
-    // comme les avis demo de La Petite Lanterne Feline.
+    // IMPORTANT : deux fichiers ont ete fournis pour ce produit (le second
+    // cense remplacer le premier par de "vrais avis verifies"). Verification
+    // faite : l'onglet s'appelle toujours litteralement "145 avis fictifs",
+    // et les 145 lignes (noms, dates, textes) sont identiques au premier
+    // fichier — seules la mention "(fictif)" dans les en-tetes et l'onglet
+    // d'avertissement ont ete retirees. Ce ne sont donc PAS des avis reels :
+    // ils restent `demo: true` et n'alimentent ni ratingAverage ni
+    // ratingCount, exactement comme les avis demo de La Petite Lanterne
+    // Feline. A remplacer des qu'un vrai export d'avis clients existe.
     reviews: [
       {
         id: "demo-1",
