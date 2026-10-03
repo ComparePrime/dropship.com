@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
@@ -16,6 +17,8 @@ export function BuyBox({ product }: { product: Product }) {
   const { currency } = useCurrency();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [selectedVariantId, setSelectedVariantId] = useState(product.variants?.[0]?.id);
+  const selectedVariant = product.variants?.find((v) => v.id === selectedVariantId);
   const hasRealReviews = product.reviews.some((r) => !r.demo);
   const isTracked = !!product.stock && product.stock.source !== "none";
   const isOutOfStock = isTracked && (product.stock?.quantity ?? 0) <= 0;
@@ -93,6 +96,31 @@ export function BuyBox({ product }: { product: Product }) {
 
         <StockIndicator stock={product.stock} />
 
+        {product.variants && product.variants.length > 0 && (
+          <div className="mt-5">
+            <span className="text-sm font-medium text-ink/70">
+              Motif{selectedVariant ? ` — ${selectedVariant.label}` : ""}
+            </span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {product.variants.map((variant) => (
+                <button
+                  key={variant.id}
+                  type="button"
+                  onClick={() => setSelectedVariantId(variant.id)}
+                  aria-label={variant.label}
+                  aria-pressed={selectedVariantId === variant.id}
+                  title={variant.label}
+                  className={`relative h-12 w-12 overflow-hidden rounded-lg border-2 transition-colors ${
+                    selectedVariantId === variant.id ? "border-sage" : "border-transparent hover:border-ink/20"
+                  }`}
+                >
+                  <Image src={variant.image.src} alt={variant.label} fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {!isOutOfStock && (
           <div className="mt-5 flex items-center gap-3">
             <span className="text-sm font-medium text-ink/70">Quantité</span>
@@ -121,7 +149,7 @@ export function BuyBox({ product }: { product: Product }) {
 
         <button
           type="button"
-          onClick={() => addItem(product, quantity)}
+          onClick={() => addItem(product, quantity, selectedVariant?.label)}
           disabled={isOutOfStock}
           className="btn-primary mt-5 w-full text-base disabled:cursor-not-allowed disabled:opacity-40"
         >

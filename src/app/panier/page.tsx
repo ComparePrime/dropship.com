@@ -61,7 +61,7 @@ export default function CartPage() {
             <ul className="flex flex-col gap-6">
               {lines.map((line) => (
                 <li
-                  key={line.productId}
+                  key={`${line.productId}-${line.variantLabel ?? ""}`}
                   className="flex gap-4 rounded-xl2 border border-ink/10 bg-white/50 p-4"
                 >
                   <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-sand">
@@ -78,9 +78,12 @@ export default function CartPage() {
                         {line.packLabel && (
                           <p className="text-xs text-sage">{line.packLabel}</p>
                         )}
+                        {line.variantLabel && (
+                          <p className="text-xs text-stone">{line.variantLabel}</p>
+                        )}
                       </div>
                       <button
-                        onClick={() => removeItem(line.productId)}
+                        onClick={() => removeItem(line.productId, line.variantLabel)}
                         aria-label="Retirer l'article"
                         className="text-stone hover:text-ink"
                       >
@@ -91,14 +94,14 @@ export default function CartPage() {
                       <div className="flex items-center gap-2 rounded-full border border-ink/15 px-2 py-1">
                         <button
                           aria-label="Diminuer la quantité"
-                          onClick={() => updateQuantity(line.productId, line.quantity - 1)}
+                          onClick={() => updateQuantity(line.productId, line.quantity - 1, line.variantLabel)}
                         >
                           <Icon.minus className="h-3.5 w-3.5" />
                         </button>
                         <span className="w-4 text-center text-sm">{line.quantity}</span>
                         <button
                           aria-label="Augmenter la quantité"
-                          onClick={() => updateQuantity(line.productId, line.quantity + 1)}
+                          onClick={() => updateQuantity(line.productId, line.quantity + 1, line.variantLabel)}
                         >
                           <Icon.plus className="h-3.5 w-3.5" />
                         </button>

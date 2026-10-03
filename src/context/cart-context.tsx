@@ -8,9 +8,9 @@ interface CartContextValue {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  addItem: (product: Product, quantity?: number) => void;
-  removeItem: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  addItem: (product: Product, quantity?: number, variantLabel?: string) => void;
+  removeItem: (productId: string, variantLabel?: string) => void;
+  updateQuantity: (productId: string, quantity: number, variantLabel?: string) => void;
   clear: () => void;
   totalItems: number;
 }
@@ -43,17 +43,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [lines, hydrated]);
 
-  const addItem = (product: Product, quantity = 1) => {
+  const addItem = (product: Product, quantity = 1, variantLabel?: string) => {
     // Le stock, quand il est suivi, plafonne la quantite ajoutable : on ne
     // reserve/decremente rien ici (simple plafond côté panier), la
     // disponibilite reelle est revalidee cote serveur avant paiement.
     const cap = product.stock && product.stock.source !== "none" ? product.stock.quantity : Infinity;
+    // Deux variantes du meme produit restent deux lignes distinctes.
+    const matchesLine = (l: CartLine) => l.productId === product.id && l.variantLabel === variantLabel;
 
     setLines((prev) => {
-      const existing = prev.find((l) => l.productId === product.id);
+      const existing = prev.find(matchesLine);
       if (existing) {
         const nextQuantity = Math.min(cap, existing.quantity + quantity);
-        return prev.map((l) => (l.productId === product.id ? { ...l, quantity: nextQuantity } : l));
+        return prev.map((l) => (matchesLine(l) ? { ...l, quantity: nextQuantity } : l));
       }
       return [
         ...prev,
@@ -66,22 +68,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           priceEUR: product.priceEUR,
           quantity: Math.min(cap, quantity),
           packLabel: product.packLabel,
+          variantLabel,
         },
       ];
     });
     setIsOpen(true);
   };
 
-  const removeItem = (productId: string) => {
-    setLines((prev) => prev.filter((l) => l.productId !== productId));
+  const removeItem = (productId: string, variantLabel?: string) => {
+    setLines((prev) =>
+      prev.filter((l) => !(l.productId === productId && l.variantLabel === variantLabel))
+    );
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (productId: string, quantity: number, variantLabel?: string) => {
     if (quantity <= 0) {
-      removeItem(productId);
+      removeItem(productId, variantLabel);
       return;
     }
-    setLines((prev) => prev.map((l) => (l.productId === productId ? { ...l, quantity } : l)));
+    setLines((prev) =>
+      prev.map((l) =>
+        l.productId === productId && l.variantLabel === variantLabel ? { ...l, quantity } : l
+      )
+    );
   };
 
   const clear = () => setLines([]);

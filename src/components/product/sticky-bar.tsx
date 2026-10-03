@@ -17,6 +17,7 @@ export function StickyBar({ product }: { product: Product }) {
   const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price;
   const isOutOfStock =
     !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
+  const hasVariants = !!product.variants && product.variants.length > 0;
 
   useEffect(() => {
     const target = document.getElementById("acheter");
@@ -56,11 +57,19 @@ export function StickyBar({ product }: { product: Product }) {
         </div>
         <button
           type="button"
-          onClick={() => addItem(product, 1)}
+          onClick={() => {
+            // Avec des variantes, on renvoie vers le bloc d'offre pour que
+            // le choix du motif reste explicite, plutot que d'en supposer un.
+            if (hasVariants) {
+              document.getElementById("acheter")?.scrollIntoView({ behavior: "smooth" });
+              return;
+            }
+            addItem(product, 1);
+          }}
           disabled={isOutOfStock}
           className="btn-primary ml-auto flex-1 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isOutOfStock ? "Indisponible" : "Ajouter au panier"}
+          {isOutOfStock ? "Indisponible" : hasVariants ? "Choisir un motif" : "Ajouter au panier"}
         </button>
       </div>
     </div>

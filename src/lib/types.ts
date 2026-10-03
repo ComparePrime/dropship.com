@@ -12,6 +12,17 @@ export interface ProductBenefit {
   description: string;
 }
 
+/**
+ * Variante réelle d'un produit (coloris, motif...). Toujours au même prix et
+ * sans gestion de stock séparée pour l'instant : un produit avec variantes
+ * garde un seul `stock` global tant qu'aucun suivi par variante n'existe.
+ */
+export interface ProductVariant {
+  id: string;
+  label: string;
+  image: ProductImage;
+}
+
 export interface UseCase {
   title: string;
   description: string;
@@ -186,6 +197,8 @@ export interface Product {
   layout: ProductSectionKey[];
   /** Absent tant qu'aucune source de stock fiable n'existe pour ce produit. */
   stock?: StockInfo;
+  /** Absent si le produit n'a pas de variantes réelles (coloris/motifs). */
+  variants?: ProductVariant[];
 }
 
 /**
@@ -219,6 +232,8 @@ export interface CartLine {
   priceEUR: number;
   quantity: number;
   packLabel?: string;
+  /** Libellé de la variante choisie (ex: motif), si le produit en propose. */
+  variantLabel?: string;
 }
 
 export type SceneStatus = "draft" | "published";

@@ -590,6 +590,371 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "coussin-bras-allaitement",
+    slug: "coussin-bras-allaitement-biberon",
+    status: "draft",
+    // Categorie "bebe" : verification requise avant publication/campagne.
+    // Page fournisseur AliExpress inaccessible depuis cet environnement
+    // (domaine bloque par la politique reseau) : composition exacte du
+    // tissu/rembourrage et instructions de lavage non confirmees, donc
+    // absentes de la fiche (voir FAQ) plutot que devinees.
+    compliance: {
+      categories: ["baby"],
+      verified: false,
+      notes:
+        "A obtenir du fournisseur avant publication/campagne : composition exacte du tissu et du rembourrage, conformite REACH/substances reglementees, instructions de lavage et d'entretien. La page produit AliExpress etant bloquee par la politique reseau de cet environnement, ces informations n'ont pas pu etre extraites et ne sont donc pas affichees.",
+    },
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 2,
+      priceScore: 4,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique (page source inaccessible) : costPriceUSD et la marge estimee sont a renseigner des que la facture/fiche fournisseur est disponible. 8 motifs reels disponibles (voir variants) : bon potentiel de reassort sans nouveau produit.",
+    },
+    name: "Le Coussin Tendresse",
+    brandLine: "Maison Loravie",
+    badge: "NOUVEAUTÉ",
+    headline: "Un appui tout doux pour le bras, tétée après tétée.",
+    subtitle:
+      "Un coussin de bras pensé pour soutenir bébé pendant l'allaitement ou le biberon, et soulager l'épaule et le bras qui fatiguent vite.",
+    heroBullets: [
+      "Un soutien moelleux qui soulage le bras pendant la tétée",
+      "Se glisse facilement sous bébé, dans le canapé comme au lit",
+      "Format compact, facile à emporter d'une pièce à l'autre",
+      "Disponible en 8 motifs",
+    ],
+    h1: "Coussin de bras pour allaitement et biberon",
+    shortDescription:
+      "Un coussin de bras moelleux qui soutient bébé et soulage le bras pendant l'allaitement ou le biberon, disponible en 8 motifs.",
+    description: [
+      "Le Coussin Tendresse est un petit coussin de bras pensé pour les longues séances d'allaitement ou de biberon, lorsque le bras et l'épaule commencent à fatiguer bien avant que bébé ait fini.",
+      "Glissé sous le bras, il surélève et soutient doucement la tête et le corps de bébé, pour une position plus stable et plus confortable, aussi bien assise dans le canapé qu'installée au lit.",
+      "Son format compact et léger permet de le transporter facilement d'une pièce à l'autre, et ses 8 motifs permettent de choisir celui qui correspond le mieux à votre intérieur ou à vos goûts.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "Un bras qui ne fatigue plus avant la fin de la tétée.",
+      paragraphs: [
+        "Les premières semaines avec bébé sont faites de petits moments répétés, tétée après tétée, biberon après biberon — et d'un bras qui finit toujours par fatiguer avant que bébé ait terminé.",
+        "Le Coussin Tendresse a été pensé pour ce moment précis : un appui doux et stable qui soulage le bras et l'épaule, pour profiter pleinement de ces instants avec bébé plutôt que de guetter la fin.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que ce sera vraiment confortable, pour bébé comme pour moi ?",
+        response:
+          "Le coussin est pensé pour épouser la forme du bras et soutenir doucement bébé, afin de soulager la tenue prolongée sans la rendre instable.",
+      },
+      {
+        doubt: "Est-ce que c'est facile à utiliser dès la première fois ?",
+        response:
+          "Il suffit de le glisser sous le bras qui porte bébé : aucun réglage ni accessoire complexe n'est nécessaire.",
+      },
+      {
+        doubt: "Est-ce adapté à un usage quotidien, plusieurs fois par jour ?",
+        response:
+          "Son format compact et léger est pensé pour suivre le rythme des tétées et des biberons, dans toutes les pièces de la maison.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le coussin ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un coussin de bras pensé pour l'allaitement et le biberon",
+      "8 motifs au choix",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Convaincue par ce petit soutien du quotidien ?",
+      "Prête à soulager votre bras dès la prochaine tétée ?",
+    ],
+    // Cout fournisseur non communique (page source bloquee) : a corriger des que la facture est disponible.
+    costPriceUSD: 0,
+    priceCHF: 19.9,
+    priceEUR: 19.9,
+    compareAtPriceCHF: 29.9,
+    compareAtPriceEUR: 29.9,
+    images: [
+      {
+        src: "/images/products/coussin-allaitement/main_images/main-image-1.jpeg",
+        alt: "Coussin de bras motif savane soutenant un bébé pendant le biberon",
+        caption: "Le Coussin Tendresse pendant le biberon",
+      },
+      {
+        src: "/images/products/coussin-allaitement/main_images/main-image-6.jpeg",
+        alt: "Coussin de bras motif chevron gris utilisé pendant l'allaitement",
+        caption: "Un appui doux pendant l'allaitement",
+      },
+      {
+        src: "/images/products/coussin-allaitement/main_images/main-image-7.jpeg",
+        alt: "Dimensions du coussin de bras : 23 cm par 25 cm",
+        caption: "Dimensions : environ 23 × 25 cm",
+      },
+      {
+        src: "/images/products/coussin-allaitement/main_images/main-image-3.jpeg",
+        alt: "Les 8 motifs disponibles du Coussin Tendresse",
+        caption: "8 motifs disponibles",
+      },
+    ],
+    variants: [
+      {
+        id: "chevron-gris",
+        label: "Chevron gris",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-14.jpeg",
+          alt: "Coussin de bras motif chevron gris et blanc",
+        },
+      },
+      {
+        id: "savane",
+        label: "Savane",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-9.jpeg",
+          alt: "Coussin de bras motif savane avec girafe, lion et éléphant",
+        },
+      },
+      {
+        id: "etoiles-roses",
+        label: "Étoiles roses",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-8.jpeg",
+          alt: "Coussin de bras rose à motif étoiles blanches",
+        },
+      },
+      {
+        id: "poissons",
+        label: "Poissons",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-10.jpeg",
+          alt: "Coussin de bras gris foncé à motif poissons",
+        },
+      },
+      {
+        id: "couronnes",
+        label: "Couronnes",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-11.jpeg",
+          alt: "Coussin de bras gris à motif couronnes",
+        },
+      },
+      {
+        id: "etoiles-mauve",
+        label: "Étoiles mauve",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-13.jpeg",
+          alt: "Coussin de bras mauve à motif étoiles",
+        },
+      },
+      {
+        id: "arc-en-ciel",
+        label: "Arc-en-ciel",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-12.jpeg",
+          alt: "Coussin de bras blanc à motif arc-en-ciel multicolore",
+        },
+      },
+      {
+        id: "foret-nuit",
+        label: "Forêt nuit",
+        image: {
+          src: "/images/products/coussin-allaitement/main_images/main-image-15.jpeg",
+          alt: "Coussin de bras bleu nuit à motif floral et lapin",
+        },
+      },
+    ],
+    benefits: [
+      {
+        icon: "baby",
+        title: "Un appui qui soulage le bras",
+        description:
+          "Le coussin soutient doucement bébé pendant la tétée ou le biberon, pour un bras et une épaule moins sollicités.",
+      },
+      {
+        icon: "shield-check",
+        title: "Pensé pour le confort de bébé",
+        description:
+          "Une forme moelleuse et stable, pensée pour accompagner bébé en douceur pendant le repas.",
+      },
+      {
+        icon: "home",
+        title: "Partout dans la maison",
+        description:
+          "Compact et léger, il se glisse facilement du canapé à la chambre, selon l'endroit choisi pour le repas.",
+      },
+      {
+        icon: "gift",
+        title: "Une attention idéale pour une naissance",
+        description:
+          "Un accessoire pratique et discret, parfait pour accompagner un cadeau de naissance.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Salon",
+        description: "Installée dans le canapé, pour un appui stable pendant la tétée ou le biberon.",
+      },
+      {
+        title: "Chambre",
+        description: "Pour les tétées du soir ou de nuit, installée confortablement au lit.",
+      },
+      {
+        title: "Allaitement",
+        description: "Un soutien doux sous le bras, pour soulager l'épaule pendant les longues séances.",
+      },
+      {
+        title: "Biberon",
+        description: "Une position plus stable pour bébé, et un bras moins sollicité pour le parent.",
+      },
+      {
+        title: "Chez les grands-parents",
+        description: "Facile à transporter, pour retrouver le même confort en dehors de la maison.",
+      },
+      {
+        title: "Cadeau de naissance",
+        description: "Un accessoire pratique et original à offrir, disponible en plusieurs motifs.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions du coussin ?",
+        answer: "Le coussin mesure environ 23 cm de haut sur 25 cm de large.",
+      },
+      {
+        question: "Quels motifs sont disponibles ?",
+        answer:
+          "Le coussin est disponible en 8 motifs : chevron gris, savane, étoiles roses, poissons, couronnes, étoiles mauve, arc-en-ciel et forêt nuit.",
+      },
+      {
+        question: "En quelle matière est la housse ?",
+        answer:
+          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "La housse est-elle lavable ?",
+        answer:
+          "Instructions d'entretien à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "Convient-il à l'allaitement et au biberon ?",
+        answer:
+          "Oui, il est pensé pour soutenir bébé dans les deux cas, en soulageant le bras et l'épaule pendant le repas.",
+      },
+      {
+        question: "Est-ce facile à transporter ?",
+        answer: "Oui, son format compact et léger permet de le déplacer facilement d'une pièce à l'autre.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer:
+          "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Coussin de bras pour allaitement et biberon | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Coussin Tendresse, un coussin de bras moelleux pour soulager le bras pendant l'allaitement ou le biberon. 8 motifs au choix, livraison offerte.",
+      keywords: [
+        "coussin allaitement",
+        "coussin bras bébé",
+        "coussin biberon",
+        "accessoire allaitement",
+        "coussin soutien bras bébé",
+        "cadeau naissance",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre de lancement",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // IMPORTANT : le fichier fourni par l'operateur est explicitement un jeu
+    // de "145 avis fictifs" pour tester la mise en page (voir son onglet
+    // "IMPORTANT"). Ce ne sont donc PAS des avis reels : ils restent
+    // `demo: true` et n'alimentent ni ratingAverage ni ratingCount, exactement
+    // comme les avis demo de La Petite Lanterne Feline.
+    reviews: [
+      {
+        id: "demo-1",
+        author: "Camille X.",
+        rating: 4,
+        date: "2026-04-27",
+        title: "Satisfaite dans l'ensemble",
+        body: "Bonne taille pour mon usage et facile à ranger après la tétée.",
+        verified: false,
+        demo: true,
+      },
+      {
+        id: "demo-2",
+        author: "Emma V.",
+        rating: 5,
+        date: "2026-07-30",
+        title: "Très pratique au quotidien",
+        body: "Simple à utiliser et peu encombrant. C'est ce que je recherchais.",
+        verified: false,
+        demo: true,
+      },
+      {
+        id: "demo-3",
+        author: "Camille C.",
+        rating: 5,
+        date: "2026-07-08",
+        title: "Un vrai petit soutien",
+        body: "Petit accessoire pratique, facile à prendre avec moi d'une pièce à l'autre.",
+        verified: false,
+        demo: true,
+      },
+    ],
+    ratingAverage: 0,
+    ratingCount: 0,
+    // Pas de donnee de stock fiable disponible : `stock` reste absent.
+    collections: ["bebe-famille", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "gift",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */

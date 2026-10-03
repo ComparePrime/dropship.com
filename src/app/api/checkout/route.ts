@@ -17,13 +17,19 @@ export async function POST(req: NextRequest) {
 
     // Les prix sont revalidés côté serveur à partir du catalogue produit,
     // jamais à partir de ce que le client envoie. Idem pour la disponibilité :
-    // quand un stock est suivi, on refuse toute commande qui le dépasse.
+    // quand un stock est suivi, on refuse toute commande qui le depasse (le
+    // stock reste suivi par produit, pas par variante : on additionne donc
+    // les quantites de toutes les lignes d'un meme produit avant de verifier).
+    const quantityBySlug = new Map<string, number>();
     for (const line of lines) {
-      const product = getProductBySlug(line.slug);
+      quantityBySlug.set(line.slug, (quantityBySlug.get(line.slug) ?? 0) + line.quantity);
+    }
+    for (const [slug, totalQuantity] of quantityBySlug) {
+      const product = getProductBySlug(slug);
       if (!product) {
-        return NextResponse.json({ error: `Produit inconnu: ${line.slug}` }, { status: 400 });
+        return NextResponse.json({ error: `Produit inconnu: ${slug}` }, { status: 400 });
       }
-      if (product.stock && product.stock.source !== "none" && line.quantity > product.stock.quantity) {
+      if (product.stock && product.stock.source !== "none" && totalQuantity > product.stock.quantity) {
         return NextResponse.json(
           {
             error:
@@ -48,7 +54,7 @@ export async function POST(req: NextRequest) {
         price_data: {
           currency: currency.toLowerCase(),
           product_data: {
-            name: product.name,
+            name: line.variantLabel ? `${product.name} — ${line.variantLabel}` : product.name,
             images: product.images[0]
               ? [`${siteConfig.domain}${product.images[0].src}`]
               : undefined,

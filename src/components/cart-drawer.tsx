@@ -70,7 +70,7 @@ export function CartDrawer() {
             ) : (
               <ul className="flex flex-col gap-5">
                 {lines.map((line) => (
-                  <li key={line.productId} className="flex gap-4">
+                  <li key={`${line.productId}-${line.variantLabel ?? ""}`} className="flex gap-4">
                     <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl2 bg-sand">
                       {line.image && (
                         <Image src={line.image} alt={line.name} fill className="object-cover" />
@@ -83,9 +83,12 @@ export function CartDrawer() {
                           {line.packLabel && (
                             <p className="text-xs text-sage">{line.packLabel}</p>
                           )}
+                          {line.variantLabel && (
+                            <p className="text-xs text-stone">{line.variantLabel}</p>
+                          )}
                         </div>
                         <button
-                          onClick={() => removeItem(line.productId)}
+                          onClick={() => removeItem(line.productId, line.variantLabel)}
                           aria-label="Retirer l'article"
                           className="text-stone hover:text-ink"
                         >
@@ -96,14 +99,14 @@ export function CartDrawer() {
                         <div className="flex items-center gap-2 rounded-full border border-ink/15 px-2 py-1">
                           <button
                             aria-label="Diminuer la quantité"
-                            onClick={() => updateQuantity(line.productId, line.quantity - 1)}
+                            onClick={() => updateQuantity(line.productId, line.quantity - 1, line.variantLabel)}
                           >
                             <Icon.minus className="h-3.5 w-3.5" />
                           </button>
                           <span className="w-4 text-center text-sm">{line.quantity}</span>
                           <button
                             aria-label="Augmenter la quantité"
-                            onClick={() => updateQuantity(line.productId, line.quantity + 1)}
+                            onClick={() => updateQuantity(line.productId, line.quantity + 1, line.variantLabel)}
                           >
                             <Icon.plus className="h-3.5 w-3.5" />
                           </button>
