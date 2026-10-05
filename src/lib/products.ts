@@ -2407,6 +2407,228 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "pendule-newton",
+    slug: "pendule-newton-metal-bureau",
+    status: "published",
+    // Objet decoratif simple en metal, sans electronique ni batterie.
+    // Positionne comme objet de bureau adulte (anti-stress), pas comme
+    // jouet pour enfant : pas de categorie de conformite "baby" appliquee.
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 4,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner des que disponibles. Objet classique et reconnaissable (pendule de Newton), faible risque de retour.",
+    },
+    name: "Le Pendule d'Équilibre",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE DU MOMENT",
+    headline: "Un mouvement hypnotique, posé sur un bureau.",
+    subtitle:
+      "Un pendule de Newton en métal, avec ses billes d'équilibre classiques, pensé comme objet décoratif et petite pause anti-stress sur un bureau.",
+    heroBullets: [
+      "Structure en métal chromé, billes d'équilibre classiques",
+      "Un mouvement hypnotique qui invite à la pause",
+      "Objet décoratif scientifique, facile à poser n'importe où",
+      "Une idée cadeau originale, pour un bureau ou un salon",
+    ],
+    h1: "Pendule de Newton en métal pour bureau",
+    shortDescription:
+      "Un pendule de Newton en métal avec billes d'équilibre, objet décoratif et anti-stress pour le bureau ou la maison.",
+    description: [
+      "Le Pendule d'Équilibre reprend un classique : une structure en métal chromé et une rangée de billes suspendues, qui se transmettent leur mouvement les unes aux autres selon les lois de la physique.",
+      "Posé sur un bureau ou une étagère, il fonctionne autant comme objet décoratif que comme petite pause : quelques secondes à regarder les billes osciller suffisent parfois à changer le rythme d'une journée chargée.",
+      "Simple à utiliser, il ne nécessite ni pile ni branchement : il suffit d'écarter une bille pour lancer le mouvement.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "Un classique qui n'a jamais vraiment quitté les bureaux.",
+      paragraphs: [
+        "Certains objets traversent les modes sans jamais disparaître vraiment des bureaux : le pendule de Newton en fait partie, entre curiosité scientifique et objet décoratif.",
+        "Le Pendule d'Équilibre a été pensé pour continuer cette tradition : un objet simple, mécanique, sans écran ni notification, pour une pause de quelques secondes entre deux tâches.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que le mouvement dure longtemps ?",
+        response:
+          "Comme tout pendule de Newton, le mouvement ralentit naturellement avec le temps ; il suffit d'écarter une bille pour le relancer à tout moment.",
+      },
+      {
+        doubt: "Est-ce fragile ?",
+        response:
+          "Sa structure est en métal chromé, pensée pour rester stable sur un bureau. Comme pour tout objet avec des pièces suspendues, on évite de le déplacer brusquement une fois en mouvement.",
+      },
+      {
+        doubt: "Est-ce adapté comme cadeau ?",
+        response:
+          "C'est un objet classique et reconnaissable, qui fonctionne aussi bien pour un bureau professionnel qu'un salon, pour elle comme pour lui.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un pendule de Newton classique en métal chromé",
+      "Aucune pile, aucun branchement nécessaire",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Convaincue par cette pause mécanique ?",
+      "Prêt à l'installer sur votre bureau ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 9.99,
+    priceEUR: 9.99,
+    compareAtPriceCHF: 19.99,
+    compareAtPriceEUR: 19.99,
+    images: [
+      {
+        src: "/images/products/pendule-newton/fleurs.jpg",
+        alt: "Pendule de Newton en métal chromé posé près d'un bouquet de fleurs",
+        caption: "Sur un bureau, près d'un bouquet",
+      },
+      {
+        src: "/images/products/pendule-newton/radio-vintage.jpg",
+        alt: "Pendule de Newton en métal chromé à côté d'une radio vintage, fond sombre",
+        caption: "Dans une ambiance vintage",
+      },
+      {
+        src: "/images/products/pendule-newton/table-bois.jpg",
+        alt: "Pendule de Newton en métal chromé en mouvement sur une table en bois",
+        caption: "En mouvement",
+      },
+    ],
+    benefits: [
+      {
+        icon: "star",
+        title: "Un classique intemporel",
+        description: "Une structure en métal chromé reconnaissable entre toutes.",
+      },
+      {
+        icon: "check",
+        title: "Sans pile ni branchement",
+        description: "Un simple geste suffit à lancer le mouvement, à tout moment.",
+      },
+      {
+        icon: "home",
+        title: "Objet décoratif de bureau",
+        description: "Une pièce qui a sa place sur un bureau, une étagère ou un salon.",
+      },
+      {
+        icon: "gift",
+        title: "Idée cadeau anti-stress",
+        description: "Un objet original à offrir, pour une pause de quelques secondes dans la journée.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Bureau professionnel",
+        description: "Une pause mécanique entre deux réunions ou deux tâches.",
+      },
+      {
+        title: "Bureau à domicile",
+        description: "Un objet décoratif qui invite à lever les yeux de l'écran.",
+      },
+      {
+        title: "Salon",
+        description: "Une pièce décorative sur une étagère ou une console.",
+      },
+      {
+        title: "Idée cadeau",
+        description: "Un cadeau original et reconnaissable, pour elle ou pour lui.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions du pendule ?",
+        answer: "Il mesure environ 9 cm de hauteur, 9 cm de largeur et 7,5 cm de profondeur.",
+      },
+      {
+        question: "Faut-il des piles pour le faire fonctionner ?",
+        answer: "Non, le pendule fonctionne de façon entièrement mécanique : aucune pile n'est nécessaire.",
+      },
+      {
+        question: "En quelle matière est-il fabriqué ?",
+        answer: "Sa structure est en métal chromé, avec des billes métalliques suspendues par des fils.",
+      },
+      {
+        question: "Comment l'utiliser ?",
+        answer: "Il suffit d'écarter une bille à l'extrémité et de la relâcher pour lancer le mouvement.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Pendule de Newton en métal pour bureau | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Pendule d'Équilibre, un pendule de Newton en métal chromé, objet décoratif et anti-stress pour le bureau. Livraison offerte, retours gratuits 30 jours.",
+      keywords: [
+        "pendule de newton",
+        "pendule équilibre bureau",
+        "objet décoratif bureau",
+        "cadeau anti-stress",
+        "jouet de bureau",
+        "décoration scientifique",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre du moment",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
