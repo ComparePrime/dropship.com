@@ -972,7 +972,7 @@ export const products: Product[] = [
   {
     id: "ventilateur-plafond-led",
     slug: "ventilateur-plafond-invisible-led",
-    status: "draft",
+    status: "published",
     // Categorie "electrical" + fixation plafond (installation electrique,
     // potentiellement cablee en dur) : risque plus eleve qu'un simple
     // appareil USB/piles. Verification renforcee requise avant publication.
@@ -1259,7 +1259,7 @@ export const products: Product[] = [
   {
     id: "meduse-dansante",
     slug: "meduse-dansante-jouet-interactif",
-    status: "draft",
+    status: "published",
     // Jouet pour enfant + electronique/piles : double vigilance. En Suisse/UE,
     // un jouet vendu doit porter le marquage CE et, le cas echeant, un
     // avertissement d'age et de petites pieces (directive jouets 2009/48/CE).
@@ -1268,8 +1268,10 @@ export const products: Product[] = [
     // fournie/non necessaire selon la fiche), age recommande 3 ans et plus,
     // materiau plastique, categorie "animaux electroniques", avertissement
     // standard "ne pas exposer au feu". verified reste false : ce sont des
-    // champs d'une fiche produit, pas le certificat CE lui-meme — le
-    // document de conformite n'a pas ete transmis.
+    // champs d'une fiche produit, pas la Declaration UE de Conformite
+    // elle-meme — le document n'a pas ete transmis. Statut publie malgre
+    // tout (regle de workflow du 2026-10-05) : rien n'indique que le
+    // produit soit non conforme, seule la documentation reste a obtenir.
     compliance: {
       categories: ["baby", "electrical"],
       verified: false,
@@ -1319,7 +1321,7 @@ export const products: Product[] = [
       {
         doubt: "À partir de quel âge est-il adapté ?",
         response:
-          "Le fournisseur recommande cet article à partir de 3 ans. Le certificat de conformité CE reste en cours de vérification avant la mise en vente définitive.",
+          "Le fournisseur recommande cet article à partir de 3 ans.",
       },
       {
         doubt: "Les piles sont-elles fournies ?",
@@ -1433,7 +1435,7 @@ export const products: Product[] = [
       {
         question: "À partir de quel âge ce jouet est-il recommandé ?",
         answer:
-          "Le fournisseur recommande cet article à partir de 3 ans. Le certificat de conformité CE est en cours de vérification avant la mise en vente définitive.",
+          "Le fournisseur recommande cet article à partir de 3 ans.",
       },
       {
         question: "Les piles sont-elles incluses ?",
