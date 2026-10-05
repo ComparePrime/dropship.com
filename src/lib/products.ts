@@ -1517,6 +1517,231 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "bougeoir-reflet",
+    slug: "bougeoir-ceramique-argente-reflet",
+    status: "published",
+    // Objet decoratif simple (ceramique/finition chromee, pas d'electronique,
+    // pas de categorie sensible) : pas de ComplianceCheck necessaire, comme
+    // pour la Petite Lanterne Feline.
+    evaluation: {
+      demandScore: 3,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 4,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner des que disponibles. Objet simple, faible risque de retour.",
+    },
+    name: "Le Bougeoir Reflet",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE DU MOMENT",
+    headline: "Un reflet chromé qui change tout sur une table.",
+    subtitle:
+      "Un bougeoir en céramique à finition argentée miroir, au design rond et minimaliste, pensé pour une table basse, un bureau ou une table de fêtes.",
+    heroBullets: [
+      "Finition chromée miroir qui capte la lumière",
+      "Forme ronde et épurée, esprit scandinave",
+      "S'adapte à une bougie fine ou à une bougie chauffe-plat",
+      "Vendu à l'unité",
+    ],
+    h1: "Bougeoir en céramique finition argentée",
+    shortDescription:
+      "Un bougeoir rond en céramique à finition argentée miroir, au design minimaliste. Vendu à l'unité.",
+    description: [
+      "Le Bougeoir Reflet est un petit objet décoratif pensé pour les intérieurs qui aiment les détails soignés : une forme ronde et douce, une finition chromée qui reflète la lumière ambiante plutôt que de l'absorber.",
+      "Son ouverture centrale accueille aussi bien une bougie fine qu'une bougie chauffe-plat, pour s'adapter à l'ambiance recherchée : une haute flamme élégante pour un dîner, une lumière douce et discrète pour une soirée tranquille.",
+      "Posé seul sur un bureau ou associé à d'autres pièces de la collection pour une mise en scène de table, il apporte une touche de caractère sans surcharger l'espace.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "Un seul objet suffit parfois à changer une table.",
+      paragraphs: [
+        "Pas besoin de tout changer dans une pièce pour lui donner du caractère : parfois, un seul objet bien choisi suffit à transformer un coin de table ou un bureau.",
+        "Le Bougeoir Reflet a été pensé pour ça : une forme simple, une finition qui attrape la lumière, et une flamme qui fait le reste.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que la finition va vraiment ressembler aux photos ?",
+        response:
+          "Sa finition chromée miroir est la caractéristique centrale de l'objet : un fini brillant et réfléchissant, pensé pour capter la lumière environnante.",
+      },
+      {
+        doubt: "Quel type de bougie dois-je utiliser ?",
+        response:
+          "L'ouverture centrale accueille aussi bien une bougie fine (conique) qu'une bougie chauffe-plat, selon l'ambiance recherchée.",
+      },
+      {
+        doubt: "Est-ce que je reçois un ou plusieurs bougeoirs ?",
+        response:
+          "Ce produit est vendu à l'unité. Les photos de mise en scène peuvent présenter plusieurs tailles ensemble pour illustrer l'esthétique.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un bougeoir en céramique à finition argentée miroir",
+      "Compatible bougie fine ou bougie chauffe-plat",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Convaincue par ce petit reflet de lumière ?",
+      "Prête à lui trouver sa place chez vous ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 12.99,
+    priceEUR: 12.99,
+    compareAtPriceCHF: 19.99,
+    compareAtPriceEUR: 19.99,
+    images: [
+      {
+        src: "/images/products/bougeoir-reflet/duo-livres.jpg",
+        alt: "Bougeoir en céramique finition argentée posé sur une pile de livres, avec une bougie fine allumée",
+        caption: "Posé sur une pile de livres",
+      },
+      {
+        src: "/images/products/bougeoir-reflet/detail-marbre.jpg",
+        alt: "Bougeoir en céramique finition argentée avec une bougie chauffe-plat, sur un plan en marbre",
+        caption: "Avec une bougie chauffe-plat",
+      },
+    ],
+    benefits: [
+      {
+        icon: "star",
+        title: "Finition chromée miroir",
+        description: "Une surface brillante et réfléchissante qui capte la lumière ambiante.",
+      },
+      {
+        icon: "flame",
+        title: "S'adapte à votre bougie",
+        description: "Une ouverture centrale pensée pour une bougie fine ou une bougie chauffe-plat.",
+      },
+      {
+        icon: "home",
+        title: "Pensé pour la décoration",
+        description: "Un format compact, à poser sur un bureau, une table basse ou une table de fêtes.",
+      },
+      {
+        icon: "gift",
+        title: "Une idée cadeau soignée",
+        description: "Un objet simple et élégant, facile à offrir pour toutes les occasions.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Bureau",
+        description: "Une touche de lumière discrète pendant les soirées de travail.",
+      },
+      {
+        title: "Table basse",
+        description: "Associé à quelques livres ou objets décoratifs, pour une composition soignée.",
+      },
+      {
+        title: "Table de fêtes",
+        description: "Une ambiance chaleureuse pour un dîner de Noël ou une occasion spéciale.",
+      },
+      {
+        title: "Étagère",
+        description: "Un petit point de lumière au milieu d'autres objets décoratifs.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions du bougeoir ?",
+        answer:
+          "Le bougeoir mesure environ 7,5 cm de diamètre pour 4,1 cm de hauteur, avec une ouverture centrale d'environ 2,2 cm.",
+      },
+      {
+        question: "En quelle matière est ce bougeoir ?",
+        answer: "Il est en céramique, avec une finition argentée à l'aspect chromé et miroir.",
+      },
+      {
+        question: "Quel type de bougie utiliser ?",
+        answer:
+          "L'ouverture centrale accueille une bougie fine (conique) ou une bougie chauffe-plat, selon l'ambiance recherchée.",
+      },
+      {
+        question: "Est-il vendu à l'unité ou en lot ?",
+        answer:
+          "Ce bougeoir est vendu à l'unité. Les visuels présentant deux tailles ensemble illustrent une mise en scène possible.",
+      },
+      {
+        question: "Comment l'entretenir ?",
+        answer: "Un simple chiffon doux suffit pour préserver l'éclat de la finition.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Bougeoir en céramique finition argentée | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Bougeoir Reflet, un bougeoir rond en céramique à finition argentée miroir, au design minimaliste. Livraison offerte, retours gratuits 30 jours.",
+      keywords: [
+        "bougeoir céramique",
+        "bougeoir argenté",
+        "bougeoir chromé",
+        "bougeoir rond minimaliste",
+        "décoration de table bougeoir",
+        "bougeoir style scandinave",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre du moment",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
