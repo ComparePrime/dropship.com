@@ -1073,8 +1073,41 @@ export const products: Product[] = [
     images: [
       {
         src: "/images/products/ventilateur-plafond-led/salle-a-manger.jpg",
-        alt: "Ventilateur de plafond invisible avec éclairage LED allumé au-dessus d'une salle à manger",
-        caption: "Au-dessus de la table à manger",
+        alt: "Ventilateur de plafond invisible blanc avec éclairage LED allumé au-dessus d'une salle à manger",
+        caption: "Finition blanche, au-dessus de la table à manger",
+      },
+      {
+        src: "/images/products/ventilateur-plafond-led/main-image-3.jpeg",
+        alt: "Ventilateur de plafond invisible blanc avec éclairage LED, vue rapprochée en salle à manger",
+        caption: "Vue rapprochée, finition blanche",
+      },
+      {
+        src: "/images/products/ventilateur-plafond-led/main-image-4.jpeg",
+        alt: "Ventilateur de plafond invisible blanc avec éclairage LED dans un salon",
+        caption: "Finition blanche, dans un salon",
+      },
+      {
+        src: "/images/products/ventilateur-plafond-led/main-image-5.jpeg",
+        alt: "Ventilateur de plafond invisible noir avec éclairage LED face à un meuble TV",
+        caption: "Finition noire, dans un salon",
+      },
+    ],
+    variants: [
+      {
+        id: "blanc",
+        label: "Blanc",
+        image: {
+          src: "/images/products/ventilateur-plafond-led/salle-a-manger.jpg",
+          alt: "Ventilateur de plafond finition blanche",
+        },
+      },
+      {
+        id: "noir",
+        label: "Noir",
+        image: {
+          src: "/images/products/ventilateur-plafond-led/main-image-5.jpeg",
+          alt: "Ventilateur de plafond finition noire",
+        },
       },
     ],
     benefits: [
@@ -1149,6 +1182,10 @@ export const products: Product[] = [
         question: "L'ampoule est-elle fournie ?",
         answer:
           "L'éclairage LED est intégré à l'appareil (non remplaçable séparément), selon la fiche fournisseur.",
+      },
+      {
+        question: "Quels coloris sont disponibles ?",
+        answer: "Le ventilateur est disponible en deux finitions : blanc et noir.",
       },
       {
         question: "Combien de temps faut-il pour recevoir ma commande ?",
