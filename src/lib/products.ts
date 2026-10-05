@@ -976,11 +976,17 @@ export const products: Product[] = [
     // Categorie "electrical" + fixation plafond (installation electrique,
     // potentiellement cablee en dur) : risque plus eleve qu'un simple
     // appareil USB/piles. Verification renforcee requise avant publication.
+    // Fiche technique fournisseur recue le 2026-10-05 : tension nominale
+    // 230V (compatible reseau CH/UE), certification listee "CCC" — attention,
+    // la CCC est une certification chinoise, PAS l'equivalent du marquage CE
+    // europeen. Aucun marquage CE n'est confirme a ce stade : c'est le
+    // veritable point bloquant pour une vente en Suisse/UE, pas juste une
+    // formalite.
     compliance: {
       categories: ["electrical"],
       verified: false,
       notes:
-        "A obtenir du fournisseur avant publication/campagne : attestation de conformite (CE), fiche de securite electrique, methode d'installation exacte (cable/douille existante vs installation fixe necessitant un electricien), et compatibilite avec le reseau electrique suisse (230V). Une seule photo lifestyle fournie par l'operateur : pas de fiche fournisseur ni de lien source pour cette demande, donc aucune caracteristique technique (puissance, envergure des pales, portee de la telecommande, niveau sonore en dB) n'a pu etre extraite ou verifiee — uniquement ce que decrit le texte fourni par l'operateur.",
+        "Fiche fournisseur recue : tension nominale 230V (compatible reseau CH/UE), certification CCC (certification chinoise, ne vaut pas marquage CE europeen). A obtenir avant publication/campagne : une veritable attestation de conformite CE (ou confirmation ecrite du fournisseur que le marquage CE existe egalement, document a l'appui), fiche de securite electrique, et confirmation de la methode d'installation exacte aupres du fournisseur ou d'un electricien (fixation sur platine plafond standard pour ce type de produit, cablage au reseau du logement).",
     },
     evaluation: {
       demandScore: 3,
@@ -1025,7 +1031,7 @@ export const products: Product[] = [
       {
         doubt: "Est-ce que l'installation est compliquée ?",
         response:
-          "La méthode d'installation exacte (remplacement d'un point lumineux existant ou pose fixe) reste à confirmer par notre équipe avant l'achat — voir la FAQ.",
+          "Un assemblage est nécessaire à la réception, puis une fixation au plafond sur platine de montage. Nous recommandons de faire réaliser le raccordement électrique par un professionnel.",
       },
       {
         doubt: "Est-ce que ça fait du bruit la nuit ?",
@@ -1118,12 +1124,11 @@ export const products: Product[] = [
       {
         question: "Comment s'installe ce ventilateur plafonnier ?",
         answer:
-          "Méthode d'installation à confirmer par notre équipe (remplacement d'un point lumineux existant ou pose fixe nécessitant un professionnel) avant la mise en vente définitive.",
+          "Il se fixe au plafond sur une platine de montage, comme la plupart des ventilateurs plafonniers de ce type, et se raccorde au réseau électrique du logement. Nous recommandons de faire réaliser l'installation par un électricien qualifié. Assemblage requis à la réception.",
       },
       {
         question: "Est-il compatible avec le réseau électrique suisse (230V) ?",
-        answer:
-          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+        answer: "Oui, sa tension nominale de 230V correspond au réseau électrique suisse et européen.",
       },
       {
         question: "Quel est le niveau sonore du moteur ?",
@@ -1132,11 +1137,18 @@ export const products: Product[] = [
       },
       {
         question: "La télécommande est-elle fournie ?",
-        answer: "Oui, une télécommande est incluse pour régler la vitesse de ventilation et l'éclairage.",
+        answer:
+          "Oui, une télécommande est incluse pour régler la vitesse de ventilation et l'intensité lumineuse (éclairage dimmable). Les piles de la télécommande ne sont pas fournies.",
       },
       {
         question: "Quelles sont les dimensions et l'envergure des pales ?",
-        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+        answer:
+          "Les pales mesurent environ 42 pouces (107 cm) d'envergure. L'appareil pèse environ 4 kg et intègre une source lumineuse LED (flux lumineux de 249 à 2000 lumens selon le réglage).",
+      },
+      {
+        question: "L'ampoule est-elle fournie ?",
+        answer:
+          "L'éclairage LED est intégré à l'appareil (non remplaçable séparément), selon la fiche fournisseur.",
       },
       {
         question: "Combien de temps faut-il pour recevoir ma commande ?",
@@ -1206,14 +1218,18 @@ export const products: Product[] = [
     // Jouet pour enfant + electronique/piles : double vigilance. En Suisse/UE,
     // un jouet vendu doit porter le marquage CE et, le cas echeant, un
     // avertissement d'age et de petites pieces (directive jouets 2009/48/CE).
-    // Rien de tout cela n'a ete fourni avec ce produit : categorie et age
-    // minimum restent "a confirmer" plutot que devines, et la page ne doit
-    // pas etre poussee en publicite tant que ce point n'est pas regle.
+    // Fiche technique fournisseur recue le 2026-10-05 (reference modele
+    // HX178) : CE declare par le fournisseur, "pas de batterie" (pile non
+    // fournie/non necessaire selon la fiche), age recommande 3 ans et plus,
+    // materiau plastique, categorie "animaux electroniques", avertissement
+    // standard "ne pas exposer au feu". verified reste false : ce sont des
+    // champs d'une fiche produit, pas le certificat CE lui-meme — le
+    // document de conformite n'a pas ete transmis.
     compliance: {
       categories: ["baby", "electrical"],
       verified: false,
       notes:
-        "A obtenir du fournisseur avant publication/campagne : marquage CE jouet, attestation de conformite a la directive jouets (EN71), age minimum recommande et avertissement petites pieces le cas echeant, type et fourniture des piles (incluses ou non, format). Aucune fiche fournisseur ni lien source transmis pour ce produit : seules les informations visibles sur l'emballage (texte en francais sur les photos fournies) ont ete reprises, le reste reste absent plutot que devine.",
+        "Fiche fournisseur recue : CE declare (modele HX178), 'pas de batterie' (pile non fournie/non necessaire selon la fiche), age recommande 3 ans et plus, materiau plastique. A obtenir avant publication/campagne : le document de conformite CE lui-meme (pas seulement la mention sur la fiche produit) et confirmation ecrite du fournisseur sur l'alimentation (pile ou non) pour lever toute ambiguite.",
     },
     evaluation: {
       demandScore: 4,
@@ -1258,12 +1274,12 @@ export const products: Product[] = [
       {
         doubt: "À partir de quel âge est-il adapté ?",
         response:
-          "L'âge minimum recommandé reste à confirmer par notre équipe avant la mise en vente définitive — voir la FAQ.",
+          "Le fournisseur recommande cet article à partir de 3 ans. Le certificat de conformité CE reste en cours de vérification avant la mise en vente définitive.",
       },
       {
         doubt: "Les piles sont-elles fournies ?",
         response:
-          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+          "Selon la fiche fournisseur, l'article est listé sans pile. Nous confirmons ce point avec le fournisseur avant la mise en vente définitive.",
       },
       {
         doubt: "Est-ce que ça fonctionne vraiment, la détection d'obstacles ?",
@@ -1373,12 +1389,16 @@ export const products: Product[] = [
       {
         question: "À partir de quel âge ce jouet est-il recommandé ?",
         answer:
-          "Âge minimum à confirmer par notre équipe avant la mise en vente définitive, conformément aux exigences de sécurité applicables aux jouets.",
+          "Le fournisseur recommande cet article à partir de 3 ans. Le certificat de conformité CE est en cours de vérification avant la mise en vente définitive.",
       },
       {
         question: "Les piles sont-elles incluses ?",
         answer:
-          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+          "Selon la fiche fournisseur, l'article est listé sans pile. Ce point est en cours de confirmation directe avec le fournisseur.",
+      },
+      {
+        question: "De quoi est fait ce jouet ?",
+        answer: "Il est en plastique, selon la fiche fournisseur.",
       },
       {
         question: "Quels coloris sont disponibles ?",
