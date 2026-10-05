@@ -38,9 +38,12 @@ const FEATURED_SLUGS = [
   "pendule-newton-metal-bureau",
 ];
 
+/** Produit mis en avant dans le hero : une mise en scène, pas un simple produit isolé. */
+const HERO_SLUG = "trio-vases-porcelaine-wabi-sabi";
+
 export default function HomePage() {
   const products = getPublishedProducts();
-  const featured = products[0];
+  const featured = products.find((p) => p.slug === HERO_SLUG) ?? products[0];
   const scenes = getPublishedScenes();
   const selection = FEATURED_SLUGS.map((slug) => products.find((p) => p.slug === slug)).filter(
     (p): p is NonNullable<typeof p> => !!p
