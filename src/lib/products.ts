@@ -976,17 +976,24 @@ export const products: Product[] = [
     // Categorie "electrical" + fixation plafond (installation electrique,
     // potentiellement cablee en dur) : risque plus eleve qu'un simple
     // appareil USB/piles. Verification renforcee requise avant publication.
-    // Fiche technique fournisseur recue le 2026-10-05 : tension nominale
-    // 230V (compatible reseau CH/UE), certification listee "CCC" — attention,
-    // la CCC est une certification chinoise, PAS l'equivalent du marquage CE
-    // europeen. Aucun marquage CE n'est confirme a ce stade : c'est le
-    // veritable point bloquant pour une vente en Suisse/UE, pas juste une
-    // formalite.
+    // 2026-10-05 : l'operateur a change de fournisseur pour celui-ci
+    // precisement parce que le premier (CCC uniquement) ne convenait pas.
+    // Le nouveau fournisseur declare "Certifie CE, CCC" dans sa description
+    // produit. C'est un progres reel (le premier fournisseur n'affichait
+    // meme pas CE), mais ca reste du texte de fiche produit, pas un
+    // certificat/numero document fourni : verified reste donc false tant
+    // qu'on n'a pas le document ou numero de certificat lui-meme.
+    // Alimentation 220V AC, plage 90-260V (couvre le 230V suisse/europeen).
+    // Luminosite "2000 a 82000 lumens" annoncee : 82 000 lumens est
+    // physiquement aberrant pour un plafonnier domestique (equivalent a un
+    // projecteur de stade) — tres probablement une erreur de saisie sur la
+    // fiche fournisseur. Non repris tel quel sur la page, a faire corriger
+    // aupres du fournisseur avant publication.
     compliance: {
       categories: ["electrical"],
       verified: false,
       notes:
-        "Fiche fournisseur recue : tension nominale 230V (compatible reseau CH/UE), certification CCC (certification chinoise, ne vaut pas marquage CE europeen). A obtenir avant publication/campagne : une veritable attestation de conformite CE (ou confirmation ecrite du fournisseur que le marquage CE existe egalement, document a l'appui), fiche de securite electrique, et confirmation de la methode d'installation exacte aupres du fournisseur ou d'un electricien (fixation sur platine plafond standard pour ce type de produit, cablage au reseau du logement).",
+        "Nouveau fournisseur (change le 2026-10-05) : declare 'Certifie CE, CCC' dans sa description produit, alimentation 220V AC / plage 90-260V, garantie 1 an. Notice d'utilisation (Use and Care Guide) fournie par l'operateur le 2026-10-05 : identifie un fabricant (Zhongshanshengxi Lighting Co., Ltd, Zhongshan, Chine) et surtout un REPRESENTANT UE AGREE nomme (VAT SPEED SL, Calle Antonio Salvador N99.1, 28026 Madrid, Espagne, services@vatspeed-eu.com) — c'est un vrai signal positif, une structure de mise en conformite UE existe reellement, pas juste une mention CE en texte libre. La notice installation exige explicitement un electricien qualifie/agree, coherent avec la recommandation deja affichee sur la page. Reste malgre tout a obtenir avant publication/campagne : la Declaration UE de Conformite elle-meme (document avec numero de reference et normes testees, ex. EN 60598), pas seulement la presence d'un REP UE. verified reste donc false, mais le dossier est nettement plus credible qu'au depart.",
     },
     evaluation: {
       demandScore: 3,
@@ -1004,19 +1011,19 @@ export const products: Product[] = [
     badge: "OFFRE DU MOMENT",
     headline: "Un souffle d'air frais, une lumière douce, sans l'ajouter au décor.",
     subtitle:
-      "Un ventilateur de plafond au design épuré avec éclairage LED intégré, moteur DC et télécommande, pensé pour la chambre comme pour la salle à manger.",
+      "Un ventilateur de plafond au design épuré avec éclairage LED intégré, fonctionnement silencieux et télécommande, pensé pour la chambre comme pour la salle à manger.",
     heroBullets: [
       "Pales discrètes qui se fondent dans un plafond déjà soigné",
       "Éclairage LED intégré pour une lumière d'ambiance ou principale",
-      "Moteur DC annoncé par le fournisseur comme silencieux et économe",
+      "Fonctionnement silencieux annoncé par le fournisseur",
       "Télécommande incluse pour piloter vitesse et lumière sans se lever",
     ],
     h1: "Ventilateur de plafond invisible avec éclairage LED",
     shortDescription:
-      "Un ventilateur de plafond au design épuré, avec éclairage LED intégré, moteur DC et télécommande, pour la chambre ou la salle à manger.",
+      "Un ventilateur de plafond au design épuré, avec éclairage LED intégré, fonctionnement silencieux et télécommande, pour la chambre ou la salle à manger.",
     description: [
       "Le Ventilateur Plafonnier Lumineux associe deux fonctions en un seul objet discret : un ventilateur de plafond à pales rétractables et un plafonnier LED, pensés pour s'intégrer à un intérieur déjà soigné plutôt que pour s'y imposer.",
-      "Le fournisseur annonce un moteur DC, réputé plus silencieux et plus économe qu'un moteur classique, ainsi qu'un grand volume d'air brassé. Une télécommande est fournie pour régler la vitesse de ventilation et l'intensité de l'éclairage à distance.",
+      "Le fournisseur annonce un fonctionnement silencieux ainsi qu'un grand volume d'air brassé. Une télécommande est fournie pour régler la vitesse de ventilation et l'intensité de l'éclairage à distance, sans pile à installer dans l'appareil lui-même.",
       "Son format pensé pour la chambre et la salle à manger en fait une solution double usage : un point lumineux principal le soir, un peu de fraîcheur en plus dès que la pièce en a besoin.",
     ],
     storytelling: {
@@ -1036,7 +1043,7 @@ export const products: Product[] = [
       {
         doubt: "Est-ce que ça fait du bruit la nuit ?",
         response:
-          "Le fournisseur annonce un moteur DC conçu pour être silencieux, un argument fréquent pour ce type de moteur, mais nous n'avons pas encore de mesure en décibels à communiquer.",
+          "Le fournisseur annonce un fonctionnement silencieux, mais nous n'avons pas encore de mesure en décibels à communiquer.",
       },
       {
         doubt: "Est-ce que la lumière suffit comme éclairage principal ?",
@@ -1161,12 +1168,13 @@ export const products: Product[] = [
       },
       {
         question: "Est-il compatible avec le réseau électrique suisse (230V) ?",
-        answer: "Oui, sa tension nominale de 230V correspond au réseau électrique suisse et européen.",
+        answer:
+          "Oui, l'appareil fonctionne en 220V AC avec une plage de tension de 90 à 260V, ce qui couvre le réseau électrique suisse et européen (230V).",
       },
       {
         question: "Quel est le niveau sonore du moteur ?",
         answer:
-          "Le fournisseur annonce un moteur DC pensé pour être silencieux. Nous ne disposons pas encore d'une mesure précise en décibels.",
+          "Le fournisseur annonce un fonctionnement silencieux. Nous ne disposons pas encore d'une mesure précise en décibels.",
       },
       {
         question: "La télécommande est-elle fournie ?",
@@ -1176,7 +1184,7 @@ export const products: Product[] = [
       {
         question: "Quelles sont les dimensions et l'envergure des pales ?",
         answer:
-          "Les pales mesurent environ 42 pouces (107 cm) d'envergure. L'appareil pèse environ 4 kg et intègre une source lumineuse LED (flux lumineux de 249 à 2000 lumens selon le réglage).",
+          "Dimensions exactes et envergure des pales à confirmer auprès du fournisseur actuel avant la mise en vente définitive. L'appareil intègre une source lumineuse LED dimmable à distance.",
       },
       {
         question: "L'ampoule est-elle fournie ?",
@@ -1204,7 +1212,7 @@ export const products: Product[] = [
     seo: {
       title: "Ventilateur de plafond invisible avec éclairage LED | Maison Loravie",
       metaDescription:
-        "Découvrez Le Ventilateur Plafonnier Lumineux : pales rétractables, éclairage LED intégré, moteur DC et télécommande. Pour chambre et salle à manger.",
+        "Découvrez Le Ventilateur Plafonnier Lumineux : pales rétractables, éclairage LED intégré, fonctionnement silencieux et télécommande. Pour chambre et salle à manger.",
       keywords: [
         "ventilateur de plafond led",
         "ventilateur plafonnier invisible",
@@ -1266,7 +1274,7 @@ export const products: Product[] = [
       categories: ["baby", "electrical"],
       verified: false,
       notes:
-        "Fiche fournisseur recue : CE declare (modele HX178), 'pas de batterie' (pile non fournie/non necessaire selon la fiche), age recommande 3 ans et plus, materiau plastique. A obtenir avant publication/campagne : le document de conformite CE lui-meme (pas seulement la mention sur la fiche produit) et confirmation ecrite du fournisseur sur l'alimentation (pile ou non) pour lever toute ambiguite.",
+        "Fiche fournisseur recue : CE declare (modele HX178), age recommande 3 ans et plus, materiau plastique. Alimentation confirmee par l'operateur le 2026-10-05 : fonctionne avec 3 piles AA, non fournies. A obtenir avant publication/campagne : le document de conformite CE lui-meme (pas seulement la mention sur la fiche produit).",
     },
     evaluation: {
       demandScore: 4,
@@ -1315,8 +1323,7 @@ export const products: Product[] = [
       },
       {
         doubt: "Les piles sont-elles fournies ?",
-        response:
-          "Selon la fiche fournisseur, l'article est listé sans pile. Nous confirmons ce point avec le fournisseur avant la mise en vente définitive.",
+        response: "Le jouet fonctionne avec 3 piles AA, non fournies dans l'emballage.",
       },
       {
         doubt: "Est-ce que ça fonctionne vraiment, la détection d'obstacles ?",
@@ -1430,8 +1437,7 @@ export const products: Product[] = [
       },
       {
         question: "Les piles sont-elles incluses ?",
-        answer:
-          "Selon la fiche fournisseur, l'article est listé sans pile. Ce point est en cours de confirmation directe avec le fournisseur.",
+        answer: "Non. Le jouet fonctionne avec 3 piles AA, qui ne sont pas fournies dans l'emballage.",
       },
       {
         question: "De quoi est fait ce jouet ?",
