@@ -1742,6 +1742,223 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "vase-arche",
+    slug: "vase-sculpture-fleurs-sechees",
+    status: "published",
+    // Objet decoratif simple, pas de categorie de conformite sensible.
+    // Le texte fourni par l'operateur ("vase en plastique multicolore")
+    // contredit la photo (vase uni, effet pierre texture, teinte ivoire/
+    // sable) : non repris. Materiau exact non confirme visuellement, donc
+    // absent de la fiche plutot que devine ("ceramique" ou "plastique").
+    evaluation: {
+      demandScore: 3,
+      differentiationScore: 4,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 4,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner des que disponibles. Description operateur incoherente avec la photo (plastique multicolore vs vase uni effet pierre) : a clarifier aupres du fournisseur, notamment le vrai materiau, avant une campagne d'envergure.",
+    },
+    name: "Le Vase Arche",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE DU MOMENT",
+    headline: "Une silhouette sculpturale pour vos fleurs séchées.",
+    subtitle:
+      "Un vase à la silhouette sculpturale et à la texture minérale, pensé pour mettre en valeur des fleurs séchées ou des branches décoratives.",
+    heroBullets: [
+      "Une silhouette en arches, entre sculpture et objet utilitaire",
+      "Une texture minérale qui capte la lumière naturelle",
+      "Deux ouvertures pour composer des arrangements asymétriques",
+      "Pensé pour la maison comme pour un bureau",
+    ],
+    h1: "Vase sculptural pour fleurs séchées",
+    shortDescription:
+      "Un vase à la silhouette en arches et à la texture minérale, pensé pour les fleurs séchées et les compositions décoratives.",
+    description: [
+      "Le Vase Arche se distingue par sa silhouette sculpturale : deux arches qui se répondent, pensées autant comme un objet d'art que comme un vase fonctionnel.",
+      "Sa texture minérale, en relief, joue avec la lumière naturelle et apporte du caractère même sans fleurs à l'intérieur. Ses deux ouvertures permettent de composer des arrangements asymétriques, avec des fleurs séchées ou des branches décoratives.",
+      "Posé seul sur une étagère ou un meuble bas, il s'impose comme une pièce décorative à part entière, dans l'esprit des intérieurs épurés et minéraux.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "Un objet qui reste beau même sans fleurs.",
+      paragraphs: [
+        "Un bon vase ne devrait pas dépendre des fleurs qu'on y met : il devrait déjà avoir du caractère, à vide, posé sur une étagère.",
+        "Le Vase Arche a été pensé pour ça : une silhouette sculpturale et une texture minérale qui suffisent à elles seules à habiller un coin de pièce, fleurs séchées ou non.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que la texture sera vraiment comme sur la photo ?",
+        response:
+          "Sa texture minérale en relief est la caractéristique centrale de l'objet, visible sur l'ensemble de nos photos produit.",
+      },
+      {
+        doubt: "Peut-on y mettre de vraies fleurs fraîches ?",
+        response:
+          "Il est avant tout pensé pour les fleurs séchées et les branches décoratives. L'étanchéité pour des fleurs fraîches en eau reste à confirmer par notre équipe.",
+      },
+      {
+        doubt: "Quelle est la matière exacte du vase ?",
+        response:
+          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un vase à la silhouette sculpturale en arches",
+      "Une texture minérale qui capte la lumière",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Convaincue par cette silhouette sculpturale ?",
+      "Prête à l'installer chez vous ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 29.99,
+    priceEUR: 29.99,
+    compareAtPriceCHF: 39.99,
+    compareAtPriceEUR: 39.99,
+    images: [
+      {
+        src: "/images/products/vase-arche/niche-beton.jpg",
+        alt: "Vase sculptural à texture minérale en forme d'arches, avec des fleurs séchées, posé dans une niche",
+        caption: "Avec des fleurs séchées",
+      },
+    ],
+    benefits: [
+      {
+        icon: "star",
+        title: "Silhouette sculpturale",
+        description: "Une forme en arches qui fonctionne comme une pièce décorative à part entière.",
+      },
+      {
+        icon: "home",
+        title: "Texture minérale",
+        description: "Un relief qui capte la lumière naturelle, pour un rendu jamais plat.",
+      },
+      {
+        icon: "gift",
+        title: "Pensé pour les fleurs séchées",
+        description: "Deux ouvertures pour composer des arrangements asymétriques et durables.",
+      },
+      {
+        icon: "check",
+        title: "Beau même sans fleurs",
+        description: "Une pièce décorative qui a du caractère même posée à vide.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Étagère",
+        description: "Seul ou entouré d'autres objets décoratifs, pour une composition soignée.",
+      },
+      {
+        title: "Bureau",
+        description: "Une touche minérale et sculpturale sur un plan de travail.",
+      },
+      {
+        title: "Entrée",
+        description: "Sur une console, pour donner le ton dès l'arrivée chez soi.",
+      },
+      {
+        title: "Table basse",
+        description: "Avec quelques branches séchées, pour une composition simple et durable.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelle est la matière du vase ?",
+        answer:
+          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible. Sa texture est minérale et en relief, visible sur les photos.",
+      },
+      {
+        question: "Peut-on y mettre des fleurs fraîches avec de l'eau ?",
+        answer:
+          "Il est avant tout pensé pour les fleurs séchées et les branches décoratives. Son étanchéité pour un usage avec de l'eau reste à confirmer.",
+      },
+      {
+        question: "Quelles sont ses dimensions ?",
+        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+      },
+      {
+        question: "Comment l'entretenir ?",
+        answer: "Un dépoussiérage régulier avec un chiffon sec ou légèrement humide suffit.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Vase sculptural pour fleurs séchées | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Vase Arche, un vase à la silhouette sculpturale et à la texture minérale, pensé pour les fleurs séchées. Livraison offerte, retours gratuits 30 jours.",
+      keywords: [
+        "vase fleurs séchées",
+        "vase sculptural",
+        "vase décoratif arches",
+        "vase texture minérale",
+        "vase design scandinave",
+        "décoration fleurs séchées",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre du moment",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
