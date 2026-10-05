@@ -10,12 +10,11 @@ export function GiftSection({ product }: { product: Product }) {
     <section className="bg-sage py-16 text-white md:py-24">
       <div className="container-content text-center">
         <h2 className="font-display text-3xl font-semibold md:text-4xl">
-          Une idée cadeau originale pour les amoureux des chats
+          Une idée cadeau qui sort de l&apos;ordinaire
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-white">
-          Offrir un objet un peu différent, qui sort des cadeaux habituels : voilà ce que
-          propose {product.name}, pour une personne qui aime les chats autant que les jolis
-          détails décoratifs.
+          Offrir un objet un peu différent, qui change des cadeaux habituels : voilà ce que
+          propose {product.name}.
         </p>
         <button
           type="button"

@@ -13,7 +13,7 @@ export function EditorialSection({ product }: { product: Product }) {
           )}
         </div>
         <div>
-          <h2 className="section-title">Plus qu&apos;un simple crochet</h2>
+          <h2 className="section-title">Un objet pensé dans le détail</h2>
           <div className="mt-6 flex flex-col gap-4 text-ink/80">
             {product.description.map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
