@@ -1959,6 +1959,233 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "trio-vases-wabi-sabi",
+    slug: "trio-vases-porcelaine-wabi-sabi",
+    status: "published",
+    // Objet decoratif simple, pas de categorie de conformite sensible.
+    // Source : capture d'ecran de fiche Temu fournie par l'operateur
+    // (dimensions + mention "uniquement pour les fleurs artificielles" et
+    // "porcelaine non emaillee, etat naturel"). Ces deux mentions, plus
+    // precises que le texte libre fourni ("ceramique... en bois", "fleurs
+    // sechees ou artificielles"), priment : le "bois" n'est repris nulle
+    // part (ne correspond a aucune photo), et seul l'usage fleurs
+    // artificielles est annonce, pas les fleurs sechees.
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner des que disponibles. Lot de 3 pieces de tailles differentes : bon rapport perception de valeur / prix.",
+    },
+    name: "Le Trio Wabi-Sabi",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE DU MOMENT",
+    headline: "Trois silhouettes simples, un esprit wabi-sabi.",
+    subtitle:
+      "Un lot de 3 vases en porcelaine non émaillée, à l'état naturel, aux silhouettes épurées d'inspiration japonaise. Pour fleurs artificielles.",
+    heroBullets: [
+      "3 silhouettes différentes : bouteille, galet et sphère",
+      "Porcelaine non émaillée, à l'état naturel",
+      "Esprit wabi-sabi, minimaliste et japonisant",
+      "Pensé pour les fleurs artificielles",
+    ],
+    h1: "Trio de vases en porcelaine non émaillée, style wabi-sabi",
+    shortDescription:
+      "Un lot de 3 vases en porcelaine non émaillée aux silhouettes épurées, pour une composition murale ou de table d'inspiration wabi-sabi.",
+    description: [
+      "Le Trio Wabi-Sabi réunit trois silhouettes simples — une forme bouteille, une forme galet et une forme sphère — dans une même matière brute : une porcelaine non émaillée, laissée à son état naturel.",
+      "Cette finition non émaillée fait partie du caractère de l'objet : chaque pièce garde une texture légèrement mate et des variations naturelles, sans glaçure qui uniformiserait la surface.",
+      "Pensé pour les fleurs artificielles, ce trio se compose aussi bien seul, aligné sur une étagère, que réuni sur un plateau pour une mise en scène de table dans l'esprit wabi-sabi.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "La beauté du naturel, sans artifice.",
+      paragraphs: [
+        "Le wabi-sabi, c'est accepter qu'un objet n'ait pas besoin d'être parfaitement lisse ou uniforme pour être beau — c'est même souvent l'inverse.",
+        "Le Trio Wabi-Sabi a été pensé dans cet esprit : une porcelaine laissée à l'état naturel, trois silhouettes simples qui se répondent, sans chercher à cacher la matière.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Peut-on y mettre de vraies fleurs avec de l'eau ?",
+        response:
+          "Non : ce trio est pensé pour les fleurs artificielles. La porcelaine non émaillée est poreuse à l'état naturel et n'est pas prévue pour contenir de l'eau.",
+      },
+      {
+        doubt: "Est-ce que chaque pièce sera identique à la photo ?",
+        response:
+          "La porcelaine non émaillée garde des variations naturelles de texture d'une pièce à l'autre : c'est une caractéristique du matériau à l'état brut, pas un défaut.",
+      },
+      {
+        doubt: "Combien de vases sont inclus ?",
+        response: "Les 3 vases du lot sont inclus : une forme bouteille, une forme galet et une forme sphère.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "3 vases en porcelaine non émaillée, 3 silhouettes différentes",
+      "Esprit wabi-sabi, minimaliste et japonisant",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Convaincue par cet esprit wabi-sabi ?",
+      "Prête à composer votre trio ?",
+    ],
+    packSize: 3,
+    packLabel: "Lot de 3 vases",
+    costPriceUSD: 0,
+    priceCHF: 39.99,
+    priceEUR: 39.99,
+    compareAtPriceCHF: 59.99,
+    compareAtPriceEUR: 59.99,
+    images: [
+      {
+        src: "/images/products/trio-vases-wabi-sabi/plateau-bois.jpg",
+        alt: "Trio de vases en porcelaine non émaillée sur un plateau en bois avec du lin et des branches d'eucalyptus séché",
+        caption: "Le trio en situation, avec de l'eucalyptus séché",
+      },
+      {
+        src: "/images/products/trio-vases-wabi-sabi/lin-naturel.jpg",
+        alt: "Trio de vases en porcelaine non émaillée sur un tissu de lin naturel",
+        caption: "Les trois silhouettes : bouteille, galet et sphère",
+      },
+    ],
+    benefits: [
+      {
+        icon: "star",
+        title: "Porcelaine non émaillée",
+        description: "Une matière brute, à l'état naturel, qui garde toute sa texture.",
+      },
+      {
+        icon: "home",
+        title: "3 silhouettes complémentaires",
+        description: "Forme bouteille, galet et sphère, pensées pour être composées ensemble.",
+      },
+      {
+        icon: "gift",
+        title: "Esprit wabi-sabi",
+        description: "Une esthétique japonisante, minimaliste et chaleureuse à la fois.",
+      },
+      {
+        icon: "check",
+        title: "Un lot complet",
+        description: "Les 3 vases sont inclus, pour une composition prête à installer.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Étagère",
+        description: "Alignés ou espacés, pour une composition minimaliste.",
+      },
+      {
+        title: "Table basse",
+        description: "Réunis sur un plateau, avec quelques branches séchées.",
+      },
+      {
+        title: "Entrée",
+        description: "Sur une console, pour une première impression soignée.",
+      },
+      {
+        title: "Table de fêtes",
+        description: "En centre de table, avec des fleurs artificielles au choix.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions des 3 vases ?",
+        answer:
+          "Forme bouteille : environ 20,5 cm de haut, 7,2 cm de large, ouverture 3 cm. Forme galet : environ 16,6 cm de haut, 10,7 cm de large, ouverture 3,5 cm. Forme sphère : environ 12 cm de haut, 10,2 cm de large, ouverture 3 cm.",
+      },
+      {
+        question: "Peut-on utiliser des fleurs fraîches avec de l'eau ?",
+        answer:
+          "Non, ce trio est conçu pour les fleurs artificielles uniquement. La porcelaine non émaillée est poreuse et n'est pas prévue pour contenir de l'eau.",
+      },
+      {
+        question: "En quelle matière sont ces vases ?",
+        answer:
+          "En porcelaine non émaillée, laissée à son état naturel. De légères variations de texture ou de teinte sont possibles d'une pièce à l'autre : c'est une caractéristique du matériau brut.",
+      },
+      {
+        question: "Comment les entretenir ?",
+        answer: "Un dépoussiérage régulier avec un chiffon sec suffit, sans utiliser d'eau sur la matière non émaillée.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Trio de vases en porcelaine non émaillée, style wabi-sabi | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Trio Wabi-Sabi : 3 vases en porcelaine non émaillée aux silhouettes épurées, pour fleurs artificielles. Livraison offerte, retours gratuits 30 jours.",
+      keywords: [
+        "vase wabi-sabi",
+        "trio vases porcelaine",
+        "vase céramique naturelle",
+        "vase japonisant minimaliste",
+        "décoration wabi-sabi",
+        "vase fleurs artificielles",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre du moment",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
