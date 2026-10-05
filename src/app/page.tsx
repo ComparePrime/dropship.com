@@ -5,6 +5,7 @@ import { getPublishedProducts } from "@/lib/products";
 import { getPublishedScenes } from "@/lib/scenes";
 import { TrustBadges } from "@/components/trust-badges";
 import { ShopTheLook } from "@/components/shop-the-look";
+import { CollectionShowcase } from "@/components/collection-showcase";
 import { HomeJsonLd } from "@/components/home-jsonld";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/categories";
@@ -89,7 +90,13 @@ export default function HomePage() {
       </section>
 
       {/*
-        2. "Recréez cette ambiance" : uniquement si au moins une mise en
+        2. "Découvrez la collection" : photo éditoriale avec points
+        interactifs, entièrement pilotée par src/lib/collection-showcase.ts.
+      */}
+      <CollectionShowcase />
+
+      {/*
+        3. "Recréez cette ambiance" : uniquement si au moins une mise en
         scène réelle existe (photo + produits authentiques). Masquée sinon
         plutôt que de la remplir artificiellement.
       */}
