@@ -30,12 +30,12 @@ export const metadata: Metadata = {
 
 /** Sélection éditoriale mise en avant sur l'accueil : des produits réels, répartis entre les univers. */
 const FEATURED_SLUGS = [
-  "crochet-chat-lanterne",
   "coussin-bras-allaitement-biberon",
   "meduse-dansante-jouet-interactif",
   "bougeoir-ceramique-argente-reflet",
   "vase-sculpture-fleurs-sechees",
   "pendule-newton-metal-bureau",
+  "lampe-table-led-diamant-usb",
 ];
 
 /** Produit mis en avant dans le hero : une mise en scène, pas un simple produit isolé. */
