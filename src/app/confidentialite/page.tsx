@@ -51,6 +51,7 @@ const sections: Section[] = [
           "Données de paiement : statut du paiement et références de transaction. Les paiements en ligne sont traités par notre prestataire de paiement.",
           "Échanges avec notre service client : contenu des messages et informations nécessaires au traitement de votre demande.",
           "Données techniques : adresse IP, informations sur le navigateur, appareil utilisé, journaux techniques et données de connexion, dans la mesure où elles sont collectées par le site ou ses prestataires.",
+          "Fréquentation des fiches produits : un identifiant de session anonyme, sans lien avec votre identité, permet de compter les personnes qui consultent une fiche en même temps ; il n'est pas conservé au-delà de quelques secondes.",
           "Données de navigation et de marketing : interactions avec le site, préférences de cookies et données publicitaires, lorsque les outils correspondants sont activés et que leur utilisation est autorisée.",
         ],
       },

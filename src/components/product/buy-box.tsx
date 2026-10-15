@@ -10,6 +10,7 @@ import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
 import { RatingStars } from "@/components/product/rating-stars";
 import { StockIndicator } from "@/components/product/stock-indicator";
+import { ViewerCount } from "@/components/product/viewer-count";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { TrustBadges } from "@/components/trust-badges";
 import { Icon, IconName } from "@/components/icons";
@@ -116,6 +117,7 @@ export function BuyBox({ product }: { product: Product }) {
         )}
 
         <StockIndicator stock={product.stock} />
+        <ViewerCount slug={product.slug} />
 
         {product.variants && product.variants.length > 0 && (
           <div className="mt-5">

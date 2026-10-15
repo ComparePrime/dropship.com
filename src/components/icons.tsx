@@ -25,6 +25,7 @@ import {
   Lightbulb,
   Music,
   Move,
+  Eye,
 } from "lucide-react";
 
 export const Icon = {
@@ -54,6 +55,7 @@ export const Icon = {
   lightbulb: Lightbulb,
   music: Music,
   move: Move,
+  eye: Eye,
 } as const;
 
 export type IconName = keyof typeof Icon;

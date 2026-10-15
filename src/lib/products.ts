@@ -1,4 +1,5 @@
 import { Product } from "./types";
+import { declaredStock } from "./stock-config";
 import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
 
 /**
@@ -6,7 +7,7 @@ import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouche
  * Chaque produit génère automatiquement /produit/[slug].
  * Pour ajouter un produit : dupliquer un objet et l'ajouter au tableau `products`.
  */
-export const products: Product[] = [
+const catalog: Product[] = [
   {
     id: "petite-lanterne-feline",
     slug: "crochet-chat-lanterne",
@@ -2864,6 +2865,15 @@ export const products: Product[] = [
     ],
   },
 ];
+
+/**
+ * Applique le stock declare (src/lib/stock-config.ts) : source unique pour
+ * modifier les quantites sans toucher aux fiches produit.
+ */
+const products: Product[] = catalog.map((p) => {
+  const declared = declaredStock[p.slug];
+  return declared ? { ...p, stock: declared } : p;
+});
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
 export function getAllProducts(): Product[] {
