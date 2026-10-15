@@ -2197,7 +2197,7 @@ export const products: Product[] = [
       categories: ["electrical"],
       verified: false,
       notes:
-        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' de l'autre) : les photos montrent un objet transparent facette, la fiche dit 'acrylique transparent' (titre fournisseur) sans autre precision. Photos recues, 5 images. Capacite de batterie, autonomie et temps de charge non fournis.",
+        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' de l'autre) : les photos montrent un objet transparent facette, la fiche dit 'acrylique transparent' (titre fournisseur) sans autre precision. Photos recues, 5 images. Photo principale fournie par l'operateur (visuel avec 3 ambiances lumineuses, USB, tactile) : 3 ambiances reprises de ce visuel, sans detail sur les teintes exactes. Capacite de batterie, autonomie et temps de charge non fournis.",
     },
     evaluation: {
       demandScore: 4,
@@ -2218,9 +2218,9 @@ export const products: Product[] = [
       "Une lampe de table LED à la silhouette en forme de diamant, à commande tactile et rechargeable par USB, pour le bureau ou la chambre.",
     heroBullets: [
       "Acrylique transparent aux facettes en diamant",
+      "3 ambiances lumineuses, au choix",
       "Interrupteur tactile on/off : un simple geste suffit",
       "Batterie rechargeable par USB, sans câble fixe",
-      "Pensée pour le bureau comme pour la chambre",
     ],
     h1: "Lampe de table LED forme diamant, tactile et rechargeable USB",
     shortDescription:
@@ -2284,6 +2284,11 @@ export const products: Product[] = [
     ],
     images: [
       {
+        src: "/images/products/lampe-diamant/principale.webp",
+        alt: "La Lampe Diamant allumée sur une commode, avec ses trois atouts : 3 ambiances lumineuses, rechargeable par USB, commande tactile",
+        caption: "Ses trois atouts en un coup d'œil",
+      },
+      {
         src: "/images/products/lampe-diamant/commode-miroir.webp",
         alt: "Lampe de table transparente à facettes en diamant posée sur une commode, à côté d'un vase en verre et d'un vase blanc",
         caption: "Sur une commode, près d'un miroir",
@@ -2326,9 +2331,9 @@ export const products: Product[] = [
         description: "Pas de câble branché en continu : elle se déplace où vous en avez besoin.",
       },
       {
-        icon: "home",
-        title: "Bureau ou chambre",
-        description: "Une lumière d'appoint pour lire ou travailler, sans fil à brancher.",
+        icon: "lightbulb",
+        title: "3 ambiances lumineuses",
+        description: "Trois ambiances au choix, pour adapter la lumière au moment de la journée.",
       },
     ],
     useCases: [
@@ -2354,6 +2359,11 @@ export const products: Product[] = [
         question: "Comment fonctionne la lampe ?",
         answer:
           "Elle utilise une source LED alimentée par une batterie rechargeable par USB, et s'allume ou s'éteint grâce à un interrupteur tactile.",
+      },
+      {
+        question: "Quelles sont les ambiances lumineuses proposées ?",
+        answer:
+          "La lampe propose trois ambiances lumineuses, que l'on choisit selon le moment de la journée.",
       },
       {
         question: "Existe-t-il des packs de plusieurs lampes ?",
