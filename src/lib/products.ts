@@ -2189,7 +2189,7 @@ export const products: Product[] = [
   {
     id: "lampe-diamant-led",
     slug: "lampe-table-led-diamant-usb",
-    status: "draft",
+    status: "published",
     // Categorie "electrical" : appareil USB rechargeable, tactile, LED.
     // Risque comparable au Ventilateur Anti-Mouches (petit appareil a
     // batterie/USB), pas au niveau du ventilateur de plafond cable en dur.
