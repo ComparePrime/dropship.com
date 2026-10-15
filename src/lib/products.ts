@@ -2629,6 +2629,218 @@ export const products: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "plateau-vague-resine",
+    slug: "plateau-decoratif-rond-resine-vague",
+    status: "published",
+    // Objet decoratif en resine, sans electronique : aucune categorie de conformite applicable.
+    // Mention fournisseur "ne convient pas a un usage alimentaire" reprise telle quelle sur la fiche.
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 4,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner. Diametre fourni : 9 pouces (soit environ 23 cm), hauteur non communiquee. Les objets visibles sur la photo (diffuseur, bougie, vase) sont consideres comme mise en scene, non inclus : a confirmer avec le fournisseur.",
+    },
+    name: "Le Plateau Vague",
+    brandLine: "Maison Loravie",
+    badge: "NOUVEAUTÉ",
+    headline: "Le détail qui range la table basse avec élégance.",
+    subtitle:
+      "Un plateau décoratif rond en résine, au bord ondulé, pour rassembler bougies, vases et petits objets sur une table basse, une console ou un comptoir.",
+    heroBullets: [
+      "Plateau rond en résine blanche, d'environ 23 cm de diamètre",
+      "Bord en forme de vague, un détail graphique et doux",
+      "Pour le salon, la salle à manger, la cuisine ou la salle de bain",
+      "Usage décoratif : ne convient pas à un contact alimentaire",
+    ],
+    h1: "Plateau décoratif rond blanc en résine pour table basse",
+    shortDescription:
+      "Un plateau décoratif rond en résine blanche, au bord ondulé, pour table basse, salon, salle à manger ou salle de bain.",
+    description: [
+      "Le Plateau Vague donne un cadre à vos petits objets. Rond, blanc, avec un bord ondulé en relief, il rassemble une bougie, un vase ou un diffuseur et transforme un coin de table en composition.",
+      "Il mesure environ 23 cm de diamètre et se glisse facilement sur une table basse, une console, un comptoir de cuisine ou le rebord d'une baignoire. Sa teinte claire s'accorde avec la plupart des intérieurs.",
+      "C'est un objet décoratif : il n'est pas conçu pour le contact avec les aliments.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "Un peu d'ordre, beaucoup de douceur.",
+      paragraphs: [
+        "Quelques objets posés sur un plateau, et la table basse semble tout de suite plus pensée. C'est un geste simple, que l'on retrouve dans beaucoup d'intérieurs soignés.",
+        "Le Plateau Vague a été choisi pour sa forme sobre et son bord ondulé : assez discret pour s'adapter à votre décor, assez travaillé pour que l'on le remarque.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Est-ce que l'on peut y poser de la nourriture ?",
+        response:
+          "Non, ce plateau est uniquement décoratif et ne convient pas à un usage alimentaire. Il est fait pour accueillir bougies, vases, savons ou petits objets.",
+      },
+      {
+        doubt: "Les objets de la photo sont-ils inclus ?",
+        response:
+          "Non, la bougie, le diffuseur et le vase servent à la mise en scène. Vous recevez le plateau décoratif seul.",
+      },
+      {
+        doubt: "Quelle est sa taille ?",
+        response:
+          "Il mesure environ 23 cm de diamètre (9 pouces), une taille qui convient à un petit ensemble d'objets sur une table basse ou une console.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si le produit ne convient pas une fois reçu ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un plateau décoratif rond en résine blanche, bord ondulé",
+      "Environ 23 cm de diamètre",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "Paiement à 100% sécurisé",
+    ],
+    midCtaTexts: [
+      "Une table basse qui manque de caractère ?",
+      "Prêt à composer votre petit décor ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 19.99,
+    priceEUR: 19.99,
+    compareAtPriceCHF: 29.99,
+    compareAtPriceEUR: 29.99,
+    images: [
+      {
+        src: "/images/products/plateau-vague/salon-canape.jpg",
+        alt: "Plateau décoratif rond blanc à bord ondulé posé sur une table basse, avec une bougie, un diffuseur et un petit vase, devant un canapé crème",
+        caption: "Sur une table basse, en composition",
+      },
+    ],
+    benefits: [
+      {
+        icon: "star",
+        title: "Un bord en forme de vague",
+        description: "Un relief ondulé qui donne du caractère à une forme toute simple.",
+      },
+      {
+        icon: "home",
+        title: "Pour toutes les pièces",
+        description: "Salon, salle à manger, cuisine ou salle de bain : il trouve sa place partout.",
+      },
+      {
+        icon: "check",
+        title: "Une teinte claire et neutre",
+        description: "Le blanc s'accorde avec la plupart des styles d'intérieur.",
+      },
+      {
+        icon: "gift",
+        title: "Une idée cadeau déco",
+        description: "Un objet décoratif sobre, facile à offrir pour une pendaison de crémaillère ou les fêtes.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Table basse",
+        description: "Pour regrouper bougie, vase et petits objets en un seul endroit.",
+      },
+      {
+        title: "Console ou entrée",
+        description: "Pour poser clés, bijoux ou une jolie bougie à portée de main.",
+      },
+      {
+        title: "Salle de bain",
+        description: "Pour présenter savons, flacons ou une bougie sur un rebord.",
+      },
+      {
+        title: "Idée cadeau",
+        description: "Un objet déco simple et soigné, pour les fêtes ou un nouveau logement.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelle est la taille du plateau ?",
+        answer: "Il mesure environ 23 cm de diamètre (9 pouces).",
+      },
+      {
+        question: "En quelle matière est-il fabriqué ?",
+        answer: "Il est fabriqué en résine.",
+      },
+      {
+        question: "Peut-on l'utiliser pour servir des aliments ?",
+        answer:
+          "Non, ce plateau est décoratif et ne convient pas à un usage alimentaire.",
+      },
+      {
+        question: "Les bougies, le vase et le diffuseur de la photo sont-ils inclus ?",
+        answer: "Non, ils servent uniquement à la mise en scène. Le plateau est vendu seul.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Plateau décoratif rond blanc en résine | Maison Loravie",
+      metaDescription:
+        "Découvrez Le Plateau Vague, un plateau décoratif rond blanc en résine au bord ondulé, pour table basse, salon ou salle de bain. Livraison offerte, retours gratuits 30 jours.",
+      keywords: [
+        "plateau décoratif table basse",
+        "plateau rond blanc",
+        "plateau résine",
+        "plateau vague",
+        "décoration salon",
+        "idée cadeau déco",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Nouveauté",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "editorial",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
