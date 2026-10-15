@@ -21,6 +21,19 @@ export function BuyBox({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariantId, setSelectedVariantId] = useState(product.variants?.[0]?.id);
   const selectedVariant = product.variants?.find((v) => v.id === selectedVariantId);
+  const [selectedPackLabel, setSelectedPackLabel] = useState<string | undefined>(undefined);
+  const selectedPack = product.packOffers?.find((p) => p.label === selectedPackLabel);
+  // Pour un lot, le prix barre est celui des memes unites achetees une par une.
+  const displayedProduct: Product = selectedPack
+    ? {
+        ...product,
+        priceCHF: selectedPack.priceCHF,
+        priceEUR: selectedPack.priceEUR,
+        compareAtPriceCHF: product.priceCHF * selectedPack.quantity,
+        compareAtPriceEUR: product.priceEUR * selectedPack.quantity,
+        packLabel: selectedPack.label,
+      }
+    : product;
   const hasRealReviews = product.reviews.some((r) => !r.demo);
   const isTracked = !!product.stock && product.stock.source !== "none";
   const isOutOfStock = isTracked && (product.stock?.quantity ?? 0) <= 0;
@@ -94,7 +107,7 @@ export function BuyBox({ product }: { product: Product }) {
         d'achat se prenne sans devoir chercher l'information ailleurs.
       */}
       <div className="mt-6 rounded-xl2 border border-sage/30 bg-white/60 p-5 shadow-card md:p-6">
-        <PromoBlock product={product} currency={currency} variant="compact" />
+        <PromoBlock product={displayedProduct} currency={currency} variant="compact" />
 
         {product.promotion.active && product.promotion.endsAt && (
           <div className="mt-3">
@@ -125,6 +138,50 @@ export function BuyBox({ product }: { product: Product }) {
                   <Image src={variant.image.src} alt={variant.label} fill className="object-cover" />
                 </button>
               ))}
+            </div>
+          </div>
+        )}
+
+        {product.packOffers && product.packOffers.length > 0 && (
+          <div className="mt-5">
+            <span className="text-sm font-medium text-ink/70">Choisissez votre formule</span>
+            <div className="mt-2 flex flex-col gap-2">
+              {[undefined, ...product.packOffers].map((pack) => {
+                const unitCount = pack?.quantity ?? 1;
+                const packPrice = getPriceForCurrency(
+                  pack?.priceCHF ?? product.priceCHF,
+                  pack?.priceEUR ?? product.priceEUR,
+                  currency
+                );
+                const singlePrice = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
+                const saving = Math.round((1 - packPrice / (singlePrice * unitCount)) * 100);
+                const checked = selectedPackLabel === pack?.label;
+                return (
+                  <label
+                    key={pack?.label ?? "single"}
+                    className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 p-3 transition-colors ${
+                      checked ? "border-sage bg-sage/5" : "border-ink/10 bg-white/50"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="pack-offer"
+                      checked={checked}
+                      onChange={() => setSelectedPackLabel(pack?.label)}
+                      className="h-4 w-4 flex-shrink-0 accent-sage"
+                    />
+                    <span className="flex-1 text-sm text-ink">
+                      {pack ? pack.label : "À l'unité"}
+                      {saving > 0 && (
+                        <span className="ml-2 rounded-full bg-terracottaText px-2 py-0.5 text-xs font-semibold text-white">
+                          −{saving}%
+                        </span>
+                      )}
+                    </span>
+                    <span className="text-sm font-medium text-ink">{formatPrice(packPrice, currency)}</span>
+                  </label>
+                );
+              })}
             </div>
           </div>
         )}
@@ -190,7 +247,7 @@ export function BuyBox({ product }: { product: Product }) {
         <button
           type="button"
           onClick={() => {
-            addItem(product, quantity, selectedVariant?.label);
+            addItem(product, quantity, selectedPack?.label ?? selectedVariant?.label);
             for (const addOn of addOns) {
               if (selectedAddOnIds.includes(addOn.id)) addItem(addOn, 1);
             }

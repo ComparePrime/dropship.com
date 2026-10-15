@@ -47,8 +47,14 @@ export async function POST(req: NextRequest) {
       if (!product) {
         throw new Error(`Produit inconnu: ${line.slug}`);
       }
+      // Un lot est identifie par son libelle (variantLabel) ; son prix vient du catalogue.
+      const pack = product.packOffers?.find((p) => p.label === line.variantLabel);
       const unitAmount = Math.round(
-        getPriceForCurrency(product.priceCHF, product.priceEUR, currency) * 100
+        getPriceForCurrency(
+          pack?.priceCHF ?? product.priceCHF,
+          pack?.priceEUR ?? product.priceEUR,
+          currency
+        ) * 100
       );
       return {
         price_data: {

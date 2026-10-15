@@ -2204,7 +2204,7 @@ export const products: Product[] = [
       categories: ["electrical"],
       verified: false,
       notes:
-        "Aucune fiche fournisseur ni lien source transmis : capacite de batterie, duree de charge/autonomie, puissance et dimensions non confirmees, donc absentes de la fiche plutot que devinees.",
+        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' et 'verre stone' de l'autre) : a verifier sur les photos, la fiche dit seulement 'diffuseur transparent'. Capacite de batterie, autonomie et temps de charge non fournis.",
     },
     evaluation: {
       demandScore: 4,
@@ -2215,51 +2215,46 @@ export const products: Product[] = [
       returnRiskScore: 3,
       estimatedMarginAfterCosts: 0,
       notes:
-        "Cout fournisseur non communique : costPriceUSD et marge a renseigner des que disponibles. Produit pret cote contenu, bloque uniquement par l'absence de photo.",
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner. Prix 39,99 (reference 79,98) et packs 2/3/4 a prix degressif definis par l'operateur. Contenu pret, bloque uniquement par l'absence de photo (photos annoncees par l'operateur).",
     },
     name: "La Lampe Diamant",
     brandLine: "Maison Loravie",
     badge: "OFFRE DU MOMENT",
     headline: "Une petite lumière taillée comme un bijou.",
     subtitle:
-      "Une lampe de table LED en acrylique, à la silhouette en forme de diamant, tactile et rechargeable par USB, pour le bureau ou la table de nuit.",
+      "Une lampe de table LED à la silhouette en forme de diamant, à commande tactile et rechargeable par USB, pour le bureau ou la chambre.",
     heroBullets: [
-      "Silhouette en acrylique taillé façon diamant",
-      "Allumage tactile, sans bouton apparent",
-      "Rechargeable par USB, sans fil à brancher en continu",
-      "Pensée pour le bureau comme pour la table de nuit",
+      "Silhouette en forme de diamant, diffuseur transparent",
+      "Interrupteur tactile on/off : un simple geste suffit",
+      "Batterie rechargeable par USB, sans câble fixe",
+      "Pensée pour le bureau comme pour la chambre",
     ],
-    h1: "Lampe de table LED en acrylique, forme diamant, tactile et rechargeable USB",
+    h1: "Lampe de table LED forme diamant, tactile et rechargeable USB",
     shortDescription:
-      "Une lampe de table LED en acrylique en forme de diamant, tactile et rechargeable par USB, pour le bureau ou la chambre.",
+      "Une lampe de table LED en forme de diamant, tactile et rechargeable par USB, pour le bureau ou la chambre.",
     description: [
-      "La Lampe Diamant associe une silhouette en acrylique taillé, façon pierre précieuse, à un fonctionnement simple : un effleurement tactile suffit à l'allumer, sans bouton ni interrupteur apparent.",
-      "Rechargeable par USB, elle s'affranchit d'un câble branché en permanence et peut se déplacer facilement du bureau à la table de nuit selon le moment de la journée.",
-      "Pensée aussi bien comme lampe de bureau que comme veilleuse, elle apporte une lumière douce qui met en valeur sa silhouette facettée, même éteinte.",
+      "La Lampe Diamant allie une silhouette moderne en forme de diamant à un fonctionnement simple : un interrupteur tactile permet de l'allumer ou de l'éteindre d'un simple geste.",
+      "Sa source LED fonctionne sur une batterie rechargeable par USB : plus besoin d'un câble branché en permanence, elle se déplace facilement du bureau à la chambre.",
+      "Pensée pour la lecture ou le travail comme pour l'ambiance d'une pièce, elle garde du caractère même éteinte.",
     ],
     storytelling: {
       eyebrow: "Les petits détails comptent",
       title: "Une lumière qui a autant de caractère éteinte qu'allumée.",
       paragraphs: [
         "Une bonne lampe d'appoint ne devrait pas se contenter d'éclairer : elle devrait aussi avoir sa place sur un bureau ou une table de nuit, même débranchée.",
-        "La Lampe Diamant a été pensée pour ça : une silhouette facettée qui capte la lumière, un allumage tactile immédiat, et une autonomie qui la libère du fil.",
+        "La Lampe Diamant a été choisie pour ça : une silhouette en forme de diamant, un allumage tactile immédiat, et une batterie rechargeable qui la libère du fil.",
       ],
     },
     objections: [
       {
-        doubt: "Quelle est l'autonomie de la batterie ?",
-        response:
-          "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
-      },
-      {
         doubt: "Est-ce que l'allumage tactile est fiable ?",
         response:
-          "Un simple effleurement suffit à l'allumer ou à régler son intensité, sans bouton mécanique à actionner.",
+          "L'interrupteur tactile s'active d'un simple geste, sans bouton mécanique à actionner.",
       },
       {
-        doubt: "Peut-elle servir de veilleuse toute la nuit ?",
+        doubt: "Comment la recharger ?",
         response:
-          "Elle est pensée pour un usage en veilleuse grâce à sa lumière douce ; l'autonomie exacte en usage continu reste à confirmer.",
+          "Elle se recharge par USB : sa batterie intégrée évite de la garder branchée en permanence.",
       },
       {
         doubt: "Combien de temps vais-je attendre ma commande ?",
@@ -2273,7 +2268,7 @@ export const products: Product[] = [
       },
     ],
     valueStack: [
-      "Une lampe LED en acrylique, silhouette diamant",
+      "Une lampe de table LED, silhouette diamant",
       "Allumage tactile et rechargeable USB",
       "Livraison offerte, expédition sous 24h",
       "Retours gratuits sous 30 jours",
@@ -2284,23 +2279,29 @@ export const products: Product[] = [
       "Prête à l'installer sur votre bureau ?",
     ],
     costPriceUSD: 0,
-    priceCHF: 32.99,
-    priceEUR: 32.99,
-    compareAtPriceCHF: 49.99,
-    compareAtPriceEUR: 49.99,
+    priceCHF: 39.99,
+    priceEUR: 39.99,
+    compareAtPriceCHF: 79.98,
+    compareAtPriceEUR: 79.98,
+    // Prix degressif : 35,00 / 31,66 / 30,00 par lampe pour 2 / 3 / 4 lampes.
+    packOffers: [
+      { quantity: 2, label: "Pack de 2 lampes", priceCHF: 69.99, priceEUR: 69.99 },
+      { quantity: 3, label: "Pack de 3 lampes", priceCHF: 94.99, priceEUR: 94.99 },
+      { quantity: 4, label: "Pack de 4 lampes", priceCHF: 119.99, priceEUR: 119.99 },
+    ],
     // Aucune photo fournie par l'operateur a ce stade : tableau vide
     // plutot qu'une image inventee ou generique. Voir note compliance.
     images: [],
     benefits: [
       {
         icon: "lightbulb",
-        title: "Silhouette facettée",
-        description: "Un acrylique taillé façon diamant, qui joue avec la lumière même éteint.",
+        title: "Forme diamant",
+        description: "Une forme en diamant et un diffuseur transparent, pour une lampe qui a du caractère même éteinte.",
       },
       {
         icon: "check",
         title: "Allumage tactile",
-        description: "Un simple effleurement suffit, sans bouton apparent.",
+        description: "Un interrupteur touch on/off : un simple geste pour allumer ou éteindre.",
       },
       {
         icon: "battery",
@@ -2310,7 +2311,7 @@ export const products: Product[] = [
       {
         icon: "home",
         title: "Bureau ou chambre",
-        description: "Lampe de bureau le jour, veilleuse douce le soir.",
+        description: "Une lumière d'appoint pour lire ou travailler, sans fil à brancher.",
       },
     ],
     useCases: [
@@ -2319,8 +2320,8 @@ export const products: Product[] = [
         description: "Une lumière d'appoint élégante pendant les soirées de travail.",
       },
       {
-        title: "Table de nuit",
-        description: "Une veilleuse douce, facile à allumer d'un effleurement.",
+        title: "Chambre",
+        description: "Facile à allumer d'un simple geste, sans chercher l'interrupteur.",
       },
       {
         title: "Salon",
@@ -2333,20 +2334,14 @@ export const products: Product[] = [
     ],
     faq: [
       {
-        question: "Quelle est l'autonomie de la batterie ?",
-        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+        question: "Comment fonctionne la lampe ?",
+        answer:
+          "Elle utilise une source LED alimentée par une batterie rechargeable par USB, et s'allume ou s'éteint grâce à un interrupteur tactile.",
       },
       {
-        question: "Combien de temps faut-il pour la recharger ?",
-        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
-      },
-      {
-        question: "Quelles sont ses dimensions ?",
-        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
-      },
-      {
-        question: "Le câble de recharge est-il fourni ?",
-        answer: "Information à confirmer par notre équipe dès que la fiche technique du fournisseur sera disponible.",
+        question: "Existe-t-il des packs de plusieurs lampes ?",
+        answer:
+          "Oui : des packs de 2, 3 ou 4 lampes sont proposés, avec un prix par lampe qui diminue à mesure que le pack grandit.",
       },
       {
         question: "Combien de temps faut-il pour recevoir ma commande ?",
@@ -2363,12 +2358,12 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Lampe de table LED en acrylique, forme diamant | Maison Loravie",
+      title: "Lampe de table LED forme diamant, rechargeable USB | Maison Loravie",
       metaDescription:
-        "Découvrez La Lampe Diamant, une lampe de table LED en acrylique à silhouette facettée, tactile et rechargeable USB. Livraison offerte, retours gratuits 30 jours.",
+        "Découvrez La Lampe Diamant, une lampe de table LED en forme de diamant, tactile et rechargeable USB, en pack de 1 à 4. Livraison offerte, retours gratuits 30 jours.",
       keywords: [
         "lampe de table led",
-        "lampe diamant acrylique",
+        "lampe diamant",
         "lampe tactile usb",
         "veilleuse rechargeable",
         "lampe de bureau moderne",

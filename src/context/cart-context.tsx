@@ -50,6 +50,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const cap = product.stock && product.stock.source !== "none" ? product.stock.quantity : Infinity;
     // Deux variantes du meme produit restent deux lignes distinctes.
     const matchesLine = (l: CartLine) => l.productId === product.id && l.variantLabel === variantLabel;
+    // Un lot est ajoute avec son libelle en tant que variantLabel : il garde son propre prix.
+    const pack = product.packOffers?.find((p) => p.label === variantLabel);
 
     setLines((prev) => {
       const existing = prev.find(matchesLine);
@@ -64,8 +66,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           slug: product.slug,
           name: product.name,
           image: product.images[0]?.src ?? "",
-          priceCHF: product.priceCHF,
-          priceEUR: product.priceEUR,
+          priceCHF: pack?.priceCHF ?? product.priceCHF,
+          priceEUR: pack?.priceEUR ?? product.priceEUR,
           quantity: Math.min(cap, quantity),
           packLabel: product.packLabel,
           variantLabel,

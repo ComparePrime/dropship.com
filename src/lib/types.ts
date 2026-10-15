@@ -23,6 +23,19 @@ export interface ProductVariant {
   image: ProductImage;
 }
 
+/**
+ * Lot de plusieurs unites du meme produit, a prix degressif (ex: pack de 2).
+ * Le `label` sert aussi d'identifiant dans le panier (champ variantLabel) et
+ * est revalide cote serveur : le prix paye vient toujours d'ici, jamais du client.
+ */
+export interface PackOffer {
+  quantity: number;
+  /** Ex: "Pack de 2 lampes". */
+  label: string;
+  priceCHF: number;
+  priceEUR: number;
+}
+
 export interface UseCase {
   title: string;
   description: string;
@@ -199,6 +212,8 @@ export interface Product {
   stock?: StockInfo;
   /** Absent si le produit n'a pas de variantes réelles (coloris/motifs). */
   variants?: ProductVariant[];
+  /** Lots a prix degressif, en plus de l'achat a l'unite. Absent si le produit n'en propose pas. */
+  packOffers?: PackOffer[];
 }
 
 /**
