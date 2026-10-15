@@ -2193,18 +2193,11 @@ export const products: Product[] = [
     // Categorie "electrical" : appareil USB rechargeable, tactile, LED.
     // Risque comparable au Ventilateur Anti-Mouches (petit appareil a
     // batterie/USB), pas au niveau du ventilateur de plafond cable en dur.
-    // BLOQUANT REEL (pas une prudence documentaire) : aucune photo fournie
-    // par l'operateur pour ce produit. Une fiche sans aucune image n'est
-    // pas publiable en l'etat, quel que soit le contenu textuel —
-    // contrairement a un document de conformite manquant, c'est une
-    // condition de base pour une fiche e-commerce. Reste en draft jusqu'a
-    // reception d'au moins une photo (reelle ou, a defaut, generee avec
-    // l'accord de l'operateur).
     compliance: {
       categories: ["electrical"],
       verified: false,
       notes:
-        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' et 'verre stone' de l'autre) : a verifier sur les photos, la fiche dit seulement 'diffuseur transparent'. Capacite de batterie, autonomie et temps de charge non fournis.",
+        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' de l'autre) : les photos montrent un objet transparent facette, la fiche dit 'acrylique transparent' (titre fournisseur) sans autre precision. Photos recues, 5 images. Capacite de batterie, autonomie et temps de charge non fournis.",
     },
     evaluation: {
       demandScore: 4,
@@ -2224,7 +2217,7 @@ export const products: Product[] = [
     subtitle:
       "Une lampe de table LED à la silhouette en forme de diamant, à commande tactile et rechargeable par USB, pour le bureau ou la chambre.",
     heroBullets: [
-      "Silhouette en forme de diamant, diffuseur transparent",
+      "Acrylique transparent aux facettes en diamant",
       "Interrupteur tactile on/off : un simple geste suffit",
       "Batterie rechargeable par USB, sans câble fixe",
       "Pensée pour le bureau comme pour la chambre",
@@ -2289,14 +2282,38 @@ export const products: Product[] = [
       { quantity: 3, label: "Pack de 3 lampes", priceCHF: 94.99, priceEUR: 94.99 },
       { quantity: 4, label: "Pack de 4 lampes", priceCHF: 119.99, priceEUR: 119.99 },
     ],
-    // Aucune photo fournie par l'operateur a ce stade : tableau vide
-    // plutot qu'une image inventee ou generique. Voir note compliance.
-    images: [],
+    images: [
+      {
+        src: "/images/products/lampe-diamant/commode-miroir.webp",
+        alt: "Lampe de table transparente à facettes en diamant posée sur une commode, à côté d'un vase en verre et d'un vase blanc",
+        caption: "Sur une commode, près d'un miroir",
+      },
+      {
+        src: "/images/products/lampe-diamant/lumiere-projetee.jpg",
+        alt: "Lampe de table à facettes allumée posée sur un livre, projetant des motifs de lumière sur le mur",
+        caption: "Allumée, elle projette des motifs sur le mur",
+      },
+      {
+        src: "/images/products/lampe-diamant/table-vichy.jpg",
+        alt: "Lampe de table transparente à facettes posée sur une table, avec une plante et une tasse",
+        caption: "Sur une table, avec une plante",
+      },
+      {
+        src: "/images/products/lampe-diamant/fleurs-roses.jpg",
+        alt: "Lampe de table transparente à facettes devant un fond sombre, entourée de fleurs séchées roses",
+        caption: "Entourée de fleurs séchées",
+      },
+      {
+        src: "/images/products/lampe-diamant/livre-vase.jpg",
+        alt: "Lampe de table transparente à facettes posée sur un livre, avec un vase blanc et des fleurs séchées",
+        caption: "Posée sur un livre",
+      },
+    ],
     benefits: [
       {
         icon: "lightbulb",
         title: "Forme diamant",
-        description: "Une forme en diamant et un diffuseur transparent, pour une lampe qui a du caractère même éteinte.",
+        description: "Un abat-jour transparent aux facettes taillées, qui joue avec la lumière et garde du caractère même éteint.",
       },
       {
         icon: "check",
