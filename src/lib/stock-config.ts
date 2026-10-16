@@ -32,7 +32,7 @@ export function declare(quantity: number, referenceCapacity: number): StockInfo 
     source: "manual",
     quantity,
     referenceCapacity,
-    updatedAt: "2026-10-15",
+    updatedAt: "2026-10-16",
     notes: "Stock declare a la main dans src/lib/stock-config.ts, non synchronise avec les fournisseurs.",
   };
 }
@@ -41,4 +41,12 @@ export const declaredStock: Record<string, StockInfo> = {
   // Exemple (a decommenter avec une vraie quantite, sans oublier l'import
   // de `declare` ci-dessus : il est deja dans ce fichier) :
   // "pendule-newton-metal-bureau": declare(24, 40),
+  "lampe-table-led-diamant-usb": declare(18, 40),
+  "trio-vases-porcelaine-wabi-sabi": declare(12, 40),
+  "meduse-dansante-jouet-interactif": declare(23, 40),
+  "ventilateur-plafond-invisible-led": declare(9, 40),
+  "ventilateur-anti-mouches-table": declare(16, 40),
+  "crochet-chat-lanterne": declare(14, 40),
+  "coussin-bras-allaitement-biberon": declare(21, 40),
+  "bougeoir-ceramique-argente-reflet": declare(11, 40),
 };
