@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import { trackPurchase } from "@/lib/google-tag";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
 
@@ -9,6 +10,15 @@ export default function ConfirmationPage() {
   const { clear } = useCart();
 
   useEffect(() => {
+    const sessionId = new URLSearchParams(window.location.search).get("session_id");
+    if (sessionId) {
+      fetch(`/api/order-summary?session_id=${encodeURIComponent(sessionId)}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.transactionId) trackPurchase(data);
+        })
+        .catch(() => {});
+    }
     clear();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
