@@ -712,6 +712,7 @@ const catalog: Product[] = [
         src: "/images/products/coussin-allaitement/main_images/main-image-7.jpeg",
         alt: "Dimensions du coussin de bras : 23 cm par 25 cm",
         caption: "Dimensions : environ 23 × 25 cm",
+        info: true,
       },
       {
         src: "/images/products/coussin-allaitement/main_images/main-image-3.jpeg",
@@ -1116,11 +1117,13 @@ const catalog: Product[] = [
         src: "/images/products/ventilateur-plafond-led/dimensions.webp",
         alt: "Dimensions du ventilateur : corps lumineux Ø 48 cm, pales déployées Ø 120 cm, hauteur totale 23 cm, épaisseur du luminaire 2,5 cm",
         caption: "Dimensions : Ø 120 cm pales déployées",
+        info: true,
       },
       {
         src: "/images/products/ventilateur-plafond-led/caracteristiques.webp",
         alt: "Caractéristiques : éclairage LED intégré, 3 tonalités lumineuses, fonctionnement silencieux, télécommande incluse",
         caption: "Les caractéristiques en un coup d'œil",
+        info: true,
       },
     ],
     variants: [
@@ -2223,7 +2226,7 @@ const catalog: Product[] = [
       categories: ["electrical"],
       verified: false,
       notes:
-        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' de l'autre) : les photos montrent un objet transparent facette, la fiche dit 'acrylique transparent' (titre fournisseur) sans autre precision. Photos recues, 5 images. Photo principale fournie par l'operateur (visuel avec 3 ambiances lumineuses, USB, tactile) : 3 ambiances reprises de ce visuel, sans detail sur les teintes exactes. Capacite de batterie, autonomie et temps de charge non fournis.",
+        "Fiche fournisseur recue (texte seul). Le fournisseur declare CE, CCC, LVD et une garantie 3 ans : aucun document fourni, donc ni certification ni garantie 3 ans reprises sur la fiche (la garantie reste celle de la boutique). Flux declare '249 a 2000 lm' pour '3 a 5 m2' : implausible pour une petite lampe LED sur batterie USB, non publie. Dimensions 25x25x30 cm / 0,8 kg = emballage, pas la lampe : non publie. Dimensions de la lampe (26 cm de haut, 12 cm de large) lues sur le visuel fourni par l'operateur le 2026-10-16. Matiere contradictoire dans le texte (acrylique d'un cote, 'verre clair' de l'autre) : les photos montrent un objet transparent facette, la fiche dit 'acrylique transparent' (titre fournisseur) sans autre precision. Photos recues, 5 images. Photo principale fournie par l'operateur (visuel avec 3 ambiances lumineuses, USB, tactile) : 3 ambiances reprises de ce visuel, sans detail sur les teintes exactes. Capacite de batterie, autonomie et temps de charge non fournis.",
     },
     evaluation: {
       demandScore: 4,
@@ -2313,6 +2316,7 @@ const catalog: Product[] = [
         src: "/images/products/lampe-diamant/principale.webp",
         alt: "La Lampe Diamant allumée sur une commode, avec ses trois atouts : 3 ambiances lumineuses, rechargeable par USB, commande tactile",
         caption: "Ses trois atouts en un coup d'œil",
+        info: true,
       },
       {
         src: "/images/products/lampe-diamant/commode-miroir.webp",
@@ -2385,6 +2389,11 @@ const catalog: Product[] = [
         question: "Comment fonctionne la lampe ?",
         answer:
           "Elle utilise une source LED alimentée par une batterie rechargeable par USB, et s'allume ou s'éteint grâce à un interrupteur tactile.",
+      },
+      {
+        question: "Quelles sont les dimensions de la lampe ?",
+        answer:
+          "La lampe mesure environ 26 cm de hauteur et 12 cm de largeur au niveau de l'abat-jour.",
       },
       {
         question: "Quelles sont les ambiances lumineuses proposées ?",

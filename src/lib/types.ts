@@ -11,6 +11,8 @@ export interface ProductImage {
    * jamais deduite d'un nom de fichier.
    */
   variantId?: string;
+  /** Visuel d'information (dimensions, caracteristiques) : toujours place juste apres la photo principale. */
+  info?: boolean;
 }
 
 export interface ProductBenefit {
