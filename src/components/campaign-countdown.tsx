@@ -6,7 +6,7 @@ import { useCampaign } from "@/lib/use-campaign";
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /** Compte a rebours de l'Offre d'automne. Disparait automatiquement apres la date de fin. */
-export function CampaignCountdown({ variant = "block" }: { variant?: "block" | "bar" }) {
+export function CampaignCountdown({ variant = "block" }: { variant?: "block" | "bar" | "units" }) {
   const c = useCampaign();
   if (!c.running) return null;
 
@@ -22,6 +22,19 @@ export function CampaignCountdown({ variant = "block" }: { variant?: "block" | "
       <span className="font-medium tabular-nums">
         {c.days}j {pad(c.hours)}h {pad(c.minutes)}m {pad(c.seconds)}s
       </span>
+    );
+  }
+
+  if (variant === "units") {
+    return (
+      <div className="grid grid-cols-4 gap-2 md:gap-3" role="timer" aria-label="Temps restant pour profiter de l'offre">
+        {units.map((u) => (
+          <div key={u.label} className="rounded-xl bg-white/15 px-2 py-3 text-center">
+            <span className="block font-display text-3xl leading-none tabular-nums md:text-4xl">{u.value}</span>
+            <span className="mt-1 block text-[11px] uppercase tracking-wide text-white/80">{u.label}</span>
+          </div>
+        ))}
+      </div>
     );
   }
 

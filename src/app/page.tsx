@@ -7,6 +7,7 @@ import { TrustBadges } from "@/components/trust-badges";
 import { ShopTheLook } from "@/components/shop-the-look";
 import { CollectionShowcase } from "@/components/collection-showcase";
 import { HomeJsonLd } from "@/components/home-jsonld";
+import { HomeCampaignBanner } from "@/components/home-campaign-banner";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/categories";
 import { Icon } from "@/components/icons";
@@ -91,6 +92,8 @@ export default function HomePage() {
           </div>
         )}
       </section>
+
+      <HomeCampaignBanner />
 
       {/*
         2. "Découvrez la collection" : photo éditoriale avec points
@@ -199,38 +202,35 @@ export default function HomePage() {
 
       {/* 5. Pourquoi Maison Loravie : arguments reels, rien d'invente */}
       <section className="container-content py-16 md:py-24">
-        <h2 className="section-title text-center">Pourquoi Maison Loravie</h2>
-        <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className="text-center">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-sage/10 text-sage">
-              <Icon.star className="h-5 w-5" strokeWidth={1.5} />
-            </span>
-            <h3 className="mt-4 font-display text-lg text-ink">Une sélection choisie</h3>
-            <p className="mt-2 text-sm text-ink/70">
-              Chaque objet est choisi un par un pour son allure et son utilité, plutôt que
-              d'empiler un catalogue sans fin.
-            </p>
-          </div>
-          <div className="text-center">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-sage/10 text-sage">
-              <Icon.truck className="h-5 w-5" strokeWidth={1.5} />
-            </span>
-            <h3 className="mt-4 font-display text-lg text-ink">Livraison et retours sereins</h3>
-            <p className="mt-2 text-sm text-ink/70">
-              Livraison offerte, expédition sous 24h et 30 jours pour changer d'avis, sans
-              condition cachée.
-            </p>
-          </div>
-          <div className="text-center">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-sage/10 text-sage">
-              <ShieldCheck className="h-5 w-5" strokeWidth={1.5} />
-            </span>
-            <h3 className="mt-4 font-display text-lg text-ink">Paiement sécurisé</h3>
-            <p className="mt-2 text-sm text-ink/70">
-              Vos commandes sont traitées via un paiement en ligne sécurisé, du panier à la
-              confirmation.
-            </p>
-          </div>
+        <h2 className="section-title">Pourquoi Maison Loravie</h2>
+        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "Une sélection choisie",
+              text: "Chaque objet est choisi un par un pour son allure et son utilité, plutôt que d'empiler un catalogue sans fin.",
+            },
+            {
+              title: "Livraison et retours sereins",
+              text: "Livraison offerte, expédition sous 24h et 30 jours pour changer d'avis, sans condition cachée.",
+            },
+            {
+              title: "Paiement sécurisé",
+              text: "Vos commandes sont traitées via un paiement en ligne sécurisé, du panier à la confirmation.",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="flex items-start gap-4 rounded-xl2 border border-sage/15 bg-sage/5 p-5 md:p-6"
+            >
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-sage text-white">
+                <Icon.check className="h-5 w-5" strokeWidth={2.25} />
+              </span>
+              <div>
+                <h3 className="font-display text-xl font-semibold text-ink">{item.title}</h3>
+                <p className="mt-1 text-[15px] leading-relaxed text-ink/70">{item.text}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
