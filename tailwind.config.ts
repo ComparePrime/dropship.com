@@ -41,6 +41,30 @@ const config: Config = {
           from: { transform: "translateX(100%)" },
           to: { transform: "translateX(0)" },
         },
+        "cart-fade-out": {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        "cart-slide-out": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(100%)" },
+        },
+        "line-in": {
+          from: { opacity: "0", transform: "translateY(6px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "line-out": {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        "soft-in": {
+          from: { opacity: "0", transform: "translateY(-4px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "total-pop": {
+          "0%": { opacity: "0.55" },
+          "100%": { opacity: "1" },
+        },
         "promo-pulse": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.85" },
@@ -53,6 +77,12 @@ const config: Config = {
       animation: {
         "cart-fade-in": "cart-fade-in 200ms ease-out",
         "cart-slide-in": "cart-slide-in 300ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "cart-fade-out": "cart-fade-out 200ms ease-in forwards",
+        "cart-slide-out": "cart-slide-out 220ms cubic-bezier(0.4, 0, 1, 1) forwards",
+        "line-in": "line-in 220ms ease-out",
+        "line-out": "line-out 180ms ease-in forwards",
+        "soft-in": "soft-in 220ms ease-out",
+        "total-pop": "total-pop 260ms ease-out",
         "promo-pulse": "promo-pulse 2.4s ease-in-out infinite",
         "stock-glow": "stock-glow 3.2s ease-in-out infinite",
       },
