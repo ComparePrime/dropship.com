@@ -1,4 +1,4 @@
-export const GOOGLE_ANALYTICS_ID = "G-0FHNZVR7ES";
+export const GOOGLE_ANALYTICS_ID = "G-QWVNQQK93Q";
 export const GOOGLE_ADS_TAG_ID = "AW-11045179820";
 
 declare global {
