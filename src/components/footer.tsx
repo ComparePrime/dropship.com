@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieSettingsLink } from "@/components/cookie-settings-link";
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 import { CurrencySwitcher } from "@/components/currency-switcher";
@@ -80,6 +81,9 @@ export function Footer() {
               <Link href="/mentions-legales" className="hover:text-ink">
                 Mentions légales
               </Link>
+            </li>
+            <li>
+              <CookieSettingsLink />
             </li>
           </ul>
         </div>

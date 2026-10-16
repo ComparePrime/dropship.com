@@ -161,6 +161,9 @@ const sections: Section[] = [
         p: "Les technologies publicitaires non essentielles sont utilisées conformément aux règles applicables en matière de protection des données et de consentement.",
       },
       {
+        p: "Sur Maison Loravie, Google Analytics et Google Ads ne sont activés qu'après votre accord, donné via le bandeau de cookies. Vous pouvez modifier votre choix à tout moment avec le lien « Gérer les cookies » en bas de page.",
+      },
+      {
         p: "Les prestataires concernés disposent de leurs propres politiques de confidentialité. Nous vous invitons à les consulter pour connaître leurs pratiques de traitement des données.",
       },
     ],
