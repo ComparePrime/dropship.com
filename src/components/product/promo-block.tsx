@@ -54,20 +54,20 @@ export function PromoBlock({
         </p>
       )}
 
-      <div className="mt-2 flex flex-wrap items-baseline justify-center gap-3">
-        <span className="text-lg text-ink/40 line-through">
+      <div className="mt-3 flex items-baseline justify-center gap-3">
+        <span className="font-display text-4xl text-ink">{formatPrice(price, currency)}</span>
+        <span className="text-lg text-ink/40 line-through" aria-label="Prix de référence">
           {formatPrice(compareAt!, currency)}
         </span>
-        <span className="font-display text-3xl text-ink">{formatPrice(price, currency)}</span>
         {discountPercent > 0 && (
-          <span className="rounded-full bg-terracottaText px-2 py-0.5 text-xs font-semibold text-white">
+          <span className="rounded-full bg-terracottaText px-2.5 py-0.5 text-sm font-semibold text-white">
             −{discountPercent}%
           </span>
         )}
       </div>
 
-      <p className="mt-2 text-sm font-medium text-sage">
-        Économisez {formatPrice(savings, currency)}
+      <p className="mt-2 text-center text-sm font-medium text-sage">
+        Vous économisez {formatPrice(savings, currency)}
       </p>
     </div>
   );

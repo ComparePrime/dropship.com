@@ -9,6 +9,7 @@ import { useCart } from "@/context/cart-context";
 import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
 import { RatingStars } from "@/components/product/rating-stars";
+import { WelcomeOffer } from "@/components/product/welcome-offer";
 import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
@@ -123,6 +124,13 @@ export function BuyBox({
           <div className="mt-3">
             <Countdown endsAt={product.promotion.endsAt} />
           </div>
+        )}
+
+        {!isOutOfStock && (
+          <WelcomeOffer
+            unitPrice={getPriceForCurrency(displayedProduct.priceCHF, displayedProduct.priceEUR, currency)}
+            quantity={quantity}
+          />
         )}
 
         <StockIndicator stock={product.stock} />
