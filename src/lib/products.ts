@@ -1211,7 +1211,7 @@ const catalog: Product[] = [
       {
         question: "Quelles sont les dimensions et l'envergure des pales ?",
         answer:
-          "Dimensions exactes et envergure des pales à confirmer auprès du fournisseur actuel avant la mise en vente définitive. L'appareil intègre une source lumineuse LED dimmable à distance.",
+          "Le corps lumineux mesure 48 cm de diamètre pour 2,5 cm d'épaisseur. Pales déployées, l'ensemble atteint 120 cm de diamètre, pour une hauteur totale de 23 cm.",
       },
       {
         question: "L'ampoule est-elle fournie ?",
