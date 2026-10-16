@@ -9,6 +9,8 @@ import { useCart } from "@/context/cart-context";
 import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
 import { RatingStars } from "@/components/product/rating-stars";
+import { CampaignCountdown } from "@/components/campaign-countdown";
+import { getCampaignDeal } from "@/lib/campaign";
 import { WelcomeOffer } from "@/components/product/welcome-offer";
 import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
@@ -118,7 +120,17 @@ export function BuyBox({
         d'achat se prenne sans devoir chercher l'information ailleurs.
       */}
       <div className="mt-6 rounded-xl2 border border-sage/30 bg-white/60 p-5 shadow-card md:p-6">
-        <PromoBlock product={displayedProduct} currency={currency} variant="compact" />
+        {!selectedPack && getCampaignDeal(product, currency) && (
+          <div className="mb-3">
+            <CampaignCountdown />
+          </div>
+        )}
+        <PromoBlock
+          product={displayedProduct}
+          currency={currency}
+          variant="compact"
+          ignoreCampaign={!!selectedPack}
+        />
 
         {product.promotion.active && product.promotion.endsAt && (
           <div className="mt-3">

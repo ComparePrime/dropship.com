@@ -1,7 +1,11 @@
+"use client";
+
 import { Product } from "@/lib/types";
 import { Currency } from "@/lib/types";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
+import { AUTUMN_CAMPAIGN } from "@/lib/campaign";
+import { useCampaign } from "@/lib/use-campaign";
 
 /**
  * N'affiche un prix barré / une économie que si une vraie promotion est
@@ -12,15 +16,20 @@ export function PromoBlock({
   product,
   currency,
   variant = "compact",
+  ignoreCampaign = false,
 }: {
   product: Product;
   currency: Currency;
   variant?: "compact" | "full";
+  /** Vrai quand le prix de reference n'est pas celui de la campagne (ex: prix d'un lot compare aux unites). */
+  ignoreCampaign?: boolean;
 }) {
+  const { running } = useCampaign();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
   const compareAt =
     currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
-  const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price;
+  const hasRealPromotion =
+    product.promotion.active && !!compareAt && compareAt > price && (ignoreCampaign || running);
   const savings = hasRealPromotion ? compareAt! - price : 0;
   const discountPercent = hasRealPromotion ? Math.round((savings / compareAt!) * 100) : 0;
 
@@ -45,7 +54,7 @@ export function PromoBlock({
     >
       <span className="motion-safe:animate-promo-pulse inline-flex items-center gap-1.5 rounded-full bg-terracotta px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
         <Icon.flame className="h-3.5 w-3.5" strokeWidth={2} />
-        {product.promotion.label}
+        {ignoreCampaign ? product.promotion.label : AUTUMN_CAMPAIGN.name}
       </span>
 
       {product.packLabel && (

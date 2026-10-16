@@ -10,13 +10,21 @@ import { Icon } from "@/components/icons";
 import { PromoCodeField } from "@/components/promo-code-field";
 import { getCartTotals } from "@/lib/cart-totals";
 import { useCheckout } from "@/lib/use-checkout";
+import { useCampaign } from "@/lib/use-campaign";
 
 export default function CartPage() {
   const { lines, promo, updateQuantity, removeItem } = useCart();
   const { currency } = useCurrency();
   const { startCheckout, loading, error } = useCheckout();
+  const campaign = useCampaign();
 
-  const { subtotal, discount, total } = getCartTotals(lines, currency, promo?.percent ?? null);
+  const { subtotal, discount, total, includedSavings } = getCartTotals(
+    lines,
+    currency,
+    promo?.percent ?? null,
+    campaign.running
+  );
+  const totalSavings = Math.round((discount + includedSavings) * 100) / 100;
 
   const suggestions = getPublishedProducts().filter(
     (p) => !lines.some((l) => l.productId === p.id)
@@ -144,9 +152,9 @@ export default function CartPage() {
               <span>Total</span>
               <span>{formatPrice(total, currency)}</span>
             </div>
-            {promo && discount > 0 && (
-              <p className="mt-1 text-right text-xs text-sage">
-                Vous économisez {formatPrice(discount, currency)}
+            {totalSavings > 0 && (
+              <p className="mt-1 text-right text-sm font-medium text-sage">
+                Vous économisez {formatPrice(totalSavings, currency)}
               </p>
             )}
 

@@ -14,6 +14,7 @@ import { useCheckout } from "@/lib/use-checkout";
 import { getProductById } from "@/lib/products";
 import { LOW_STOCK_THRESHOLD, URGENT_STOCK_THRESHOLD } from "@/lib/stock-config";
 import { CartLine } from "@/lib/types";
+import { useCampaign } from "@/lib/use-campaign";
 
 const lineKey = (l: CartLine) => `${l.productId}-${l.variantLabel ?? ""}`;
 const prefersReducedMotion = () =>
@@ -23,6 +24,7 @@ export function CartDrawer() {
   const { lines, promo, isOpen, totalItems, closeCart, updateQuantity, removeItem } = useCart();
   const { currency } = useCurrency();
   const { startCheckout, loading, error } = useCheckout();
+  const campaign = useCampaign();
 
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -126,7 +128,13 @@ export function CartDrawer() {
 
   if (!isOpen) return null;
 
-  const { subtotal, discount, total } = getCartTotals(lines, currency, promo?.percent ?? null);
+  const { subtotal, discount, total, includedSavings } = getCartTotals(
+    lines,
+    currency,
+    promo?.percent ?? null,
+    campaign.running
+  );
+  const totalSavings = Math.round((discount + includedSavings) * 100) / 100;
   const hasDiscount = !!promo && discount > 0;
 
   const quantityByProduct = new Map<string, number>();
@@ -304,9 +312,14 @@ export function CartDrawer() {
                     {formatPrice(total, currency)}
                   </span>
                 </div>
-                {hasDiscount && (
+                {totalSavings > 0 && (
                   <p className="motion-safe:animate-soft-in mt-1 text-right text-sm font-medium text-sage">
-                    Vous économisez {formatPrice(discount, currency)}
+                    Vous économisez {formatPrice(totalSavings, currency)}
+                    {hasDiscount && includedSavings > 0 && (
+                      <span className="block text-xs font-normal text-stone">
+                        dont {formatPrice(includedSavings, currency)} déjà déduits des prix + {formatPrice(discount, currency)} avec le code
+                      </span>
+                    )}
                   </p>
                 )}
 

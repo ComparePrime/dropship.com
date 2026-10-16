@@ -7,6 +7,7 @@ import { categories, getCategoryBySlug } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icons";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-price";
 
 interface Props {
   params: { slug: string };
@@ -90,6 +91,7 @@ export default function CollectionPage({ params }: Props) {
             {products.map((product) => (
               <Link key={product.id} href={`/produit/${product.slug}`} className="group">
                 <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
+                  <CampaignCardBadge product={product} />
                   {product.images[0] && (
                     <Image
                       src={product.images[0].src}
@@ -100,6 +102,7 @@ export default function CollectionPage({ params }: Props) {
                   )}
                 </div>
                 <p className="mt-3 text-sm font-medium text-ink">{product.name}</p>
+                <ProductCardPrice product={product} />
               </Link>
             ))}
           </div>

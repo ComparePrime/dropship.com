@@ -6,15 +6,17 @@ import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { useCampaign } from "@/lib/use-campaign";
 
 export function StickyBar({ product }: { product: Product }) {
   const [visible, setVisible] = useState(false);
+  const { running } = useCampaign();
   const { currency } = useCurrency();
   const { addItem } = useCart();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
   const compareAt =
     currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
-  const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price;
+  const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price && running;
   const isOutOfStock =
     !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
   const hasVariants = !!product.variants && product.variants.length > 0;

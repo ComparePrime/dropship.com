@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ShippingConfig } from "@/lib/types";
 import { Icon } from "@/components/icons";
 
@@ -14,11 +17,16 @@ function formatDate(date: Date) {
  * chiffre fixe écrit en dur. Les dates affichées sont donc toujours à jour.
  */
 export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
-  const today = new Date();
-  const earliest = new Date(today);
-  earliest.setDate(earliest.getDate() + shipping.minDays);
-  const latest = new Date(today);
-  latest.setDate(latest.getDate() + shipping.maxDays);
+  // Dates calculees dans le navigateur (jour reel de la visite) : le HTML genere a la
+  // construction du site afficherait sinon la date du build et provoquerait un decalage a l'hydratation.
+  const [range, setRange] = useState<string | null>(null);
+  useEffect(() => {
+    const earliest = new Date();
+    earliest.setDate(earliest.getDate() + shipping.minDays);
+    const latest = new Date();
+    latest.setDate(latest.getDate() + shipping.maxDays);
+    setRange(`${formatDate(earliest)} – ${formatDate(latest)}`);
+  }, [shipping.minDays, shipping.maxDays]);
 
   return (
     <div className="flex items-center gap-3 text-xs text-ink/70">
@@ -38,9 +46,7 @@ export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
         </span>
         <div>
           <p className="font-medium text-ink">Livraison estimée</p>
-          <p>
-            {formatDate(earliest)} – {formatDate(latest)}
-          </p>
+          <p>{range ?? `${shipping.minDays} à ${shipping.maxDays} jours ouvrables`}</p>
         </div>
       </div>
     </div>

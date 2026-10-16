@@ -10,7 +10,7 @@ import { HomeJsonLd } from "@/components/home-jsonld";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/categories";
 import { Icon } from "@/components/icons";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-price";
 
 const ChevronRight = Icon["chevron-right"];
 const ShieldCheck = Icon["shield-check"];
@@ -128,45 +128,34 @@ export default function HomePage() {
           univers — pas une grille sans fin.
         </p>
         <div className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
-          {selection.map((product) => {
-            const price = getPriceForCurrency(product.priceCHF, product.priceEUR, "CHF");
-            const compareAt = product.compareAtPriceCHF;
-            const hasPromo = product.promotion.active && !!compareAt && compareAt > price;
-            return (
-              <Link
-                key={product.id}
-                href={`/produit/${product.slug}`}
-                className="group flex flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-white/50 transition-shadow hover:shadow-card"
-              >
-                <div className="relative aspect-square w-full overflow-hidden bg-sand">
-                  {product.images[0] && (
-                    <Image
-                      src={product.images[0].src}
-                      alt={product.images[0].alt}
-                      fill
-                      sizes="(min-width: 768px) 33vw, 50vw"
-                      loading="lazy"
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  )}
-                </div>
-                <div className="p-4 md:p-5">
-                  <span className="text-xs font-medium uppercase tracking-wide text-sage">
-                    {product.badge}
-                  </span>
-                  <p className="mt-1 font-display text-base text-ink md:text-lg">{product.name}</p>
-                  <div className="mt-1 flex items-baseline gap-2">
-                    {hasPromo && (
-                      <span className="text-xs text-ink/40 line-through">
-                        {formatPrice(compareAt!, "CHF")}
-                      </span>
-                    )}
-                    <span className="text-sm text-ink/70">{formatPrice(price, "CHF")}</span>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+          {selection.map((product) => (
+            <Link
+              key={product.id}
+              href={`/produit/${product.slug}`}
+              className="group flex flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-white/50 transition-shadow hover:shadow-card"
+            >
+              <div className="relative aspect-square w-full overflow-hidden bg-sand">
+                <CampaignCardBadge product={product} />
+                {product.images[0] && (
+                  <Image
+                    src={product.images[0].src}
+                    alt={product.images[0].alt}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 50vw"
+                    loading="lazy"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                )}
+              </div>
+              <div className="p-4 md:p-5">
+                <span className="text-xs font-medium uppercase tracking-wide text-sage">
+                  {product.badge}
+                </span>
+                <p className="mt-1 font-display text-base text-ink md:text-lg">{product.name}</p>
+                <ProductCardPrice product={product} />
+              </div>
+            </Link>
+          ))}
         </div>
         <div className="mt-10 text-center">
           <Link href="/collections" className="btn-secondary">
