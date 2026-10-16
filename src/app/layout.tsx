@@ -10,9 +10,9 @@ import { AnnouncementBar } from "@/components/announcement-bar";
 import { CartDrawer } from "@/components/cart-drawer";
 import { siteConfig } from "@/lib/site-config";
 
-// Balise Google (Google Ads, identifiant AW-...). Pour Google Analytics 4, ajouter aussi
-// un identifiant G-... avec un second gtag("config", "G-...") ci-dessous.
-const GOOGLE_TAG_ID = "AW-11045179820";
+// Balise Google : un seul script gtag.js, deux configurations.
+const GOOGLE_ADS_TAG_ID = "AW-11045179820";
+const GOOGLE_ANALYTICS_ID = "G-0FHNZVR7ES";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -54,12 +54,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${cormorant.variable} ${manrope.variable}`}>
       <body>
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`} strategy="afterInteractive" />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`} strategy="afterInteractive" />
         <Script id="google-tag" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${GOOGLE_TAG_ID}');`}
+gtag('config', '${GOOGLE_ANALYTICS_ID}');
+gtag('config', '${GOOGLE_ADS_TAG_ID}');`}
         </Script>
         <CurrencyProvider>
           <CartProvider>
