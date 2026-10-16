@@ -700,11 +700,13 @@ const catalog: Product[] = [
         src: "/images/products/coussin-allaitement/main_images/main-image-1.jpeg",
         alt: "Coussin de bras motif savane soutenant un bébé pendant le biberon",
         caption: "Le Coussin Tendresse pendant le biberon",
+        variantId: "savane",
       },
       {
         src: "/images/products/coussin-allaitement/main_images/main-image-6.jpeg",
         alt: "Coussin de bras motif chevron gris utilisé pendant l'allaitement",
         caption: "Un appui doux pendant l'allaitement",
+        variantId: "chevron-gris",
       },
       {
         src: "/images/products/coussin-allaitement/main_images/main-image-7.jpeg",
@@ -713,8 +715,9 @@ const catalog: Product[] = [
       },
       {
         src: "/images/products/coussin-allaitement/main_images/main-image-3.jpeg",
-        alt: "Les 8 motifs disponibles du Coussin Tendresse",
-        caption: "8 motifs disponibles",
+        alt: "Coussin de bras à motif chevron soutenant un bébé pendant le biberon",
+        caption: "Un appui confortable pour le biberon",
+        variantId: "chevron-gris",
       },
     ],
     variants: [
@@ -1083,21 +1086,41 @@ const catalog: Product[] = [
         src: "/images/products/ventilateur-plafond-led/salle-a-manger.jpg",
         alt: "Ventilateur de plafond invisible blanc avec éclairage LED allumé au-dessus d'une salle à manger",
         caption: "Finition blanche, au-dessus de la table à manger",
+        variantId: "blanc",
       },
       {
         src: "/images/products/ventilateur-plafond-led/main-image-3.jpeg",
         alt: "Ventilateur de plafond invisible blanc avec éclairage LED, vue rapprochée en salle à manger",
         caption: "Vue rapprochée, finition blanche",
+        variantId: "blanc",
       },
       {
         src: "/images/products/ventilateur-plafond-led/main-image-4.jpeg",
         alt: "Ventilateur de plafond invisible blanc avec éclairage LED dans un salon",
         caption: "Finition blanche, dans un salon",
+        variantId: "blanc",
+      },
+      {
+        src: "/images/products/ventilateur-plafond-led/noir-salle-a-manger.webp",
+        alt: "Ventilateur de plafond invisible noir avec éclairage LED, pales déployées au-dessus d'une table à manger",
+        caption: "Finition noire, au-dessus de la table à manger",
+        variantId: "noir",
       },
       {
         src: "/images/products/ventilateur-plafond-led/main-image-5.jpeg",
         alt: "Ventilateur de plafond invisible noir avec éclairage LED face à un meuble TV",
         caption: "Finition noire, dans un salon",
+        variantId: "noir",
+      },
+      {
+        src: "/images/products/ventilateur-plafond-led/dimensions.webp",
+        alt: "Dimensions du ventilateur : corps lumineux Ø 48 cm, pales déployées Ø 120 cm, hauteur totale 23 cm, épaisseur du luminaire 2,5 cm",
+        caption: "Dimensions : Ø 120 cm pales déployées",
+      },
+      {
+        src: "/images/products/ventilateur-plafond-led/caracteristiques.webp",
+        alt: "Caractéristiques : éclairage LED intégré, 3 tonalités lumineuses, fonctionnement silencieux, télécommande incluse",
+        caption: "Les caractéristiques en un coup d'œil",
       },
     ],
     variants: [
@@ -1113,7 +1136,7 @@ const catalog: Product[] = [
         id: "noir",
         label: "Noir",
         image: {
-          src: "/images/products/ventilateur-plafond-led/main-image-5.jpeg",
+          src: "/images/products/ventilateur-plafond-led/noir-salle-a-manger.webp",
           alt: "Ventilateur de plafond finition noire",
         },
       },
@@ -1365,11 +1388,13 @@ const catalog: Product[] = [
         src: "/images/products/meduse-dansante/vert-menthe.png",
         alt: "Jouet méduse dansante vert menthe avec lumières LED, packaging Méduse Dansante",
         caption: "La Méduse Dansante en vert menthe",
+        variantId: "vert-menthe",
       },
       {
         src: "/images/products/meduse-dansante/rose.png",
         alt: "Jouet méduse dansante rose avec lumières LED, packaging Méduse Dansante",
         caption: "La Méduse Dansante en rose",
+        variantId: "rose",
       },
     ],
     variants: [

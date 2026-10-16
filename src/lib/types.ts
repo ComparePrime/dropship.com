@@ -4,6 +4,13 @@ export interface ProductImage {
   src: string;
   alt: string;
   caption?: string;
+  /**
+   * Id de la variante a laquelle cette photo appartient (ex: "noir"). Absent =
+   * photo commune a toutes les variantes (dimensions, caracteristiques...).
+   * A renseigner uniquement quand l'association est certaine (photo verifiee),
+   * jamais deduite d'un nom de fichier.
+   */
+  variantId?: string;
 }
 
 export interface ProductBenefit {

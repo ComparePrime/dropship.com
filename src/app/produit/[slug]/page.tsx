@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/products";
 import { siteConfig } from "@/lib/site-config";
 import { Product, ProductSectionKey } from "@/lib/types";
-import { ProductGallery } from "@/components/product/gallery";
-import { BuyBox } from "@/components/product/buy-box";
+import { ProductHero } from "@/components/product/product-hero";
 import { StickyBar } from "@/components/product/sticky-bar";
 import { StorytellingSection } from "@/components/product/storytelling-section";
 import { BenefitsSection } from "@/components/product/benefits-section";
@@ -122,8 +121,7 @@ export default function ProductPage({ params }: Props) {
       <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: product.name }]} />
 
       <section className="container-content grid grid-cols-1 gap-10 py-8 md:grid-cols-2 md:gap-16 md:py-14">
-        <ProductGallery images={product.images} />
-        <BuyBox product={product} />
+        <ProductHero product={product} />
       </section>
 
       {product.layout.map((key) => renderSection(key, product))}

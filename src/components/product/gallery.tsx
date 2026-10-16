@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { ProductImage } from "@/lib/types";
@@ -10,6 +10,13 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
   const [lightbox, setLightbox] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const current = images[active] ?? images[0];
+
+  // Quand la variante change, la galerie recommence sur sa photo principale.
+  const imagesKey = images.map((img) => img.src).join("|");
+  useEffect(() => {
+    setActive(0);
+    scrollerRef.current?.scrollTo({ left: 0, behavior: "auto" });
+  }, [imagesKey]);
 
   const scrollToIndex = (idx: number) => {
     const el = scrollerRef.current;

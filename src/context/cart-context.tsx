@@ -52,6 +52,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const matchesLine = (l: CartLine) => l.productId === product.id && l.variantLabel === variantLabel;
     // Un lot est ajoute avec son libelle en tant que variantLabel : il garde son propre prix.
     const pack = product.packOffers?.find((p) => p.label === variantLabel);
+    const variantImage = product.variants?.find((v) => v.label === variantLabel)?.image.src;
 
     setLines((prev) => {
       const existing = prev.find(matchesLine);
@@ -65,7 +66,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           productId: product.id,
           slug: product.slug,
           name: product.name,
-          image: product.images[0]?.src ?? "",
+          image: variantImage ?? product.images[0]?.src ?? "",
           priceCHF: pack?.priceCHF ?? product.priceCHF,
           priceEUR: pack?.priceEUR ?? product.priceEUR,
           quantity: Math.min(cap, quantity),

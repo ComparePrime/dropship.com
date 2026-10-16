@@ -16,11 +16,20 @@ import { TrustBadges } from "@/components/trust-badges";
 import { Icon, IconName } from "@/components/icons";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 
-export function BuyBox({ product }: { product: Product }) {
+export function BuyBox({
+  product,
+  variantId,
+  onVariantChange,
+}: {
+  product: Product;
+  variantId?: string;
+  onVariantChange: (id: string) => void;
+}) {
   const { currency } = useCurrency();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariantId, setSelectedVariantId] = useState(product.variants?.[0]?.id);
+  const selectedVariantId = variantId;
+  const setSelectedVariantId = onVariantChange;
   const selectedVariant = product.variants?.find((v) => v.id === selectedVariantId);
   const [selectedPackLabel, setSelectedPackLabel] = useState<string | undefined>(undefined);
   const selectedPack = product.packOffers?.find((p) => p.label === selectedPackLabel);
