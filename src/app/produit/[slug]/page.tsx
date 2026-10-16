@@ -38,7 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${siteConfig.domain}/produit/${product.slug}`;
 
   return {
-    title: product.status === "draft" ? `[Brouillon] ${product.seo.title}` : product.seo.title,
+    // `absolute` : seo.title contient deja la marque, le gabarit du layout ne doit pas la rajouter.
+    title: { absolute: product.status === "draft" ? `[Brouillon] ${product.seo.title}` : product.seo.title },
     description: product.seo.metaDescription,
     keywords: product.seo.keywords,
     alternates: { canonical: url },

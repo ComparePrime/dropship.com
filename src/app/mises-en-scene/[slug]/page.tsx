@@ -19,7 +19,7 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!scene || scene.status !== "published") return {};
   const url = `${siteConfig.domain}/mises-en-scene/${scene.slug}`;
   return {
-    title: `${scene.title} | Maison Loravie`,
+    title: { absolute: `${scene.title} | Maison Loravie` },
     description: scene.description,
     alternates: { canonical: url },
     openGraph: {

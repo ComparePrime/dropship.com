@@ -4,6 +4,8 @@ import { siteConfig } from "@/lib/site-config";
 export function ProductJsonLd({ product }: { product: Product }) {
   const url = `${siteConfig.domain}/produit/${product.slug}`;
   const realReviews = product.reviews.filter((r) => !r.demo);
+  const isOutOfStock =
+    !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
 
   const productSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -20,9 +22,13 @@ export function ProductJsonLd({ product }: { product: Product }) {
       url,
       priceCurrency: "CHF",
       price: product.priceCHF.toFixed(2),
-      availability: "https://schema.org/InStock",
+      availability: isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
       shippingDetails: {
         "@type": "OfferShippingDetails",
+        shippingDestination: siteConfig.markets.map((country) => ({
+          "@type": "DefinedRegion",
+          addressCountry: country,
+        })),
         shippingRate: {
           "@type": "MonetaryAmount",
           value: "0",
@@ -47,6 +53,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        applicableCountry: siteConfig.markets,
         merchantReturnDays: product.shipping.returnDays,
         returnMethod: "https://schema.org/ReturnByMail",
         returnFees: "https://schema.org/FreeReturn",

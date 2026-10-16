@@ -21,7 +21,7 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!category) return {};
   const url = `${siteConfig.domain}/collections/${category.slug}`;
   return {
-    title: category.seo.title,
+    title: { absolute: category.seo.title },
     description: category.seo.metaDescription,
     alternates: { canonical: url },
     openGraph: {

@@ -6,7 +6,7 @@ import { categories } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/collections", "/blog", "/panier"].map((path) => ({
+  const staticRoutes = ["", "/collections", "/blog", "/a-propos", "/livraison", "/retours", "/contact", "/confidentialite"].map((path) => ({
     url: `${siteConfig.domain}${path}`,
     lastModified: new Date(),
   }));

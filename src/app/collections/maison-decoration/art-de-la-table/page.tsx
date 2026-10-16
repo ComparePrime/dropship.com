@@ -9,7 +9,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 const CategoryIcon = Icon.home;
 
 export const metadata: Metadata = {
-  title: "Art de la table | Maison Loravie",
+  title: { absolute: "Art de la table | Maison Loravie" },
   description:
     "Assiettes, verres, linge de table et accessoires de présentation : découvrez la sélection Art de la table de Maison Loravie.",
   alternates: { canonical: `${siteConfig.domain}/collections/maison-decoration/art-de-la-table` },
