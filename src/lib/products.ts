@@ -2319,6 +2319,12 @@ const catalog: Product[] = [
         info: true,
       },
       {
+        src: "/images/products/lampe-diamant/dimensions.webp",
+        alt: "Dimensions de la lampe de table à facettes : 26 cm de hauteur, 12 cm de largeur au niveau de l'abat-jour",
+        caption: "Dimensions : 26 cm de haut, 12 cm de large",
+        info: true,
+      },
+      {
         src: "/images/products/lampe-diamant/commode-miroir.webp",
         alt: "Lampe de table transparente à facettes en diamant posée sur une commode, à côté d'un vase en verre et d'un vase blanc",
         caption: "Sur une commode, près d'un miroir",
