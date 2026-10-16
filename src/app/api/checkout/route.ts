@@ -4,6 +4,34 @@ import { getProductBySlug } from "@/lib/products";
 import { getPriceForCurrency } from "@/lib/currency";
 import { siteConfig } from "@/lib/site-config";
 import { CartLine, Currency } from "@/lib/types";
+import { computeDiscountCents, findPromo, PromoDefinition } from "@/lib/promo";
+import type Stripe from "stripe";
+
+/**
+ * Coupon Stripe correspondant au code : identifiant deterministe (code +
+ * pourcentage), donc cree une seule fois puis reutilise, sans doublon.
+ */
+async function ensureCoupon(stripe: Stripe, promo: PromoDefinition): Promise<string> {
+  const id = `loravie_${promo.code.toLowerCase()}_${promo.percent}`;
+  try {
+    await stripe.coupons.retrieve(id);
+    return id;
+  } catch (error) {
+    if ((error as { code?: string }).code !== "resource_missing") throw error;
+  }
+  try {
+    await stripe.coupons.create({
+      id,
+      name: promo.code,
+      percent_off: promo.percent,
+      duration: "once",
+    });
+  } catch (error) {
+    // Creation simultanee par une autre requete : le coupon existe, c'est suffisant.
+    if ((error as { code?: string }).code !== "resource_already_exists") throw error;
+  }
+  return id;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,6 +41,13 @@ export async function POST(req: NextRequest) {
 
     if (lines.length === 0) {
       return NextResponse.json({ error: "Le panier est vide." }, { status: 400 });
+    }
+
+    // Le code est revalide ici : seul le serveur decide de la remise.
+    const rawPromoCode = typeof body.promoCode === "string" ? body.promoCode : null;
+    const promo = rawPromoCode ? findPromo(rawPromoCode) : null;
+    if (rawPromoCode && !promo) {
+      return NextResponse.json({ error: "Ce code promo n'est pas valide." }, { status: 400 });
     }
 
     // Les prix sont revalidés côté serveur à partir du catalogue produit,
@@ -71,11 +106,19 @@ export async function POST(req: NextRequest) {
       };
     });
 
+    const subtotalCents = line_items.reduce(
+      (sum, item) => sum + item.price_data.unit_amount * item.quantity,
+      0
+    );
+    const discountCents = promo ? computeDiscountCents(subtotalCents, promo.percent) : 0;
+
     const stripe = getStripeClient();
+    const couponId = promo ? await ensureCoupon(stripe, promo) : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
       line_items,
+      discounts: couponId ? [{ coupon: couponId }] : undefined,
       shipping_address_collection: {
         allowed_countries: [
           "CH",
@@ -93,6 +136,16 @@ export async function POST(req: NextRequest) {
       success_url: `${siteConfig.domain}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteConfig.domain}/panier`,
     });
+
+    // Garde-fou : le total Stripe doit correspondre au total calcule ici (et affiche dans le panier).
+    const expectedTotal = subtotalCents - discountCents;
+    if (session.amount_total !== null && session.amount_total !== expectedTotal) {
+      console.error("[checkout:total-mismatch]", {
+        sessionId: session.id,
+        stripe: session.amount_total,
+        expected: expectedTotal,
+      });
+    }
 
     return NextResponse.json({ url: session.url });
   } catch (error) {

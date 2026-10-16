@@ -2,47 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { getPublishedProducts } from "@/lib/products";
 import { Icon } from "@/components/icons";
+import { PromoCodeField } from "@/components/promo-code-field";
+import { getCartTotals } from "@/lib/cart-totals";
+import { useCheckout } from "@/lib/use-checkout";
 
 export default function CartPage() {
-  const { lines, updateQuantity, removeItem } = useCart();
+  const { lines, promo, updateQuantity, removeItem } = useCart();
   const { currency } = useCurrency();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { startCheckout, loading, error } = useCheckout();
 
-  const subtotal = lines.reduce(
-    (sum, l) => sum + getPriceForCurrency(l.priceCHF, l.priceEUR, currency) * l.quantity,
-    0
-  );
+  const { subtotal, discount, total } = getCartTotals(lines, currency, promo?.percent ?? null);
 
   const suggestions = getPublishedProducts().filter(
     (p) => !lines.some((l) => l.productId === p.id)
   );
-
-  const handleCheckout = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines, currency }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        throw new Error(data.error ?? "Impossible de lancer le paiement.");
-      }
-      window.location.href = data.url;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Une erreur est survenue.");
-      setLoading(false);
-    }
-  };
 
   return (
     <section className="container-content py-14">
@@ -144,27 +122,46 @@ export default function CartPage() {
           </div>
 
           <div className="h-fit rounded-xl2 border border-ink/10 bg-white/60 p-6">
-            <div className="flex items-center justify-between text-sm text-stone">
+            <PromoCodeField />
+
+            <div className="mt-5 flex items-center justify-between text-sm text-stone">
               <span>Sous-total</span>
               <span>{formatPrice(subtotal, currency)}</span>
             </div>
+            {promo && discount > 0 && (
+              <div className="mt-2 flex items-center justify-between text-sm text-sage">
+                <span>
+                  Remise {promo.code} (−{promo.percent} %)
+                </span>
+                <span>−{formatPrice(discount, currency)}</span>
+              </div>
+            )}
             <div className="mt-2 flex items-center justify-between text-sm text-stone">
               <span>Livraison</span>
               <span>Offerte</span>
             </div>
             <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4 font-display text-xl">
               <span>Total</span>
-              <span>{formatPrice(subtotal, currency)}</span>
+              <span>{formatPrice(total, currency)}</span>
             </div>
+            {promo && discount > 0 && (
+              <p className="mt-1 text-right text-xs text-sage">
+                Vous économisez {formatPrice(discount, currency)}
+              </p>
+            )}
 
             <button
-              onClick={handleCheckout}
-              disabled={loading}
-              className="btn-primary mt-6 w-full"
+              onClick={startCheckout}
+              disabled={loading || lines.length === 0}
+              className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Redirection..." : "Passer au paiement"}
+              {loading ? "Redirection vers le paiement…" : "Passer au paiement"}
             </button>
-            {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+            {error && (
+              <p role="alert" className="mt-3 text-sm text-terracottaText">
+                {error}
+              </p>
+            )}
             <p className="mt-4 text-center text-xs text-stone">
               Paiement sécurisé via Stripe · Retours gratuits 30 jours
             </p>

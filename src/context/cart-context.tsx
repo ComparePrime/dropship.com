@@ -3,8 +3,16 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { CartLine, Product } from "@/lib/types";
 
+export interface AppliedPromo {
+  code: string;
+  percent: number;
+}
+
 interface CartContextValue {
   lines: CartLine[];
+  promo: AppliedPromo | null;
+  applyPromo: (code: string) => Promise<{ ok: boolean; message: string }>;
+  removePromo: () => void;
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
@@ -18,11 +26,13 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 const STORAGE_KEY = "mf_cart";
+const PROMO_KEY = "mf_promo";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [promo, setPromo] = useState<AppliedPromo | null>(null);
 
   useEffect(() => {
     try {
@@ -32,6 +42,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       // ignore
     }
     setHydrated(true);
+
+    // Un code memorise est revalide aupres du serveur : un code retire ou modifie disparait.
+    try {
+      const storedCode = window.localStorage.getItem(PROMO_KEY);
+      if (storedCode) {
+        fetch("/api/promo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: storedCode }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (data?.code && typeof data.percent === "number") {
+              setPromo({ code: data.code, percent: data.percent });
+            } else {
+              window.localStorage.removeItem(PROMO_KEY);
+            }
+          })
+          .catch(() => {});
+      }
+    } catch {
+      // ignore
+    }
   }, []);
 
   useEffect(() => {
@@ -96,12 +129,56 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const clear = () => setLines([]);
+  const clear = () => {
+    setLines([]);
+    setPromo(null);
+    // Suppression directe du stockage : la page de confirmation appelle clear() avant que le
+    // panier memorise ne soit relu au chargement, qui sinon le restaurerait.
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(PROMO_KEY);
+    } catch {
+      // ignore
+    }
+  };
+
+  const applyPromo = async (code: string): Promise<{ ok: boolean; message: string }> => {
+    try {
+      const res = await fetch("/api/promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { ok: false, message: data.error ?? "Ce code promo n'est pas valide." };
+      setPromo({ code: data.code, percent: data.percent });
+      try {
+        window.localStorage.setItem(PROMO_KEY, data.code);
+      } catch {
+        // ignore
+      }
+      return { ok: true, message: `Code ${data.code} appliqué : −${data.percent} % sur votre commande.` };
+    } catch {
+      return { ok: false, message: "Impossible de vérifier le code pour le moment. Réessayez." };
+    }
+  };
+
+  const removePromo = () => {
+    setPromo(null);
+    try {
+      window.localStorage.removeItem(PROMO_KEY);
+    } catch {
+      // ignore
+    }
+  };
 
   const totalItems = useMemo(() => lines.reduce((sum, l) => sum + l.quantity, 0), [lines]);
 
   const value: CartContextValue = {
     lines,
+    promo,
+    applyPromo,
+    removePromo,
     isOpen,
     openCart: () => setIsOpen(true),
     closeCart: () => setIsOpen(false),

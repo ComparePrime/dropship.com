@@ -8,10 +8,13 @@ import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 import { CartPortal } from "@/components/cart-portal";
+import { getCartTotals } from "@/lib/cart-totals";
+import { useCheckout } from "@/lib/use-checkout";
 
 export function CartDrawer() {
-  const { lines, isOpen, closeCart, updateQuantity, removeItem } = useCart();
+  const { lines, promo, isOpen, closeCart, updateQuantity, removeItem } = useCart();
   const { currency } = useCurrency();
+  const { startCheckout, loading, error } = useCheckout();
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Verrouille le scroll du body pendant que le panier est ouvert, et le
@@ -37,10 +40,7 @@ export function CartDrawer() {
 
   if (!isOpen) return null;
 
-  const subtotal = lines.reduce(
-    (sum, l) => sum + getPriceForCurrency(l.priceCHF, l.priceEUR, currency) * l.quantity,
-    0
-  );
+  const { subtotal, discount, total } = getCartTotals(lines, currency, promo?.percent ?? null);
 
   return (
     <CartPortal>
@@ -131,17 +131,50 @@ export function CartDrawer() {
               className="flex-shrink-0 border-t border-ink/10 px-6 pt-5"
               style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
             >
+              {promo && discount > 0 && (
+                <>
+                  <div className="mb-1 flex items-center justify-between text-sm text-stone">
+                    <span>Sous-total</span>
+                    <span>{formatPrice(subtotal, currency)}</span>
+                  </div>
+                  <div className="mb-1 flex items-center justify-between text-sm text-sage">
+                    <span>
+                      Remise {promo.code} (−{promo.percent} %)
+                    </span>
+                    <span>−{formatPrice(discount, currency)}</span>
+                  </div>
+                </>
+              )}
               <div className="mb-1 flex items-center justify-between text-sm text-stone">
                 <span>Livraison</span>
                 <span>Offerte</span>
               </div>
               <div className="mb-4 flex items-center justify-between font-display text-lg">
                 <span>Total</span>
-                <span>{formatPrice(subtotal, currency)}</span>
+                <span>{formatPrice(total, currency)}</span>
               </div>
-              <Link href="/panier" onClick={closeCart} className="btn-primary w-full">
-                Passer au paiement
-              </Link>
+              <button
+                type="button"
+                onClick={startCheckout}
+                disabled={loading}
+                className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loading ? "Redirection vers le paiement…" : "Passer au paiement"}
+              </button>
+              {error && (
+                <p role="alert" className="mt-3 text-center text-sm text-terracottaText">
+                  {error}
+                </p>
+              )}
+              {!promo && (
+                <p className="mt-3 text-center text-xs text-stone">
+                  Un code promo ? Saisissez-le dans{" "}
+                  <Link href="/panier" onClick={closeCart} className="underline underline-offset-2">
+                    votre panier
+                  </Link>
+                  .
+                </p>
+              )}
             </div>
           )}
         </div>
