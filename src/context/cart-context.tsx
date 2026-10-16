@@ -3,6 +3,23 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { CartLine, Product } from "@/lib/types";
 
+/** Ligne de panier d'un produit (prix du lot ou de la variante inclus), sans l'ajouter au panier. */
+export function buildCartLine(product: Product, quantity = 1, variantLabel?: string): CartLine {
+  const pack = product.packOffers?.find((p) => p.label === variantLabel);
+  const variantImage = product.variants?.find((v) => v.label === variantLabel)?.image.src;
+  return {
+    productId: product.id,
+    slug: product.slug,
+    name: product.name,
+    image: variantImage ?? product.images[0]?.src ?? "",
+    priceCHF: pack?.priceCHF ?? product.priceCHF,
+    priceEUR: pack?.priceEUR ?? product.priceEUR,
+    quantity,
+    packLabel: product.packLabel,
+    variantLabel,
+  };
+}
+
 export interface AppliedPromo {
   code: string;
   percent: number;

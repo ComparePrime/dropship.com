@@ -5,7 +5,8 @@ import Image from "next/image";
 import { Product } from "@/lib/types";
 import { getRelatedProducts } from "@/lib/products";
 import { useCurrency } from "@/context/currency-context";
-import { useCart } from "@/context/cart-context";
+import { useCart, buildCartLine } from "@/context/cart-context";
+import { useCheckout } from "@/lib/use-checkout";
 import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
 import { RatingStars } from "@/components/product/rating-stars";
@@ -16,7 +17,7 @@ import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { TrustBadges } from "@/components/trust-badges";
-import { Icon, IconName } from "@/components/icons";
+import { Icon } from "@/components/icons";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 
 export function BuyBox({
@@ -30,6 +31,7 @@ export function BuyBox({
 }) {
   const { currency } = useCurrency();
   const { addItem } = useCart();
+  const { startCheckout, loading: buyLoading, error: buyError } = useCheckout();
   const [quantity, setQuantity] = useState(1);
   const selectedVariantId = variantId;
   const setSelectedVariantId = onVariantChange;
@@ -51,7 +53,11 @@ export function BuyBox({
   const isTracked = !!product.stock && product.stock.source !== "none";
   const isOutOfStock = isTracked && (product.stock?.quantity ?? 0) <= 0;
   const maxQuantity = isTracked ? Math.max(0, product.stock!.quantity) : 99;
-  const topBenefits = product.benefits.slice(0, 4);
+  const unitPrice = selectedPack
+    ? getPriceForCurrency(selectedPack.priceCHF, selectedPack.priceEUR, currency)
+    : getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
+  const ctaTotal = Math.round(unitPrice * quantity * 100) / 100;
+  const chosenLabel = selectedPack?.label ?? selectedVariant?.label;
   // Jamais plus de 2 produits complementaires, et uniquement des produits
   // reels du catalogue (jamais invente/duplique).
   const addOns = getRelatedProducts(product.slug, 2);
@@ -77,40 +83,15 @@ export function BuyBox({
       <p className="mt-3 text-base text-ink/70">{product.subtitle}</p>
 
       {/*
-        Benefices mis en avant visuellement en premier (icone + titre + texte),
-        pour une comprehension immediate avant meme d'arriver au prix.
-      */}
-      <ul className="mt-6 flex flex-col gap-4">
-        {topBenefits.map((benefit) => {
-          const BenefitIcon = Icon[benefit.icon as IconName] ?? Icon.check;
-          return (
-            <li key={benefit.title} className="flex items-start gap-3">
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-sage/10 text-sage">
-                <BenefitIcon className="h-[18px] w-[18px]" strokeWidth={1.5} />
-              </span>
-              <div>
-                <p className="text-sm font-medium text-ink">{benefit.title}</p>
-                <p className="mt-0.5 text-sm text-ink/70">{benefit.description}</p>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-
-      {/*
         Etoiles/note affichees uniquement si des avis réels existent (regle
         "note réelle uniquement"). Sinon, simple lien discret vers la section avis.
       */}
-      {hasRealReviews ? (
-        <a href="#avis" className="mt-5 flex items-center gap-2 text-sm">
+      {hasRealReviews && (
+        <a href="#avis" className="mt-4 flex items-center gap-2 text-sm">
           <RatingStars value={Math.round(product.ratingAverage)} />
           <span className="text-ink/70">
             {product.ratingAverage.toFixed(1)}/5 · {product.ratingCount} avis
           </span>
-        </a>
-      ) : (
-        <a href="#avis" className="mt-5 inline-block text-sm text-sage underline underline-offset-2">
-          Voir les avis
         </a>
       )}
 
@@ -119,7 +100,7 @@ export function BuyBox({
         livraison dans un seul encart visuellement fort, pour que la decision
         d'achat se prenne sans devoir chercher l'information ailleurs.
       */}
-      <div className="mt-6 rounded-xl2 border border-sage/30 bg-white/60 p-5 shadow-card md:p-6">
+      <div className="mt-6 rounded-xl2 border border-sage/30 bg-white/60 p-4 shadow-card sm:p-5 md:p-6">
         {!selectedPack && getCampaignDeal(product, currency) && (
           <div className="mb-3">
             <CampaignCountdown />
@@ -136,13 +117,6 @@ export function BuyBox({
           <div className="mt-3">
             <Countdown endsAt={product.promotion.endsAt} />
           </div>
-        )}
-
-        {!isOutOfStock && (
-          <WelcomeOffer
-            unitPrice={getPriceForCurrency(displayedProduct.priceCHF, displayedProduct.priceEUR, currency)}
-            quantity={quantity}
-          />
         )}
 
         <StockIndicator stock={product.stock} />
@@ -278,24 +252,93 @@ export function BuyBox({
         <button
           type="button"
           onClick={() => {
-            addItem(product, quantity, selectedPack?.label ?? selectedVariant?.label);
+            addItem(product, quantity, chosenLabel);
             for (const addOn of addOns) {
               if (selectedAddOnIds.includes(addOn.id)) addItem(addOn, 1);
             }
           }}
           disabled={isOutOfStock}
-          className="btn-primary mt-5 w-full text-base disabled:cursor-not-allowed disabled:opacity-40"
+          className="btn-primary mt-5 w-full gap-2 py-4 text-base shadow-card disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isOutOfStock
-            ? "Temporairement indisponible"
-            : selectedAddOnIds.length > 0
-              ? `Ajouter ${1 + selectedAddOnIds.length} articles au panier`
-              : "Ajouter au panier"}
+          {isOutOfStock ? (
+            "Temporairement indisponible"
+          ) : (
+            <>
+              {selectedAddOnIds.length > 0
+                ? `Ajouter ${1 + selectedAddOnIds.length} articles au panier`
+                : "Ajouter au panier"}
+              <span aria-hidden="true">•</span>
+              <span>{formatPrice(ctaTotal, currency)}</span>
+            </>
+          )}
         </button>
+
+        {!isOutOfStock && (
+          <>
+            <button
+              type="button"
+              onClick={() => startCheckout([buildCartLine(product, quantity, chosenLabel)])}
+              disabled={buyLoading}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-base font-medium text-white transition-colors hover:bg-charcoal disabled:cursor-wait disabled:opacity-60"
+            >
+              <Icon.lock className="h-4 w-4" strokeWidth={1.75} />
+              {buyLoading ? "Redirection vers le paiement…" : "Acheter maintenant"}
+            </button>
+            <p className="mt-2 text-center text-xs text-ink/60">
+              Paiement express et sécurisé via Stripe
+            </p>
+            {buyError && (
+              <p role="alert" className="mt-2 text-center text-sm text-terracottaText">
+                {buyError}
+              </p>
+            )}
+          </>
+        )}
+
+        <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-ink/75">
+          <li className="flex items-center gap-1.5">
+            <Icon.check className="h-4 w-4 text-sage" strokeWidth={2.25} />
+            Retours gratuits {product.shipping.returnDays} jours
+          </li>
+          <li className="flex items-center gap-1.5">
+            <Icon.check className="h-4 w-4 text-sage" strokeWidth={2.25} />
+            Livraison {product.shipping.minDays} à {product.shipping.maxDays} jours
+          </li>
+        </ul>
+
+        {!isOutOfStock && (
+          <WelcomeOffer
+            unitPrice={getPriceForCurrency(displayedProduct.priceCHF, displayedProduct.priceEUR, currency)}
+            quantity={quantity}
+          />
+        )}
 
         <div className="mt-5 border-t border-ink/10 pt-4">
           <DeliveryEstimate shipping={product.shipping} />
         </div>
+      </div>
+
+      <div className="mt-5 rounded-xl2 bg-sand/70 p-5">
+        <p className="text-xs font-semibold uppercase tracking-widest text-sage">Votre commande comprend</p>
+        <dl className="mt-3 text-[15px]">
+          {[
+            [`${product.name}${chosenLabel ? ` · ${chosenLabel}` : ""}`, formatPrice(unitPrice, currency)],
+            ["Livraison", "Offerte"],
+            ["Expédition", `Sous ${product.shipping.dispatchWithinHours} h`],
+            ["Retours", `Gratuits sous ${product.shipping.returnDays} jours`],
+            ["Paiement", "Sécurisé via Stripe"],
+          ].map(([label, value], i) => (
+            <div
+              key={label}
+              className={`flex items-baseline justify-between gap-4 py-2.5 ${
+                i > 0 ? "border-t border-dashed border-ink/15" : ""
+              }`}
+            >
+              <dt className="text-ink">{label}</dt>
+              <dd className="text-right font-medium text-sage">{value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
       <div className="mt-5 rounded-xl2 border border-ink/10 bg-white/40 p-4">

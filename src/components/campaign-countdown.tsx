@@ -27,16 +27,20 @@ export function CampaignCountdown({ variant = "block" }: { variant?: "block" | "
 
   return (
     <div className="rounded-xl2 border border-terracotta/40 bg-terracotta px-4 py-3 text-white">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/90">
             {AUTUMN_CAMPAIGN.name}
           </p>
           <p className="text-sm text-white/90">Jusqu&apos;au {AUTUMN_CAMPAIGN.endsAtLabel}</p>
         </div>
-        <div className="flex gap-1.5" role="timer" aria-label="Temps restant pour profiter de l'offre">
+        <div
+          className="grid grid-cols-4 gap-1.5 sm:flex"
+          role="timer"
+          aria-label="Temps restant pour profiter de l'offre"
+        >
           {units.map((u) => (
-            <div key={u.label} className="min-w-[2.75rem] rounded-lg bg-white/15 px-1.5 py-1 text-center">
+            <div key={u.label} className="rounded-lg bg-white/15 px-1.5 py-1 text-center sm:min-w-[2.75rem]">
               <span className="block font-display text-xl leading-none tabular-nums">{u.value}</span>
               <span className="text-[10px] uppercase tracking-wide text-white/80">{u.label}</span>
             </div>

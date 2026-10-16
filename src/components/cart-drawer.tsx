@@ -325,7 +325,7 @@ export function CartDrawer() {
 
                 <button
                   type="button"
-                  onClick={startCheckout}
+                  onClick={() => startCheckout()}
                   disabled={loading}
                   className="btn-primary mt-4 w-full gap-2 py-4 text-base disabled:cursor-not-allowed disabled:opacity-60"
                 >

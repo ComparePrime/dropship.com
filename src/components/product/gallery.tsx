@@ -53,23 +53,6 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
         ))}
       </div>
 
-      {images.length > 1 && (
-        <div className="mt-3 flex justify-center gap-1.5 md:hidden">
-          {images.map((img, idx) => (
-            <button
-              key={img.src}
-              type="button"
-              aria-label={`Voir l'image ${idx + 1}`}
-              onClick={() => scrollToIndex(idx)}
-              className={clsx(
-                "h-1.5 rounded-full transition-all",
-                idx === active ? "w-5 bg-sage" : "w-1.5 bg-ink/15"
-              )}
-            />
-          ))}
-        </div>
-      )}
-
       {/* Desktop/tablette : grande image fixe + bande de vignettes. */}
       <button
         type="button"
@@ -89,16 +72,16 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
       </button>
 
       {images.length > 1 && (
-        <div className="mt-4 hidden gap-3 overflow-x-auto pb-1 md:flex">
+        <div className="mt-3 flex gap-2.5 overflow-x-auto pb-1 md:mt-4 md:gap-3">
           {images.map((img, idx) => (
             <button
               key={img.src}
               type="button"
-              onClick={() => setActive(idx)}
+              onClick={() => scrollToIndex(idx)}
               aria-label={`Voir l'image ${idx + 1}`}
               className={clsx(
-                "relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border transition-opacity",
-                idx === active ? "border-ink opacity-100" : "border-transparent opacity-60 hover:opacity-90"
+                "relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border-2 transition-opacity md:h-20 md:w-20",
+                idx === active ? "border-sage opacity-100" : "border-transparent opacity-70 hover:opacity-100"
               )}
             >
               <Image src={img.src} alt={img.alt} fill className="object-cover" />

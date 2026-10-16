@@ -84,11 +84,12 @@ export function Header() {
             type="button"
             onClick={openCart}
             aria-label="Ouvrir le panier"
-            className="relative flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-ink/5"
+            className="relative flex h-10 items-center gap-2 rounded-full border border-ink/15 bg-white/60 px-4 text-sm font-medium text-ink transition-colors hover:bg-sand"
           >
-            <Icon.bag className="h-5 w-5" strokeWidth={1.5} />
+            <Icon.bag className="h-[18px] w-[18px]" strokeWidth={1.5} />
+            <span>Panier</span>
             {totalItems > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-sage text-[11px] font-medium text-white">
+              <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-sage text-[11px] font-medium text-white">
                 {totalItems}
               </span>
             )}

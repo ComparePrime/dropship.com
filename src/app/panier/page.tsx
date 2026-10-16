@@ -159,7 +159,7 @@ export default function CartPage() {
             )}
 
             <button
-              onClick={startCheckout}
+              onClick={() => startCheckout()}
               disabled={loading || lines.length === 0}
               className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60"
             >

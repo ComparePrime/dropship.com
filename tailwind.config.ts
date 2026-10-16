@@ -65,6 +65,10 @@ const config: Config = {
           "0%": { opacity: "0.55" },
           "100%": { opacity: "1" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
         "promo-pulse": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.85" },
@@ -83,6 +87,7 @@ const config: Config = {
         "line-out": "line-out 180ms ease-in forwards",
         "soft-in": "soft-in 220ms ease-out",
         "total-pop": "total-pop 260ms ease-out",
+        marquee: "marquee 38s linear infinite",
         "promo-pulse": "promo-pulse 2.4s ease-in-out infinite",
         "stock-glow": "stock-glow 3.2s ease-in-out infinite",
       },

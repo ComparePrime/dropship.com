@@ -63,9 +63,9 @@ export function PromoBlock({
         </p>
       )}
 
-      <div className="mt-3 flex items-baseline justify-center gap-3">
-        <span className="font-display text-4xl text-ink">{formatPrice(price, currency)}</span>
-        <span className="text-lg text-ink/40 line-through" aria-label="Prix de référence">
+      <div className="mt-3 flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
+        <span className="whitespace-nowrap font-display text-3xl text-ink sm:text-4xl">{formatPrice(price, currency)}</span>
+        <span className="whitespace-nowrap text-base text-ink/40 line-through sm:text-lg" aria-label="Prix de référence">
           {formatPrice(compareAt!, currency)}
         </span>
         {discountPercent > 0 && (

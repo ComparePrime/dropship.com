@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
+import { CartLine } from "@/lib/types";
 
 /**
  * Lance le vrai paiement : le panier est envoye a /api/checkout, qui recalcule
@@ -16,8 +17,10 @@ export function useCheckout() {
   const [error, setError] = useState<string | null>(null);
   const inFlight = useRef(false);
 
-  const startCheckout = async () => {
-    if (inFlight.current || lines.length === 0) return;
+  /** `only` : achat direct d'une seule ligne ("Acheter maintenant"), sans passer par le contenu du panier. */
+  const startCheckout = async (only?: CartLine[]) => {
+    const payload = only ?? lines;
+    if (inFlight.current || payload.length === 0) return;
     inFlight.current = true;
     setLoading(true);
     setError(null);
@@ -25,7 +28,7 @@ export function useCheckout() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines, currency, promoCode: promo?.code ?? null }),
+        body: JSON.stringify({ lines: payload, currency, promoCode: promo?.code ?? null }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.url) {
