@@ -9,6 +9,7 @@ import { StorytellingSection } from "@/components/product/storytelling-section";
 import { BenefitsSection } from "@/components/product/benefits-section";
 import { InlineCta } from "@/components/product/inline-cta";
 import { DemoSection } from "@/components/product/demo-section";
+import { InspirationSection } from "@/components/product/inspiration-section";
 import { EditorialSection } from "@/components/product/editorial-section";
 import { UseCasesSection } from "@/components/product/use-cases-section";
 import { ObjectionsSection } from "@/components/product/objections-section";
@@ -78,6 +79,8 @@ function renderSection(key: ProductSectionKey, product: Product) {
       return product.demoSteps ? (
         <DemoSection key={key} steps={product.demoSteps} />
       ) : null;
+    case "inspiration":
+      return <InspirationSection key={key} product={product} />;
     case "editorial":
       return <EditorialSection key={key} product={product} />;
     case "useCases":

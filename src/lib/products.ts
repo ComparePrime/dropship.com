@@ -2325,6 +2325,12 @@ const catalog: Product[] = [
         info: true,
       },
       {
+        src: "/images/products/lampe-diamant/lifestyle-console.webp",
+        alt: "Une femme pose la lampe de table à facettes allumée sur une commode en bois, près d'un bouquet et d'un miroir",
+        caption: "Pour l'ambiance du soir",
+        inspiration: true,
+      },
+      {
         src: "/images/products/lampe-diamant/commode-miroir.webp",
         alt: "Lampe de table transparente à facettes en diamant posée sur une commode, à côté d'un vase en verre et d'un vase blanc",
         caption: "Sur une commode, près d'un miroir",
@@ -2348,6 +2354,18 @@ const catalog: Product[] = [
         src: "/images/products/lampe-diamant/livre-vase.jpg",
         alt: "Lampe de table transparente à facettes posée sur un livre, avec un vase blanc et des fleurs séchées",
         caption: "Posée sur un livre",
+      },
+      {
+        src: "/images/products/lampe-diamant/lifestyle-cadeau.webp",
+        alt: "Un homme souriant pose la lampe de table à facettes allumée sur une table basse, à côté d'un cadeau déballé",
+        caption: "Une idée cadeau",
+        inspiration: true,
+      },
+      {
+        src: "/images/products/lampe-diamant/lifestyle-lecture.webp",
+        alt: "Une femme lit sur son canapé à la lumière de la lampe à facettes, qui projette des reflets colorés sur le mur",
+        caption: "Un détail qui change l'ambiance",
+        inspiration: true,
       },
     ],
     benefits: [
@@ -2458,6 +2476,7 @@ const catalog: Product[] = [
       "storytelling",
       "benefits",
       "cta-1",
+      "inspiration",
       "editorial",
       "useCases",
       "objections",

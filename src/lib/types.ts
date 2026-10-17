@@ -13,6 +13,8 @@ export interface ProductImage {
   variantId?: string;
   /** Visuel d'information (dimensions, caracteristiques) : toujours place juste apres la photo principale. */
   info?: boolean;
+  /** Visuel d'ambiance affiche dans la section "Dans votre interieur" (en plus de la galerie). */
+  inspiration?: boolean;
 }
 
 export interface ProductBenefit {
@@ -151,6 +153,7 @@ export type ProductSectionKey =
   | "storytelling"
   | "benefits"
   | "cta-1"
+  | "inspiration"
   | "demo"
   | "editorial"
   | "useCases"

@@ -2,7 +2,12 @@ import Image from "next/image";
 import { Product } from "@/lib/types";
 
 export function EditorialSection({ product }: { product: Product }) {
-  const image = product.images[1] ?? product.images[0];
+  // Premiere photo secondaire qui n'est ni un visuel d'information (dimensions...) ni
+  // une photo d'ambiance deja montree dans la section "Dans votre interieur".
+  const image =
+    product.images.slice(1).find((img) => !img.info && !img.inspiration) ??
+    product.images[1] ??
+    product.images[0];
 
   return (
     <section className="bg-sand/60 py-16 md:py-24">
