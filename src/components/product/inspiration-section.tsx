@@ -2,9 +2,8 @@ import Image from "next/image";
 import { Product } from "@/lib/types";
 
 /**
- * Photos d'ambiance du produit (marquees `inspiration` dans products.ts). Ce sont des
- * visuels d'illustration de la marque : ils ne sont jamais presentes comme des
- * temoignages ou des photos de clients.
+ * Photos d'ambiance du produit (marquees `inspiration` dans products.ts). Elles ne
+ * doivent jamais etre presentees comme des temoignages ou des photos de clients.
  */
 export function InspirationSection({ product }: { product: Product }) {
   const images = product.images.filter((img) => img.inspiration);
@@ -43,7 +42,6 @@ export function InspirationSection({ product }: { product: Product }) {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-center text-xs text-ink/50 md:text-left">Visuels d&apos;illustration.</p>
       </div>
     </section>
   );
