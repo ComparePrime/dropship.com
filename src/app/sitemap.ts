@@ -3,6 +3,7 @@ import { getPublishedProducts } from "@/lib/products";
 import { getAllBlogPosts } from "@/lib/blog";
 import { getPublishedScenes } from "@/lib/scenes";
 import { categories } from "@/lib/categories";
+import { subcategories } from "@/lib/subcategories";
 import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,6 +24,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const subcategoryRoutes = [
     { url: `${siteConfig.domain}/collections/maison-decoration/art-de-la-table`, lastModified: new Date() },
+    ...subcategories.map((s) => ({
+      url: `${siteConfig.domain}/collections/maison-decoration/${s.slug}`,
+      lastModified: new Date(),
+    })),
   ];
 
   const sceneRoutes = getPublishedScenes().map((s) => ({

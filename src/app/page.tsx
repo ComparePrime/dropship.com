@@ -2,24 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getPublishedProducts } from "@/lib/products";
-import { getPublishedScenes } from "@/lib/scenes";
 import { TrustBadges } from "@/components/trust-badges";
-import { ShopTheLook } from "@/components/shop-the-look";
 import { CollectionShowcase } from "@/components/collection-showcase";
 import { HomeJsonLd } from "@/components/home-jsonld";
 import { HomeCampaignBanner } from "@/components/home-campaign-banner";
 import { siteConfig } from "@/lib/site-config";
-import { categories } from "@/lib/categories";
 import { Icon } from "@/components/icons";
 import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-price";
+import { getCardImage } from "@/lib/product-images";
 
 const ChevronRight = Icon["chevron-right"];
-const ShieldCheck = Icon["shield-check"];
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} — Décoration et objets soignés pour la maison`,
+  title: `${siteConfig.name} — Décoration, vases et lampes pour un intérieur chaleureux`,
   description:
-    "Maison Loravie sélectionne des objets soignés pour la maison, la famille et ceux que vous aimez : décoration, idées cadeaux et petites attentions du quotidien, livrées en Suisse et en Europe.",
+    "Maison Loravie sélectionne des objets de décoration, des vases, des lampes et un ventilateur plafonnier lumineux pour un intérieur chaleureux et élégant. Livraison offerte en Suisse et en Europe.",
   alternates: { canonical: siteConfig.domain },
   openGraph: {
     title: siteConfig.name,
@@ -29,179 +26,332 @@ export const metadata: Metadata = {
   },
 };
 
-/** Sélection éditoriale mise en avant sur l'accueil : des produits réels, répartis entre les univers. */
-const FEATURED_SLUGS = [
-  "coussin-bras-allaitement-biberon",
-  "meduse-dansante-jouet-interactif",
-  "bougeoir-ceramique-argente-reflet",
-  "vase-sculpture-fleurs-sechees",
-  "pendule-newton-metal-bureau",
+/** Sélection de l'accueil : décoration, vases, lampes et ventilateur plafonnier uniquement. */
+const SELECTION_SLUGS = [
   "lampe-table-led-diamant-usb",
+  "trio-vases-porcelaine-wabi-sabi",
+  "ventilateur-plafond-invisible-led",
+  "vase-sculpture-fleurs-sechees",
+  "plateau-decoratif-rond-resine-vague",
+  "bougeoir-ceramique-argente-reflet",
 ];
 
-/** Produit mis en avant dans le hero : une mise en scène, pas un simple produit isolé. */
-const HERO_SLUG = "trio-vases-porcelaine-wabi-sabi";
+const COLLECTIONS = [
+  {
+    title: "Décoration & vases",
+    text: "Vases, bougeoirs et plateaux aux matières naturelles.",
+    href: "/collections/maison-decoration",
+    image: "/images/products/trio-vases-wabi-sabi/plateau-bois.jpg",
+    alt: "Trois vases en porcelaine blanche et branches d'eucalyptus sur un plateau en bois",
+  },
+  {
+    title: "Lampes & éclairage",
+    text: "Une lumière douce pour chaque moment de la journée.",
+    href: "/collections/maison-decoration/eclairage-et-ambiance",
+    image: "/images/products/lampe-diamant/lumiere-projetee.jpg",
+    alt: "Lampe de table à facettes allumée, projetant des motifs de lumière sur le mur",
+  },
+  {
+    title: "Maison & confort",
+    text: "Des objets qui rendent la maison plus agréable à vivre.",
+    href: "/collections/maison-decoration/maison-et-confort",
+    image: "/images/products/ventilateur-plafond-led/salle-a-manger.jpg",
+    alt: "Ventilateur de plafond blanc avec éclairage LED au-dessus d'une salle à manger",
+  },
+];
 
 export default function HomePage() {
-  const products = getPublishedProducts();
-  const featured = products.find((p) => p.slug === HERO_SLUG) ?? products[0];
-  const scenes = getPublishedScenes();
-  const selection = FEATURED_SLUGS.map((slug) => products.find((p) => p.slug === slug)).filter(
-    (p): p is NonNullable<typeof p> => !!p
-  );
+  const published = getPublishedProducts();
+  const bySlug = (slug: string) => published.find((p) => p.slug === slug);
+  const selection = SELECTION_SLUGS.map(bySlug).filter((p): p is NonNullable<typeof p> => !!p);
+  const lamp = bySlug("lampe-table-led-diamant-usb");
+  const fan = bySlug("ventilateur-plafond-invisible-led");
 
   return (
     <>
       <HomeJsonLd />
 
-      {/* 1. Hero lifestyle */}
-      <section className="container-content grid grid-cols-1 items-center gap-10 py-12 md:grid-cols-2 md:gap-16 md:py-20">
+      {/* 1. Hero : ambiance lumineuse et décoration */}
+      <section className="container-content grid grid-cols-1 items-center gap-10 py-10 md:grid-cols-2 md:gap-16 md:py-20">
         <div>
           <span className="inline-block rounded-full bg-blush/40 px-3 py-1 text-xs font-medium tracking-wide text-terracottaText">
             Maison Loravie
           </span>
           <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-ink md:text-5xl">
-            {siteConfig.slogan}
+            Des objets qui donnent une âme à votre intérieur
           </h1>
-          <p className="mt-4 max-w-md text-ink/80">
-            Maison Loravie sélectionne avec soin des objets pour la maison, la famille et ceux
-            que vous aimez — pensés pour durer, pas pour remplir un catalogue.
+          <p className="mt-5 max-w-md text-lg text-ink/75">
+            Décoration, vases et lampes choisis avec soin : une lumière douce, des matières
+            naturelles, et ces petits détails qui rendent une pièce chaleureuse.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/collections" className="btn-primary">
-              Découvrir la boutique
+            <Link href="/collections/maison-decoration" className="btn-primary">
+              Découvrir la collection
             </Link>
-            <Link href={`/produit/${featured.slug}`} className="btn-secondary">
-              Voir {featured.name}
-            </Link>
+            {lamp && (
+              <Link href={`/produit/${lamp.slug}`} className="btn-secondary">
+                Voir la Lampe Diamant
+              </Link>
+            )}
           </div>
           <div className="mt-10">
             <TrustBadges />
           </div>
         </div>
-        {featured.images[0] && (
-          <div className="relative aspect-square w-full overflow-hidden rounded-xl2 bg-sand">
+
+        <div className="relative">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl2 bg-sand md:aspect-square">
             <Image
-              src={featured.images[0].src}
-              alt={featured.images[0].alt}
+              src="/images/products/lampe-diamant/commode-miroir.webp"
+              alt="Lampe de table à facettes allumée sur une commode, près d'un vase et d'un miroir rond"
               fill
               priority
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
           </div>
-        )}
+          {lamp && (
+            <Link
+              href={`/produit/${lamp.slug}`}
+              className="absolute -bottom-4 left-4 right-4 flex items-center justify-between gap-3 rounded-xl2 bg-cream/95 px-4 py-3 shadow-lift backdrop-blur transition-transform hover:-translate-y-0.5 md:left-6 md:right-auto md:min-w-[18rem]"
+            >
+              <span>
+                <span className="block text-xs uppercase tracking-widest text-sage">À la une</span>
+                <span className="block font-display text-lg text-ink">{lamp.name}</span>
+                <ProductCardPrice product={lamp} />
+              </span>
+              <ChevronRight className="h-5 w-5 flex-shrink-0 text-sage" />
+            </Link>
+          )}
+        </div>
       </section>
 
       <HomeCampaignBanner />
 
-      {/*
-        2. "Découvrez la collection" : photo éditoriale avec points
-        interactifs, entièrement pilotée par src/lib/collection-showcase.ts.
-      */}
-      <CollectionShowcase />
+      {/* 2. Collections principales */}
+      <section className="container-content py-14 md:py-20">
+        <h2 className="section-title text-center">Nos collections</h2>
+        <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
+          Trois façons d&apos;habiller votre intérieur, de la décoration à la lumière.
+        </p>
+        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+          {COLLECTIONS.map((c) => (
+            <Link key={c.href} href={c.href} className="group block">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src={c.image}
+                  alt={c.alt}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <h3 className="mt-4 font-display text-2xl text-ink">{c.title}</h3>
+              <p className="mt-1 text-sm text-ink/70">{c.text}</p>
+              <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-sage">
+                Découvrir
+                <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
-      {/*
-        3. "Recréez cette ambiance" : uniquement si au moins une mise en
-        scène réelle existe (photo + produits authentiques). Masquée sinon
-        plutôt que de la remplir artificiellement.
-      */}
-      {scenes.length > 0 && (
-        <section className="bg-white/40 py-16 md:py-24">
-          <div className="container-content">
-            <h2 className="section-title text-center">Recréez cette ambiance</h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
-              Une photo, une ambiance, et les objets qui la composent — prêts à rejoindre votre
-              intérieur.
-            </p>
-            <div className="mt-12 flex flex-col gap-16">
-              {scenes.map((scene) => (
-                <ShopTheLook key={scene.id} scene={scene} />
-              ))}
+      {/* 3. Sélection Maison Loravie */}
+      <section className="bg-sand/50 py-14 md:py-20">
+        <div className="container-content">
+          <h2 className="section-title text-center">La sélection Maison Loravie</h2>
+          <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
+            Les pièces qui racontent le mieux notre univers : lampes, vases et décoration.
+          </p>
+          <div className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
+            {selection.map((product) => (
+              <Link
+                key={product.id}
+                href={`/produit/${product.slug}`}
+                className="group flex flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-cream transition-shadow hover:shadow-card"
+              >
+                <div className="relative aspect-square w-full overflow-hidden bg-sand">
+                  <CampaignCardBadge product={product} />
+                  {(() => {
+                    const img = getCardImage(product);
+                    return (
+                      img && (
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          sizes="(min-width: 768px) 33vw, 50vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      )
+                    );
+                  })()}
+                </div>
+                <div className="p-4 md:p-5">
+                  <p className="font-display text-base text-ink md:text-lg">{product.name}</p>
+                  <ProductCardPrice product={product} />
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link href="/collections" className="btn-secondary">
+              Voir toute la boutique
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Focus Lampe Diamant */}
+      {lamp && (
+        <section className="container-content py-16 md:py-24">
+          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
+            <div className="grid grid-cols-5 grid-rows-2 gap-3 md:gap-4">
+              <div className="relative col-span-3 row-span-2 aspect-[3/4] overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src="/images/products/lampe-diamant/lifestyle-lecture.webp"
+                  alt="Une femme lit sur son canapé à la lumière de la lampe à facettes, qui projette des reflets sur le mur"
+                  fill
+                  sizes="(min-width: 768px) 30vw, 60vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative col-span-2 overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src="/images/products/lampe-diamant/lifestyle-console.webp"
+                  alt="Une femme pose la lampe à facettes allumée sur une commode en bois"
+                  fill
+                  sizes="(min-width: 768px) 20vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative col-span-2 overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src="/images/products/lampe-diamant/lifestyle-cadeau.webp"
+                  alt="Un homme souriant pose la lampe à facettes allumée à côté d'un cadeau déballé"
+                  fill
+                  sizes="(min-width: 768px) 20vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-sage">Focus lampe</p>
+              <h2 className="mt-2 font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">
+                La Lampe Diamant : une lumière taillée comme un bijou
+              </h2>
+              <p className="mt-4 text-ink/75">
+                Un abat-jour transparent aux facettes en diamant, qui joue avec la lumière et
+                garde du caractère même éteint. Elle se pose sur une commode, une table de nuit ou
+                un bureau, sans câble à brancher.
+              </p>
+              <ul className="mt-5 flex flex-col gap-2.5 text-ink/80">
+                {[
+                  "3 ambiances lumineuses au choix",
+                  "Interrupteur tactile on/off",
+                  "Batterie rechargeable par USB",
+                  "26 cm de haut, 12 cm de large",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sage text-white">
+                      <Icon.check className="h-3.5 w-3.5" strokeWidth={2.5} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6">
+                <ProductCardPrice product={lamp} />
+              </div>
+              <Link href={`/produit/${lamp.slug}`} className="btn-primary mt-6">
+                Découvrir la Lampe Diamant
+              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* 3. Sélection éditoriale : quelques produits réels, pas un catalogue infini */}
-      <section className="container-content py-16 md:py-24">
-        <h2 className="section-title text-center">La sélection Maison Loravie</h2>
-        <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
-          Quelques pièces choisies dans notre catalogue actuel, representatives de chaque
-          univers — pas une grille sans fin.
-        </p>
-        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
-          {selection.map((product) => (
-            <Link
-              key={product.id}
-              href={`/produit/${product.slug}`}
-              className="group flex flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-white/50 transition-shadow hover:shadow-card"
-            >
-              <div className="relative aspect-square w-full overflow-hidden bg-sand">
-                <CampaignCardBadge product={product} />
-                {product.images[0] && (
-                  <Image
-                    src={product.images[0].src}
-                    alt={product.images[0].alt}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 50vw"
-                    loading="lazy"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                )}
+      {/* 5. Focus ventilateur plafonnier */}
+      {fan && (
+        <section className="bg-sand/50 py-16 md:py-24">
+          <div className="container-content grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
+            <div className="order-2 md:order-1">
+              <p className="text-xs font-semibold uppercase tracking-widest text-sage">
+                Confort &amp; décoration
+              </p>
+              <h2 className="mt-2 font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">
+                Le ventilateur plafonnier lumineux
+              </h2>
+              <p className="mt-4 text-ink/75">
+                Un luminaire au design épuré dont les pales se rétractent : il se fond dans le
+                plafond, et réunit éclairage et ventilation dans un seul objet.
+              </p>
+              <ul className="mt-5 flex flex-col gap-2.5 text-ink/80">
+                {[
+                  "Éclairage LED intégré, 3 tonalités lumineuses",
+                  "Télécommande incluse",
+                  "Corps lumineux Ø 48 cm, pales déployées Ø 120 cm",
+                  "Finitions blanche ou noire",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sage text-white">
+                      <Icon.check className="h-3.5 w-3.5" strokeWidth={2.5} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-ink/60">
+                Raccordement au réseau électrique : installation par un électricien qualifié
+                recommandée.
+              </p>
+              <div className="mt-6">
+                <ProductCardPrice product={fan} />
               </div>
-              <div className="p-4 md:p-5">
-                <span className="text-xs font-medium uppercase tracking-wide text-sage">
-                  {product.badge}
-                </span>
-                <p className="mt-1 font-display text-base text-ink md:text-lg">{product.name}</p>
-                <ProductCardPrice product={product} />
+              <Link href={`/produit/${fan.slug}`} className="btn-primary mt-6">
+                Découvrir le ventilateur plafonnier
+              </Link>
+            </div>
+            <div className="order-1 grid grid-cols-2 gap-3 md:order-2 md:gap-4">
+              <div className="relative col-span-2 aspect-[4/3] overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src="/images/products/ventilateur-plafond-led/salle-a-manger.jpg"
+                  alt="Ventilateur de plafond blanc avec éclairage LED allumé au-dessus d'une salle à manger"
+                  fill
+                  sizes="(min-width: 768px) 45vw, 100vw"
+                  className="object-cover"
+                />
               </div>
-            </Link>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Link href="/collections" className="btn-secondary">
-            Voir toute la sélection
-          </Link>
-        </div>
-      </section>
-
-      {/* 4. Les quatre univers éditoriaux (inclut Bébé & famille, même en attente de produits) */}
-      <section className="bg-sand/60 py-16 md:py-24">
-        <div className="container-content">
-          <h2 className="section-title text-center">Découvrez nos univers</h2>
-          <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
-            Maison Loravie choisit avec soin des objets pour la maison, la famille et ceux que
-            vous aimez, organisés en quatre univers.
-          </p>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-            {categories.map((c) => {
-              const CategoryIcon = Icon[c.icon];
-              return (
-                <Link
-                  key={c.slug}
-                  href={`/collections/${c.slug}`}
-                  className="group flex flex-col rounded-xl2 border border-ink/10 bg-white/60 p-6 transition-shadow hover:shadow-card"
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-sage/10 text-sage">
-                    <CategoryIcon className="h-5 w-5" strokeWidth={1.5} />
-                  </span>
-                  <h3 className="mt-4 font-display text-lg text-ink">{c.title}</h3>
-                  <p className="mt-2 flex-1 text-sm text-ink/70">{c.cardDescription}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sage">
-                    Découvrir
-                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </Link>
-              );
-            })}
+              <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src="/images/products/ventilateur-plafond-led/noir-salle-a-manger.webp"
+                  alt="Ventilateur de plafond noir avec éclairage LED, pales déployées, au-dessus d'une table à manger"
+                  fill
+                  sizes="(min-width: 768px) 22vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
+                <Image
+                  src="/images/products/ventilateur-plafond-led/caracteristiques.webp"
+                  alt="Caractéristiques du ventilateur : éclairage LED intégré, 3 tonalités, télécommande incluse"
+                  fill
+                  sizes="(min-width: 768px) 22vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* 5. Pourquoi Maison Loravie : arguments reels, rien d'invente */}
-      <section className="container-content py-16 md:py-24">
+      {/* 6. Inspiration : la table mise en scène, avec points cliquables vers les produits */}
+      <CollectionShowcase />
+
+      {/* Pourquoi Maison Loravie */}
+      <section className="container-content pb-16 md:pb-20">
         <h2 className="section-title">Pourquoi Maison Loravie</h2>
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
@@ -234,21 +384,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Reassurance detaillee (conditions reellement applicables) */}
-      <section className="container-content pb-16 md:pb-20">
-        <div className="mx-auto max-w-4xl rounded-xl2 border border-ink/10 bg-white/50 px-6 py-10 md:px-12">
-          <TrustBadges />
-        </div>
-      </section>
-
-      {/* 7. CTA final */}
+      {/* 7. Bloc final */}
       <section className="bg-sage py-16 text-center text-white md:py-20">
         <div className="container-content">
-          <h2 className="font-display text-2xl font-semibold md:text-3xl">
-            Prête à trouver votre prochain petit détail ?
+          <h2 className="font-display text-3xl font-semibold md:text-4xl">
+            Donnez du caractère à votre intérieur
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-white/90">
-            Parcourez nos univers et laissez-vous guider jusqu'à l'objet qui manquait chez vous.
+            Parcourez nos collections et laissez-vous guider jusqu&apos;à l&apos;objet qui
+            manquait chez vous.
           </p>
           <Link
             href="/collections"
@@ -256,6 +400,16 @@ export default function HomePage() {
           >
             Découvrir la boutique
           </Link>
+          <p className="mt-6 text-sm text-white/80">
+            À explorer aussi :{" "}
+            <Link href="/collections/bebe-famille" className="underline underline-offset-2">
+              Bébé &amp; famille
+            </Link>
+            {" · "}
+            <Link href="/collections/idees-cadeaux" className="underline underline-offset-2">
+              Idées cadeaux
+            </Link>
+          </p>
         </div>
       </section>
     </>

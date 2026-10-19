@@ -43,7 +43,7 @@ export const collectionShowcase: CollectionShowcaseConfig = {
   title: "Découvrez la collection",
   tagline: "Chaque pièce a été sélectionnée pour créer une atmosphère élégante et intemporelle.",
   image: {
-    src: "/images/scenes/table-collection.png",
+    src: "/images/scenes/table-collection.webp",
     alt: "Table basse en bois mise en scène avec vases en céramique, pendule de Newton, bougeoirs chromés et bougies, sous un ventilateur de plafond lumineux",
   },
   hotspots: [
@@ -75,17 +75,13 @@ export const collectionShowcase: CollectionShowcaseConfig = {
       id: "ventilateur-plafond",
       x: 68,
       y: 10,
-      // Ressemble au Ventilateur Plafonnier Lumineux, mais aucune photo du
-      // catalogue ne correspond exactement a cette scene : non confirme.
-      placeholderLabel: "Bientôt disponible",
+      productSlug: "ventilateur-plafond-invisible-led",
     },
     {
       id: "lampe-gauche",
       x: 9,
       y: 55,
-      // Correspond a la description de "La Lampe Diamant" (brouillon, sans
-      // photo confirmee a ce jour) : laisse en placeholder.
-      placeholderLabel: "Bientôt disponible",
+      productSlug: "lampe-table-led-diamant-usb",
     },
   ],
 };

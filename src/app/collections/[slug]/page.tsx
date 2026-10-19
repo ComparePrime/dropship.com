@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icons";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-price";
+import { getCardImage } from "@/lib/product-images";
 
 interface Props {
   params: { slug: string };
@@ -92,10 +93,10 @@ export default function CollectionPage({ params }: Props) {
               <Link key={product.id} href={`/produit/${product.slug}`} className="group">
                 <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
                   <CampaignCardBadge product={product} />
-                  {product.images[0] && (
+                  {getCardImage(product) && (
                     <Image
-                      src={product.images[0].src}
-                      alt={product.images[0].alt}
+                      src={getCardImage(product)!.src}
+                      alt={getCardImage(product)!.alt}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />

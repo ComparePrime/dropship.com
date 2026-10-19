@@ -41,7 +41,7 @@ export const categories: Category[] = [
       { label: "Art de la table", href: "/collections/maison-decoration/art-de-la-table" },
       { label: "Accessoires pour la maison" },
       { label: "Rangement et organisation" },
-      { label: "Éclairage et ambiance" },
+      { label: "Éclairage et ambiance", href: "/collections/maison-decoration/eclairage-et-ambiance" },
       { label: "Objets pratiques du quotidien" },
     ],
     icon: "home",
