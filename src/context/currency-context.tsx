@@ -17,6 +17,13 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
+      // ?currency=EUR|CHF (liens des flux Google) : devise imposee, puis memorisee.
+      const requested = new URLSearchParams(window.location.search).get("currency")?.toUpperCase();
+      if (requested === "CHF" || requested === "EUR") {
+        setCurrencyState(requested);
+        window.localStorage.setItem(STORAGE_KEY, requested);
+        return;
+      }
       const stored = window.localStorage.getItem(STORAGE_KEY) as Currency | null;
       if (stored === "CHF" || stored === "EUR") {
         setCurrencyState(stored);

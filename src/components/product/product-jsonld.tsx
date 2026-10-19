@@ -17,22 +17,24 @@ export function ProductJsonLd({ product }: { product: Product }) {
       "@type": "Brand",
       name: siteConfig.name,
     },
-    offers: {
+    offers: (["CHF", "EUR"] as const).map((currency) => ({
       "@type": "Offer",
       url,
-      priceCurrency: "CHF",
-      price: product.priceCHF.toFixed(2),
+      priceCurrency: currency,
+      price: (currency === "CHF" ? product.priceCHF : product.priceEUR).toFixed(2),
       availability: isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
       shippingDetails: {
         "@type": "OfferShippingDetails",
-        shippingDestination: siteConfig.markets.map((country) => ({
-          "@type": "DefinedRegion",
-          addressCountry: country,
-        })),
+        shippingDestination: (currency === "CHF" ? ["CH"] : siteConfig.markets.filter((c) => c !== "CH")).map(
+          (country) => ({
+            "@type": "DefinedRegion",
+            addressCountry: country,
+          })
+        ),
         shippingRate: {
           "@type": "MonetaryAmount",
           value: "0",
-          currency: "CHF",
+          currency,
         },
         deliveryTime: {
           "@type": "ShippingDeliveryTime",
@@ -52,13 +54,13 @@ export function ProductJsonLd({ product }: { product: Product }) {
       },
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
+        applicableCountry: currency === "CHF" ? ["CH"] : siteConfig.markets.filter((c) => c !== "CH"),
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        applicableCountry: siteConfig.markets,
         merchantReturnDays: product.shipping.returnDays,
         returnMethod: "https://schema.org/ReturnByMail",
         returnFees: "https://schema.org/FreeReturn",
       },
-    },
+    })),
   };
 
   // AggregateRating uniquement lorsque des avis réels existent (jamais de note fabriquee).
