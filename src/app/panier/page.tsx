@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
-import { getPublishedProducts } from "@/lib/products";
+import { getRecommendations } from "@/lib/recommendations";
+import { getCardImage } from "@/lib/product-images";
 import { Icon } from "@/components/icons";
 import { PromoCodeField } from "@/components/promo-code-field";
 import { getCartTotals } from "@/lib/cart-totals";
@@ -26,8 +27,9 @@ export default function CartPage() {
   );
   const totalSavings = Math.round((discount + includedSavings) * 100) / 100;
 
-  const suggestions = getPublishedProducts().filter(
-    (p) => !lines.some((l) => l.productId === p.id)
+  const suggestions = getRecommendations(
+    lines.map((l) => l.slug),
+    { excludeSlugs: lines.map((l) => l.slug) }
   );
 
   return (
@@ -109,13 +111,13 @@ export default function CartPage() {
               <div className="mt-10">
                 <p className="text-sm font-medium text-ink">Vous pourriez aussi aimer</p>
                 <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
-                  {suggestions.slice(0, 2).map((p) => (
+                  {suggestions.map((p) => (
                     <Link key={p.id} href={`/produit/${p.slug}`} className="group">
                       <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
-                        {p.images[0] && (
+                        {getCardImage(p) && (
                           <Image
-                            src={p.images[0].src}
-                            alt={p.images[0].alt}
+                            src={getCardImage(p)!.src}
+                            alt={getCardImage(p)!.alt}
                             fill
                             className="object-cover transition-transform group-hover:scale-105"
                           />

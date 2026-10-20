@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
+import { getCardImage } from "@/lib/product-images";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 
 export function RelatedProducts({ products }: { products: Product[] }) {
@@ -22,10 +23,10 @@ export function RelatedProducts({ products }: { products: Product[] }) {
             className="group"
           >
             <div className="relative aspect-square overflow-hidden rounded-xl2 bg-sand">
-              {product.images[0] && (
+              {getCardImage(product) && (
                 <Image
-                  src={product.images[0].src}
-                  alt={product.images[0].alt}
+                  src={getCardImage(product)!.src}
+                  alt={getCardImage(product)!.alt}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />

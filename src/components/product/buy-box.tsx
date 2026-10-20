@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Product } from "@/lib/types";
-import { getRelatedProducts } from "@/lib/products";
+import { getRecommendations } from "@/lib/recommendations";
+import { getCardImage } from "@/lib/product-images";
 import { useCurrency } from "@/context/currency-context";
 import { useCart, buildCartLine } from "@/context/cart-context";
 import { useCheckout } from "@/lib/use-checkout";
@@ -60,7 +61,7 @@ export function BuyBox({
   const chosenLabel = selectedPack?.label ?? selectedVariant?.label;
   // Jamais plus de 2 produits complementaires, et uniquement des produits
   // reels du catalogue (jamais invente/duplique).
-  const addOns = getRelatedProducts(product.slug, 2);
+  const addOns = getRecommendations(product.slug);
   const [selectedAddOnIds, setSelectedAddOnIds] = useState<string[]>([]);
   const toggleAddOn = (id: string) =>
     setSelectedAddOnIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
@@ -210,8 +211,8 @@ export function BuyBox({
                       className="h-4 w-4 flex-shrink-0 accent-sage"
                     />
                     <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg bg-sand">
-                      {addOn.images[0] && (
-                        <Image src={addOn.images[0].src} alt="" fill className="object-cover" />
+                      {getCardImage(addOn) && (
+                        <Image src={getCardImage(addOn)!.src} alt="" fill sizes="44px" className="object-cover" />
                       )}
                     </div>
                     <span className="flex-1 text-sm text-ink">{addOn.name}</span>

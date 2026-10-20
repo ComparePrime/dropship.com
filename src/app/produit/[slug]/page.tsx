@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/products";
+import { getAllProducts, getProductBySlug } from "@/lib/products";
+import { getRecommendations } from "@/lib/recommendations";
 import { siteConfig } from "@/lib/site-config";
 import { Product, ProductSectionKey } from "@/lib/types";
 import { ProductHero } from "@/components/product/product-hero";
@@ -102,7 +103,7 @@ function renderSection(key: ProductSectionKey, product: Product) {
     case "faq":
       return <FaqSection key={key} faq={product.faq} />;
     case "related":
-      return <RelatedProducts key={key} products={getRelatedProducts(product.slug)} />;
+      return <RelatedProducts key={key} products={getRecommendations(product.slug, { limit: 3 })} />;
     case "final-cta":
       return <FinalCtaSection key={key} product={product} />;
     default:
