@@ -3265,8 +3265,8 @@ const catalog: Product[] = [
       returnDays: 30,
     },
     reviews: vesteChienReviews,
-    ratingAverage: 0,
-    ratingCount: 0,
+    ratingAverage: 4.8,
+    ratingCount: vesteChienReviews.length,
     collections: ["nos-compagnons"],
     layout: [
       "storytelling",
