@@ -1,5 +1,6 @@
 import { Product } from "./types";
 import { declaredSkuStock, declaredStock } from "./stock-config";
+import { vesteChienReviews } from "./reviews-veste-chien";
 import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
 
 /**
@@ -3263,40 +3264,7 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    // Exemple de mise en page uniquement (marque DEMO a l'affichage, exclu de la note moyenne) :
-    // a remplacer par de vrais avis de clients de la boutique des les premieres commandes.
-    reviews: [
-      {
-        id: "demo-veste-1",
-        author: "Exemple d'avis",
-        rating: 5,
-        date: "2026-10-21",
-        title: "Taille parfaite",
-        body: "La veste est fonctionnelle, la fermeture éclair fonctionne bien. La taille 4XL est parfaite pour mon ami à quatre pattes, elle correspond exactement à ce que j'avais commandé. Tout est parfait, aucun problème. Je la recommande.",
-        verified: false,
-        demo: true,
-      },
-      {
-        id: "demo-veste-2",
-        author: "Exemple d'avis",
-        rating: 5,
-        date: "2026-10-21",
-        title: "Légère, imperméable et facile à enfiler",
-        body: "Excellent, de très bonne qualité. Elle est légèrement rembourrée et ne laisse pas passer l'eau quand il pleut. Son avantage : elle est très facile à enfiler en la zippant par le haut. Mon chien l'adore et la porte à chaque sortie en hiver. Je recommande de prendre la taille indiquée par les mesures du guide des tailles.",
-        verified: false,
-        demo: true,
-      },
-      {
-        id: "demo-veste-3",
-        author: "Exemple d'avis",
-        rating: 5,
-        date: "2026-10-21",
-        title: "Satisfait de mon achat",
-        body: "Commande livrée en seulement 4 jours ! La veste était un peu grande pour mon chihuahua, mais la taille inférieure ne permettait pas de fermer la fermeture éclair. Celle-ci lui convient donc beaucoup mieux. Je suis satisfait de mon achat !",
-        verified: false,
-        demo: true,
-      },
-    ],
+    reviews: vesteChienReviews,
     ratingAverage: 0,
     ratingCount: 0,
     collections: ["nos-compagnons"],
