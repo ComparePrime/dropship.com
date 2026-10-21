@@ -3051,8 +3051,8 @@ const catalog: Product[] = [
     },
     images: [
       {
-        src: "/images/products/veste-chien-hiver/principale.webp",
-        alt: "Labrador assis dans la neige portant une veste matelassée noire à bande vert-jaune, avec les coloris bleu, rose, rouge et vert-jaune, taille XS à 6XL",
+        src: "/images/products/veste-chien-hiver/principale-v2.webp",
+        alt: "Labrador assis dans la neige portant une veste matelassée noire à bande vert-jaune, avec les coloris bleu, rose, rouge et vert-jaune, et les détails du tissu imperméable, de la doublure, de l'anneau pour la laisse et du col coupe-vent",
         caption: "XS à 6XL, 6 coloris",
       },
       {
