@@ -21,6 +21,7 @@ import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { Icon } from "@/components/icons";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { getPriceRange, getSkuStock, hasSizes, skuLabel } from "@/lib/sku";
+import { SizeGuideButton } from "@/components/product/size-guide-modal";
 import { MULTI_BUY } from "@/lib/multi-buy";
 import { StockInfo } from "@/lib/types";
 
@@ -193,13 +194,9 @@ export function BuyBox({
               <span className="text-sm font-medium text-ink/70">
                 Taille{selectedSize ? ` — ${selectedSize.label}` : ""}
               </span>
-              {product.sizeGuide && (
-                <a href="#guide-des-tailles" className="text-xs font-medium text-terracottaText underline underline-offset-2">
-                  Guide des tailles
-                </a>
-              )}
             </div>
-            <div className="mt-2 grid grid-cols-5 gap-2" role="group" aria-label="Choisir une taille">
+            {product.sizeGuide && <SizeGuideButton guide={product.sizeGuide} />}
+            <div className="mt-3 grid grid-cols-5 gap-2" role="group" aria-label="Choisir une taille">
               {product.sizes!.map((size) => {
                 const unavailable = !!selectedVariant && getSkuStock(product, selectedVariant.id, size.id) === 0;
                 const active = selectedSizeId === size.id;
@@ -231,7 +228,7 @@ export function BuyBox({
               </p>
             )}
             <p className="mt-2 text-xs text-ink/60">
-              Pas sûr de la taille ? Mesurez votre chien et consultez le guide des tailles.
+              Mesurez la longueur du dos de votre chien : en cas de doute entre deux tailles, prenez la plus grande.
             </p>
             <p className="mt-2 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
               −{MULTI_BUY.percent} % sur votre panier dès la 2ᵉ veste, quels que soient la taille et le coloris.

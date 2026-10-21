@@ -27,6 +27,7 @@ import {
   Move,
   Eye,
   Lock,
+  Ruler,
 } from "lucide-react";
 
 export const Icon = {
@@ -58,6 +59,7 @@ export const Icon = {
   move: Move,
   eye: Eye,
   lock: Lock,
+  ruler: Ruler,
 } as const;
 
 export type IconName = keyof typeof Icon;

@@ -3026,24 +3026,25 @@ const catalog: Product[] = [
     sizeGuide: {
       title: "Guide des tailles",
       intro:
-        "Mesurez votre chien et comparez avec le tableau. Toutes les mesures sont en centimètres.",
-      columns: ["Taille", "Longueur du dos", "Tour de poitrail", "Tour de cou"],
+        "Mesurez votre chien et comparez avec le tableau. Les mesures sont en centimètres ; le poids et les races sont donnés à titre indicatif.",
+      columns: ["Taille", "Dos (cm)", "Poitrail (cm)", "Cou (cm)", "Poids indicatif", "Races indicatives"],
       rows: [
-        { size: "XS", cells: ["25", "34", "28"] },
-        { size: "S", cells: ["30", "38", "32"] },
-        { size: "M", cells: ["35", "46", "36"] },
-        { size: "L", cells: ["40", "50", "40"] },
-        { size: "XL", cells: ["45", "58", "42"] },
-        { size: "2XL", cells: ["50", "62", "44"] },
-        { size: "3XL", cells: ["53", "66", "50"] },
-        { size: "4XL", cells: ["57", "74", "52"] },
-        { size: "5XL", cells: ["67", "88", "56"] },
-        { size: "6XL", cells: ["73", "96", "60"] },
+        { size: "XS", cells: ["25", "34", "28", "1–3 kg", "Chihuahua, Yorkshire très petit"] },
+        { size: "S", cells: ["30", "38", "32", "2–4 kg", "Yorkshire, Bichon maltais, petit Spitz"] },
+        { size: "M", cells: ["35", "46", "36", "3–6 kg", "Bichon, Caniche nain, petit Jack Russell"] },
+        { size: "L", cells: ["40", "50", "40", "5–9 kg", "Jack Russell, Carlin, petit Beagle"] },
+        { size: "XL", cells: ["45", "58", "42", "7–13 kg", "Bouledogue français, Cocker anglais"] },
+        { size: "2XL", cells: ["50", "62", "44", "10–17 kg", "Beagle, petit Border Collie"] },
+        { size: "3XL", cells: ["53", "66", "50", "14–22 kg", "Border Collie, Staffordshire Bull Terrier"] },
+        { size: "4XL", cells: ["57", "74", "52", "20–30 kg", "Boxer, Labrador de petit gabarit"] },
+        { size: "5XL", cells: ["67", "88", "56", "28–42 kg", "Labrador, Golden Retriever, Berger allemand"] },
+        { size: "6XL", cells: ["73", "96", "60", "38–55 kg", "Grand Berger allemand, Rottweiler"] },
       ],
       notes: [
-        "Longueur du dos : de la base du cou à la base de la queue.",
-        "Tour de poitrail : à l'endroit le plus large du thorax, juste derrière les pattes avant.",
-        "Tour de cou : à la base du cou, là où se pose un collier.",
+        "Ces fourchettes de poids et ces exemples de races sont des estimations indicatives, pas des correspondances garanties par le fabricant. Certaines races peuvent nécessiter une taille différente en raison de leur morphologie : fiez-vous d'abord aux mesures de votre chien.",
+        "Dos : longueur du dos, de la base du cou à la base de la queue.",
+        "Poitrail : tour de poitrail, à l'endroit le plus large du thorax, juste derrière les pattes avant.",
+        "Cou : tour de cou, à la base du cou, là où se pose un collier.",
         "Les mesures sont prises à la main : prévoyez un écart de 1 à 2 cm.",
         "Si votre chien se situe entre deux tailles, choisissez la plus grande pour qu'il se déplace à l'aise.",
       ],
@@ -3197,6 +3198,11 @@ const catalog: Product[] = [
         question: "Comment mesurer mon chien ?",
         answer:
           "Mesurez la longueur du dos (de la base du cou à la base de la queue), le tour de poitrail à l'endroit le plus large du thorax, et le tour de cou à la base du cou. Comparez ensuite avec le guide des tailles.",
+      },
+      {
+        question: "Quelle taille choisir pour mon chien selon sa race ?",
+        answer:
+          "Le guide des tailles donne, pour chaque taille, un poids et des exemples de races à titre indicatif. Ce ne sont pas des correspondances garanties : la morphologie varie beaucoup d'un chien à l'autre, alors fiez-vous d'abord à la longueur du dos et au tour de poitrail de votre chien.",
       },
       {
         question: "Que faire si mon chien est entre deux tailles ?",
