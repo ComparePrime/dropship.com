@@ -125,6 +125,70 @@ export default function CollectionPage({ params }: Props) {
           </div>
         )}
       </div>
+
+      {products.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              name: category.title,
+              description: category.seo.metaDescription,
+              url: `${siteConfig.domain}/collections/${category.slug}`,
+              mainEntity: {
+                "@type": "ItemList",
+                numberOfItems: products.length,
+                itemListElement: products.map((p, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  url: `${siteConfig.domain}/produit/${p.slug}`,
+                  name: p.name,
+                })),
+              },
+            }),
+          }}
+        />
+      )}
+
+      <div className="container-content mt-16 grid max-w-4xl gap-10">
+        {category.seoSections.map((section) => (
+          <div key={section.heading}>
+            <h2 className="font-display text-2xl text-ink">{section.heading}</h2>
+            <div className="mt-3 flex flex-col gap-3 text-ink/75">
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div>
+          <h2 className="font-display text-2xl text-ink">Questions fréquentes</h2>
+          <dl className="mt-4 divide-y divide-ink/10">
+            {category.faq.map((item) => (
+              <div key={item.question} className="py-4">
+                <dt className="font-medium text-ink">{item.question}</dt>
+                <dd className="mt-1 text-ink/70">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: category.faq.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: { "@type": "Answer", text: item.answer },
+            })),
+          }),
+        }}
+      />
     </section>
   );
 }

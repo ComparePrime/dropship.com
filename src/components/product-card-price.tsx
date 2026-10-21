@@ -4,8 +4,35 @@ import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice } from "@/lib/currency";
 import { getPriceRange, hasSizes } from "@/lib/sku";
+import { getRealRating } from "@/lib/ratings";
+import { Icon } from "@/components/icons";
 import { AUTUMN_CAMPAIGN, getCampaignDeal } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
+
+/**
+ * Etoiles + nombre d'avis, uniquement si le produit a de vrais avis verifies
+ * (jamais pour des avis demo). Rien n'est rendu sinon.
+ */
+export function ProductCardRating({ product }: { product: Product }) {
+  const rating = getRealRating(product);
+  if (!rating) return null;
+  const label = `${rating.average.toFixed(1).replace(".", ",")} sur 5, ${rating.count} avis`;
+  return (
+    <div className="mt-1 flex items-center gap-1.5" role="img" aria-label={label}>
+      <span className="flex items-center gap-0.5" aria-hidden="true">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Icon.star
+            key={i}
+            className={`h-3.5 w-3.5 ${i < Math.round(rating.average) ? "fill-terracotta text-terracotta" : "text-ink/20"}`}
+          />
+        ))}
+      </span>
+      <span className="text-xs text-ink/60" aria-hidden="true">
+        {rating.average.toFixed(1).replace(".", ",")} ({rating.count})
+      </span>
+    </div>
+  );
+}
 
 /** Prix d'une carte produit : prix actuel, et pendant l'Offre d'automne, prix de reference, remise et badge. */
 export function ProductCardPrice({ product }: { product: Product }) {
@@ -16,6 +43,8 @@ export function ProductCardPrice({ product }: { product: Product }) {
   const sized = hasSizes(product);
 
   return (
+    <>
+    <ProductCardRating product={product} />
     <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
       <span className={`text-sm ${deal ? "font-semibold text-ink" : "text-ink/70"}`}>
         {sized && <span className="mr-1 font-normal text-ink/60">Dès</span>}
@@ -30,6 +59,7 @@ export function ProductCardPrice({ product }: { product: Product }) {
         </>
       )}
     </div>
+    </>
   );
 }
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Product } from "@/lib/types";
+import { ProductCardRating } from "@/components/product-card-price";
 import { getRecommendations } from "@/lib/recommendations";
 import { getCardImage } from "@/lib/product-images";
 import { useCurrency } from "@/context/currency-context";
@@ -305,7 +306,10 @@ export function BuyBox({
                         <Image src={getCardImage(addOn)!.src} alt="" fill sizes="44px" className="object-cover" />
                       )}
                     </div>
-                    <span className="flex-1 text-sm text-ink">{addOn.name}</span>
+                    <span className="flex-1 text-sm text-ink">
+                      {addOn.name}
+                      <ProductCardRating product={addOn} />
+                    </span>
                     <span className="text-sm text-ink/70">{formatPrice(addOnPrice, currency)}</span>
                   </label>
                 );

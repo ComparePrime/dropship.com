@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { ProductCardRating } from "@/components/product-card-price";
 import { getRecommendations } from "@/lib/recommendations";
 import { getCardImage } from "@/lib/product-images";
 import { Icon } from "@/components/icons";
@@ -125,6 +126,7 @@ export default function CartPage() {
                         )}
                       </div>
                       <p className="mt-2 text-xs">{p.name}</p>
+                      <ProductCardRating product={p} />
                     </Link>
                   ))}
                 </div>

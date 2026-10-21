@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { getCardImage } from "@/lib/product-images";
+import { ProductCardRating } from "@/components/product-card-price";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 
 export function RelatedProducts({ products }: { products: Product[] }) {
@@ -33,6 +34,7 @@ export function RelatedProducts({ products }: { products: Product[] }) {
               )}
             </div>
             <p className="mt-3 text-sm font-medium text-ink">{product.name}</p>
+            <ProductCardRating product={product} />
             <p className="text-sm text-stone">
               {formatPrice(getPriceForCurrency(product.priceCHF, product.priceEUR, currency), currency)}
             </p>
