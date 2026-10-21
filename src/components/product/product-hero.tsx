@@ -11,7 +11,7 @@ import { BuyBox } from "@/components/product/buy-box";
  * determine les photos affichees dans la galerie.
  */
 export function ProductHero({ product }: { product: Product }) {
-  const [variantId, setVariantId] = useState(product.variants?.[0]?.id);
+  const [variantId, setVariantId] = useState(product.sizes ? undefined : product.variants?.[0]?.id);
   const images = getGalleryImages(product, variantId);
 
   return (

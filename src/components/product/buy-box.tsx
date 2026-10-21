@@ -17,7 +17,6 @@ import { WelcomeOffer } from "@/components/product/welcome-offer";
 import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
-import { TrustBadges } from "@/components/trust-badges";
 import { Icon } from "@/components/icons";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { getPriceRange, getSkuStock, hasSizes, skuLabel } from "@/lib/sku";
@@ -227,7 +226,7 @@ export function BuyBox({
             </div>
             {sizeError && (
               <p role="alert" className="mt-2 text-sm text-terracottaText">
-                Choisissez la taille de votre chien pour continuer.
+                {selectedVariant ? "Choisissez la taille de votre chien pour continuer." : "Choisissez le coloris puis la taille pour continuer."}
               </p>
             )}
             <p className="mt-2 text-xs text-ink/60">
@@ -361,7 +360,7 @@ export function BuyBox({
             sized ? "Indisponible dans ce coloris" : "Temporairement indisponible"
           ) : (
             sized && !selectedSize ? (
-              "Choisir une taille"
+              selectedVariant ? "Choisir une taille" : "Choisir coloris et taille"
             ) : (
             <>
               {selectedAddOnIds.length > 0
@@ -431,10 +430,8 @@ export function BuyBox({
         <dl className="mt-3 text-[15px]">
           {[
             [`${product.name}${chosenLabel ? ` · ${chosenLabel}` : ""}`, formatPrice(unitPrice, currency)],
-            ["Livraison", "Offerte"],
-            ["Expédition", `Sous ${product.shipping.dispatchWithinHours} h`],
+            ["Livraison", `Offerte, expédiée sous ${product.shipping.dispatchWithinHours} h`],
             ["Retours", `Gratuits sous ${product.shipping.returnDays} jours`],
-            ["Paiement", "Sécurisé via Stripe"],
           ].map(([label, value], i) => (
             <div
               key={label}
@@ -449,9 +446,6 @@ export function BuyBox({
         </dl>
       </div>
 
-      <div className="mt-5 rounded-xl2 border border-ink/10 bg-white/40 p-4">
-        <TrustBadges compact />
-      </div>
     </div>
   );
 }

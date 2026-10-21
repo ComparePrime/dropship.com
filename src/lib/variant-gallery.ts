@@ -25,10 +25,14 @@ export function getGalleryImages(product: Product, variantId?: string): ProductI
   const common = product.images.filter((img) => !img.variantId);
   const own = variant ? product.images.filter((img) => img.variantId === variant.id) : [];
 
+  // Sans coloris choisi (fiche a tailles), la photo principale commune ouvre la galerie,
+  // suivie d'un apercu de chaque coloris.
+  const allColours = !variant && product.sizes ? (product.variants ?? []).map((v) => ({ ...v.image, variantId: v.id })) : [];
   const pool = dedupe([
     ...(variant ? [{ ...variant.image, variantId: variant.id }] : []),
     ...own,
     ...common,
+    ...allColours,
   ]);
   if (pool.length === 0) return product.images;
 

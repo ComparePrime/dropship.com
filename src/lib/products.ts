@@ -3049,6 +3049,11 @@ const catalog: Product[] = [
     },
     images: [
       {
+        src: "/images/products/veste-chien-hiver/principale.webp",
+        alt: "Labrador assis dans la neige portant une veste matelassée noire à bande vert-jaune, avec les coloris bleu, rose, rouge et vert-jaune, taille XS à 6XL",
+        caption: "XS à 6XL, 6 coloris",
+      },
+      {
         src: "/images/products/veste-chien-hiver/vert-labrador.webp",
         alt: "Labrador portant une veste matelassée noire à bande vert-jaune, dans la neige devant un chalet",
         caption: "Vert-jaune",
@@ -3088,12 +3093,6 @@ const catalog: Product[] = [
         src: "/images/products/veste-chien-hiver/details-produit.webp",
         alt: "Détails de la veste pour chien : anneau en D pour laisse, fermeture zippée pratique, rembourrage en coton PP de qualité, col montant coupe-vent, tissu imperméable",
         caption: "Les détails de la veste",
-        info: true,
-      },
-      {
-        src: "/images/products/veste-chien-hiver/collection-coloris.webp",
-        alt: "Veste pour chien disponible du XS au 6XL, en bleu, rose, rouge et vert-jaune, avec col coupe-vent, anneau en D, fermeture zippée, rembourrage coton PP et tissu imperméable",
-        caption: "XS à 6XL, 6 coloris",
         info: true,
       },
     ],
