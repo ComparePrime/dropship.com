@@ -3279,10 +3279,11 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-
-    reviews: vesteChienReviews,
-    ratingAverage: 4.3,
-    ratingCount: vesteChienReviews.length,
+    // Aucun avis reel pour l'instant. Les avis de demonstration (marque DEMO) sont dans
+    // reviews-veste-chien.ts et ne sont lus que par la section avis de la fiche.
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
     collections: ["nos-compagnons"],
     layout: [
       "storytelling",
