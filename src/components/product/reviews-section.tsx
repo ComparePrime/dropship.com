@@ -1,8 +1,38 @@
-import { Product } from "@/lib/types";
+import { Product, Review } from "@/lib/types";
 import { RatingStars } from "@/components/product/rating-stars";
 import { demoReviewsBySlug } from "@/lib/reviews-demo";
 
 const INITIAL_VISIBLE = 6;
+
+function ReviewCard({ review }: { review: Review }) {
+  return (
+      <div className="rounded-xl2 border border-ink/10 bg-white/50 p-6">
+        <div className="flex items-center justify-between">
+          <RatingStars value={review.rating} />
+          {review.demo ? (
+            <span className="rounded-full bg-sand px-2 py-0.5 text-[10px] uppercase tracking-wide text-stone">
+              Demo
+            </span>
+          ) : review.verified ? (
+            <span className="rounded-full bg-sage/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-sage">
+              Achat vérifié
+            </span>
+          ) : null}
+        </div>
+        <p className="mt-3 text-sm font-medium text-ink">{review.title}</p>
+        <p className="mt-1 text-sm text-stone">{review.body}</p>
+        <p className="mt-3 text-xs text-stone">
+          {review.author} ·{" "}
+          {new Date(review.date).toLocaleDateString("fr-CH", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+      </div>
+  );
+}
+
 
 export function ReviewsSection({ product }: { product: Product }) {
   const realReviews = product.reviews.filter((r) => !r.demo);
@@ -12,6 +42,8 @@ export function ReviewsSection({ product }: { product: Product }) {
   const visibleReviews = hasRealReviews
     ? realReviews.slice(0, INITIAL_VISIBLE)
     : demoReviews.slice(0, INITIAL_VISIBLE);
+  // Avis de demonstration : tous sont affiches, les suivants dans un bloc deplie a la demande.
+  const extraDemoReviews = hasRealReviews ? [] : demoReviews.slice(INITIAL_VISIBLE);
 
   return (
     <section id="avis" className="container-content scroll-mt-24 py-16 md:py-24">
@@ -40,32 +72,22 @@ export function ReviewsSection({ product }: { product: Product }) {
       {visibleReviews.length > 0 && (
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
           {visibleReviews.map((review) => (
-            <div key={review.id} className="rounded-xl2 border border-ink/10 bg-white/50 p-6">
-              <div className="flex items-center justify-between">
-                <RatingStars value={review.rating} />
-                {review.demo ? (
-                  <span className="rounded-full bg-sand px-2 py-0.5 text-[10px] uppercase tracking-wide text-stone">
-                    Demo
-                  </span>
-                ) : review.verified ? (
-                  <span className="rounded-full bg-sage/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-sage">
-                    Achat vérifié
-                  </span>
-                ) : null}
-              </div>
-              <p className="mt-3 text-sm font-medium text-ink">{review.title}</p>
-              <p className="mt-1 text-sm text-stone">{review.body}</p>
-              <p className="mt-3 text-xs text-stone">
-                {review.author} ·{" "}
-                {new Date(review.date).toLocaleDateString("fr-CH", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </p>
-            </div>
+            <ReviewCard key={review.id} review={review} />
           ))}
         </div>
+      )}
+
+      {extraDemoReviews.length > 0 && (
+        <details className="group mt-8">
+          <summary className="mx-auto w-fit cursor-pointer list-none rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink hover:bg-white/60 group-open:hidden">
+            Voir les {extraDemoReviews.length} autres avis (démo)
+          </summary>
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {extraDemoReviews.map((review) => (
+              <ReviewCard key={review.id} review={review} />
+            ))}
+          </div>
+        </details>
       )}
 
       {hasRealReviews && realReviews.length > INITIAL_VISIBLE && (
