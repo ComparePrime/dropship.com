@@ -3263,7 +3263,20 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    reviews: [],
+    // Exemple de mise en page uniquement (marque DEMO a l'affichage, exclu de la note moyenne) :
+    // a remplacer par de vrais avis de clients de la boutique des les premieres commandes.
+    reviews: [
+      {
+        id: "demo-veste-1",
+        author: "Exemple d'avis",
+        rating: 5,
+        date: "2026-10-21",
+        title: "Taille parfaite",
+        body: "La veste est fonctionnelle, la fermeture éclair fonctionne bien. La taille 4XL est parfaite pour mon ami à quatre pattes, elle correspond exactement à ce que j'avais commandé. Tout est parfait, aucun problème. Je la recommande.",
+        verified: false,
+        demo: true,
+      },
+    ],
     ratingAverage: 0,
     ratingCount: 0,
     collections: ["nos-compagnons"],
