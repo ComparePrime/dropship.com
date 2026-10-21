@@ -47,6 +47,31 @@ export interface PackOffer {
   priceEUR: number;
 }
 
+/**
+ * Taille d'un produit decline en tailles (ex: vetement pour chien). Chaque
+ * taille a son propre prix ; le stock se suit par couple coloris x taille
+ * (voir `skuStock` et lib/sku.ts). Dans le panier, la ligne est identifiee
+ * par `variantLabel` = "<coloris> · <taille>".
+ */
+export interface ProductSize {
+  id: string;
+  label: string;
+  priceCHF: number;
+  priceEUR: number;
+  compareAtPriceCHF?: number;
+  compareAtPriceEUR?: number;
+}
+
+/** Tableau des tailles affiche en texte sur la fiche (jamais seulement en image). */
+export interface SizeGuide {
+  title: string;
+  intro: string;
+  columns: string[];
+  /** Une ligne par taille ; `size` correspond au `label` d'une ProductSize. */
+  rows: { size: string; cells: string[] }[];
+  notes: string[];
+}
+
 export interface UseCase {
   title: string;
   description: string;
@@ -164,6 +189,7 @@ export type ProductSectionKey =
   | "gift"
   | "reviews"
   | "shipping-returns"
+  | "sizeGuide"
   | "faq"
   | "related"
   | "final-cta";
@@ -226,6 +252,11 @@ export interface Product {
   variants?: ProductVariant[];
   /** Lots a prix degressif, en plus de l'achat a l'unite. Absent si le produit n'en propose pas. */
   packOffers?: PackOffer[];
+  /** Tailles a prix propre (vetements...). Absent si le produit n'est pas decline en tailles. */
+  sizes?: ProductSize[];
+  /** Stock reel par couple coloris x taille, cle `<variantId>:<sizeId>` (voir lib/sku.ts). */
+  skuStock?: Record<string, number>;
+  sizeGuide?: SizeGuide;
 }
 
 /**

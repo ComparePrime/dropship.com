@@ -1,11 +1,16 @@
 import { Product } from "@/lib/types";
 import { siteConfig } from "@/lib/site-config";
+import { getPriceRange, hasSizes } from "@/lib/sku";
 
 export function ProductJsonLd({ product }: { product: Product }) {
   const url = `${siteConfig.domain}/produit/${product.slug}`;
   const realReviews = product.reviews.filter((r) => !r.demo);
-  const isOutOfStock =
-    !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
+  const sized = hasSizes(product);
+  // Produit a tailles : le stock se suit par coloris x taille ; il est disponible tant qu'une combinaison l'est.
+  const isOutOfStock = sized
+    ? !Object.values(product.skuStock ?? {}).some((q) => q > 0)
+    : !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
+  const skuCount = (product.variants?.length ?? 1) * (product.sizes?.length ?? 1);
 
   const productSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -17,11 +22,23 @@ export function ProductJsonLd({ product }: { product: Product }) {
       "@type": "Brand",
       name: siteConfig.name,
     },
+    ...(sized
+      ? {
+          color: product.variants?.map((v) => v.label),
+          size: product.sizes?.map((s) => s.label),
+        }
+      : {}),
     offers: (["CHF", "EUR"] as const).map((currency) => ({
-      "@type": "Offer",
+      "@type": sized ? "AggregateOffer" : "Offer",
       url,
       priceCurrency: currency,
-      price: (currency === "CHF" ? product.priceCHF : product.priceEUR).toFixed(2),
+      ...(sized
+        ? {
+            lowPrice: getPriceRange(product, currency).min.toFixed(2),
+            highPrice: getPriceRange(product, currency).max.toFixed(2),
+            offerCount: skuCount,
+          }
+        : { price: (currency === "CHF" ? product.priceCHF : product.priceEUR).toFixed(2) }),
       availability: isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
       shippingDetails: {
         "@type": "OfferShippingDetails",

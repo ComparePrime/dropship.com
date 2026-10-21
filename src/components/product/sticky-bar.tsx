@@ -7,18 +7,20 @@ import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { useCampaign } from "@/lib/use-campaign";
+import { getPriceRange, hasSizes } from "@/lib/sku";
 
 export function StickyBar({ product }: { product: Product }) {
   const [visible, setVisible] = useState(false);
   const { running } = useCampaign();
   const { currency } = useCurrency();
   const { addItem } = useCart();
-  const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
+  const sized = hasSizes(product);
+  const price = sized ? getPriceRange(product, currency).min : getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
   const compareAt =
     currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
   const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price && running;
   const isOutOfStock =
-    !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
+    !sized && !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
   const hasVariants = !!product.variants && product.variants.length > 0;
 
   useEffect(() => {
@@ -54,7 +56,10 @@ export function StickyBar({ product }: { product: Product }) {
                 {formatPrice(compareAt!, currency)}
               </span>
             )}
-            <span className="font-display text-lg">{formatPrice(price, currency)}</span>
+            <span className="font-display text-lg">
+              {sized && <span className="mr-1 text-xs text-ink/60">Dès</span>}
+              {formatPrice(price, currency)}
+            </span>
           </div>
         </div>
         <button
@@ -71,7 +76,7 @@ export function StickyBar({ product }: { product: Product }) {
           disabled={isOutOfStock}
           className="btn-primary ml-auto flex-1 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isOutOfStock ? "Indisponible" : hasVariants ? "Choisir une option" : "Ajouter au panier"}
+          {isOutOfStock ? "Indisponible" : sized ? "Choisir ma taille" : hasVariants ? "Choisir une option" : "Ajouter au panier"}
         </button>
       </div>
     </div>

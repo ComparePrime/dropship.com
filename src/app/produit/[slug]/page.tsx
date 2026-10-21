@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
+import { SizeGuideSection } from "@/components/product/size-guide-section";
+import { hasSizes } from "@/lib/sku";
 import { getRecommendations } from "@/lib/recommendations";
 import { siteConfig } from "@/lib/site-config";
 import { Product, ProductSectionKey } from "@/lib/types";
@@ -85,7 +87,18 @@ function renderSection(key: ProductSectionKey, product: Product) {
     case "editorial":
       return <EditorialSection key={key} product={product} />;
     case "useCases":
-      return <UseCasesSection key={key} useCases={product.useCases} />;
+      return hasSizes(product) ? (
+        <UseCasesSection
+          key={key}
+          useCases={product.useCases}
+          title="Pour quelles sorties ?"
+          intro="Des promenades du quotidien aux week-ends à la neige, voici où la veste se révèle la plus utile."
+        />
+      ) : (
+        <UseCasesSection key={key} useCases={product.useCases} />
+      );
+    case "sizeGuide":
+      return product.sizeGuide ? <SizeGuideSection key={key} guide={product.sizeGuide} /> : null;
     case "objections":
       return <ObjectionsSection key={key} objections={product.objections} />;
     case "offer":

@@ -4,14 +4,19 @@ import { getProductBySlug } from "@/lib/products";
 import { getPriceForCurrency } from "@/lib/currency";
 import { siteConfig } from "@/lib/site-config";
 import { CartLine, Currency } from "@/lib/types";
-import { computeDiscountCents, findPromo, PromoDefinition } from "@/lib/promo";
+import { computeDiscountCents, findPromo } from "@/lib/promo";
+import { getMultiBuyPercent, MULTI_BUY } from "@/lib/multi-buy";
+import { getSkuStock, hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 import type Stripe from "stripe";
 
 /**
  * Coupon Stripe correspondant au code : identifiant deterministe (code +
  * pourcentage), donc cree une seule fois puis reutilise, sans doublon.
  */
-async function ensureCoupon(stripe: Stripe, promo: PromoDefinition): Promise<string> {
+async function ensureCoupon(
+  stripe: Stripe,
+  promo: { code: string; percent: number; name?: string }
+): Promise<string> {
   const id = `loravie_${promo.code.toLowerCase()}_${promo.percent}`;
   try {
     await stripe.coupons.retrieve(id);
@@ -22,7 +27,7 @@ async function ensureCoupon(stripe: Stripe, promo: PromoDefinition): Promise<str
   try {
     await stripe.coupons.create({
       id,
-      name: promo.code,
+      name: promo.name ?? promo.code,
       percent_off: promo.percent,
       duration: "once",
     });
@@ -56,8 +61,36 @@ export async function POST(req: NextRequest) {
     // stock reste suivi par produit, pas par variante : on additionne donc
     // les quantites de toutes les lignes d'un meme produit avant de verifier).
     const quantityBySlug = new Map<string, number>();
+    const quantityBySku = new Map<string, number>();
     for (const line of lines) {
-      quantityBySlug.set(line.slug, (quantityBySlug.get(line.slug) ?? 0) + line.quantity);
+      const product = getProductBySlug(line.slug);
+      if (product && hasSizes(product)) {
+        // Produit a tailles : le stock se suit par couple coloris x taille.
+        const key = `${line.slug}|${line.variantLabel ?? ""}`;
+        quantityBySku.set(key, (quantityBySku.get(key) ?? 0) + line.quantity);
+      } else {
+        quantityBySlug.set(line.slug, (quantityBySlug.get(line.slug) ?? 0) + line.quantity);
+      }
+    }
+    for (const [key, totalQuantity] of quantityBySku) {
+      const [slug, label] = key.split("|");
+      const product = getProductBySlug(slug)!;
+      const sku = parseSkuLabel(product, label);
+      if (!sku) {
+        return NextResponse.json({ error: `Choisissez une taille et un coloris pour ${product.name}.` }, { status: 400 });
+      }
+      const available = getSkuStock(product, sku.variant.id, sku.size.id) ?? 0;
+      if (totalQuantity > available) {
+        return NextResponse.json(
+          {
+            error:
+              available <= 0
+                ? `${product.name} (${label}) est temporairement indisponible.`
+                : `Il ne reste que ${available} exemplaire(s) disponible(s) pour ${product.name} (${label}).`,
+          },
+          { status: 409 }
+        );
+      }
     }
     for (const [slug, totalQuantity] of quantityBySlug) {
       const product = getProductBySlug(slug);
@@ -83,22 +116,17 @@ export async function POST(req: NextRequest) {
         throw new Error(`Produit inconnu: ${line.slug}`);
       }
       // Un lot est identifie par son libelle (variantLabel) ; son prix vient du catalogue.
-      const pack = product.packOffers?.find((p) => p.label === line.variantLabel);
+      const resolved = resolveLine(product, line.variantLabel);
       const unitAmount = Math.round(
-        getPriceForCurrency(
-          pack?.priceCHF ?? product.priceCHF,
-          pack?.priceEUR ?? product.priceEUR,
-          currency
-        ) * 100
+        getPriceForCurrency(resolved.priceCHF, resolved.priceEUR, currency) * 100
       );
+      const imageSrc = hasSizes(product) ? resolved.image : product.images[0]?.src;
       return {
         price_data: {
           currency: currency.toLowerCase(),
           product_data: {
             name: line.variantLabel ? `${product.name} — ${line.variantLabel}` : product.name,
-            images: product.images[0]
-              ? [`${siteConfig.domain}${product.images[0].src}`]
-              : undefined,
+            images: imageSrc ? [`${siteConfig.domain}${imageSrc}`] : undefined,
           },
           unit_amount: unitAmount,
         },
@@ -110,10 +138,16 @@ export async function POST(req: NextRequest) {
       (sum, item) => sum + item.price_data.unit_amount * item.quantity,
       0
     );
-    const discountCents = promo ? computeDiscountCents(subtotalCents, promo.percent) : 0;
+    // Remise automatique et code promo ne se cumulent pas : la plus avantageuse est appliquee.
+    const multiBuyPercent = getMultiBuyPercent(lines);
+    const useMultiBuy = multiBuyPercent > 0 && multiBuyPercent >= (promo?.percent ?? 0);
+    const appliedDiscount = useMultiBuy
+      ? { code: "vestes", percent: multiBuyPercent, name: MULTI_BUY.label }
+      : promo;
+    const discountCents = appliedDiscount ? computeDiscountCents(subtotalCents, appliedDiscount.percent) : 0;
 
     const stripe = getStripeClient();
-    const couponId = promo ? await ensureCoupon(stripe, promo) : null;
+    const couponId = appliedDiscount ? await ensureCoupon(stripe, appliedDiscount) : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],

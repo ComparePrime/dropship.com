@@ -10,6 +10,7 @@ import { getCardImage } from "@/lib/product-images";
 import { Icon } from "@/components/icons";
 import { PromoCodeField } from "@/components/promo-code-field";
 import { getCartTotals } from "@/lib/cart-totals";
+import { countMultiBuyUnits, MULTI_BUY } from "@/lib/multi-buy";
 import { useCheckout } from "@/lib/use-checkout";
 import { useCampaign } from "@/lib/use-campaign";
 
@@ -19,7 +20,7 @@ export default function CartPage() {
   const { startCheckout, loading, error } = useCheckout();
   const campaign = useCampaign();
 
-  const { subtotal, discount, total, includedSavings } = getCartTotals(
+  const { subtotal, discount, total, includedSavings, discountSource, discountPercent } = getCartTotals(
     lines,
     currency,
     promo?.percent ?? null,
@@ -134,14 +135,21 @@ export default function CartPage() {
           <div className="h-fit rounded-xl2 border border-ink/10 bg-white/60 p-6">
             <PromoCodeField />
 
+            {countMultiBuyUnits(lines) > 0 && countMultiBuyUnits(lines) < MULTI_BUY.minUnits && (
+              <p className="mb-3 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
+                Ajoutez une 2ᵉ veste : −{MULTI_BUY.percent} % sur votre panier.
+              </p>
+            )}
             <div className="mt-5 flex items-center justify-between text-sm text-stone">
               <span>Sous-total</span>
               <span>{formatPrice(subtotal, currency)}</span>
             </div>
-            {promo && discount > 0 && (
+            {discount > 0 && (
               <div className="mt-2 flex items-center justify-between text-sm text-sage">
                 <span>
-                  Remise {promo.code} (−{promo.percent} %)
+                  {discountSource === "multi-buy"
+                    ? `${MULTI_BUY.label} (−${discountPercent} %)`
+                    : `Remise ${promo?.code} (−${discountPercent} %)`}
                 </span>
                 <span>−{formatPrice(discount, currency)}</span>
               </div>

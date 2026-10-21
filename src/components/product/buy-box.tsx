@@ -20,6 +20,9 @@ import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { TrustBadges } from "@/components/trust-badges";
 import { Icon } from "@/components/icons";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceRange, getSkuStock, hasSizes, skuLabel } from "@/lib/sku";
+import { MULTI_BUY } from "@/lib/multi-buy";
+import { StockInfo } from "@/lib/types";
 
 export function BuyBox({
   product,
@@ -40,7 +43,28 @@ export function BuyBox({
   const [selectedPackLabel, setSelectedPackLabel] = useState<string | undefined>(undefined);
   const selectedPack = product.packOffers?.find((p) => p.label === selectedPackLabel);
   // Pour un lot, le prix barre est celui des memes unites achetees une par une.
-  const displayedProduct: Product = selectedPack
+  const sized = hasSizes(product);
+  const [selectedSizeId, setSelectedSizeId] = useState<string | undefined>(undefined);
+  const [sizeError, setSizeError] = useState(false);
+  const selectedSize = product.sizes?.find((s) => s.id === selectedSizeId);
+  const skuQuantity =
+    sized && selectedVariant && selectedSize
+      ? getSkuStock(product, selectedVariant.id, selectedSize.id)
+      : undefined;
+  // Stock du couple coloris x taille choisi (affiche avec le meme indicateur que les autres produits).
+  const skuStockInfo: StockInfo | undefined =
+    skuQuantity === undefined
+      ? undefined
+      : { source: "manual", quantity: skuQuantity, referenceCapacity: 15, updatedAt: "" };
+  const displayedProduct: Product = selectedSize
+    ? {
+        ...product,
+        priceCHF: selectedSize.priceCHF,
+        priceEUR: selectedSize.priceEUR,
+        compareAtPriceCHF: selectedSize.compareAtPriceCHF,
+        compareAtPriceEUR: selectedSize.compareAtPriceEUR,
+      }
+    : selectedPack
     ? {
         ...product,
         priceCHF: selectedPack.priceCHF,
@@ -51,14 +75,23 @@ export function BuyBox({
       }
     : product;
   const hasRealReviews = product.reviews.some((r) => !r.demo);
-  const isTracked = !!product.stock && product.stock.source !== "none";
-  const isOutOfStock = isTracked && (product.stock?.quantity ?? 0) <= 0;
-  const maxQuantity = isTracked ? Math.max(0, product.stock!.quantity) : 99;
-  const unitPrice = selectedPack
+  const isTracked = sized ? skuQuantity !== undefined : !!product.stock && product.stock.source !== "none";
+  const trackedQuantity = sized ? (skuQuantity ?? 0) : (product.stock?.quantity ?? 0);
+  const isOutOfStock = isTracked && trackedQuantity <= 0;
+  const maxQuantity = isTracked ? Math.max(0, trackedQuantity) : 99;
+  const unitPrice = selectedSize
+    ? getPriceForCurrency(selectedSize.priceCHF, selectedSize.priceEUR, currency)
+    : selectedPack
     ? getPriceForCurrency(selectedPack.priceCHF, selectedPack.priceEUR, currency)
     : getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
   const ctaTotal = Math.round(unitPrice * quantity * 100) / 100;
-  const chosenLabel = selectedPack?.label ?? selectedVariant?.label;
+  // Produit a tailles : aucun libelle tant que coloris ET taille ne sont pas choisis (jamais un coloris seul).
+  const chosenLabel = sized
+    ? selectedVariant && selectedSize
+      ? skuLabel(selectedVariant, selectedSize)
+      : undefined
+    : (selectedPack?.label ?? selectedVariant?.label);
+  const priceFrom = getPriceRange(product, currency).min;
   // Jamais plus de 2 produits complementaires, et uniquement des produits
   // reels du catalogue (jamais invente/duplique).
   const addOns = getRecommendations(product.slug);
@@ -102,10 +135,15 @@ export function BuyBox({
         d'achat se prenne sans devoir chercher l'information ailleurs.
       */}
       <div className="mt-6 rounded-xl2 border border-sage/30 bg-white/60 p-4 shadow-card sm:p-5 md:p-6">
-        {!selectedPack && getCampaignDeal(product, currency) && (
+        {!selectedPack && (sized ? !!(selectedSize ? displayedProduct.compareAtPriceCHF : product.compareAtPriceCHF) : !!getCampaignDeal(product, currency)) && (
           <div className="mb-3">
             <CampaignCountdown />
           </div>
+        )}
+        {sized && !selectedSize && (
+          <p className="mb-2 text-sm font-medium text-ink/70">
+            À partir de {formatPrice(priceFrom, currency)} — le prix dépend de la taille
+          </p>
         )}
         <PromoBlock
           product={displayedProduct}
@@ -120,13 +158,14 @@ export function BuyBox({
           </div>
         )}
 
-        <StockIndicator stock={product.stock} />
+        <StockIndicator stock={sized ? skuStockInfo : product.stock} />
         <ViewerCount slug={product.slug} />
 
         {product.variants && product.variants.length > 0 && (
           <div className="mt-5">
             <span className="text-sm font-medium text-ink/70">
-              Choix{selectedVariant ? ` — ${selectedVariant.label}` : ""}
+              {sized ? "Coloris" : "Choix"}
+              {selectedVariant ? ` — ${selectedVariant.label}` : ""}
             </span>
             <div className="mt-2 flex flex-wrap gap-2">
               {product.variants.map((variant) => (
@@ -145,6 +184,58 @@ export function BuyBox({
                 </button>
               ))}
             </div>
+          </div>
+        )}
+
+        {sized && (
+          <div className="mt-5" id="choix-taille">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-sm font-medium text-ink/70">
+                Taille{selectedSize ? ` — ${selectedSize.label}` : ""}
+              </span>
+              {product.sizeGuide && (
+                <a href="#guide-des-tailles" className="text-xs font-medium text-terracottaText underline underline-offset-2">
+                  Guide des tailles
+                </a>
+              )}
+            </div>
+            <div className="mt-2 grid grid-cols-5 gap-2" role="group" aria-label="Choisir une taille">
+              {product.sizes!.map((size) => {
+                const unavailable = !!selectedVariant && getSkuStock(product, selectedVariant.id, size.id) === 0;
+                const active = selectedSizeId === size.id;
+                return (
+                  <button
+                    key={size.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedSizeId(size.id);
+                      setSizeError(false);
+                      setQuantity(1);
+                    }}
+                    aria-pressed={active}
+                    title={unavailable ? "Indisponible dans ce coloris" : size.label}
+                    className={`rounded-lg border-2 py-2 text-sm font-medium transition-colors ${
+                      active
+                        ? "border-sage bg-sage/10 text-ink"
+                        : "border-ink/10 bg-white/50 text-ink hover:border-ink/30"
+                    } ${unavailable ? "text-ink/35 line-through" : ""}`}
+                  >
+                    {size.label}
+                  </button>
+                );
+              })}
+            </div>
+            {sizeError && (
+              <p role="alert" className="mt-2 text-sm text-terracottaText">
+                Choisissez la taille de votre chien pour continuer.
+              </p>
+            )}
+            <p className="mt-2 text-xs text-ink/60">
+              Pas sûr de la taille ? Mesurez votre chien et consultez le guide des tailles.
+            </p>
+            <p className="mt-2 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
+              −{MULTI_BUY.percent} % sur votre panier dès la 2ᵉ veste, quels que soient la taille et le coloris.
+            </p>
           </div>
         )}
 
@@ -253,6 +344,11 @@ export function BuyBox({
         <button
           type="button"
           onClick={() => {
+            if (sized && !chosenLabel) {
+              setSizeError(true);
+              document.getElementById("choix-taille")?.scrollIntoView({ behavior: "smooth", block: "center" });
+              return;
+            }
             addItem(product, quantity, chosenLabel);
             for (const addOn of addOns) {
               if (selectedAddOnIds.includes(addOn.id)) addItem(addOn, 1);
@@ -262,8 +358,11 @@ export function BuyBox({
           className="btn-primary mt-5 w-full gap-2 py-4 text-base shadow-card disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isOutOfStock ? (
-            "Temporairement indisponible"
+            sized ? "Indisponible dans ce coloris" : "Temporairement indisponible"
           ) : (
+            sized && !selectedSize ? (
+              "Choisir une taille"
+            ) : (
             <>
               {selectedAddOnIds.length > 0
                 ? `Ajouter ${1 + selectedAddOnIds.length} articles au panier`
@@ -271,6 +370,7 @@ export function BuyBox({
               <span aria-hidden="true">•</span>
               <span>{formatPrice(ctaTotal, currency)}</span>
             </>
+            )
           )}
         </button>
 
@@ -278,7 +378,14 @@ export function BuyBox({
           <>
             <button
               type="button"
-              onClick={() => startCheckout([buildCartLine(product, quantity, chosenLabel)])}
+              onClick={() => {
+                if (sized && !chosenLabel) {
+                  setSizeError(true);
+                  document.getElementById("choix-taille")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  return;
+                }
+                startCheckout([buildCartLine(product, quantity, chosenLabel)]);
+              }}
               disabled={buyLoading}
               className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-base font-medium text-white transition-colors hover:bg-charcoal disabled:cursor-wait disabled:opacity-60"
             >

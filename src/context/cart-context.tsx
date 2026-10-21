@@ -2,18 +2,18 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { CartLine, Product } from "@/lib/types";
+import { hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 
 /** Ligne de panier d'un produit (prix du lot ou de la variante inclus), sans l'ajouter au panier. */
 export function buildCartLine(product: Product, quantity = 1, variantLabel?: string): CartLine {
-  const pack = product.packOffers?.find((p) => p.label === variantLabel);
-  const variantImage = product.variants?.find((v) => v.label === variantLabel)?.image.src;
+  const resolved = resolveLine(product, variantLabel);
   return {
     productId: product.id,
     slug: product.slug,
     name: product.name,
-    image: variantImage ?? product.images[0]?.src ?? "",
-    priceCHF: pack?.priceCHF ?? product.priceCHF,
-    priceEUR: pack?.priceEUR ?? product.priceEUR,
+    image: resolved.image,
+    priceCHF: resolved.priceCHF,
+    priceEUR: resolved.priceEUR,
     quantity,
     packLabel: product.packLabel,
     variantLabel,
@@ -94,15 +94,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [lines, hydrated]);
 
   const addItem = (product: Product, quantity = 1, variantLabel?: string) => {
+    // Un produit a tailles ne s'ajoute qu'avec un couple coloris x taille reel : jamais au prix de base.
+    if (hasSizes(product) && !parseSkuLabel(product, variantLabel)) return;
     // Le stock, quand il est suivi, plafonne la quantite ajoutable : on ne
     // reserve/decremente rien ici (simple plafond côté panier), la
     // disponibilite reelle est revalidee cote serveur avant paiement.
-    const cap = product.stock && product.stock.source !== "none" ? product.stock.quantity : Infinity;
+    const resolved = resolveLine(product, variantLabel);
+    const cap = resolved.cap;
     // Deux variantes du meme produit restent deux lignes distinctes.
     const matchesLine = (l: CartLine) => l.productId === product.id && l.variantLabel === variantLabel;
-    // Un lot est ajoute avec son libelle en tant que variantLabel : il garde son propre prix.
-    const pack = product.packOffers?.find((p) => p.label === variantLabel);
-    const variantImage = product.variants?.find((v) => v.label === variantLabel)?.image.src;
 
     setLines((prev) => {
       const existing = prev.find(matchesLine);
@@ -116,9 +116,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           productId: product.id,
           slug: product.slug,
           name: product.name,
-          image: variantImage ?? product.images[0]?.src ?? "",
-          priceCHF: pack?.priceCHF ?? product.priceCHF,
-          priceEUR: pack?.priceEUR ?? product.priceEUR,
+          image: resolved.image,
+          priceCHF: resolved.priceCHF,
+          priceEUR: resolved.priceEUR,
           quantity: Math.min(cap, quantity),
           packLabel: product.packLabel,
           variantLabel,

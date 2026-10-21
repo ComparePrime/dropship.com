@@ -50,3 +50,25 @@ export const declaredStock: Record<string, StockInfo> = {
   "coussin-bras-allaitement-biberon": declare(21, 40),
   "bougeoir-ceramique-argente-reflet": declare(11, 40),
 };
+
+/**
+ * Stock DECLARE par couple coloris x taille, pour les produits decline en tailles
+ * (cle = slug ; sous-cle = `<id coloris>:<id taille>`, voir lib/sku.ts). Un couple
+ * absent compte pour 0 (indisponible). Ce stock est aussi le plafond d'achat du
+ * couple, au panier comme au paiement.
+ */
+function uniformSkuStock(colors: string[], sizes: string[], quantity: number, overrides: Record<string, number> = {}) {
+  const stock: Record<string, number> = {};
+  for (const color of colors) for (const size of sizes) stock[`${color}:${size}`] = quantity;
+  return { ...stock, ...overrides };
+}
+
+export const declaredSkuStock: Record<string, Record<string, number>> = {
+  // 15 pieces par coloris et par taille ; le vert-jaune en 3XL est en rupture.
+  "veste-chien-hiver-impermeable": uniformSkuStock(
+    ["vert-jaune", "bleu", "rose", "rouge", "violet", "orange"],
+    ["xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"],
+    15,
+    { "vert-jaune:3xl": 0 }
+  ),
+};

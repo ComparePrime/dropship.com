@@ -10,6 +10,7 @@ import { Icon } from "@/components/icons";
 import { CartPortal } from "@/components/cart-portal";
 import { PromoCodeField } from "@/components/promo-code-field";
 import { getCartTotals } from "@/lib/cart-totals";
+import { countMultiBuyUnits, MULTI_BUY } from "@/lib/multi-buy";
 import { useCheckout } from "@/lib/use-checkout";
 import { getProductById } from "@/lib/products";
 import { LOW_STOCK_THRESHOLD, URGENT_STOCK_THRESHOLD } from "@/lib/stock-config";
@@ -128,14 +129,16 @@ export function CartDrawer() {
 
   if (!isOpen) return null;
 
-  const { subtotal, discount, total, includedSavings } = getCartTotals(
+  const { subtotal, discount, total, includedSavings, discountSource, discountPercent } = getCartTotals(
     lines,
     currency,
     promo?.percent ?? null,
     campaign.running
   );
   const totalSavings = Math.round((discount + includedSavings) * 100) / 100;
-  const hasDiscount = !!promo && discount > 0;
+  const hasDiscount = discount > 0;
+  const missingForMultiBuy = Math.max(0, MULTI_BUY.minUnits - countMultiBuyUnits(lines));
+  const showMultiBuyNudge = countMultiBuyUnits(lines) > 0 && missingForMultiBuy > 0;
 
   const quantityByProduct = new Map<string, number>();
   for (const l of lines) quantityByProduct.set(l.productId, (quantityByProduct.get(l.productId) ?? 0) + l.quantity);
@@ -285,6 +288,16 @@ export function CartDrawer() {
                 className="flex-shrink-0 border-t border-ink/10 bg-sand/60 px-5 pt-4"
                 style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
               >
+                {showMultiBuyNudge && (
+                  <p className="mb-3 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
+                    Ajoutez une 2ᵉ veste : −{MULTI_BUY.percent} % sur votre panier.
+                  </p>
+                )}
+                {discountSource === "multi-buy" && !!promo && (
+                  <p className="mb-3 text-xs text-stone">
+                    La remise automatique n&apos;est pas cumulable avec un code promo : la plus avantageuse est appliquée.
+                  </p>
+                )}
                 <PromoCodeField />
 
                 <dl className="mt-4 space-y-1.5 text-sm">
@@ -295,7 +308,9 @@ export function CartDrawer() {
                   {hasDiscount && (
                     <div className="motion-safe:animate-soft-in flex items-center justify-between text-sage">
                       <dt>
-                        Code {promo!.code} (−{promo!.percent} %)
+                        {discountSource === "multi-buy"
+                          ? `${MULTI_BUY.label} (−${discountPercent} %)`
+                          : `Code ${promo!.code} (−${discountPercent} %)`}
                       </dt>
                       <dd>−{formatPrice(discount, currency)}</dd>
                     </div>
@@ -317,7 +332,7 @@ export function CartDrawer() {
                     Vous économisez {formatPrice(totalSavings, currency)}
                     {hasDiscount && includedSavings > 0 && (
                       <span className="block text-xs font-normal text-stone">
-                        dont {formatPrice(includedSavings, currency)} déjà déduits des prix + {formatPrice(discount, currency)} avec le code
+                        dont {formatPrice(includedSavings, currency)} déjà déduits des prix + {formatPrice(discount, currency)} {discountSource === "multi-buy" ? "de remise automatique" : "avec le code"}
                       </span>
                     )}
                   </p>

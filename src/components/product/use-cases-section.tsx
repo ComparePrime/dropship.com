@@ -1,13 +1,18 @@
 import { UseCase } from "@/lib/types";
 
-export function UseCasesSection({ useCases }: { useCases: UseCase[] }) {
+export function UseCasesSection({
+  useCases,
+  title = "Où l'installer ?",
+  intro = "À quoi ressemblerait-il chez vous ? Voici les endroits où il trouve le plus naturellement sa place.",
+}: {
+  useCases: UseCase[];
+  title?: string;
+  intro?: string;
+}) {
   return (
     <section className="container-content py-16 md:py-24">
-      <h2 className="section-title text-center">Où l&apos;installer ?</h2>
-      <p className="mx-auto mt-3 max-w-lg text-center text-ink/70">
-        À quoi ressemblerait-il chez vous ? Voici les endroits où il trouve le plus naturellement
-        sa place.
-      </p>
+      <h2 className="section-title text-center">{title}</h2>
+      <p className="mx-auto mt-3 max-w-lg text-center text-ink/70">{intro}</p>
       <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {useCases.map((useCase) => (
           <div

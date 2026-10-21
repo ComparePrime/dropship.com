@@ -22,7 +22,7 @@ export default function BlogPostPage({ params }: Props) {
   const post = getBlogPostBySlug(params.slug);
   if (!post) notFound();
 
-  const products = getPublishedProducts();
+  const products = getPublishedProducts().filter((p) => post.productSlugs?.includes(p.slug));
 
   return (
     <article className="container-content max-w-2xl py-14">
@@ -32,6 +32,7 @@ export default function BlogPostPage({ params }: Props) {
           <p key={idx}>{paragraph}</p>
         ))}
       </div>
+      {products.length > 0 && (
       <div className="mt-10 rounded-xl2 border border-ink/10 bg-sand/60 p-6">
         <p className="text-sm text-stone">A découvrir dans cet article :</p>
         <ul className="mt-2 flex flex-col gap-1">
@@ -44,6 +45,7 @@ export default function BlogPostPage({ params }: Props) {
           ))}
         </ul>
       </div>
+      )}
     </article>
   );
 }

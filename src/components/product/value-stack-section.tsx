@@ -3,14 +3,16 @@
 import { Product } from "@/lib/types";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { formatPrice } from "@/lib/currency";
+import { getPriceRange, hasSizes } from "@/lib/sku";
 import { Icon } from "@/components/icons";
 
 /** Justifie le prix par ce qui est réellement inclus, sans faux prix barre. */
 export function ValueStackSection({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { currency } = useCurrency();
-  const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
+  const price = getPriceRange(product, currency).min;
+  const sized = hasSizes(product);
 
   return (
     <section className="container-content py-16 md:py-24">
@@ -26,10 +28,19 @@ export function ValueStackSection({ product }: { product: Product }) {
             </li>
           ))}
         </ul>
-        <p className="mt-8 font-display text-3xl text-ink">{formatPrice(price, currency)}</p>
-        <button type="button" onClick={() => addItem(product, 1)} className="btn-primary mt-6">
-          Ajouter au panier
-        </button>
+        <p className="mt-8 font-display text-3xl text-ink">
+          {sized && <span className="mr-2 text-lg text-ink/60">Dès</span>}
+          {formatPrice(price, currency)}
+        </p>
+        {sized ? (
+          <a href="#acheter" className="btn-primary mt-6">
+            Choisir mon coloris et ma taille
+          </a>
+        ) : (
+          <button type="button" onClick={() => addItem(product, 1)} className="btn-primary mt-6">
+            Ajouter au panier
+          </button>
+        )}
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import { getPublishedProducts } from "@/lib/products";
 import { categories } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { Product } from "@/lib/types";
+import { getSkuStock, hasSizes } from "@/lib/sku";
 
 /**
  * Flux produits pour Google Merchant Center (RSS 2.0 + espace de noms g:), genere a
@@ -45,6 +46,7 @@ const GOOGLE_CATEGORY: Record<string, string> = {
   "lampe-diamant-led": "Home & Garden > Lighting",
   "pendule-newton": "Home & Garden > Decor",
   "plateau-vague-resine": "Home & Garden > Decor",
+  "veste-chien-montagne": "Animals & Pet Supplies > Pet Supplies > Dog Supplies > Dog Apparel",
 };
 
 const escapeXml = (value: string) =>
@@ -64,6 +66,54 @@ function usableImages(product: Product) {
   const preferred = images.find((img) => /\.(jpe?g|png)$/i.test(img.src));
   const main = preferred ?? images[0];
   return { main, others: images.filter((img) => img !== main).slice(0, 10) };
+}
+
+/** Un produit a tailles donne une fiche par coloris x taille, regroupees par `item_group_id`. */
+function sizedItemsXml(product: Product, market: FeedMarket): string[] {
+  const category = categories.find((c) => product.collections.includes(c.slug));
+  const abs = (src: string) => `${siteConfig.domain}${src}`;
+  const items: string[] = [];
+  for (const variant of product.variants ?? []) {
+    const own = product.images.filter((img) => img.variantId === variant.id && !img.info && !img.inspiration);
+    const main = own[0] ?? { src: variant.image.src };
+    for (const size of product.sizes ?? []) {
+      const stock = getSkuStock(product, variant.id, size.id) ?? 0;
+      const price = market.currency === "CHF" ? size.priceCHF : size.priceEUR;
+      items.push(
+        [
+          "    <item>",
+          tag("id", `${product.id}-${variant.id}-${size.id}`),
+          tag("item_group_id", product.id),
+          tag("title", `${product.h1.slice(0, 110)} - ${variant.label}, taille ${size.label}`),
+          tag("description", product.shortDescription.slice(0, 5000)),
+          tag("link", `${siteConfig.domain}/produit/${product.slug}${market.linkSuffix}`),
+          tag("image_link", abs(main.src)),
+          tag("availability", stock > 0 ? "in_stock" : "out_of_stock"),
+          tag("price", `${price.toFixed(2)} ${market.currency}`),
+          tag("condition", "new"),
+          tag("brand", siteConfig.name),
+          tag("identifier_exists", "no"),
+          tag("color", variant.label),
+          tag("size", size.label),
+          tag("google_product_category", GOOGLE_CATEGORY[product.id] ?? "Home & Garden > Decor"),
+          ...(category ? [tag("product_type", category.title)] : []),
+          ...market.countries.flatMap((country) => [
+            "      <g:shipping>",
+            `        <g:country>${country}</g:country>`,
+            "        <g:service>Standard</g:service>",
+            `        <g:price>0.00 ${market.currency}</g:price>`,
+            "        <g:min_handling_time>0</g:min_handling_time>",
+            `        <g:max_handling_time>${Math.max(1, Math.ceil(product.shipping.dispatchWithinHours / 24))}</g:max_handling_time>`,
+            `        <g:min_transit_time>${product.shipping.minDays}</g:min_transit_time>`,
+            `        <g:max_transit_time>${product.shipping.maxDays}</g:max_transit_time>`,
+            "      </g:shipping>",
+          ]),
+          "    </item>",
+        ].join("\n")
+      );
+    }
+  }
+  return items;
 }
 
 function itemXml(product: Product, market: FeedMarket): string | null {
@@ -107,7 +157,7 @@ function itemXml(product: Product, market: FeedMarket): string | null {
 
 export function buildFeed(market: FeedMarket): Response {
   const items = getPublishedProducts()
-    .map((p) => itemXml(p, market))
+    .flatMap((p) => (hasSizes(p) ? sizedItemsXml(p, market) : [itemXml(p, market)]))
     .filter((x): x is string => !!x)
     .join("\n");
 

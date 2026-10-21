@@ -3,6 +3,7 @@
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice } from "@/lib/currency";
+import { getPriceRange, hasSizes } from "@/lib/sku";
 import { AUTUMN_CAMPAIGN, getCampaignDeal } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
 
@@ -11,11 +12,13 @@ export function ProductCardPrice({ product }: { product: Product }) {
   const { currency } = useCurrency();
   const { running } = useCampaign();
   const deal = running ? getCampaignDeal(product, currency) : null;
-  const price = currency === "CHF" ? product.priceCHF : product.priceEUR;
+  const price = getPriceRange(product, currency).min;
+  const sized = hasSizes(product);
 
   return (
     <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
       <span className={`text-sm ${deal ? "font-semibold text-ink" : "text-ink/70"}`}>
+        {sized && <span className="mr-1 font-normal text-ink/60">Dès</span>}
         {formatPrice(price, currency)}
       </span>
       {deal && (

@@ -1,5 +1,5 @@
 import { Product } from "./types";
-import { declaredStock } from "./stock-config";
+import { declaredSkuStock, declaredStock } from "./stock-config";
 import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
 
 /**
@@ -2923,6 +2923,367 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "veste-chien-montagne",
+    slug: "veste-chien-hiver-impermeable",
+    status: "published",
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 2,
+      priceScore: 4,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner. Risque de retour lie au choix de la taille : le guide des tailles est affiche en texte sur la fiche (mesures manuelles, ecart de 1 a 2 cm indique par le fournisseur). Les photos sont des visuels de presentation, pas des photos clients.",
+    },
+    name: "La Veste Montagne",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE D'AUTOMNE",
+    headline: "Quand le froid arrive, il reste bien au chaud.",
+    subtitle:
+      "Une veste matelassée pour chien, imperméable, avec col montant coupe-vent et fermeture zippée. Du XS au 6XL, en 6 coloris.",
+    heroBullets: [
+      "Tissu imperméable et col montant coupe-vent",
+      "Rembourrage en coton PP pour garder la chaleur",
+      "Fermeture zippée et anneau en D pour la laisse",
+      "Du XS au 6XL, en 6 coloris",
+    ],
+    h1: "Veste imperméable pour chien : manteau chaud d'hiver, du XS au 6XL",
+    shortDescription:
+      "Veste matelassée imperméable pour chien, avec col montant coupe-vent, fermeture zippée et anneau en D pour la laisse. Tailles XS à 6XL, 6 coloris.",
+    description: [
+      "La Veste Montagne est pensée pour les promenades d'automne et d'hiver : un tissu imperméable à l'extérieur, un rembourrage en coton PP à l'intérieur, et un col montant qui coupe le vent autour du cou.",
+      "Elle se ferme d'un geste grâce à sa fermeture zippée, et l'anneau en D permet d'y accrocher la laisse sans avoir à enlever quoi que ce soit. Sa coupe simple, noire avec une bande de couleur sur le dos, va aussi bien à un Chihuahua qu'à un Labrador.",
+      "Six coloris au choix (vert-jaune, bleu, rose, rouge, violet et orange) et dix tailles, du XS au 6XL. Le guide des tailles ci-dessous donne la longueur du dos, le tour de poitrail et le tour de cou pour chaque taille : il suffit de mesurer votre chien avant de choisir.",
+    ],
+    storytelling: {
+      eyebrow: "Les promenades d'hiver",
+      title: "Un manteau, et la balade ne s'arrête plus.",
+      paragraphs: [
+        "Dès que les températures baissent, certains chiens frissonnent dès la porte d'entrée : les petits gabarits, les chiens à poil court, ceux qui n'ont pas de sous-poil. Une veste adaptée change la sortie du matin.",
+        "La Veste Montagne a été choisie pour son équilibre : assez chaude pour les journées froides, assez simple à enfiler pour que ce ne soit pas une corvée, et disponible dans une vraie palette de tailles, du très petit au très grand chien.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Comment être sûr de choisir la bonne taille ?",
+        response:
+          "Mesurez la longueur du dos, le tour de poitrail et le tour de cou de votre chien, puis comparez avec le guide des tailles affiché sur la page. Les mesures sont prises à la main : comptez un écart de 1 à 2 cm.",
+      },
+      {
+        doubt: "Est-ce vraiment imperméable ?",
+        response:
+          "Le tissu extérieur est imperméable et le col est montant pour couper le vent. Elle protège bien de la pluie et de la neige fondue pendant la promenade ; elle n'est pas conçue pour rester sous une pluie battante pendant des heures.",
+      },
+      {
+        doubt: "Peut-on y attacher la laisse ?",
+        response:
+          "Oui, l'anneau en D est prévu pour accrocher la laisse. La fermeture zippée permet de l'enfiler et de la retirer facilement.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si la taille ne convient pas ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et retourner la veste gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Une veste matelassée imperméable, col montant coupe-vent",
+      "Fermeture zippée et anneau en D pour la laisse",
+      "Du XS au 6XL, en 6 coloris",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+      "−15 % sur votre panier dès la 2ᵉ veste",
+    ],
+    midCtaTexts: [
+      "Les premiers froids sont là. Et si vous équipiez votre chien ?",
+      "Prêt à choisir son coloris et sa taille ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 19.99,
+    priceEUR: 19.99,
+    compareAtPriceCHF: 39.98,
+    compareAtPriceEUR: 39.98,
+    sizes: [
+      { id: "xs", label: "XS", priceCHF: 19.99, priceEUR: 19.99, compareAtPriceCHF: 39.98, compareAtPriceEUR: 39.98 },
+      { id: "s", label: "S", priceCHF: 19.99, priceEUR: 19.99, compareAtPriceCHF: 39.98, compareAtPriceEUR: 39.98 },
+      { id: "m", label: "M", priceCHF: 19.99, priceEUR: 19.99, compareAtPriceCHF: 39.98, compareAtPriceEUR: 39.98 },
+      { id: "l", label: "L", priceCHF: 19.99, priceEUR: 19.99, compareAtPriceCHF: 39.98, compareAtPriceEUR: 39.98 },
+      { id: "xl", label: "XL", priceCHF: 24.99, priceEUR: 24.99, compareAtPriceCHF: 37.49, compareAtPriceEUR: 37.49 },
+      { id: "2xl", label: "2XL", priceCHF: 24.99, priceEUR: 24.99, compareAtPriceCHF: 37.49, compareAtPriceEUR: 37.49 },
+      { id: "3xl", label: "3XL", priceCHF: 24.99, priceEUR: 24.99, compareAtPriceCHF: 37.49, compareAtPriceEUR: 37.49 },
+      { id: "4xl", label: "4XL", priceCHF: 24.99, priceEUR: 24.99, compareAtPriceCHF: 37.49, compareAtPriceEUR: 37.49 },
+      { id: "5xl", label: "5XL", priceCHF: 29.99, priceEUR: 29.99, compareAtPriceCHF: 49.99, compareAtPriceEUR: 49.99 },
+      { id: "6xl", label: "6XL", priceCHF: 29.99, priceEUR: 29.99, compareAtPriceCHF: 49.99, compareAtPriceEUR: 49.99 },
+    ],
+    sizeGuide: {
+      title: "Guide des tailles",
+      intro:
+        "Mesurez votre chien et comparez avec le tableau. Toutes les mesures sont en centimètres.",
+      columns: ["Taille", "Longueur du dos", "Tour de poitrail", "Tour de cou"],
+      rows: [
+        { size: "XS", cells: ["25", "34", "28"] },
+        { size: "S", cells: ["30", "38", "32"] },
+        { size: "M", cells: ["35", "46", "36"] },
+        { size: "L", cells: ["40", "50", "40"] },
+        { size: "XL", cells: ["45", "58", "42"] },
+        { size: "2XL", cells: ["50", "62", "44"] },
+        { size: "3XL", cells: ["53", "66", "50"] },
+        { size: "4XL", cells: ["57", "74", "52"] },
+        { size: "5XL", cells: ["67", "88", "56"] },
+        { size: "6XL", cells: ["73", "96", "60"] },
+      ],
+      notes: [
+        "Longueur du dos : de la base du cou à la base de la queue.",
+        "Tour de poitrail : à l'endroit le plus large du thorax, juste derrière les pattes avant.",
+        "Tour de cou : à la base du cou, là où se pose un collier.",
+        "Les mesures sont prises à la main : prévoyez un écart de 1 à 2 cm.",
+        "Si votre chien se situe entre deux tailles, choisissez la plus grande pour qu'il se déplace à l'aise.",
+      ],
+    },
+    images: [
+      {
+        src: "/images/products/veste-chien-hiver/vert-labrador.webp",
+        alt: "Labrador portant une veste matelassée noire à bande vert-jaune, dans la neige devant un chalet",
+        caption: "Vert-jaune",
+        variantId: "vert-jaune",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/bleu-yorkshire.webp",
+        alt: "Yorkshire portant une veste matelassée noire à bande bleu clair, dans la neige",
+        caption: "Bleu",
+        variantId: "bleu",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/rose-bouledogue.webp",
+        alt: "Bouledogue français portant une veste matelassée noire à bande rose, dans la neige",
+        caption: "Rose",
+        variantId: "rose",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/rouge-beagle.webp",
+        alt: "Beagle portant une veste matelassée noire à bande rouge, dans la neige devant un chalet",
+        caption: "Rouge",
+        variantId: "rouge",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/violet-cavalier.webp",
+        alt: "Cavalier King Charles portant une veste matelassée noire à bande violette, dans la neige",
+        caption: "Violet",
+        variantId: "violet",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/orange-golden.webp",
+        alt: "Golden retriever portant une veste matelassée noire à bande orange, dans la neige",
+        caption: "Orange",
+        variantId: "orange",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/details-produit.webp",
+        alt: "Détails de la veste pour chien : anneau en D pour laisse, fermeture zippée pratique, rembourrage en coton PP de qualité, col montant coupe-vent, tissu imperméable",
+        caption: "Les détails de la veste",
+        info: true,
+      },
+      {
+        src: "/images/products/veste-chien-hiver/collection-coloris.webp",
+        alt: "Veste pour chien disponible du XS au 6XL, en bleu, rose, rouge et vert-jaune, avec col coupe-vent, anneau en D, fermeture zippée, rembourrage coton PP et tissu imperméable",
+        caption: "XS à 6XL, 6 coloris",
+        info: true,
+      },
+    ],
+    variants: [
+      {
+        id: "vert-jaune",
+        label: "Vert-jaune",
+        image: {
+          src: "/images/products/veste-chien-hiver/vert-labrador.webp",
+          alt: "Veste pour chien noire à bande vert-jaune",
+        },
+      },
+      {
+        id: "bleu",
+        label: "Bleu",
+        image: {
+          src: "/images/products/veste-chien-hiver/bleu-yorkshire.webp",
+          alt: "Veste pour chien noire à bande bleue",
+        },
+      },
+      {
+        id: "rose",
+        label: "Rose",
+        image: {
+          src: "/images/products/veste-chien-hiver/rose-bouledogue.webp",
+          alt: "Veste pour chien noire à bande rose",
+        },
+      },
+      {
+        id: "rouge",
+        label: "Rouge",
+        image: {
+          src: "/images/products/veste-chien-hiver/rouge-beagle.webp",
+          alt: "Veste pour chien noire à bande rouge",
+        },
+      },
+      {
+        id: "violet",
+        label: "Violet",
+        image: {
+          src: "/images/products/veste-chien-hiver/violet-cavalier.webp",
+          alt: "Veste pour chien noire à bande violette",
+        },
+      },
+      {
+        id: "orange",
+        label: "Orange",
+        image: {
+          src: "/images/products/veste-chien-hiver/orange-golden.webp",
+          alt: "Veste pour chien noire à bande orange",
+        },
+      },
+    ],
+    benefits: [
+      {
+        icon: "wind",
+        title: "Imperméable, col coupe-vent",
+        description: "Un tissu imperméable et un col montant qui protègent du vent et de l'humidité.",
+      },
+      {
+        icon: "flame",
+        title: "Rembourrage en coton PP",
+        description: "Un matelassage qui garde la chaleur pour les sorties d'automne et d'hiver.",
+      },
+      {
+        icon: "check",
+        title: "Fermeture zippée, anneau en D",
+        description: "Facile à enfiler, avec un anneau en D pour accrocher la laisse.",
+      },
+      {
+        icon: "star",
+        title: "XS à 6XL, 6 coloris",
+        description: "Dix tailles et six coloris pour habiller aussi bien un petit gabarit qu'un grand chien.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Promenades du quotidien",
+        description: "Pour les sorties du matin et du soir, quand l'air devient frais.",
+      },
+      {
+        title: "Neige et montagne",
+        description: "Un manteau chaud pour les balades à la neige et les week-ends à la montagne.",
+      },
+      {
+        title: "Petits gabarits et poil court",
+        description: "Pour les chiens qui ont vite froid : Chihuahua, Yorkshire, Bouledogue français...",
+      },
+      {
+        title: "Grands chiens",
+        description: "Une gamme jusqu'au 6XL, pour que les grands chiens soient aussi bien équipés.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles tailles sont disponibles ?",
+        answer:
+          "La veste existe en 10 tailles : XS, S, M, L, XL, 2XL, 3XL, 4XL, 5XL et 6XL. Le guide des tailles de la page donne les mesures de chacune en centimètres.",
+      },
+      {
+        question: "Comment mesurer mon chien ?",
+        answer:
+          "Mesurez la longueur du dos (de la base du cou à la base de la queue), le tour de poitrail à l'endroit le plus large du thorax, et le tour de cou à la base du cou. Comparez ensuite avec le guide des tailles.",
+      },
+      {
+        question: "Que faire si mon chien est entre deux tailles ?",
+        answer:
+          "Choisissez la taille supérieure : la veste sera plus confortable. Les mesures étant prises à la main, un écart de 1 à 2 cm est possible.",
+      },
+      {
+        question: "Quels coloris sont proposés ?",
+        answer: "Vert-jaune, bleu, rose, rouge, violet et orange, avec le corps de la veste en noir.",
+      },
+      {
+        question: "La veste est-elle imperméable ?",
+        answer:
+          "Oui, le tissu est imperméable et le col montant coupe le vent. Elle est faite pour les promenades d'automne et d'hiver.",
+      },
+      {
+        question: "Peut-on accrocher une laisse ?",
+        answer: "Oui, la veste est équipée d'un anneau en D prévu pour la laisse, et d'une fermeture zippée.",
+      },
+      {
+        question: "Comment fonctionne la remise dès la 2ᵉ veste ?",
+        answer:
+          "Dès que votre panier contient deux vestes (quels que soient la taille et le coloris), une remise de 15 % est appliquée automatiquement sur votre panier. Elle n'est pas cumulable avec un code promo : la remise la plus avantageuse s'applique.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner la veste si la taille ne convient pas ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Veste imperméable pour chien, XS à 6XL | Maison Loravie",
+      metaDescription:
+        "Veste matelassée imperméable pour chien : col coupe-vent, fermeture zippée, anneau en D. Du XS au 6XL, 6 coloris. Livraison offerte, retours 30 jours.",
+      keywords: [
+        "veste chien imperméable",
+        "manteau chien hiver",
+        "manteau chien grande taille",
+        "veste chien matelassée",
+        "vêtement chien hiver",
+        "manteau chien petit chien",
+        "veste chien XS à 6XL",
+        "manteau chien Suisse",
+        "manteau chien labrador",
+        "manteau bouledogue français",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre d'automne",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["nos-compagnons"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "sizeGuide",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /**
@@ -2931,7 +3292,8 @@ const catalog: Product[] = [
  */
 const products: Product[] = catalog.map((p) => {
   const declared = declaredStock[p.slug];
-  return declared ? { ...p, stock: declared } : p;
+  const skuStock = declaredSkuStock[p.slug];
+  return { ...p, ...(declared ? { stock: declared } : {}), ...(skuStock ? { skuStock } : {}) };
 });
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */
