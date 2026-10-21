@@ -1,16 +1,17 @@
 import { Product } from "@/lib/types";
 import { RatingStars } from "@/components/product/rating-stars";
+import { demoReviewsBySlug } from "@/lib/reviews-demo";
 
 const INITIAL_VISIBLE = 6;
 
 export function ReviewsSection({ product }: { product: Product }) {
   const realReviews = product.reviews.filter((r) => !r.demo);
-  const demoReviews = product.reviews.filter((r) => r.demo);
+  const demoReviews = [...product.reviews.filter((r) => r.demo), ...(demoReviewsBySlug[product.slug] ?? [])];
   const hasRealReviews = realReviews.length > 0;
   const hasDemoReviews = demoReviews.length > 0;
   const visibleReviews = hasRealReviews
     ? realReviews.slice(0, INITIAL_VISIBLE)
-    : demoReviews;
+    : demoReviews.slice(0, INITIAL_VISIBLE);
 
   return (
     <section id="avis" className="container-content scroll-mt-24 py-16 md:py-24">
