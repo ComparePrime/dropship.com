@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { SizeGuide } from "@/lib/types";
 import { Icon } from "@/components/icons";
 import { SizeGuideTable } from "@/components/product/size-guide-table";
@@ -51,6 +52,16 @@ export function SizeGuideButton({ guide }: { guide: SizeGuide }) {
               </button>
             </div>
             <div className="overflow-y-auto px-5 py-4">
+              {guide.image && (
+                <Image
+                  src={guide.image.src}
+                  alt={guide.image.alt}
+                  width={1254}
+                  height={1254}
+                  sizes="(min-width: 768px) 360px, 90vw"
+                  className="mx-auto mb-5 w-full max-w-sm rounded-xl2"
+                />
+              )}
               <SizeGuideTable guide={guide} />
               <ul className="mt-4 list-disc space-y-1.5 pl-5 text-sm text-ink/70">
                 {guide.notes.map((note) => (

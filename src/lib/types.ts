@@ -66,6 +66,8 @@ export interface ProductSize {
 export interface SizeGuide {
   title: string;
   intro: string;
+  /** Illustration "comment mesurer son chien", affichee au-dessus du tableau. */
+  image?: { src: string; alt: string };
   columns: string[];
   /** Une ligne par taille ; `size` correspond au `label` d'une ProductSize. */
   rows: { size: string; cells: string[] }[];
