@@ -24,7 +24,7 @@ import { StockInfo } from "./types";
  * la mettre a jour apres chaque reapprovisionnement ou vente importante.
  * Un produit absent de cette liste n'affiche aucune information de stock.
  */
-export const LOW_STOCK_THRESHOLD = 12;
+export const LOW_STOCK_THRESHOLD = 15;
 export const URGENT_STOCK_THRESHOLD = 5;
 
 export function declare(quantity: number, referenceCapacity: number): StockInfo {
