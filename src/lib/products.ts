@@ -3027,6 +3027,10 @@ const catalog: Product[] = [
       title: "Guide des tailles",
       intro:
         "Mesurez votre chien et comparez avec le tableau. Les mesures sont en centimètres ; le poids et les races sont donnés à titre indicatif.",
+      image: {
+        src: "/images/products/veste-chien-hiver/comment-mesurer.webp",
+        alt: "Comment mesurer son chien : longueur du dos, tour de cou et tour de poitrail, sur un beagle portant la veste",
+      },
       columns: ["Taille", "Dos (cm)", "Poitrail (cm)", "Cou (cm)", "Poids indicatif", "Races indicatives"],
       rows: [
         { size: "XS", cells: ["25", "34", "28", "1–3 kg", "Chihuahua, Yorkshire très petit"] },
@@ -3090,6 +3094,12 @@ const catalog: Product[] = [
         alt: "Golden retriever portant une veste matelassée noire à bande orange, dans la neige",
         caption: "Orange",
         variantId: "orange",
+      },
+      {
+        src: "/images/products/veste-chien-hiver/comment-mesurer.webp",
+        alt: "Comment mesurer son chien : longueur du dos, tour de cou et tour de poitrail, sur un beagle portant la veste",
+        caption: "Comment mesurer votre chien",
+        info: true,
       },
       {
         src: "/images/products/veste-chien-hiver/details-produit.webp",
