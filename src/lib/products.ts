@@ -1,6 +1,8 @@
 import { Product } from "./types";
 import { declaredSkuStock, declaredStock } from "./stock-config";
 import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
+import { vesteChienReviews } from "./reviews-veste-chien";
+import { lampeDiamantReviews } from "./reviews-lampe-diamant";
 
 /**
  * Catalogue produits.
@@ -2424,9 +2426,9 @@ const catalog: Product[] = [
       returnDays: 30,
     },
     // Avis de demonstration : voir reviews-lampe-diamant.ts (lus par la section avis uniquement).
-    reviews: [],
-    ratingAverage: 0,
-    ratingCount: 0,
+    reviews: lampeDiamantReviews,
+    ratingAverage: 4.5,
+    ratingCount: lampeDiamantReviews.length,
     collections: ["maison-decoration", "idees-cadeaux"],
     layout: [
       "storytelling",
@@ -2881,6 +2883,7 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+
   {
     id: "veste-chien-montagne",
     slug: "veste-chien-hiver-impermeable",
@@ -3237,11 +3240,9 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    // Aucun avis reel pour l'instant. Les avis de demonstration (marque DEMO) sont dans
-    // reviews-veste-chien.ts et ne sont lus que par la section avis de la fiche.
-    reviews: [],
-    ratingAverage: 0,
-    ratingCount: 0,
+    reviews: vesteChienReviews,
+    ratingAverage: 4.3,
+    ratingCount: vesteChienReviews.length,
     collections: ["nos-compagnons"],
     layout: [
       "storytelling",
