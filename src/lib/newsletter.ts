@@ -8,10 +8,10 @@ import { WELCOME_OFFER_PERCENT } from "./promo";
  * Aucune donnee personnelle n'est ecrite dans les journaux : seules des cles hachees circulent.
  *
  * Cles du stockage :
- *   sub/<hash e-mail normalise>   fiche de l'abonne (e-mail, consentement, code, statut du code)
- *   code/<CODE>                   renvoie vers la cle de l'abonne
- *   tok/<jeton>                   jeton de desinscription -> cle de l'abonne
- *   rl/<nom>/<hash ip>            compteurs de limitation (anti-abus)
+ *   sub-<hash e-mail normalise>   fiche de l'abonne (e-mail, consentement, code, statut du code)
+ *   code-<CODE>                   renvoie vers la cle de l'abonne
+ *   tok-<jeton>                   jeton de desinscription -> cle de l'abonne
+ *   rl-<nom>-<hash ip>            compteurs de limitation (anti-abus)
  */
 export const CONSENT_VERSION = "2026-10-22";
 export const CONSENT_TEXT =
@@ -78,7 +78,7 @@ export function hashIp(ip: string): string {
 
 /** Limitation : au plus `limit` appels par fenetre ; renvoie false quand la limite est atteinte. */
 export async function allowRequest(name: string, ipHash: string, limit: number, windowMs: number): Promise<boolean> {
-  const key = `rl/${name}/${ipHash}`;
+  const key = `rl-${name}-${ipHash}`;
   const now = Date.now();
   const hits = ((await kv.get<number[]>(key)) ?? []).filter((t) => now - t < windowMs);
   if (hits.length >= limit) return false;
@@ -104,7 +104,7 @@ export type SubscribeResult =
 
 /** Enregistre l'adresse (une seule fiche par adresse) et renvoie son code personnel. */
 export async function subscribe(normalized: { email: string; key: string }, source: string): Promise<SubscribeResult> {
-  const subKey = `sub/${normalized.key}`;
+  const subKey = `sub-${normalized.key}`;
   const existing = await kv.get<Subscriber>(subKey);
   if (existing) {
     return existing.codeStatus === "used" ? { status: "used" } : { status: "existing", subscriber: existing };
@@ -112,7 +112,7 @@ export async function subscribe(normalized: { email: string; key: string }, sour
 
   // Reserve un code unique avant de creer la fiche.
   let code = randomCode();
-  for (let attempt = 0; attempt < 8 && !(await kv.setIfNew(`code/${code}`, normalized.key)); attempt++) {
+  for (let attempt = 0; attempt < 8 && !(await kv.setIfNew(`code-${code}`, normalized.key)); attempt++) {
     code = randomCode();
   }
   const now = new Date().toISOString();
@@ -131,24 +131,24 @@ export async function subscribe(normalized: { email: string; key: string }, sour
   const created = await kv.setIfNew(subKey, subscriber);
   if (!created) {
     // Inscription simultanee de la meme adresse : on garde la premiere fiche.
-    await kv.delete(`code/${code}`);
+    await kv.delete(`code-${code}`);
     const winner = await kv.get<Subscriber>(subKey);
     if (!winner) throw new Error("Inscription impossible.");
     return winner.codeStatus === "used" ? { status: "used" } : { status: "existing", subscriber: winner };
   }
-  await kv.set(`tok/${subscriber.unsubscribeToken}`, normalized.key);
+  await kv.set(`tok-${subscriber.unsubscribeToken}`, normalized.key);
   return { status: "created", subscriber };
 }
 
 export async function findSubscriberByCode(code: string): Promise<Subscriber | null> {
   if (!isPersonalCode(code)) return null;
-  const key = await kv.get<string>(`code/${code}`);
-  return key ? kv.get<Subscriber>(`sub/${key}`) : null;
+  const key = await kv.get<string>(`code-${code}`);
+  return key ? kv.get<Subscriber>(`sub-${key}`) : null;
 }
 
 export async function markWelcomeEmailSent(subscriber: Subscriber): Promise<void> {
-  const current = await kv.get<Subscriber>(`sub/${subscriber.key}`);
-  if (current) await kv.set(`sub/${subscriber.key}`, { ...current, welcomeEmailSentAt: new Date().toISOString() });
+  const current = await kv.get<Subscriber>(`sub-${subscriber.key}`);
+  if (current) await kv.set(`sub-${subscriber.key}`, { ...current, welcomeEmailSentAt: new Date().toISOString() });
 }
 
 export function unsubscribeUrl(subscriber: Pick<Subscriber, "unsubscribeToken">): string {
@@ -156,14 +156,14 @@ export function unsubscribeUrl(subscriber: Pick<Subscriber, "unsubscribeToken">)
 }
 
 export async function markCodePending(subscriber: Subscriber, sessionId: string): Promise<void> {
-  await kv.set(`sub/${subscriber.key}`, { ...subscriber, codeStatus: "pending", pendingSessionId: sessionId });
+  await kv.set(`sub-${subscriber.key}`, { ...subscriber, codeStatus: "pending", pendingSessionId: sessionId });
 }
 
 /** Consomme definitivement le code (idempotent) une fois le paiement confirme. */
 export async function markCodeUsed(code: string, sessionId: string): Promise<void> {
   const subscriber = await findSubscriberByCode(code);
   if (!subscriber || subscriber.codeStatus === "used") return;
-  await kv.set(`sub/${subscriber.key}`, {
+  await kv.set(`sub-${subscriber.key}`, {
     ...subscriber,
     codeStatus: "used",
     usedAt: new Date().toISOString(),
@@ -173,12 +173,12 @@ export async function markCodeUsed(code: string, sessionId: string): Promise<voi
 
 export async function unsubscribeByToken(token: string): Promise<boolean> {
   if (!/^[a-f0-9]{32}$/.test(token)) return false;
-  const key = await kv.get<string>(`tok/${token}`);
+  const key = await kv.get<string>(`tok-${token}`);
   if (!key) return false;
-  const subscriber = await kv.get<Subscriber>(`sub/${key}`);
+  const subscriber = await kv.get<Subscriber>(`sub-${key}`);
   if (!subscriber) return false;
   if (!subscriber.unsubscribedAt) {
-    await kv.set(`sub/${key}`, { ...subscriber, unsubscribedAt: new Date().toISOString() });
+    await kv.set(`sub-${key}`, { ...subscriber, unsubscribedAt: new Date().toISOString() });
   }
   return true;
 }
@@ -192,7 +192,7 @@ const csvCell = (value: string | undefined) => {
 
 /** Export CSV de tous les abonnes (avec leur lien de desinscription individuel pour vos envois). */
 export async function exportSubscribersCsv(): Promise<{ csv: string; count: number }> {
-  const keys = await kv.list("sub/");
+  const keys = await kv.list("sub-");
   const subscribers: Subscriber[] = [];
   for (const key of keys) {
     const subscriber = await kv.get<Subscriber>(key);

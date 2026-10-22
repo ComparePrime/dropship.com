@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allowRequest, hashIp, markWelcomeEmailSent, normalizeEmail, subscribe, unsubscribeUrl, WELCOME_PERCENT } from "@/lib/newsletter";
 import { sendWelcomeEmail } from "@/lib/mailer";
+import { diagnoseStorage } from "@/lib/newsletter-store";
 import { clientIp } from "@/lib/request-ip";
 
 export const dynamic = "force-dynamic";
@@ -74,6 +75,9 @@ export async function POST(req: NextRequest) {
       { headers: NO_STORE }
     );
   } catch (error) {
+    if (error instanceof Error && error.message.startsWith("kv-timeout")) {
+      console.error("[newsletter:diagnostic]", await diagnoseStorage());
+    }
     // Journal sans donnee personnelle : uniquement le type d'erreur.
     console.error("[newsletter:error]", error instanceof Error ? `${error.name} ${error.message.slice(0, 60)}` : "unknown", Date.now() - t0, "ms");
     return fail("Inscription impossible pour le moment. Réessayez dans quelques minutes.", 500);
