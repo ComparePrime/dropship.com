@@ -2,7 +2,7 @@
 
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice } from "@/lib/currency";
+
 import { getPriceRange, hasSizes } from "@/lib/sku";
 import { getRealRating } from "@/lib/ratings";
 import { Icon } from "@/components/icons";
@@ -39,7 +39,7 @@ export function ProductCardRating({ product }: { product: Product }) {
 /** Prix d'une carte produit : prix actuel, et pendant l'Offre d'automne, prix de reference, remise et badge. */
 export function ProductCardPrice({ product }: { product: Product }) {
   const t = useT();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { running } = useCampaign();
   const deal = running ? getCampaignDeal(product, currency) : null;
   const price = getPriceRange(product, currency).min;
@@ -68,12 +68,13 @@ export function ProductCardPrice({ product }: { product: Product }) {
 
 /** Badge a poser sur la photo d'une carte produit pendant l'Offre d'automne. */
 export function CampaignCardBadge({ product }: { product: Product }) {
-  const { currency } = useCurrency();
+  const t = useT();
+  const { currency, formatPrice } = useCurrency();
   const { running } = useCampaign();
   if (!running || !getCampaignDeal(product, currency)) return null;
   return (
     <span className="absolute left-3 top-3 z-10 rounded-full bg-terracotta px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow-card">
-      {AUTUMN_CAMPAIGN.name}
+      {t(AUTUMN_CAMPAIGN.name)}
     </span>
   );
 }

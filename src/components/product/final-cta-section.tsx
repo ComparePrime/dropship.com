@@ -3,14 +3,14 @@
 import { Product } from "@/lib/types";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice } from "@/lib/currency";
+
 import { getPriceRange, hasSizes } from "@/lib/sku";
 import { useT } from "@/i18n/provider";
 
 export function FinalCtaSection({ product }: { product: Product }) {
   const t = useT();
   const { addItem } = useCart();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const sized = hasSizes(product);
   const price = getPriceRange(product, currency).min;
 

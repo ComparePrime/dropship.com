@@ -2,6 +2,7 @@ import { createHash, randomBytes, randomInt, timingSafeEqual } from "crypto";
 import type Stripe from "stripe";
 import { getStripeClient } from "./stripe";
 import { siteConfig } from "./site-config";
+import { defaultLocale, localizePath, type Locale } from "@/i18n/config";
 import { WELCOME_OFFER_PERCENT } from "./promo";
 
 /**
@@ -276,8 +277,8 @@ export async function markWelcomeEmailSent(subscriber: Subscriber): Promise<void
   });
 }
 
-export function unsubscribeUrl(subscriber: Pick<Subscriber, "unsubscribeToken">): string {
-  return `${siteConfig.domain}/desinscription?t=${subscriber.unsubscribeToken}`;
+export function unsubscribeUrl(subscriber: Pick<Subscriber, "unsubscribeToken">, locale: Locale = defaultLocale): string {
+  return `${siteConfig.domain}${localizePath("/desinscription", locale)}?t=${subscriber.unsubscribeToken}`;
 }
 
 export async function unsubscribeByToken(token: string): Promise<boolean> {

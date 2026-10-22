@@ -3,7 +3,7 @@
 import { Product } from "@/lib/types";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice } from "@/lib/currency";
+
 import { getPriceRange, hasSizes } from "@/lib/sku";
 import { Icon } from "@/components/icons";
 import { useT } from "@/i18n/provider";
@@ -12,7 +12,7 @@ import { useT } from "@/i18n/provider";
 export function ValueStackSection({ product }: { product: Product }) {
   const t = useT();
   const { addItem } = useCart();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const price = getPriceRange(product, currency).min;
   const sized = hasSizes(product);
 

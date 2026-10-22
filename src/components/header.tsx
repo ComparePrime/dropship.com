@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
 import { CurrencySwitcher } from "@/components/currency-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/categories";
 import { useT } from "@/i18n/provider";
@@ -62,8 +63,8 @@ export function Header() {
                       className="block rounded-lg px-4 py-3 hover:bg-sand/60"
                       onClick={() => setUniversesOpen(false)}
                     >
-                      <span className="block font-medium text-ink">{c.title}</span>
-                      <span className="mt-0.5 block text-xs text-ink/60">{c.cardDescription}</span>
+                      <span className="block font-medium text-ink">{t(c.title)}</span>
+                      <span className="mt-0.5 block text-xs text-ink/60">{t(c.cardDescription)}</span>
                     </Link>
                   ))}
                 </div>
@@ -77,7 +78,8 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1 md:gap-5">
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-2 md:flex">
+            <LanguageSwitcher />
             <CurrencySwitcher />
           </div>
           <button
@@ -126,7 +128,7 @@ export function Header() {
                 className="rounded-lg px-1 py-3 text-ink/85 hover:text-ink"
                 onClick={() => setMobileOpen(false)}
               >
-                {c.title}
+                {t(c.title)}
               </Link>
             ))}
             <div className="mt-2 border-t border-ink/10 pt-2">
@@ -143,7 +145,8 @@ export function Header() {
               >
                 {t("Contact")}</Link>
             </div>
-            <div className="mt-3 border-t border-ink/10 pt-4">
+            <div className="mt-3 flex items-center gap-2 border-t border-ink/10 pt-4">
+              <LanguageSwitcher />
               <CurrencySwitcher />
             </div>
           </div>

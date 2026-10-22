@@ -19,13 +19,14 @@ import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { Icon } from "@/components/icons";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceForCurrency } from "@/lib/currency";
 import { getPriceRange, getSkuStock, hasSizes, skuLabel } from "@/lib/sku";
 import { SizeGuideButton } from "@/components/product/size-guide-modal";
 import { MULTI_BUY } from "@/lib/multi-buy";
 import { isShippableToNorthAmerica } from "@/lib/shipping";
 import { StockInfo } from "@/lib/types";
 import { useT } from "@/i18n/provider";
+import { translateLabel } from "@/i18n/translate";
 
 export function BuyBox({
   product,
@@ -37,7 +38,7 @@ export function BuyBox({
   onVariantChange: (id: string) => void;
 }) {
   const t = useT();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { addItem, promo } = useCart();
   const { startCheckout, loading: buyLoading, error: buyError } = useCheckout();
   const [quantity, setQuantity] = useState(1);
@@ -179,7 +180,7 @@ export function BuyBox({
           <div className="mt-5">
             <span className="text-sm font-medium text-ink/70">
               {sized ? t("Coloris") : t("Choix")}
-              {selectedVariant ? ` — ${selectedVariant.label}` : ""}
+              {selectedVariant ? ` — ${t(selectedVariant.label)}` : ""}
             </span>
             <div className="mt-2 flex flex-wrap gap-2">
               {product.variants.map((variant) => (
@@ -187,14 +188,14 @@ export function BuyBox({
                   key={variant.id}
                   type="button"
                   onClick={() => setSelectedVariantId(variant.id)}
-                  aria-label={variant.label}
+                  aria-label={t(variant.label)}
                   aria-pressed={selectedVariantId === variant.id}
-                  title={variant.label}
+                  title={t(variant.label)}
                   className={`relative h-12 w-12 overflow-hidden rounded-lg border-2 transition-colors ${
                     selectedVariantId === variant.id ? "border-sage" : "border-transparent hover:border-ink/20"
                   }`}
                 >
-                  <Image src={variant.image.src} alt={variant.label} fill className="object-cover" />
+                  <Image src={variant.image.src} alt={t(variant.label)} fill className="object-cover" />
                 </button>
               ))}
             </div>
@@ -277,7 +278,7 @@ export function BuyBox({
                       className="h-4 w-4 flex-shrink-0 accent-sage"
                     />
                     <span className="flex-1 text-sm text-ink">
-                      {pack ? pack.label : t("À l'unité")}
+                      {pack ? t(pack.label) : t("À l'unité")}
                       {saving > 0 && (
                         <span className="ml-2 rounded-full bg-terracottaText px-2 py-0.5 text-xs font-semibold text-white">
                           −{saving}%
@@ -316,7 +317,7 @@ export function BuyBox({
                       )}
                     </div>
                     <span className="flex-1 text-sm text-ink">
-                      {addOn.name}
+                      {t(addOn.name)}
                       <ProductCardRating product={addOn} />
                     </span>
                     <span className="text-sm text-ink/70">{formatPrice(addOnPrice, currency)}</span>
@@ -446,7 +447,7 @@ export function BuyBox({
         <p className="text-xs font-semibold uppercase tracking-widest text-sage">{t("Votre commande comprend")}</p>
         <dl className="mt-3 text-[15px]">
           {[
-            [`${product.name}${chosenLabel ? ` · ${chosenLabel}` : ""}`, formatPrice(unitPrice, currency)],
+            [`${product.name}${chosenLabel ? ` · ${translateLabel(t, chosenLabel)}` : ""}`, formatPrice(unitPrice, currency)],
             [t("Livraison"), t("Offerte, expédiée sous {hours} h", { hours: product.shipping.dispatchWithinHours })],
             [t("Retours"), t("Gratuits sous {days} jours", { days: product.shipping.returnDays })],
           ].map(([label, value], i) => (

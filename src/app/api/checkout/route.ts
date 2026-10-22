@@ -9,6 +9,9 @@ import { resolvePromo, type ResolvedPromo } from "@/lib/promo-server";
 import { getMultiBuyPercent, MULTI_BUY } from "@/lib/multi-buy";
 import { getSkuStock, hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 import { allowedCountriesFor, isShippableToNorthAmerica } from "@/lib/shipping";
+import { isLocale, localizePath, stripeLocales, defaultLocale, type Locale } from "@/i18n/config";
+import { translate } from "@/i18n/messages";
+import { translateLabel } from "@/i18n/translate";
 import type Stripe from "stripe";
 
 /**
@@ -43,12 +46,15 @@ async function ensureCoupon(
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    // Langue du visiteur : textes d'erreur, noms affichés sur la page de paiement Stripe, pages de retour.
+    const locale: Locale = isLocale(body.locale) ? body.locale : defaultLocale;
+    const tr = (text: string, vars?: Record<string, string | number>) => translate(locale, text, vars);
     const lines: CartLine[] = Array.isArray(body.lines) ? body.lines : [];
     const currency: Currency =
       body.currency === "CHF" || body.currency === "USD" || body.currency === "CAD" ? body.currency : "EUR";
 
     if (lines.length === 0) {
-      return NextResponse.json({ error: "Le panier est vide." }, { status: 400 });
+      return NextResponse.json({ error: tr("Le panier est vide.") }, { status: 400 });
     }
 
     // Le code est revalide ici : seul le serveur decide de la remise.
@@ -84,7 +90,7 @@ export async function POST(req: NextRequest) {
       const product = getProductBySlug(slug)!;
       const sku = parseSkuLabel(product, label);
       if (!sku) {
-        return NextResponse.json({ error: `Choisissez une taille et un coloris pour ${product.name}.` }, { status: 400 });
+        return NextResponse.json({ error: tr("Choisissez une taille et un coloris pour {name}.", { name: tr(product.name) }) }, { status: 400 });
       }
       const available = getSkuStock(product, sku.variant.id, sku.size.id) ?? 0;
       if (totalQuantity > available) {
@@ -92,8 +98,11 @@ export async function POST(req: NextRequest) {
           {
             error:
               available <= 0
-                ? `${product.name} (${label}) est temporairement indisponible.`
-                : `Il ne reste que ${available} exemplaire(s) disponible(s) pour ${product.name} (${label}).`,
+                ? tr("{name} est temporairement indisponible.", { name: `${tr(product.name)} (${translateLabel(tr, label)})` })
+                : tr("Il ne reste que {count} exemplaire(s) disponible(s) pour {name}.", {
+                    count: available,
+                    name: `${tr(product.name)} (${translateLabel(tr, label)})`,
+                  }),
           },
           { status: 409 }
         );
@@ -102,15 +111,18 @@ export async function POST(req: NextRequest) {
     for (const [slug, totalQuantity] of quantityBySlug) {
       const product = getProductBySlug(slug);
       if (!product) {
-        return NextResponse.json({ error: `Produit inconnu: ${slug}` }, { status: 400 });
+        return NextResponse.json({ error: tr("Produit inconnu : {slug}", { slug }) }, { status: 400 });
       }
       if (product.stock && product.stock.source !== "none" && totalQuantity > product.stock.quantity) {
         return NextResponse.json(
           {
             error:
               product.stock.quantity <= 0
-                ? `${product.name} est temporairement indisponible.`
-                : `Il ne reste que ${product.stock.quantity} exemplaire(s) disponible(s) pour ${product.name}.`,
+                ? tr("{name} est temporairement indisponible.", { name: tr(product.name) })
+                : tr("Il ne reste que {count} exemplaire(s) disponible(s) pour {name}.", {
+                    count: product.stock.quantity,
+                    name: tr(product.name),
+                  }),
           },
           { status: 409 }
         );
@@ -126,9 +138,10 @@ export async function POST(req: NextRequest) {
     if ((currency === "USD" || currency === "CAD") && blocked.length > 0) {
       return NextResponse.json(
         {
-          error: `Livraison aux États-Unis et au Canada indisponible pour le moment pour : ${blocked
-            .map((p) => p.name)
-            .join(", ")}. Retirez ces articles ou choisissez une autre devise (EUR/CHF) pour une livraison en Europe.`,
+          error: tr(
+            "Livraison aux États-Unis et au Canada indisponible pour le moment pour : {names}. Retirez ces articles ou choisissez une autre devise (EUR/CHF) pour une livraison en Europe.",
+            { names: blocked.map((p) => tr(p.name)).join(", ") }
+          ),
         },
         { status: 409 }
       );
@@ -150,7 +163,7 @@ export async function POST(req: NextRequest) {
         price_data: {
           currency: currency.toLowerCase(),
           product_data: {
-            name: line.variantLabel ? `${product.name} — ${line.variantLabel}` : product.name,
+            name: line.variantLabel ? `${tr(product.name)} — ${translateLabel(tr, line.variantLabel)}` : tr(product.name),
             images: imageSrc ? [`${siteConfig.domain}${imageSrc}`] : undefined,
           },
           unit_amount: unitAmount,
@@ -170,9 +183,9 @@ export async function POST(req: NextRequest) {
     // promotionnel Stripe lui-meme (limite a une utilisation) qui est transmis : Stripe garantit l'usage unique.
     const personal = !useMultiBuy && promo?.kind === "personal" && promo.promotionCodeId ? promo : null;
     const appliedDiscount = useMultiBuy
-      ? { code: "vestes", percent: multiBuyPercent, name: MULTI_BUY.label }
+      ? { code: "vestes", percent: multiBuyPercent, name: tr(MULTI_BUY.label) }
       : personal
-        ? { code: "bienvenue", percent: personal.percent, name: "Code de bienvenue" }
+        ? { code: "bienvenue", percent: personal.percent, name: tr("Code de bienvenue") }
         : promo;
 
     const stripe = getStripeClient();
@@ -199,8 +212,9 @@ export async function POST(req: NextRequest) {
       shipping_address_collection: {
         allowed_countries: allowedCountries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
       },
-      success_url: `${siteConfig.domain}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteConfig.domain}/panier`,
+      locale: stripeLocales[locale] as Stripe.Checkout.SessionCreateParams.Locale,
+      success_url: `${siteConfig.domain}${localizePath("/confirmation", locale)}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteConfig.domain}${localizePath("/panier", locale)}`,
     });
 
     // Garde-fou : le total Stripe doit correspondre au total calcule ici (et affiche dans le panier).

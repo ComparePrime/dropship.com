@@ -2,11 +2,12 @@
 
 import Link from "@/i18n/link";
 import { useEffect, useState } from "react";
-import { useT } from "@/i18n/provider";
+import { useLocale, useT } from "@/i18n/provider";
 
 /** Desinscription en un clic (le lien seul ne desinscrit pas : evite les clics automatiques des messageries). */
 export function UnsubscribeForm() {
   const t = useT();
+  const locale = useLocale();
   const [token, setToken] = useState<string | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [message, setMessage] = useState<string | null>(null);
@@ -21,7 +22,7 @@ export function UnsubscribeForm() {
     try {
       const res = await fetch("/api/newsletter/unsubscribe", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-locale": locale },
         body: JSON.stringify({ token }),
       });
       const data = await res.json().catch(() => ({}));

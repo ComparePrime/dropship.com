@@ -7,7 +7,7 @@ import { Scene } from "@/lib/types";
 import { getProductById } from "@/lib/products";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 import { useT } from "@/i18n/provider";
 
@@ -21,7 +21,7 @@ import { useT } from "@/i18n/provider";
  */
 export function ShopTheLook({ scene }: { scene: Scene }) {
   const t = useT();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { addItem } = useCart();
   const [activeProductId, setActiveProductId] = useState<string | null>(null);
 

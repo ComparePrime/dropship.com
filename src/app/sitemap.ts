@@ -4,48 +4,36 @@ import { getAllBlogPosts } from "@/lib/blog";
 import { getPublishedScenes } from "@/lib/scenes";
 import { categories } from "@/lib/categories";
 import { subcategories } from "@/lib/subcategories";
-import { siteConfig } from "@/lib/site-config";
+import { absoluteUrl, alternateUrls, defaultLocale, isFrenchOnly, liveLocales } from "@/i18n/config";
+
+type Entry = MetadataRoute.Sitemap[number];
+
+/** Une entrée par langue ouverte pour chaque page, avec les liens hreflang vers les autres langues. */
+function entries(path: string, lastModified: Date): Entry[] {
+  const languages = alternateUrls(path);
+  const locales = isFrenchOnly(path) ? [defaultLocale] : liveLocales;
+  const multi = locales.length > 1;
+  return locales.map((locale) => ({
+    url: absoluteUrl(path, locale),
+    lastModified,
+    ...(multi ? { alternates: { languages: { ...languages, "x-default": languages[defaultLocale] } } } : {}),
+  }));
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/collections", "/blog", "/a-propos", "/livraison", "/retours", "/contact", "/confidentialite"].map((path) => ({
-    url: `${siteConfig.domain}${path}`,
-    lastModified: new Date(),
-  }));
+  const now = new Date();
 
-  const productRoutes = getPublishedProducts().map((product) => ({
-    url: `${siteConfig.domain}/produit/${product.slug}`,
-    lastModified: new Date(),
-  }));
-
-  const collectionRoutes = categories.map((c) => ({
-    url: `${siteConfig.domain}/collections/${c.slug}`,
-    lastModified: new Date(),
-  }));
-
+  const staticRoutes = ["/", "/collections", "/blog", "/a-propos", "/livraison", "/retours", "/contact", "/confidentialite"].flatMap(
+    (path) => entries(path, now)
+  );
+  const productRoutes = getPublishedProducts().flatMap((product) => entries(`/produit/${product.slug}`, now));
+  const collectionRoutes = categories.flatMap((c) => entries(`/collections/${c.slug}`, now));
   const subcategoryRoutes = [
-    { url: `${siteConfig.domain}/collections/maison-decoration/art-de-la-table`, lastModified: new Date() },
-    ...subcategories.map((s) => ({
-      url: `${siteConfig.domain}/collections/maison-decoration/${s.slug}`,
-      lastModified: new Date(),
-    })),
+    ...entries("/collections/maison-decoration/art-de-la-table", now),
+    ...subcategories.flatMap((s) => entries(`/collections/maison-decoration/${s.slug}`, now)),
   ];
+  const sceneRoutes = getPublishedScenes().flatMap((s) => entries(`/mises-en-scene/${s.slug}`, now));
+  const blogRoutes = getAllBlogPosts().flatMap((post) => entries(`/blog/${post.slug}`, new Date(post.publishedAt)));
 
-  const sceneRoutes = getPublishedScenes().map((s) => ({
-    url: `${siteConfig.domain}/mises-en-scene/${s.slug}`,
-    lastModified: new Date(),
-  }));
-
-  const blogRoutes = getAllBlogPosts().map((post) => ({
-    url: `${siteConfig.domain}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
-  }));
-
-  return [
-    ...staticRoutes,
-    ...productRoutes,
-    ...collectionRoutes,
-    ...subcategoryRoutes,
-    ...sceneRoutes,
-    ...blogRoutes,
-  ];
+  return [...staticRoutes, ...productRoutes, ...collectionRoutes, ...subcategoryRoutes, ...sceneRoutes, ...blogRoutes];
 }

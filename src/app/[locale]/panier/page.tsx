@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "@/i18n/link";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceForCurrency } from "@/lib/currency";
 import { ProductCardRating } from "@/components/product-card-price";
 import { isShippableToNorthAmerica } from "@/lib/shipping";
 import { getProductById } from "@/lib/products";
@@ -17,11 +17,12 @@ import { countMultiBuyUnits, MULTI_BUY } from "@/lib/multi-buy";
 import { useCheckout } from "@/lib/use-checkout";
 import { useCampaign } from "@/lib/use-campaign";
 import { useT } from "@/i18n/provider";
+import { translateLabel } from "@/i18n/translate";
 
 export default function CartPage() {
   const t = useT();
   const { lines, promo, updateQuantity, removeItem } = useCart();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { startCheckout, loading, error } = useCheckout();
   const campaign = useCampaign();
 
@@ -67,20 +68,20 @@ export default function CartPage() {
                 >
                   <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-sand">
                     {line.image && (
-                      <Image src={line.image} alt={line.name} fill className="object-cover" />
+                      <Image src={line.image} alt={t(line.name)} fill className="object-cover" />
                     )}
                   </div>
                   <div className="flex flex-1 flex-col justify-between">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <Link href={`/produit/${line.slug}`} className="font-medium hover:underline">
-                          {line.name}
+                          {t(line.name)}
                         </Link>
                         {line.packLabel && (
-                          <p className="text-xs text-sage">{line.packLabel}</p>
+                          <p className="text-xs text-sage">{t(line.packLabel)}</p>
                         )}
                         {line.variantLabel && (
-                          <p className="text-xs text-stone">{line.variantLabel}</p>
+                          <p className="text-xs text-stone">{translateLabel(t, line.variantLabel)}</p>
                         )}
                       </div>
                       <button
@@ -130,13 +131,13 @@ export default function CartPage() {
                         {getCardImage(p) && (
                           <Image
                             src={getCardImage(p)!.src}
-                            alt={getCardImage(p)!.alt}
+                            alt=""
                             fill
                             className="object-cover transition-transform group-hover:scale-105"
                           />
                         )}
                       </div>
-                      <p className="mt-2 text-xs">{p.name}</p>
+                      <p className="mt-2 text-xs">{t(p.name)}</p>
                       <ProductCardRating product={p} />
                     </Link>
                   ))}

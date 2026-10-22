@@ -2,7 +2,8 @@
 
 import { Product } from "@/lib/types";
 import { Currency } from "@/lib/types";
-import { formatPrice, getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
+import { getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
+import { useCurrency } from "@/context/currency-context";
 import { Icon } from "@/components/icons";
 import { AUTUMN_CAMPAIGN } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
@@ -26,6 +27,7 @@ export function PromoBlock({
   ignoreCampaign?: boolean;
 }) {
   const t = useT();
+  const { formatPrice } = useCurrency();
   const { running } = useCampaign();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
   const compareAt = getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, currency);
@@ -39,7 +41,7 @@ export function PromoBlock({
       <div className={variant === "full" ? "text-center" : undefined}>
         <span className="font-display text-3xl text-ink">{formatPrice(price, currency)}</span>
         {product.packLabel && (
-          <p className="mt-1 text-sm font-medium text-sage">{product.packLabel}</p>
+          <p className="mt-1 text-sm font-medium text-sage">{t(product.packLabel)}</p>
         )}
       </div>
     );
@@ -55,12 +57,12 @@ export function PromoBlock({
     >
       <span className="motion-safe:animate-promo-pulse inline-flex items-center gap-1.5 rounded-full bg-terracotta px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
         <Icon.flame className="h-3.5 w-3.5" strokeWidth={2} />
-        {ignoreCampaign ? product.promotion.label : AUTUMN_CAMPAIGN.name}
+        {t(ignoreCampaign ? product.promotion.label : AUTUMN_CAMPAIGN.name)}
       </span>
 
       {product.packLabel && (
         <p className="mt-3 text-sm font-medium uppercase tracking-wide text-terracottaText">
-          {product.packLabel}
+          {t(product.packLabel)}
         </p>
       )}
 

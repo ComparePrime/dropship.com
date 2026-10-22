@@ -34,8 +34,8 @@ export default function CollectionsPage({ params }: { params: LocaleParams }) {
                 <CategoryIcon className="h-5 w-5" strokeWidth={1.5} />
               </span>
               <div>
-                <h2 className="font-display text-2xl text-ink">{c.title}</h2>
-                <p className="mt-2 text-stone">{c.cardDescription}</p>
+                <h2 className="font-display text-2xl text-ink">{t(c.title)}</h2>
+                <p className="mt-2 text-stone">{t(c.cardDescription)}</p>
                 <span className="mt-3 inline-block text-sm font-medium text-sage group-hover:underline">
                   {t("Découvrir →")}</span>
               </div>

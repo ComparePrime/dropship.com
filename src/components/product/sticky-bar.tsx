@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
-import { formatPrice, getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
+import { getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
 import { useCampaign } from "@/lib/use-campaign";
 import { getPriceRange, hasSizes } from "@/lib/sku";
 import { useT } from "@/i18n/provider";
@@ -14,7 +14,7 @@ export function StickyBar({ product }: { product: Product }) {
   const t = useT();
   const [visible, setVisible] = useState(false);
   const { running } = useCampaign();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { addItem } = useCart();
   const sized = hasSizes(product);
   const price = sized ? getPriceRange(product, currency).min : getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
@@ -48,7 +48,7 @@ export function StickyBar({ product }: { product: Product }) {
         <div className="flex-shrink-0">
           {product.packLabel && (
             <p className="text-[10px] font-medium uppercase tracking-wide text-sage">
-              {product.packLabel}
+              {t(product.packLabel)}
             </p>
           )}
           <div className="flex items-baseline gap-1.5">

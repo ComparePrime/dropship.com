@@ -3,12 +3,16 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Currency } from "@/lib/types";
 import { CURRENCIES } from "@/lib/fx";
+import { formatPrice as formatPriceFor } from "@/lib/currency";
+import { useLocale } from "@/i18n/provider";
 
 const isCurrency = (value: unknown): value is Currency => CURRENCIES.includes(value as Currency);
 
 interface CurrencyContextValue {
   currency: Currency;
   setCurrency: (c: Currency) => void;
+  /** Prix formaté selon la langue de la page (virgule ou point décimal). */
+  formatPrice: (amount: number, currency: Currency) => string;
 }
 
 const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefined);
@@ -16,6 +20,7 @@ const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefine
 const STORAGE_KEY = "mf_currency";
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
+  const locale = useLocale();
   const [currency, setCurrencyState] = useState<Currency>("EUR");
 
   useEffect(() => {
@@ -59,7 +64,10 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const value = useMemo(() => ({ currency, setCurrency }), [currency]);
+  const value = useMemo(
+    () => ({ currency, setCurrency, formatPrice: (amount: number, c: Currency) => formatPriceFor(amount, c, locale) }),
+    [currency, locale]
+  );
 
   return <CurrencyContext.Provider value={value}>{children}</CurrencyContext.Provider>;
 }

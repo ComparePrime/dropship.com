@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice } from "@/lib/currency";
+
 import { WELCOME_OFFER_PERCENT } from "@/lib/promo";
 import { OPEN_WELCOME_POPUP_EVENT } from "@/components/welcome-popup";
 import { Icon } from "@/components/icons";
@@ -15,7 +15,7 @@ import { useT } from "@/i18n/provider";
  */
 export function WelcomeOffer({ unitPrice, quantity }: { unitPrice: number; quantity: number }) {
   const t = useT();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { promo } = useCart();
 
   const percent = WELCOME_OFFER_PERCENT;

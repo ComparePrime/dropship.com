@@ -14,10 +14,10 @@ export function CampaignCountdown({ variant = "block" }: { variant?: "block" | "
   if (!c.running) return null;
 
   const units = [
-    { label: "j", value: c.days },
-    { label: "h", value: pad(c.hours) },
-    { label: "min", value: pad(c.minutes) },
-    { label: "s", value: pad(c.seconds) },
+    { label: t("j"), value: c.days },
+    { label: t("h"), value: pad(c.hours) },
+    { label: t("min"), value: pad(c.minutes) },
+    { label: t("s"), value: pad(c.seconds) },
   ];
 
   if (variant === "bar") {

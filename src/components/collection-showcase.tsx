@@ -6,7 +6,7 @@ import Link from "@/i18n/link";
 import { collectionShowcase } from "@/lib/collection-showcase";
 import { getProductBySlug } from "@/lib/products";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 import { useT } from "@/i18n/provider";
 
@@ -22,7 +22,7 @@ import { useT } from "@/i18n/provider";
  */
 export function CollectionShowcase() {
   const t = useT();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const [activeId, setActiveId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { title, tagline, image, hotspots } = collectionShowcase;

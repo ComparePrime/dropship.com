@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { ProductImage } from "@/lib/types";
+import { useT } from "@/i18n/provider";
 
 export function ProductGallery({ images }: { images: ProductImage[] }) {
+  const t = useT();
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -48,7 +50,7 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
             onClick={() => setLightbox(true)}
             className="relative aspect-square w-full flex-shrink-0 snap-start bg-sand"
           >
-            <Image src={img.src} alt={img.alt} fill sizes="100vw" className="object-cover" priority={img === images[0]} />
+            <Image src={img.src} alt={t(img.alt)} fill sizes="100vw" className="object-cover" priority={img === images[0]} />
           </button>
         ))}
       </div>
@@ -62,7 +64,7 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
         {current && (
           <Image
             src={current.src}
-            alt={current.alt}
+            alt={t(current.alt)}
             fill
             priority
             sizes="560px"
@@ -84,7 +86,7 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
                 idx === active ? "border-sage opacity-100" : "border-transparent opacity-70 hover:opacity-100"
               )}
             >
-              <Image src={img.src} alt={img.alt} fill className="object-cover" />
+              <Image src={img.src} alt={t(img.alt)} fill className="object-cover" />
             </button>
           ))}
         </div>
@@ -96,7 +98,7 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
           onClick={() => setLightbox(false)}
         >
           <div className="relative h-full w-full max-w-3xl">
-            <Image src={current.src} alt={current.alt} fill className="object-contain" />
+            <Image src={current.src} alt={t(current.alt)} fill className="object-contain" />
           </div>
         </div>
       )}

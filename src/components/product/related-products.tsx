@@ -6,12 +6,12 @@ import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { getCardImage } from "@/lib/product-images";
 import { ProductCardRating } from "@/components/product-card-price";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceForCurrency } from "@/lib/currency";
 import { useT } from "@/i18n/provider";
 
 export function RelatedProducts({ products }: { products: Product[] }) {
   const t = useT();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
 
   if (products.length === 0) return null;
 
@@ -29,13 +29,13 @@ export function RelatedProducts({ products }: { products: Product[] }) {
               {getCardImage(product) && (
                 <Image
                   src={getCardImage(product)!.src}
-                  alt={getCardImage(product)!.alt}
+                  alt={t(getCardImage(product)!.alt)}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               )}
             </div>
-            <p className="mt-3 text-sm font-medium text-ink">{product.name}</p>
+            <p className="mt-3 text-sm font-medium text-ink">{t(product.name)}</p>
             <ProductCardRating product={product} />
             <p className="text-sm text-stone">
               {formatPrice(getPriceForCurrency(product.priceCHF, product.priceEUR, currency), currency)}

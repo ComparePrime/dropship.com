@@ -82,7 +82,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (storedCode) {
         fetch("/api/promo", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "x-locale": locale },
           body: JSON.stringify({ code: storedCode }),
         })
           .then((res) => (res.ok ? res.json() : null))

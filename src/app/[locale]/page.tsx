@@ -11,6 +11,7 @@ import { Icon } from "@/components/icons";
 import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-price";
 import { getCardImage } from "@/lib/product-images";
 import { alternatesFor, asLocale, metaT, pageSetup, LocaleParams } from "@/i18n/page";
+import { tk } from "@/i18n/translate";
 import { localizeProducts } from "@/i18n/product-translation";
 
 const ChevronRight = Icon["chevron-right"];
@@ -46,25 +47,25 @@ const SELECTION_SLUGS = [
 
 const COLLECTIONS = [
   {
-    title: "Décoration & vases",
-    text: "Vases, bougeoirs et plateaux aux matières naturelles.",
+    title: tk("Décoration & vases"),
+    text: tk("Vases, bougeoirs et plateaux aux matières naturelles."),
     href: "/collections/maison-decoration",
     image: "/images/products/trio-vases-wabi-sabi/plateau-bois.jpg",
-    alt: "Trois vases en porcelaine blanche et branches d'eucalyptus sur un plateau en bois",
+    alt: tk("Trois vases en porcelaine blanche et branches d'eucalyptus sur un plateau en bois"),
   },
   {
-    title: "Lampes & éclairage",
-    text: "Une lumière douce pour chaque moment de la journée.",
+    title: tk("Lampes & éclairage"),
+    text: tk("Une lumière douce pour chaque moment de la journée."),
     href: "/collections/maison-decoration/eclairage-et-ambiance",
     image: "/images/products/lampe-diamant/lumiere-projetee.jpg",
-    alt: "Lampe de table à facettes allumée, projetant des motifs de lumière sur le mur",
+    alt: tk("Lampe de table à facettes allumée, projetant des motifs de lumière sur le mur"),
   },
   {
-    title: "Maison & confort",
-    text: "Des objets qui rendent la maison plus agréable à vivre.",
+    title: tk("Maison & confort"),
+    text: tk("Des objets qui rendent la maison plus agréable à vivre."),
     href: "/collections/maison-decoration/maison-et-confort",
     image: "/images/products/ventilateur-plafond-led/salle-a-manger.jpg",
-    alt: "Ventilateur de plafond blanc avec éclairage LED au-dessus d'une salle à manger",
+    alt: tk("Ventilateur de plafond blanc avec éclairage LED au-dessus d'une salle à manger"),
   },
 ];
 
@@ -245,10 +246,10 @@ export default function HomePage({ params }: { params: LocaleParams }) {
                 {t("Un abat-jour transparent aux facettes en diamant, qui joue avec la lumière et garde du caractère même éteint. Elle se pose sur une commode, une table de nuit ou un bureau, sans câble à brancher.")}</p>
               <ul className="mt-5 flex flex-col gap-2.5 text-ink/80">
                 {[
-                  "3 ambiances lumineuses au choix",
-                  "Interrupteur tactile on/off",
-                  "Batterie rechargeable par USB",
-                  "26 cm de haut, 12 cm de large",
+                  tk("3 ambiances lumineuses au choix"),
+                  tk("Interrupteur tactile on/off"),
+                  tk("Batterie rechargeable par USB"),
+                  tk("26 cm de haut, 12 cm de large"),
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sage text-white">
@@ -281,10 +282,10 @@ export default function HomePage({ params }: { params: LocaleParams }) {
                 {t("Un luminaire au design épuré dont les pales se rétractent : il se fond dans le plafond, et réunit éclairage et ventilation dans un seul objet.")}</p>
               <ul className="mt-5 flex flex-col gap-2.5 text-ink/80">
                 {[
-                  "Éclairage LED intégré, 3 tonalités lumineuses",
-                  "Télécommande incluse",
-                  "Corps lumineux Ø 48 cm, pales déployées Ø 120 cm",
-                  "Finitions blanche ou noire",
+                  tk("Éclairage LED intégré, 3 tonalités lumineuses"),
+                  tk("Télécommande incluse"),
+                  tk("Corps lumineux Ø 48 cm, pales déployées Ø 120 cm"),
+                  tk("Finitions blanche ou noire"),
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sage text-white">
@@ -344,16 +345,16 @@ export default function HomePage({ params }: { params: LocaleParams }) {
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
             {
-              title: "Une sélection choisie",
-              text: "Chaque objet est choisi un par un pour son allure et son utilité, plutôt que d'empiler un catalogue sans fin.",
+              title: tk("Une sélection choisie"),
+              text: tk("Chaque objet est choisi un par un pour son allure et son utilité, plutôt que d'empiler un catalogue sans fin."),
             },
             {
-              title: "Livraison et retours sereins",
-              text: "Livraison offerte, expédition sous 24h et 30 jours pour changer d'avis, sans condition cachée.",
+              title: tk("Livraison et retours sereins"),
+              text: tk("Livraison offerte, expédition sous 24h et 30 jours pour changer d'avis, sans condition cachée."),
             },
             {
-              title: "Paiement sécurisé",
-              text: "Vos commandes sont traitées via un paiement en ligne sécurisé, du panier à la confirmation.",
+              title: tk("Paiement sécurisé"),
+              text: tk("Vos commandes sont traitées via un paiement en ligne sécurisé, du panier à la confirmation."),
             },
           ].map((item) => (
             <div

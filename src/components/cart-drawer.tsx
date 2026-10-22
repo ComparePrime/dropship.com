@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "@/i18n/link";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 import { CartPortal } from "@/components/cart-portal";
 import { PromoCodeField } from "@/components/promo-code-field";
@@ -17,6 +17,7 @@ import { LOW_STOCK_THRESHOLD, URGENT_STOCK_THRESHOLD } from "@/lib/stock-config"
 import { CartLine } from "@/lib/types";
 import { useCampaign } from "@/lib/use-campaign";
 import { useT } from "@/i18n/provider";
+import { translateLabel } from "@/i18n/translate";
 
 const lineKey = (l: CartLine) => `${l.productId}-${l.variantLabel ?? ""}`;
 const prefersReducedMotion = () =>
@@ -25,7 +26,7 @@ const prefersReducedMotion = () =>
 export function CartDrawer() {
   const t = useT();
   const { lines, promo, isOpen, totalItems, closeCart, updateQuantity, removeItem } = useCart();
-  const { currency } = useCurrency();
+  const { currency, formatPrice } = useCurrency();
   const { startCheckout, loading, error } = useCheckout();
   const campaign = useCampaign();
 
@@ -224,7 +225,7 @@ export function CartDrawer() {
                           <div className="min-w-0">
                             <p className="break-words text-[15px] font-medium leading-snug text-ink">{t(line.name)}</p>
                             {line.packLabel && <p className="text-xs text-sage">{t(line.packLabel)}</p>}
-                            {line.variantLabel && <p className="text-sm text-stone">{t(line.variantLabel)}</p>}
+                            {line.variantLabel && <p className="text-sm text-stone">{translateLabel(t, line.variantLabel)}</p>}
                             <p className="text-xs text-stone">{t("{price} l'unité", { price: formatPrice(unitPrice, currency) })}</p>
                           </div>
                           <button

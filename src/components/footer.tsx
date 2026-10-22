@@ -3,6 +3,7 @@ import { CookieSettingsLink } from "@/components/cookie-settings-link";
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 import { CurrencySwitcher } from "@/components/currency-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { getT } from "@/i18n/server";
 
 export function Footer() {
@@ -19,7 +20,8 @@ export function Footer() {
             className="h-14 w-auto"
           />
           <p className="mt-3 max-w-xs text-sm text-stone">{t(siteConfig.description)}</p>
-          <div className="mt-5">
+          <div className="mt-5 flex items-center gap-2">
+            <LanguageSwitcher />
             <CurrencySwitcher />
           </div>
         </div>
@@ -61,7 +63,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-sm font-medium text-ink">{t("Legal")}</p>
+          <p className="text-sm font-medium text-ink">{t("Légal")}</p>
           <ul className="mt-3 flex flex-col gap-2 text-sm text-stone">
             <li>
               <Link href="/cgv" className="hover:text-ink">

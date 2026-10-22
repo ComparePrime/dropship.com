@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { allowRequest, hashIp, markWelcomeEmailSent, normalizeEmail, subscribe, unsubscribeUrl, WELCOME_PERCENT } from "@/lib/newsletter";
 import { sendWelcomeEmail } from "@/lib/mailer";
 import { clientIp } from "@/lib/request-ip";
+import { apiTranslator, requestLocale } from "@/i18n/api";
 
 export const dynamic = "force-dynamic";
 
 const NO_STORE = { "Cache-Control": "no-store" };
-const fail = (error: string, status: number, reason = "") => {
+const failIn = (tr: ReturnType<typeof apiTranslator>) => (error: string, status: number, reason = "") => {
   // Journal sans donnee personnelle : seulement la raison du refus.
   if (reason) console.log("[newsletter:refus]", status, reason);
-  return NextResponse.json({ error }, { status, headers: NO_STORE });
+  return NextResponse.json({ error: tr(error) }, { status, headers: NO_STORE });
 };
 
 /**
@@ -18,6 +19,8 @@ const fail = (error: string, status: number, reason = "") => {
  * adresse IP (hachee), adresses jetables refusees, une seule fiche par adresse.
  */
 export async function POST(req: NextRequest) {
+  const locale = requestLocale(req);
+  const fail = failIn(apiTranslator(locale));
   let body: Record<string, unknown>;
   try {
     body = await req.json();
@@ -56,7 +59,8 @@ export async function POST(req: NextRequest) {
             to: result.subscriber.email,
             code: result.subscriber.code,
             percent: WELCOME_PERCENT,
-            unsubscribeUrl: unsubscribeUrl(result.subscriber),
+            unsubscribeUrl: unsubscribeUrl(result.subscriber, locale),
+            locale,
           }),
           new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
         ]);

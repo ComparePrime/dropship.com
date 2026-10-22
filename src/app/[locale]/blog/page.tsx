@@ -1,6 +1,7 @@
 import Link from "@/i18n/link";
 import type { Metadata } from "next";
 import { getAllBlogPosts } from "@/lib/blog";
+import { localizeBlogPost } from "@/i18n/data";
 import { alternatesFor, asLocale, metaT, pageSetup, LocaleParams } from "@/i18n/page";
 
 export function generateMetadata({ params }: { params: LocaleParams }): Metadata {
@@ -14,8 +15,8 @@ export function generateMetadata({ params }: { params: LocaleParams }): Metadata
 }
 
 export default function BlogIndexPage({ params }: { params: LocaleParams }) {
-  const { t } = pageSetup(params);
-  const posts = getAllBlogPosts();
+  const { t, locale } = pageSetup(params);
+  const posts = getAllBlogPosts().map((post) => localizeBlogPost(post, locale));
 
   return (
     <section className="container-content py-14">

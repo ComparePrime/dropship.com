@@ -1,5 +1,7 @@
 import nodemailer, { Transporter } from "nodemailer";
 import { siteConfig } from "./site-config";
+import { defaultLocale, type Locale } from "@/i18n/config";
+import { translate } from "@/i18n/messages";
 
 /**
  * Envoi d'e-mails depuis la boite Infomaniak de la boutique (info@maisonloravie.com) par SMTP.
@@ -46,42 +48,46 @@ export async function sendWelcomeEmail(input: {
   code: string;
   percent: number;
   unsubscribeUrl: string;
+  /** Langue du visiteur au moment de l'inscription (français par défaut). */
+  locale?: Locale;
 }): Promise<boolean> {
   if (!isMailConfigured()) return false;
 
   const { to, code, percent, unsubscribeUrl } = input;
-  const shopUrl = siteConfig.domain;
-  const subject = `Votre code de bienvenue Maison Loravie : −${percent} %`;
+  const locale = input.locale ?? defaultLocale;
+  const tr = (text: string, vars?: Record<string, string | number>) => translate(locale, text, vars);
+  const shopUrl = locale === defaultLocale ? siteConfig.domain : `${siteConfig.domain}/${locale}`;
+  const subject = tr("Votre code de bienvenue Maison Loravie : −{percent} %", { percent });
 
   const text = [
-    "Bienvenue chez Maison Loravie,",
+    tr("Bienvenue chez Maison Loravie,"),
     "",
-    "Merci de votre inscription à notre newsletter. Voici votre code de bienvenue :",
+    tr("Merci de votre inscription à notre newsletter. Voici votre code de bienvenue :"),
     "",
     code,
     "",
-    `−${percent} % sur votre première commande, à usage unique. Saisissez-le dans le panier ou appliquez-le depuis la fenêtre de bienvenue du site. Il ne se cumule pas avec une autre remise : la plus avantageuse s'applique.`,
+    tr("−{percent} % sur votre première commande, à usage unique. Saisissez-le dans le panier ou appliquez-le depuis la fenêtre de bienvenue du site. Il ne se cumule pas avec une autre remise : la plus avantageuse s'applique.", { percent }),
     "",
-    `Découvrir la boutique : ${shopUrl}`,
+    tr("Découvrir la boutique : {url}", { url: shopUrl }),
     "",
-    "Une question ? Répondez simplement à cet e-mail ou écrivez-nous à " + siteConfig.supportEmail + ".",
+    tr("Une question ? Répondez simplement à cet e-mail ou écrivez-nous à {email}.", { email: siteConfig.supportEmail }),
     "",
-    `Vous recevez ce message car vous vous êtes inscrit(e) à la newsletter de ${siteConfig.legalName}.`,
-    `Se désinscrire : ${unsubscribeUrl}`,
+    tr("Vous recevez ce message car vous vous êtes inscrit(e) à la newsletter de {name}.", { name: siteConfig.legalName }),
+    tr("Se désinscrire : {url}", { url: unsubscribeUrl }),
   ].join("\n");
 
   const html = `<!doctype html>
-<html lang="fr"><body style="margin:0;background:#F8F5EF;font-family:Helvetica,Arial,sans-serif;color:#292722;">
+<html lang="${locale}"><body style="margin:0;background:#F8F5EF;font-family:Helvetica,Arial,sans-serif;color:#292722;">
   <div style="max-width:520px;margin:0 auto;padding:32px 20px;">
     <p style="margin:0 0 4px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#6F7663;">Maison Loravie</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.25;font-weight:600;">Bienvenue, voici votre code</h1>
-    <p style="margin:0 0 20px;font-size:16px;line-height:1.6;">Merci de votre inscription à notre newsletter. Profitez de <strong>−${percent} %</strong> sur votre première commande avec ce code personnel :</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.25;font-weight:600;">${escapeHtml(tr("Bienvenue, voici votre code"))}</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.6;">${escapeHtml(tr("Merci de votre inscription à notre newsletter. Profitez de"))} <strong>−${percent} %</strong> ${escapeHtml(tr("sur votre première commande avec ce code personnel :"))}</p>
     <p style="margin:0 0 20px;padding:16px;text-align:center;border:1px dashed #A56B52;border-radius:12px;background:#EEE7DC;font-family:'Courier New',monospace;font-size:22px;font-weight:bold;letter-spacing:3px;color:#7A4A37;">${escapeHtml(code)}</p>
-    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#4a4740;">Valable une seule fois. Saisissez-le dans le panier, ou appliquez-le depuis la fenêtre de bienvenue du site. Il ne se cumule pas avec une autre remise : la plus avantageuse s'applique.</p>
-    <p style="margin:0 0 32px;"><a href="${escapeHtml(shopUrl)}" style="display:inline-block;padding:14px 28px;border-radius:999px;background:#6F7663;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;">Découvrir la boutique</a></p>
-    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#4a4740;">Une question ? Répondez simplement à cet e-mail ou écrivez-nous à <a href="mailto:${escapeHtml(siteConfig.supportEmail)}" style="color:#7A4A37;">${escapeHtml(siteConfig.supportEmail)}</a>.</p>
+    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#4a4740;">${escapeHtml(tr("Valable une seule fois. Saisissez-le dans le panier, ou appliquez-le depuis la fenêtre de bienvenue du site. Il ne se cumule pas avec une autre remise : la plus avantageuse s'applique."))}</p>
+    <p style="margin:0 0 32px;"><a href="${escapeHtml(shopUrl)}" style="display:inline-block;padding:14px 28px;border-radius:999px;background:#6F7663;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;">${escapeHtml(tr("Découvrir la boutique"))}</a></p>
+    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#4a4740;">${escapeHtml(tr("Une question ? Répondez simplement à cet e-mail ou écrivez-nous à"))} <a href="mailto:${escapeHtml(siteConfig.supportEmail)}" style="color:#7A4A37;">${escapeHtml(siteConfig.supportEmail)}</a>.</p>
     <hr style="border:none;border-top:1px solid #d9d2c5;margin:0 0 16px;">
-    <p style="margin:0;font-size:12px;line-height:1.6;color:#7a766d;">Vous recevez ce message car vous vous êtes inscrit(e) à la newsletter de ${escapeHtml(siteConfig.legalName)}.<br><a href="${escapeHtml(unsubscribeUrl)}" style="color:#7a766d;">Se désinscrire</a></p>
+    <p style="margin:0;font-size:12px;line-height:1.6;color:#7a766d;">${escapeHtml(tr("Vous recevez ce message car vous vous êtes inscrit(e) à la newsletter de {name}.", { name: siteConfig.legalName }))}<br><a href="${escapeHtml(unsubscribeUrl)}" style="color:#7a766d;">${escapeHtml(tr("Se désinscrire"))}</a></p>
   </div>
 </body></html>`;
 

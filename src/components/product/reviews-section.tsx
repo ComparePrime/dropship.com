@@ -7,6 +7,7 @@ const INITIAL_VISIBLE = 6;
 
 function ReviewCard({ review }: { review: Review }) {
   const t = getT();
+  const locale = getLocale();
   return (
       <div className="rounded-xl2 border border-ink/10 bg-white/50 p-6">
         <div className="flex items-center justify-between">
@@ -23,7 +24,7 @@ function ReviewCard({ review }: { review: Review }) {
         <p className="mt-1 text-sm text-stone">{review.body}</p>
         <p className="mt-3 text-xs text-stone">
           {review.author} ·{" "}
-          {new Date(review.date).toLocaleDateString("fr-CH", {
+          {new Date(review.date).toLocaleDateString(locale === "fr" ? "fr-CH" : locale, {
             day: "numeric",
             month: "long",
             year: "numeric",

@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { ShippingConfig } from "@/lib/types";
 import { Icon } from "@/components/icons";
-import { useT } from "@/i18n/provider";
+import { useLocale, useT } from "@/i18n/provider";
 
 const Clock = Icon.clock;
 const Truck = Icon.truck;
 
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("fr-CH", { day: "numeric", month: "long" }).format(date);
+function formatDate(date: Date, locale: string) {
+  return new Intl.DateTimeFormat(locale === "fr" ? "fr-CH" : locale, { day: "numeric", month: "long" }).format(date);
 }
 
 /**
@@ -19,6 +19,7 @@ function formatDate(date: Date) {
  */
 export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
   const t = useT();
+  const locale = useLocale();
   // Dates calculees dans le navigateur (jour reel de la visite) : le HTML genere a la
   // construction du site afficherait sinon la date du build et provoquerait un decalage a l'hydratation.
   const [range, setRange] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
     earliest.setDate(earliest.getDate() + shipping.minDays);
     const latest = new Date();
     latest.setDate(latest.getDate() + shipping.maxDays);
-    setRange(`${formatDate(earliest)} – ${formatDate(latest)}`);
+    setRange(`${formatDate(earliest, locale)} – ${formatDate(latest, locale)}`);
   }, [shipping.minDays, shipping.maxDays]);
 
   return (

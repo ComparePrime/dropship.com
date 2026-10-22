@@ -1,7 +1,8 @@
 import { Currency } from "./types";
 import { fromEur } from "./fx";
 
-export function formatPrice(amount: number, currency: Currency): string {
+/** `locale` : l'anglais écrit les décimales avec un point ("12.99 EUR"), les autres langues avec une virgule. */
+export function formatPrice(amount: number, currency: Currency, locale = "fr"): string {
   const value = amount.toFixed(2);
   switch (currency) {
     case "CHF":
@@ -11,7 +12,7 @@ export function formatPrice(amount: number, currency: Currency): string {
     case "CAD":
       return `$${value} CAD`;
     default:
-      return `${value.replace(".", ",")} EUR`;
+      return `${locale === "en" ? value : value.replace(".", ",")} EUR`;
   }
 }
 
