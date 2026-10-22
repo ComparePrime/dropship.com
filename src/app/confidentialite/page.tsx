@@ -169,7 +169,24 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "9. Base juridique du traitement",
+    title: "9. Newsletter et code de bienvenue",
+    blocks: [
+      {
+        p: "Lorsque vous saisissez votre adresse e-mail dans la fenêtre de bienvenue et cochez la case de consentement, nous enregistrons votre adresse, la date et la version du texte de consentement, ainsi que le code de bienvenue personnel qui vous est attribué (et son état : disponible ou utilisé).",
+      },
+      {
+        p: "Ces données servent à vous envoyer notre newsletter (nouveautés, inspirations déco et offres) et à vous permettre d'utiliser une seule fois votre réduction de bienvenue. La base juridique est votre consentement, que vous pouvez retirer à tout moment.",
+      },
+      {
+        p: "Vous pouvez vous désinscrire à tout moment grâce au lien présent dans chaque message marketing, ou en écrivant à {email}. La désinscription met fin aux envois marketing ; nous conservons uniquement les informations nécessaires pour respecter votre choix et prouver votre consentement.",
+      },
+      {
+        p: "Ces données sont stockées chez notre hébergeur (Netlify), avec un accès réservé à Maison Loravie, et ne sont ni vendues ni cédées. Pour limiter les inscriptions abusives, une empreinte irréversible de votre adresse IP est utilisée de façon temporaire ; l'adresse IP elle-même n'est pas conservée.",
+      },
+    ],
+  },
+  {
+    title: "10. Base juridique du traitement",
     blocks: [
       { p: "Lorsque la législation applicable l'exige, les traitements reposent notamment sur les bases suivantes :" },
       {
@@ -186,7 +203,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "10. Communication des données à des tiers",
+    title: "11. Communication des données à des tiers",
     blocks: [
       { p: "Vos données peuvent être communiquées, lorsque cela est nécessaire, aux catégories de destinataires suivantes :" },
       {
@@ -208,7 +225,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "11. Transferts internationaux",
+    title: "12. Transferts internationaux",
     blocks: [
       {
         p: "Certains prestataires utilisés pour le paiement, l'hébergement, l'analyse ou la publicité peuvent traiter des données dans des pays autres que la Suisse ou ceux de l'Espace économique européen.",
@@ -220,7 +237,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "12. Durée de conservation",
+    title: "13. Durée de conservation",
     blocks: [
       {
         p: "Nous conservons les données personnelles uniquement pendant la durée nécessaire aux finalités pour lesquelles elles ont été collectées, sous réserve des obligations légales et des délais applicables. À titre général :",
@@ -239,7 +256,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "13. Sécurité des données",
+    title: "14. Sécurité des données",
     blocks: [
       {
         p: "Nous mettons en œuvre des mesures techniques et organisationnelles adaptées afin de protéger les données personnelles contre les accès non autorisés, la perte, la divulgation ou l'altération.",
@@ -250,7 +267,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "14. Vos droits",
+    title: "15. Vos droits",
     blocks: [
       { p: "Conformément à la législation applicable, vous pouvez notamment disposer des droits suivants :" },
       {
@@ -274,7 +291,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "15. Protection des mineurs",
+    title: "16. Protection des mineurs",
     blocks: [
       { p: "Notre boutique n'est pas spécifiquement destinée à la collecte de données personnelles auprès de mineurs." },
       {
@@ -283,7 +300,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "16. Modifications de la politique",
+    title: "17. Modifications de la politique",
     blocks: [
       {
         p: "Nous pouvons modifier la présente politique de confidentialité afin de tenir compte de l'évolution de nos services, de nos outils ou de la législation applicable.",
@@ -294,7 +311,7 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "17. Contact",
+    title: "18. Contact",
     blocks: [
       { p: "Pour toute question concernant cette politique ou le traitement de vos données personnelles :" },
       { ul: ["Maison Loravie", "E-mail : {email}", "Site : {site}"] },
@@ -329,7 +346,7 @@ export default function PrivacyPage() {
   return (
     <section className="container-content max-w-3xl py-14">
       <h1 className="section-title">Politique de confidentialité — Maison Loravie</h1>
-      <p className="mt-3 text-sm text-ink/60">Dernière mise à jour : 15 octobre 2026</p>
+      <p className="mt-3 text-sm text-ink/60">Dernière mise à jour : 22 octobre 2026</p>
 
       <div className="mt-10 flex flex-col gap-10">
         {sections.map((section) => (

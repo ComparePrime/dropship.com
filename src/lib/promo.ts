@@ -8,6 +8,9 @@
  * applique a la fois (pas de cumul). `percent` s'applique a tous les produits
  * du panier (livraison offerte, donc aucun frais n'est reduit).
  */
+/** Remise du code de bienvenue personnel (obtenu par inscription a la newsletter), voir lib/newsletter.ts. */
+export const WELCOME_OFFER_PERCENT = 10;
+
 export interface PromoDefinition {
   code: string;
   percent: number;

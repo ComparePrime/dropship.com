@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripeClient } from "@/lib/stripe";
 import { saveOrder } from "@/lib/orders";
+import { markCodeUsed } from "@/lib/newsletter";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
@@ -28,6 +29,13 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
+      if (
+        session.payment_status === "paid" &&
+        session.metadata?.promo_kind === "personal" &&
+        session.metadata.promo_code
+      ) {
+        await markCodeUsed(session.metadata.promo_code, session.id);
+      }
       await saveOrder({
         id: session.id,
         customerEmail: session.customer_details?.email ?? null,

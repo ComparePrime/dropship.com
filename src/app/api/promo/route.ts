@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findPromo } from "@/lib/promo";
+import { resolvePromo } from "@/lib/promo-server";
 
 export const dynamic = "force-dynamic";
 
@@ -15,10 +15,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Saisissez un code promo." }, { status: 400 });
   }
 
-  const promo = findPromo(code);
-  if (!promo) {
-    return NextResponse.json({ error: "Ce code promo n'est pas valide." }, { status: 404 });
+  const result = await resolvePromo(code);
+  if (!result.ok) {
+    return NextResponse.json({ error: result.error }, { status: result.status });
   }
 
-  return NextResponse.json({ code: promo.code, percent: promo.percent });
+  return NextResponse.json({ code: result.promo.code, percent: result.promo.percent });
 }

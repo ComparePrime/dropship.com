@@ -4,7 +4,9 @@ import { getProductBySlug } from "@/lib/products";
 import { getPriceForCurrency } from "@/lib/currency";
 import { siteConfig } from "@/lib/site-config";
 import { CartLine, Currency } from "@/lib/types";
-import { computeDiscountCents, findPromo } from "@/lib/promo";
+import { computeDiscountCents } from "@/lib/promo";
+import { resolvePromo } from "@/lib/promo-server";
+import { markCodePending, markCodeUsed, Subscriber } from "@/lib/newsletter";
 import { getMultiBuyPercent, MULTI_BUY } from "@/lib/multi-buy";
 import { getSkuStock, hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 import type Stripe from "stripe";
@@ -50,9 +52,13 @@ export async function POST(req: NextRequest) {
 
     // Le code est revalide ici : seul le serveur decide de la remise.
     const rawPromoCode = typeof body.promoCode === "string" ? body.promoCode : null;
-    const promo = rawPromoCode ? findPromo(rawPromoCode) : null;
-    if (rawPromoCode && !promo) {
-      return NextResponse.json({ error: "Ce code promo n'est pas valide." }, { status: 400 });
+    let promo: { code: string; percent: number; kind: "public" | "personal"; subscriber?: Subscriber } | null = null;
+    if (rawPromoCode) {
+      const resolved = await resolvePromo(rawPromoCode);
+      if (!resolved.ok) {
+        return NextResponse.json({ error: resolved.error }, { status: resolved.status === 410 ? 409 : 400 });
+      }
+      promo = resolved.promo;
     }
 
     // Les prix sont revalidés côté serveur à partir du catalogue produit,
@@ -143,10 +149,28 @@ export async function POST(req: NextRequest) {
     const useMultiBuy = multiBuyPercent > 0 && multiBuyPercent >= (promo?.percent ?? 0);
     const appliedDiscount = useMultiBuy
       ? { code: "vestes", percent: multiBuyPercent, name: MULTI_BUY.label }
-      : promo;
-    const discountCents = appliedDiscount ? computeDiscountCents(subtotalCents, appliedDiscount.percent) : 0;
+      : promo?.kind === "personal"
+        ? { code: "bienvenue", percent: promo.percent, name: "Code de bienvenue" }
+        : promo;
+    // Le code personnel n'est consomme que s'il s'applique reellement (pas si la remise automatique l'emporte).
+    const personal = !useMultiBuy && promo?.kind === "personal" ? promo : null;
 
     const stripe = getStripeClient();
+    if (personal?.subscriber?.pendingSessionId) {
+      // Un paiement precedent avec ce code est reste ouvert : on l'annule pour qu'un seul reste possible.
+      try {
+        const previous = await stripe.checkout.sessions.retrieve(personal.subscriber.pendingSessionId);
+        if (previous.payment_status === "paid") {
+          await markCodeUsed(personal.code, previous.id);
+          return NextResponse.json({ error: "Ce code de bienvenue a déjà été utilisé." }, { status: 409 });
+        }
+        if (previous.status === "open") await stripe.checkout.sessions.expire(previous.id);
+      } catch {
+        // Session introuvable ou deja expiree : le code redevient utilisable.
+      }
+    }
+    const discountCents = appliedDiscount ? computeDiscountCents(subtotalCents, appliedDiscount.percent) : 0;
+
     const couponId = appliedDiscount ? await ensureCoupon(stripe, appliedDiscount) : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -154,6 +178,10 @@ export async function POST(req: NextRequest) {
       // (Parametres > Moyens de paiement > configuration "Default"), selon le montant, la devise et le pays.
       line_items,
       discounts: couponId ? [{ coupon: couponId }] : undefined,
+      // Code personnel : l'e-mail de l'abonne est pre-rempli, et le code est relie a cette session.
+      ...(personal
+        ? { customer_email: personal.subscriber?.email, metadata: { promo_code: personal.code, promo_kind: "personal" } }
+        : {}),
       shipping_address_collection: {
         allowed_countries: [
           "CH",
@@ -171,6 +199,8 @@ export async function POST(req: NextRequest) {
       success_url: `${siteConfig.domain}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteConfig.domain}/panier`,
     });
+
+    if (personal?.subscriber) await markCodePending(personal.subscriber, session.id);
 
     // Garde-fou : le total Stripe doit correspondre au total calcule ici (et affiche dans le panier).
     const expectedTotal = subtotalCents - discountCents;

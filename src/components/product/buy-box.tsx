@@ -35,7 +35,7 @@ export function BuyBox({
   onVariantChange: (id: string) => void;
 }) {
   const { currency } = useCurrency();
-  const { addItem } = useCart();
+  const { addItem, promo } = useCart();
   const { startCheckout, loading: buyLoading, error: buyError } = useCheckout();
   const [quantity, setQuantity] = useState(1);
   const selectedVariantId = variantId;
@@ -152,6 +152,16 @@ export function BuyBox({
           variant="compact"
           ignoreCampaign={!!selectedPack}
         />
+
+        {promo && !(sized && !selectedSize) && (
+          <p role="status" className="mt-3 rounded-lg bg-sage/10 px-3 py-2 text-sm text-sageDeep">
+            Avec votre code {promo.code} :{" "}
+            <strong className="font-semibold">
+              {formatPrice(Math.round(unitPrice * (100 - promo.percent)) / 100, currency)}
+            </strong>{" "}
+            (−{promo.percent} %), déduit à l&apos;étape de paiement.
+          </p>
+        )}
 
         {product.promotion.active && product.promotion.endsAt && (
           <div className="mt-3">

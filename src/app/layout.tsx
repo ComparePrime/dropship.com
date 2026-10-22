@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { AnnouncementBar } from "@/components/announcement-bar";
 import { CartDrawer } from "@/components/cart-drawer";
 import { CookieBanner } from "@/components/cookie-banner";
+import { WelcomePopup } from "@/components/welcome-popup";
 import { siteConfig } from "@/lib/site-config";
 
 const cormorant = Cormorant_Garamond({
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
             <CartDrawer />
             <CookieBanner />
+            <WelcomePopup />
           </CartProvider>
         </CurrencyProvider>
       </body>
