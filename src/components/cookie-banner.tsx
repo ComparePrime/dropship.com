@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/i18n/link";
 import { loadGoogleTag } from "@/lib/google-tag";
 
 const CONSENT_KEY = "ml_cookie_consent";

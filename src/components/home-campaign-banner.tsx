@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/link";
 import { getPublishedProducts } from "@/lib/products";
 import { AUTUMN_CAMPAIGN, getCampaignDeal } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";

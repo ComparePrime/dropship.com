@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/i18n/link";
 import { CookieSettingsLink } from "@/components/cookie-settings-link";
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";

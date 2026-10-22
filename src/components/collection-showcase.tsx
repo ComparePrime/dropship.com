@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/i18n/link";
 import { collectionShowcase } from "@/lib/collection-showcase";
 import { getProductBySlug } from "@/lib/products";
 import { useCurrency } from "@/context/currency-context";

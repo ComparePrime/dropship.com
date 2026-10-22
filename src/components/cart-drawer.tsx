@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/i18n/link";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";

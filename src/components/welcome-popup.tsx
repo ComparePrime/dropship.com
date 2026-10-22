@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useId, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "@/i18n/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
