@@ -150,7 +150,8 @@ export async function POST(req: NextRequest) {
     const couponId = appliedDiscount ? await ensureCoupon(stripe, appliedDiscount) : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      payment_method_types: ["card"],
+      // Pas de liste forcee : Stripe affiche les moyens de paiement actives dans le tableau de bord
+      // (Parametres > Moyens de paiement > configuration "Default"), selon le montant, la devise et le pays.
       line_items,
       discounts: couponId ? [{ coupon: couponId }] : undefined,
       shipping_address_collection: {
