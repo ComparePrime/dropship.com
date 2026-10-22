@@ -11,6 +11,8 @@ export function getStripeClient(): Stripe {
   if (!stripeClient) {
     stripeClient = new Stripe(secretKey, {
       apiVersion: "2024-06-20",
+      timeout: 20000,
+      maxNetworkRetries: 1,
     });
   }
   return stripeClient;

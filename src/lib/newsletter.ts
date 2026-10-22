@@ -1,27 +1,31 @@
 import { createHash, randomBytes, randomInt, timingSafeEqual } from "crypto";
-import { kv } from "./newsletter-store";
+import type Stripe from "stripe";
+import { getStripeClient } from "./stripe";
 import { siteConfig } from "./site-config";
 import { WELCOME_OFFER_PERCENT } from "./promo";
 
 /**
  * Inscriptions a la newsletter + code de bienvenue PERSONNEL (un par adresse, une seule utilisation).
- * Aucune donnee personnelle n'est ecrite dans les journaux : seules des cles hachees circulent.
  *
- * Cles du stockage :
- *   sub-<hash e-mail normalise>   fiche de l'abonne (e-mail, consentement, code, statut du code)
- *   code-<CODE>                   renvoie vers la cle de l'abonne
- *   tok-<jeton>                   jeton de desinscription -> cle de l'abonne
- *   rl-<nom>-<hash ip>            compteurs de limitation (anti-abus)
+ * Stockage : STRIPE (deja en service pour les paiements, aucun autre service a configurer).
+ *  - Chaque abonne est un "Customer" Stripe : e-mail + metadonnees (consentement, date, jeton de
+ *    desinscription, code). Ils se consultent dans Stripe (Clients) et s'exportent via /admin/abonnes.
+ *  - Chaque code est un "Promotion code" Stripe limite a UNE utilisation (max_redemptions = 1) :
+ *    c'est Stripe lui-meme qui garantit l'usage unique, au paiement.
+ *
+ * Aucune donnee personnelle n'est ecrite dans les journaux.
  */
 export const CONSENT_VERSION = "2026-10-22";
 export const CONSENT_TEXT =
   "J'accepte de recevoir la newsletter de Maison Loravie (nouveautés, inspirations déco et offres). Je peux me désinscrire à tout moment.";
 export const WELCOME_CODE_PREFIX = "BIENVENUE-";
 export const WELCOME_PERCENT = WELCOME_OFFER_PERCENT;
+const WELCOME_COUPON_ID = `loravie_bienvenue_${WELCOME_PERCENT}`;
 
-export type CodeStatus = "available" | "pending" | "used";
+export type CodeStatus = "available" | "used";
 
 export interface Subscriber {
+  customerId: string;
   email: string;
   key: string;
   createdAt: string;
@@ -30,13 +34,10 @@ export interface Subscriber {
   consentText: string;
   source: string;
   code: string;
+  promotionCodeId: string;
   codeStatus: CodeStatus;
-  pendingSessionId?: string;
-  usedAt?: string;
-  usedSessionId?: string;
   unsubscribeToken: string;
   unsubscribedAt?: string;
-  /** Date d'envoi de l'e-mail de bienvenue (absente si l'envoi n'est pas configure ou a echoue). */
   welcomeEmailSentAt?: string;
 }
 
@@ -50,7 +51,7 @@ const DISPOSABLE_DOMAINS = new Set([
 
 const EMAIL_FORMAT = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/;
 
-/** Adresse nettoyee + cle de deduplication (casse, "+alias" et points Gmail ignores), ou null si invalide. */
+/** Adresse nettoyee + cle de deduplication (casse, "+alias" et points Gmail ignores), ou une erreur. */
 export function normalizeEmail(raw: unknown): { email: string; key: string } | { error: string } {
   if (typeof raw !== "string") return { error: "Saisissez une adresse e-mail valide." };
   const email = raw.trim().toLowerCase();
@@ -76,14 +77,22 @@ export function hashIp(ip: string): string {
   return sha256(`${process.env.NEWSLETTER_SALT ?? "maison-loravie"}|${ip}`).slice(0, 24);
 }
 
-/** Limitation : au plus `limit` appels par fenetre ; renvoie false quand la limite est atteinte. */
+/**
+ * Limitation par adresse IP (en memoire, par instance du serveur : protection de base contre les rafales).
+ * Les doublons d'adresses sont, eux, bloques de facon durable par la fiche Stripe de l'abonne.
+ */
+const hitsByKey = new Map<string, number[]>();
 export async function allowRequest(name: string, ipHash: string, limit: number, windowMs: number): Promise<boolean> {
-  const key = `rl-${name}-${ipHash}`;
+  const key = `${name}-${ipHash}`;
   const now = Date.now();
-  const hits = ((await kv.get<number[]>(key)) ?? []).filter((t) => now - t < windowMs);
-  if (hits.length >= limit) return false;
+  const hits = (hitsByKey.get(key) ?? []).filter((t) => now - t < windowMs);
+  if (hits.length >= limit) {
+    hitsByKey.set(key, hits);
+    return false;
+  }
   hits.push(now);
-  await kv.set(key, hits);
+  hitsByKey.set(key, hits);
+  if (hitsByKey.size > 5000) hitsByKey.clear();
   return true;
 }
 
@@ -98,87 +107,187 @@ export function isPersonalCode(code: string): boolean {
   return /^BIENVENUE-[A-Z0-9]{6}$/.test(code);
 }
 
+async function ensureWelcomeCoupon(stripe: Stripe): Promise<string> {
+  try {
+    await stripe.coupons.retrieve(WELCOME_COUPON_ID);
+    return WELCOME_COUPON_ID;
+  } catch (error) {
+    if ((error as { code?: string }).code !== "resource_missing") throw error;
+  }
+  try {
+    await stripe.coupons.create({
+      id: WELCOME_COUPON_ID,
+      name: "Code de bienvenue",
+      percent_off: WELCOME_PERCENT,
+      duration: "once",
+    });
+  } catch (error) {
+    if ((error as { code?: string }).code !== "resource_already_exists") throw error;
+  }
+  return WELCOME_COUPON_ID;
+}
+
+function toSubscriber(customer: Stripe.Customer, promo?: Stripe.PromotionCode | null): Subscriber | null {
+  const m = customer.metadata ?? {};
+  if (!m.nl_code || !m.nl_promo) return null;
+  const promotion = promo ?? null;
+  const used = promotion ? promotion.times_redeemed >= (promotion.max_redemptions ?? 1) : m.nl_code_used === "1";
+  return {
+    customerId: customer.id,
+    email: customer.email ?? "",
+    key: m.nl_key ?? "",
+    createdAt: m.nl_created ?? new Date(customer.created * 1000).toISOString(),
+    consentAt: m.nl_consent_at ?? "",
+    consentVersion: m.nl_consent_version ?? "",
+    consentText: m.nl_consent_text ?? "",
+    source: m.nl_source ?? "",
+    code: m.nl_code,
+    promotionCodeId: m.nl_promo,
+    codeStatus: used ? "used" : "available",
+    unsubscribeToken: m.nl_token ?? "",
+    unsubscribedAt: m.nl_unsub_at || undefined,
+    welcomeEmailSentAt: m.nl_welcome_email_at || undefined,
+  };
+}
+
+async function usedStatus(stripe: Stripe, subscriberCustomer: Stripe.Customer): Promise<Stripe.PromotionCode | null> {
+  const id = subscriberCustomer.metadata?.nl_promo;
+  if (!id) return null;
+  try {
+    return await stripe.promotionCodes.retrieve(id);
+  } catch {
+    return null;
+  }
+}
+
+async function findCustomer(stripe: Stripe, normalized: { email: string; key: string }): Promise<Stripe.Customer | null> {
+  // 1) adresse exacte (immediat) ; 2) meme personne sous un alias (recherche par cle, indexee en quelques secondes).
+  const byEmail = await stripe.customers.list({ email: normalized.email, limit: 5 });
+  const subscribed = byEmail.data.find((c) => c.metadata?.nl_code);
+  if (subscribed) return subscribed;
+  try {
+    const found = await stripe.customers.search({ query: `metadata['nl_key']:'${normalized.key}'`, limit: 1 });
+    if (found.data[0]) return found.data[0];
+  } catch {
+    // La recherche est facultative : en cas d'indisponibilite, la liste par adresse suffit.
+  }
+  return byEmail.data[0] ?? null;
+}
+
 export type SubscribeResult =
   | { status: "created" | "existing"; subscriber: Subscriber }
   | { status: "used" };
 
 /** Enregistre l'adresse (une seule fiche par adresse) et renvoie son code personnel. */
 export async function subscribe(normalized: { email: string; key: string }, source: string): Promise<SubscribeResult> {
-  const subKey = `sub-${normalized.key}`;
-  const existing = await kv.get<Subscriber>(subKey);
-  if (existing) {
-    return existing.codeStatus === "used" ? { status: "used" } : { status: "existing", subscriber: existing };
+  const stripe = getStripeClient();
+  const existing = await findCustomer(stripe, normalized);
+
+  if (existing?.metadata?.nl_code) {
+    const promo = await usedStatus(stripe, existing);
+    const subscriber = toSubscriber(existing, promo);
+    if (!subscriber) throw new Error("Fiche abonne illisible.");
+    return subscriber.codeStatus === "used" ? { status: "used" } : { status: "existing", subscriber };
   }
 
-  // Reserve un code unique avant de creer la fiche.
-  let code = randomCode();
-  for (let attempt = 0; attempt < 8 && !(await kv.setIfNew(`code-${code}`, normalized.key)); attempt++) {
-    code = randomCode();
-  }
+  const couponId = await ensureWelcomeCoupon(stripe);
   const now = new Date().toISOString();
-  const subscriber: Subscriber = {
-    email: normalized.email,
-    key: normalized.key,
-    createdAt: now,
-    consentAt: now,
-    consentVersion: CONSENT_VERSION,
-    consentText: CONSENT_TEXT,
-    source,
-    code,
-    codeStatus: "available",
-    unsubscribeToken: randomBytes(16).toString("hex"),
-  };
-  const created = await kv.setIfNew(subKey, subscriber);
-  if (!created) {
-    // Inscription simultanee de la meme adresse : on garde la premiere fiche.
-    await kv.delete(`code-${code}`);
-    const winner = await kv.get<Subscriber>(subKey);
-    if (!winner) throw new Error("Inscription impossible.");
-    return winner.codeStatus === "used" ? { status: "used" } : { status: "existing", subscriber: winner };
+  const token = randomBytes(16).toString("hex");
+
+  // Code unique : Stripe refuse un code deja pris, on en tire un autre.
+  let promotion: Stripe.PromotionCode | null = null;
+  let code = randomCode();
+  for (let attempt = 0; attempt < 6 && !promotion; attempt++) {
+    try {
+      promotion = await stripe.promotionCodes.create({
+        coupon: couponId,
+        code,
+        max_redemptions: 1,
+        metadata: { nl_key: normalized.key },
+      });
+    } catch (error) {
+      if ((error as { code?: string }).code !== "resource_already_exists") throw error;
+      code = randomCode();
+    }
   }
-  await kv.set(`tok-${subscriber.unsubscribeToken}`, normalized.key);
+  if (!promotion) throw new Error("Code indisponible.");
+
+  const metadata: Record<string, string> = {
+    nl_key: normalized.key,
+    nl_created: now,
+    nl_consent_at: now,
+    nl_consent_version: CONSENT_VERSION,
+    nl_consent_text: CONSENT_TEXT,
+    nl_source: source,
+    nl_code: code,
+    nl_promo: promotion.id,
+    nl_token: token,
+  };
+  const customer = existing
+    ? await stripe.customers.update(existing.id, { metadata })
+    : await stripe.customers.create({ email: normalized.email, description: "Abonné newsletter", metadata });
+  await stripe.promotionCodes.update(promotion.id, { metadata: { nl_key: normalized.key, customer: customer.id } });
+
+  const subscriber = toSubscriber(customer, promotion);
+  if (!subscriber) throw new Error("Inscription impossible.");
   return { status: "created", subscriber };
 }
 
+/** Retrouve l'abonne d'un code de bienvenue (null si le code n'existe pas ou est inactif). */
 export async function findSubscriberByCode(code: string): Promise<Subscriber | null> {
   if (!isPersonalCode(code)) return null;
-  const key = await kv.get<string>(`code-${code}`);
-  return key ? kv.get<Subscriber>(`sub-${key}`) : null;
+  const stripe = getStripeClient();
+  const promotions = await stripe.promotionCodes.list({ code, limit: 1, expand: ["data.coupon"] });
+  const promotion = promotions.data[0];
+  if (!promotion) return null;
+  const customerId = promotion.metadata?.customer;
+  let email = "";
+  let customer: Stripe.Customer | null = null;
+  if (customerId) {
+    try {
+      const c = await stripe.customers.retrieve(customerId);
+      if (!("deleted" in c && c.deleted)) customer = c as Stripe.Customer;
+    } catch {
+      // fiche supprimee : le code reste valable sans pre-remplissage
+    }
+  }
+  if (customer) email = customer.email ?? "";
+  const used = promotion.times_redeemed >= (promotion.max_redemptions ?? 1) || !promotion.active;
+  return {
+    customerId: customer?.id ?? "",
+    email,
+    key: promotion.metadata?.nl_key ?? "",
+    createdAt: "",
+    consentAt: "",
+    consentVersion: "",
+    consentText: "",
+    source: "",
+    code,
+    promotionCodeId: promotion.id,
+    codeStatus: used ? "used" : "available",
+    unsubscribeToken: "",
+  };
 }
 
 export async function markWelcomeEmailSent(subscriber: Subscriber): Promise<void> {
-  const current = await kv.get<Subscriber>(`sub-${subscriber.key}`);
-  if (current) await kv.set(`sub-${subscriber.key}`, { ...current, welcomeEmailSentAt: new Date().toISOString() });
+  if (!subscriber.customerId) return;
+  await getStripeClient().customers.update(subscriber.customerId, {
+    metadata: { nl_welcome_email_at: new Date().toISOString() },
+  });
 }
 
 export function unsubscribeUrl(subscriber: Pick<Subscriber, "unsubscribeToken">): string {
   return `${siteConfig.domain}/desinscription?t=${subscriber.unsubscribeToken}`;
 }
 
-export async function markCodePending(subscriber: Subscriber, sessionId: string): Promise<void> {
-  await kv.set(`sub-${subscriber.key}`, { ...subscriber, codeStatus: "pending", pendingSessionId: sessionId });
-}
-
-/** Consomme definitivement le code (idempotent) une fois le paiement confirme. */
-export async function markCodeUsed(code: string, sessionId: string): Promise<void> {
-  const subscriber = await findSubscriberByCode(code);
-  if (!subscriber || subscriber.codeStatus === "used") return;
-  await kv.set(`sub-${subscriber.key}`, {
-    ...subscriber,
-    codeStatus: "used",
-    usedAt: new Date().toISOString(),
-    usedSessionId: sessionId,
-  });
-}
-
 export async function unsubscribeByToken(token: string): Promise<boolean> {
   if (!/^[a-f0-9]{32}$/.test(token)) return false;
-  const key = await kv.get<string>(`tok-${token}`);
-  if (!key) return false;
-  const subscriber = await kv.get<Subscriber>(`sub-${key}`);
-  if (!subscriber) return false;
-  if (!subscriber.unsubscribedAt) {
-    await kv.set(`sub-${key}`, { ...subscriber, unsubscribedAt: new Date().toISOString() });
+  const stripe = getStripeClient();
+  const found = await stripe.customers.search({ query: `metadata['nl_token']:'${token}'`, limit: 1 });
+  const customer = found.data[0];
+  if (!customer) return false;
+  if (!customer.metadata?.nl_unsub_at) {
+    await stripe.customers.update(customer.id, { metadata: { nl_unsub_at: new Date().toISOString() } });
   }
   return true;
 }
@@ -192,12 +301,25 @@ const csvCell = (value: string | undefined) => {
 
 /** Export CSV de tous les abonnes (avec leur lien de desinscription individuel pour vos envois). */
 export async function exportSubscribersCsv(): Promise<{ csv: string; count: number }> {
-  const keys = await kv.list("sub-");
-  const subscribers: Subscriber[] = [];
-  for (const key of keys) {
-    const subscriber = await kv.get<Subscriber>(key);
-    if (subscriber) subscribers.push(subscriber);
+  const stripe = getStripeClient();
+
+  // Etat des codes : tous les codes de bienvenue en une seule lecture paginee.
+  const usedCodes = new Set<string>();
+  for await (const promo of stripe.promotionCodes.list({ limit: 100 })) {
+    if (promo.code.startsWith(WELCOME_CODE_PREFIX) && promo.times_redeemed >= (promo.max_redemptions ?? 1)) {
+      usedCodes.add(promo.code);
+    }
   }
+
+  // Tous les clients Stripe qui portent une fiche d'abonne (lecture paginee, sans delai d'indexation).
+  const subscribers: Subscriber[] = [];
+  for await (const customer of stripe.customers.list({ limit: 100 })) {
+    const subscriber = toSubscriber(customer);
+    if (subscriber) {
+      subscribers.push({ ...subscriber, codeStatus: usedCodes.has(subscriber.code) ? "used" : "available" });
+    }
+  }
+
   subscribers.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   const header = [
     "email",
@@ -207,7 +329,6 @@ export async function exportSubscribersCsv(): Promise<{ csv: string; count: numb
     "source",
     "code_bienvenue",
     "statut_code",
-    "date_utilisation_code",
     "desinscrit_le",
     "email_bienvenue_envoye",
     "lien_desinscription",
@@ -220,8 +341,7 @@ export async function exportSubscribersCsv(): Promise<{ csv: string; count: numb
       s.consentVersion,
       s.source,
       s.code,
-      s.codeStatus === "used" ? "utilisé" : s.codeStatus === "pending" ? "en cours de paiement" : "disponible",
-      s.usedAt,
+      s.codeStatus === "used" ? "utilisé" : "disponible",
       s.unsubscribedAt,
       s.welcomeEmailSentAt,
       unsubscribeUrl(s),

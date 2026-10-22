@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripeClient } from "@/lib/stripe";
-import { markCodeUsed } from "@/lib/newsletter";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +18,6 @@ export async function GET(req: NextRequest) {
     });
     if (session.payment_status !== "paid") {
       return NextResponse.json({ error: "Commande non payée." }, { status: 404 });
-    }
-    // Code de bienvenue personnel : consomme des que le paiement est confirme (idempotent).
-    if (session.metadata?.promo_kind === "personal" && session.metadata.promo_code) {
-      await markCodeUsed(session.metadata.promo_code, session.id);
     }
     return NextResponse.json(
       {

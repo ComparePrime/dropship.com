@@ -5,8 +5,7 @@ import { getPriceForCurrency } from "@/lib/currency";
 import { siteConfig } from "@/lib/site-config";
 import { CartLine, Currency } from "@/lib/types";
 import { computeDiscountCents } from "@/lib/promo";
-import { resolvePromo } from "@/lib/promo-server";
-import { markCodePending, markCodeUsed, Subscriber } from "@/lib/newsletter";
+import { resolvePromo, type ResolvedPromo } from "@/lib/promo-server";
 import { getMultiBuyPercent, MULTI_BUY } from "@/lib/multi-buy";
 import { getSkuStock, hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 import { allowedCountriesFor, isShippableToNorthAmerica } from "@/lib/shipping";
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest) {
 
     // Le code est revalide ici : seul le serveur decide de la remise.
     const rawPromoCode = typeof body.promoCode === "string" ? body.promoCode : null;
-    let promo: { code: string; percent: number; kind: "public" | "personal"; subscriber?: Subscriber } | null = null;
+    let promo: ResolvedPromo | null = null;
     if (rawPromoCode) {
       const resolved = await resolvePromo(rawPromoCode);
       if (!resolved.ok) {
@@ -167,40 +166,35 @@ export async function POST(req: NextRequest) {
     // Remise automatique et code promo ne se cumulent pas : la plus avantageuse est appliquee.
     const multiBuyPercent = getMultiBuyPercent(lines);
     const useMultiBuy = multiBuyPercent > 0 && multiBuyPercent >= (promo?.percent ?? 0);
+    // Code personnel : applique seulement s'il l'emporte sur la remise automatique. C'est le code
+    // promotionnel Stripe lui-meme (limite a une utilisation) qui est transmis : Stripe garantit l'usage unique.
+    const personal = !useMultiBuy && promo?.kind === "personal" && promo.promotionCodeId ? promo : null;
     const appliedDiscount = useMultiBuy
       ? { code: "vestes", percent: multiBuyPercent, name: MULTI_BUY.label }
-      : promo?.kind === "personal"
-        ? { code: "bienvenue", percent: promo.percent, name: "Code de bienvenue" }
+      : personal
+        ? { code: "bienvenue", percent: personal.percent, name: "Code de bienvenue" }
         : promo;
-    // Le code personnel n'est consomme que s'il s'applique reellement (pas si la remise automatique l'emporte).
-    const personal = !useMultiBuy && promo?.kind === "personal" ? promo : null;
 
     const stripe = getStripeClient();
-    if (personal?.subscriber?.pendingSessionId) {
-      // Un paiement precedent avec ce code est reste ouvert : on l'annule pour qu'un seul reste possible.
-      try {
-        const previous = await stripe.checkout.sessions.retrieve(personal.subscriber.pendingSessionId);
-        if (previous.payment_status === "paid") {
-          await markCodeUsed(personal.code, previous.id);
-          return NextResponse.json({ error: "Ce code de bienvenue a déjà été utilisé." }, { status: 409 });
-        }
-        if (previous.status === "open") await stripe.checkout.sessions.expire(previous.id);
-      } catch {
-        // Session introuvable ou deja expiree : le code redevient utilisable.
-      }
-    }
     const discountCents = appliedDiscount ? computeDiscountCents(subtotalCents, appliedDiscount.percent) : 0;
 
-    const couponId = appliedDiscount ? await ensureCoupon(stripe, appliedDiscount) : null;
+    const couponId = appliedDiscount && !personal ? await ensureCoupon(stripe, appliedDiscount) : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       // Pas de liste forcee : Stripe affiche les moyens de paiement actives dans le tableau de bord
       // (Parametres > Moyens de paiement > configuration "Default"), selon le montant, la devise et le pays.
       line_items,
-      discounts: couponId ? [{ coupon: couponId }] : undefined,
-      // Code personnel : l'e-mail de l'abonne est pre-rempli, et le code est relie a cette session.
+      discounts: personal
+        ? [{ promotion_code: personal.promotionCodeId }]
+        : couponId
+          ? [{ coupon: couponId }]
+          : undefined,
+      // Code personnel : l'e-mail de l'abonne est pre-rempli et le code est note dans la commande.
       ...(personal
-        ? { customer_email: personal.subscriber?.email, metadata: { promo_code: personal.code, promo_kind: "personal" } }
+        ? {
+            ...(personal.subscriber?.email ? { customer_email: personal.subscriber.email } : {}),
+            metadata: { promo_code: personal.code, promo_kind: "personal" },
+          }
         : {}),
       shipping_address_collection: {
         allowed_countries: allowedCountries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
@@ -208,8 +202,6 @@ export async function POST(req: NextRequest) {
       success_url: `${siteConfig.domain}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteConfig.domain}/panier`,
     });
-
-    if (personal?.subscriber) await markCodePending(personal.subscriber, session.id);
 
     // Garde-fou : le total Stripe doit correspondre au total calcule ici (et affiche dans le panier).
     const expectedTotal = subtotalCents - discountCents;
