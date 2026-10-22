@@ -36,6 +36,8 @@ export interface Subscriber {
   usedSessionId?: string;
   unsubscribeToken: string;
   unsubscribedAt?: string;
+  /** Date d'envoi de l'e-mail de bienvenue (absente si l'envoi n'est pas configure ou a echoue). */
+  welcomeEmailSentAt?: string;
 }
 
 const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
@@ -144,6 +146,15 @@ export async function findSubscriberByCode(code: string): Promise<Subscriber | n
   return key ? kv.get<Subscriber>(`sub/${key}`) : null;
 }
 
+export async function markWelcomeEmailSent(subscriber: Subscriber): Promise<void> {
+  const current = await kv.get<Subscriber>(`sub/${subscriber.key}`);
+  if (current) await kv.set(`sub/${subscriber.key}`, { ...current, welcomeEmailSentAt: new Date().toISOString() });
+}
+
+export function unsubscribeUrl(subscriber: Pick<Subscriber, "unsubscribeToken">): string {
+  return `${siteConfig.domain}/desinscription?t=${subscriber.unsubscribeToken}`;
+}
+
 export async function markCodePending(subscriber: Subscriber, sessionId: string): Promise<void> {
   await kv.set(`sub/${subscriber.key}`, { ...subscriber, codeStatus: "pending", pendingSessionId: sessionId });
 }
@@ -198,6 +209,7 @@ export async function exportSubscribersCsv(): Promise<{ csv: string; count: numb
     "statut_code",
     "date_utilisation_code",
     "desinscrit_le",
+    "email_bienvenue_envoye",
     "lien_desinscription",
   ];
   const lines = subscribers.map((s) =>
@@ -211,7 +223,8 @@ export async function exportSubscribersCsv(): Promise<{ csv: string; count: numb
       s.codeStatus === "used" ? "utilisé" : s.codeStatus === "pending" ? "en cours de paiement" : "disponible",
       s.usedAt,
       s.unsubscribedAt,
-      `${siteConfig.domain}/desinscription?t=${s.unsubscribeToken}`,
+      s.welcomeEmailSentAt,
+      unsubscribeUrl(s),
     ]
       .map(csvCell)
       .join(",")

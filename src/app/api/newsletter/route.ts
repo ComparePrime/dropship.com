@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { allowRequest, hashIp, normalizeEmail, subscribe, WELCOME_PERCENT } from "@/lib/newsletter";
+import { allowRequest, hashIp, markWelcomeEmailSent, normalizeEmail, subscribe, unsubscribeUrl, WELCOME_PERCENT } from "@/lib/newsletter";
+import { sendWelcomeEmail } from "@/lib/mailer";
 import { clientIp } from "@/lib/request-ip";
 
 export const dynamic = "force-dynamic";
@@ -38,8 +39,34 @@ export async function POST(req: NextRequest) {
     const result = await subscribe(normalized, "popup-bienvenue");
     if (result.status === "used") return fail("Votre code de bienvenue a déjà été utilisé.", 409);
 
+    // E-mail de bienvenue depuis la boite Infomaniak, uniquement a la creation (jamais renvoye a une adresse
+    // deja inscrite). Un echec d'envoi ne bloque pas l'inscription : le code reste affiche a l'ecran.
+    let emailSent = false;
+    if (result.status === "created") {
+      try {
+        emailSent = await Promise.race([
+          sendWelcomeEmail({
+            to: result.subscriber.email,
+            code: result.subscriber.code,
+            percent: WELCOME_PERCENT,
+            unsubscribeUrl: unsubscribeUrl(result.subscriber),
+          }),
+          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 9000)),
+        ]);
+        if (emailSent) await markWelcomeEmailSent(result.subscriber);
+      } catch (error) {
+        console.error("[newsletter:email-error]", error instanceof Error ? error.name : "unknown");
+      }
+    }
+
     return NextResponse.json(
-      { ok: true, code: result.subscriber.code, percent: WELCOME_PERCENT, existing: result.status === "existing" },
+      {
+        ok: true,
+        code: result.subscriber.code,
+        percent: WELCOME_PERCENT,
+        existing: result.status === "existing",
+        emailSent,
+      },
       { headers: NO_STORE }
     );
   } catch (error) {

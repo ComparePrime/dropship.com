@@ -16,9 +16,10 @@ export interface PromoDefinition {
   percent: number;
 }
 
-const PROMO_CODES: Record<string, PromoDefinition> = {
-  WELCOME10: { code: "WELCOME10", percent: 10 },
-};
+// Aucun code public pour l'instant : WELCOME10 a ete desactive (la remise de bienvenue passe par
+// l'inscription a la newsletter et un code personnel). Ajouter ici un code public si besoin, ex. :
+//   PRINTEMPS15: { code: "PRINTEMPS15", percent: 15 },
+const PROMO_CODES: Record<string, PromoDefinition> = {};
 
 /** Majuscules, espaces de debut et de fin supprimes : "  welcome10 " => "WELCOME10". */
 export function normalizePromoCode(input: string): string {

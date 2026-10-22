@@ -58,6 +58,7 @@ export function WelcomePopup() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const [applyMessage, setApplyMessage] = useState<string | null>(null);
   const [applying, setApplying] = useState(false);
   const openedAt = useRef(0);
@@ -144,6 +145,7 @@ export function WelcomePopup() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.code) throw new Error(data.error ?? "Inscription impossible. Réessayez.");
       setCode(data.code);
+      setEmailSent(data.emailSent === true);
       writeStored({ state: "subscribed", at: Date.now(), code: data.code });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Inscription impossible. Réessayez.");
@@ -226,6 +228,9 @@ export function WelcomePopup() {
               {copied ? "Copié ✓" : "Copier"}
             </button>
           </div>
+          {emailSent && (
+            <p className="mt-3 text-sm text-ink/70">Nous vous l&apos;avons aussi envoyé par e-mail.</p>
+          )}
           <p className="mt-3 text-sm text-ink/70">
             −{WELCOME_OFFER_PERCENT} % sur votre première commande, à usage unique. Non cumulable avec une autre
             remise : la plus avantageuse s&apos;applique.
