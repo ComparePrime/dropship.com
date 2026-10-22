@@ -1,6 +1,7 @@
 import { Product } from "./types";
 import { declaredSkuStock, declaredStock } from "./stock-config";
 import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
+import { vesteChienReviews } from "./reviews-veste-chien";
 
 /**
  * Catalogue produits.
@@ -2882,8 +2883,6 @@ const catalog: Product[] = [
     ],
   },
 
-import { vesteChienReviews } from "./reviews-veste-chien";
-const catalog: Product[] = [
   {
     id: "veste-chien-montagne",
     slug: "veste-chien-hiver-impermeable",
