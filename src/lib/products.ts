@@ -258,28 +258,8 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    reviews: [
-      {
-        id: "demo-1",
-        author: "Camille R.",
-        rating: 5,
-        date: "2026-08-14",
-        title: "Très joli sur mon étagère",
-        body: "Exactement ce que je cherchais pour ma chambre, la petite lumière est douce le soir.",
-        verified: false,
-        demo: true,
-      },
-      {
-        id: "demo-2",
-        author: "Julien M.",
-        rating: 4,
-        date: "2026-08-02",
-        title: "Bel objet, livraison rapide",
-        body: "Reçu en une semaine, bien emballé. Un joli détail sur mon bureau.",
-        verified: false,
-        demo: true,
-      },
-    ],
+    // Avis de demonstration : voir reviews-lanterne-feline.ts (lus par la section avis uniquement).
+    reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
     // Pas de donnee de stock fiable disponible pour ce produit : `stock` reste
@@ -921,38 +901,8 @@ const catalog: Product[] = [
     // ils restent `demo: true` et n'alimentent ni ratingAverage ni
     // ratingCount, exactement comme les avis demo de La Petite Lanterne
     // Feline. A remplacer des qu'un vrai export d'avis clients existe.
-    reviews: [
-      {
-        id: "demo-1",
-        author: "Camille X.",
-        rating: 4,
-        date: "2026-04-27",
-        title: "Satisfaite dans l'ensemble",
-        body: "Bonne taille pour mon usage et facile à ranger après la tétée.",
-        verified: false,
-        demo: true,
-      },
-      {
-        id: "demo-2",
-        author: "Emma V.",
-        rating: 5,
-        date: "2026-07-30",
-        title: "Très pratique au quotidien",
-        body: "Simple à utiliser et peu encombrant. C'est ce que je recherchais.",
-        verified: false,
-        demo: true,
-      },
-      {
-        id: "demo-3",
-        author: "Camille C.",
-        rating: 5,
-        date: "2026-07-08",
-        title: "Un vrai petit soutien",
-        body: "Petit accessoire pratique, facile à prendre avec moi d'une pièce à l'autre.",
-        verified: false,
-        demo: true,
-      },
-    ],
+    // Avis de demonstration : voir reviews-coussin-allaitement.ts (lus par la section avis uniquement).
+    reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
     // Pas de donnee de stock fiable disponible : `stock` reste absent.
@@ -1263,6 +1213,7 @@ const catalog: Product[] = [
     // Aucun avis fourni pour ce produit : pas de bloc demo invente, la
     // section Avis affichera simplement "les avis arriveront apres les
     // premieres commandes" tant qu'aucun avis (demo ou reel) n'existe.
+    // Avis de demonstration : voir reviews-ventilateur-plafond.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -1526,6 +1477,7 @@ const catalog: Product[] = [
       returnDays: 30,
     },
     // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    // Avis de demonstration : voir reviews-meduse-dansante.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -1751,6 +1703,7 @@ const catalog: Product[] = [
       returnDays: 30,
     },
     // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    // Avis de demonstration : voir reviews-bougeoir-reflet.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -1968,6 +1921,7 @@ const catalog: Product[] = [
       returnDays: 30,
     },
     // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    // Avis de demonstration : voir reviews-vase-arche.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -2195,6 +2149,7 @@ const catalog: Product[] = [
       returnDays: 30,
     },
     // Aucun avis fourni pour ce produit : pas de bloc demo invente.
+    // Avis de demonstration : voir reviews-trio-vases.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -2468,6 +2423,7 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
+    // Avis de demonstration : voir reviews-lampe-diamant.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -2691,6 +2647,7 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
+    // Avis de demonstration : voir reviews-pendule-newton.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
@@ -2903,6 +2860,7 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
+    // Avis de demonstration : voir reviews-plateau-vague.ts (lus par la section avis uniquement).
     reviews: [],
     ratingAverage: 0,
     ratingCount: 0,
