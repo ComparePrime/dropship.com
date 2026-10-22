@@ -2881,8 +2881,7 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
-import { Product } from "./types";
-import { declaredSkuStock, declaredStock } from "./stock-config";
+
 import { vesteChienReviews } from "./reviews-veste-chien";
 const catalog: Product[] = [
   {
