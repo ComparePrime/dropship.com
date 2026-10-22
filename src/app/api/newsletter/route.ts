@@ -7,7 +7,11 @@ import { clientIp } from "@/lib/request-ip";
 export const dynamic = "force-dynamic";
 
 const NO_STORE = { "Cache-Control": "no-store" };
-const fail = (error: string, status: number) => NextResponse.json({ error }, { status, headers: NO_STORE });
+const fail = (error: string, status: number, reason = "") => {
+  // Journal sans donnee personnelle : seulement la raison du refus.
+  if (reason) console.log("[newsletter:refus]", status, reason);
+  return NextResponse.json({ error }, { status, headers: NO_STORE });
+};
 
 /**
  * Inscription a la newsletter + code de bienvenue. Le code n'est renvoye qu'une fois l'adresse
@@ -19,23 +23,23 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return fail("Requête invalide.", 400);
+    return fail("Requête invalide.", 400, "json");
   }
 
   // Champ piege (invisible pour les humains) et delai minimal : signes d'un robot.
-  if (typeof body.website === "string" && body.website.trim() !== "") return fail("Requête invalide.", 400);
+  if (typeof body.website === "string" && body.website.trim() !== "") return fail("Requête invalide.", 400, "champ-piege-rempli");
   if (typeof body.elapsedMs !== "number" || body.elapsedMs < 1500) {
-    return fail("Veuillez réessayer dans un instant.", 400);
+    return fail("Veuillez réessayer dans un instant.", 400, "trop-rapide");
   }
-  if (body.consent !== true) return fail("Cochez la case pour recevoir votre code et la newsletter.", 400);
+  if (body.consent !== true) return fail("Cochez la case pour recevoir votre code et la newsletter.", 400, "consentement-absent");
 
   const t0 = Date.now();
   try {
     // Format d'abord (une faute de frappe ne compte pas), puis limitation : 10 inscriptions par heure et par adresse IP.
     const normalized = normalizeEmail(body.email);
-    if ("error" in normalized) return fail(normalized.error, 400);
+    if ("error" in normalized) return fail(normalized.error, 400, "email-refuse");
     if (!(await allowRequest("signup", hashIp(clientIp(req)), 10, 60 * 60 * 1000))) {
-      return fail("Trop de tentatives. Réessayez dans une heure.", 429);
+      return fail("Trop de tentatives. Réessayez dans une heure.", 429, "limite-ip");
     }
 
     console.log("[newsletter:step] limite ok", Date.now() - t0, "ms");
