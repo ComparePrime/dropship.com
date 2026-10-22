@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
   }
   if (body.consent !== true) return fail("Cochez la case pour recevoir votre code et la newsletter.", 400);
 
+  const t0 = Date.now();
   try {
     // Format d'abord (une faute de frappe ne compte pas), puis limitation : 10 inscriptions par heure et par adresse IP.
     const normalized = normalizeEmail(body.email);
@@ -36,7 +37,9 @@ export async function POST(req: NextRequest) {
       return fail("Trop de tentatives. Réessayez dans une heure.", 429);
     }
 
+    console.log("[newsletter:step] limite ok", Date.now() - t0, "ms");
     const result = await subscribe(normalized, "popup-bienvenue");
+    console.log("[newsletter:step] inscription", result.status, Date.now() - t0, "ms");
     if (result.status === "used") return fail("Votre code de bienvenue a déjà été utilisé.", 409);
 
     // E-mail de bienvenue depuis la boite Infomaniak, uniquement a la creation (jamais renvoye a une adresse
@@ -51,7 +54,7 @@ export async function POST(req: NextRequest) {
             percent: WELCOME_PERCENT,
             unsubscribeUrl: unsubscribeUrl(result.subscriber),
           }),
-          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 9000)),
+          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
         ]);
         if (emailSent) await markWelcomeEmailSent(result.subscriber);
       } catch (error) {
@@ -59,6 +62,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    console.log("[newsletter:step] e-mail", emailSent ? "envoye" : "non envoye", Date.now() - t0, "ms");
     return NextResponse.json(
       {
         ok: true,
@@ -71,7 +75,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     // Journal sans donnee personnelle : uniquement le type d'erreur.
-    console.error("[newsletter:error]", error instanceof Error ? error.name : "unknown");
+    console.error("[newsletter:error]", error instanceof Error ? `${error.name} ${error.message.slice(0, 60)}` : "unknown", Date.now() - t0, "ms");
     return fail("Inscription impossible pour le moment. Réessayez dans quelques minutes.", 500);
   }
 }

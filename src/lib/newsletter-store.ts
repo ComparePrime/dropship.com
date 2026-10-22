@@ -11,13 +11,23 @@ const memory = new Map<string, string>();
 
 const store = () => getStore({ name: "newsletter", consistency: "strong" });
 
+/** Aucune operation de stockage ne doit bloquer la requete : au-dela du delai, on echoue vite (et on le journalise). */
+const KV_TIMEOUT_MS = 5000;
+function withTimeout<T>(operation: string, promise: Promise<T>): Promise<T> {
+  let timer: ReturnType<typeof setTimeout>;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`kv-timeout:${operation}`)), KV_TIMEOUT_MS);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
 export const kv = {
   async get<T>(key: string): Promise<T | null> {
     if (!onNetlify) {
       const raw = memory.get(key);
       return raw ? (JSON.parse(raw) as T) : null;
     }
-    return ((await store().get(key, { type: "json" })) as T | null) ?? null;
+    return ((await withTimeout("get", store().get(key, { type: "json" }))) as T | null) ?? null;
   },
 
   async set(key: string, value: unknown): Promise<void> {
@@ -25,7 +35,7 @@ export const kv = {
       memory.set(key, JSON.stringify(value));
       return;
     }
-    await store().setJSON(key, value as Record<string, unknown>);
+    await withTimeout("set", store().setJSON(key, value as Record<string, unknown>));
   },
 
   /** Cree la cle seulement si elle n'existe pas (renvoie false sinon) : base de l'anti-doublon. */
@@ -35,8 +45,13 @@ export const kv = {
       memory.set(key, JSON.stringify(value));
       return true;
     }
-    const result = await store().setJSON(key, value as Record<string, unknown>, { onlyIfNew: true });
-    return result.modified;
+    // Lecture, ecriture, puis relecture : si une inscription simultanee a ecrit une autre valeur, on perd.
+    // (Evite les ecritures conditionnelles, plus lentes et moins fiables sur ce stockage.)
+    if ((await withTimeout("get", store().get(key, { type: "json" }))) !== null) return false;
+    const serialized = JSON.stringify(value);
+    await withTimeout("set", store().setJSON(key, value as Record<string, unknown>));
+    const check = await withTimeout("get", store().get(key, { type: "json" }));
+    return JSON.stringify(check) === serialized;
   },
 
   async delete(key: string): Promise<void> {
@@ -44,13 +59,13 @@ export const kv = {
       memory.delete(key);
       return;
     }
-    await store().delete(key);
+    await withTimeout("delete", store().delete(key));
   },
 
   async list(prefix: string): Promise<string[]> {
     if (!onNetlify) return [...memory.keys()].filter((k) => k.startsWith(prefix));
     const keys: string[] = [];
-    const { blobs } = await store().list({ prefix });
+    const { blobs } = await withTimeout("list", store().list({ prefix }));
     for (const blob of blobs) keys.push(blob.key);
     return keys;
   },
