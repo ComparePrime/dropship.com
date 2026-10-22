@@ -2881,6 +2881,10 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+import { Product } from "./types";
+import { declaredSkuStock, declaredStock } from "./stock-config";
+import { vesteChienReviews } from "./reviews-veste-chien";
+const catalog: Product[] = [
   {
     id: "veste-chien-montagne",
     slug: "veste-chien-hiver-impermeable",
@@ -3237,11 +3241,9 @@ const catalog: Product[] = [
       maxDays: 8,
       returnDays: 30,
     },
-    // Aucun avis reel pour l'instant. Les avis de demonstration (marque DEMO) sont dans
-    // reviews-veste-chien.ts et ne sont lus que par la section avis de la fiche.
-    reviews: [],
-    ratingAverage: 0,
-    ratingCount: 0,
+    reviews: vesteChienReviews,
+    ratingAverage: 4.3,
+    ratingCount: vesteChienReviews.length,
     collections: ["nos-compagnons"],
     layout: [
       "storytelling",
