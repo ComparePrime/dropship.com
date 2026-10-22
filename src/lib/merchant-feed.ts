@@ -3,6 +3,8 @@ import { categories } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { Product } from "@/lib/types";
 import { getSkuStock, hasSizes } from "@/lib/sku";
+import { getPriceForCurrency } from "@/lib/currency";
+import { isShippableToNorthAmerica } from "@/lib/shipping";
 
 /**
  * Flux produits pour Google Merchant Center (RSS 2.0 + espace de noms g:), genere a
@@ -15,19 +17,22 @@ import { getSkuStock, hasSizes } from "@/lib/sku";
  * api/checkout/route.ts).
  */
 export interface FeedMarket {
-  currency: "CHF" | "EUR";
+  currency: "CHF" | "EUR" | "USD" | "CAD";
   countries: string[];
   /** Ajoute a l'adresse de chaque produit pour afficher la bonne devise a Google et aux clients. */
   linkSuffix: string;
 }
 
-export const FEED_MARKETS: Record<"ch" | "eu", FeedMarket> = {
+export const FEED_MARKETS: Record<"ch" | "eu" | "us" | "ca", FeedMarket> = {
   ch: { currency: "CHF", countries: ["CH"], linkSuffix: "" },
   eu: {
     currency: "EUR",
     countries: ["FR", "BE", "DE", "IT", "ES", "NL", "AT", "PT", "LU"],
     linkSuffix: "?currency=EUR",
   },
+  // Amerique du Nord : uniquement les produits livrables (voir lib/shipping.ts).
+  us: { currency: "USD", countries: ["US"], linkSuffix: "?currency=USD" },
+  ca: { currency: "CAD", countries: ["CA"], linkSuffix: "?currency=CAD" },
 };
 
 /**
@@ -80,7 +85,7 @@ function sizedItemsXml(product: Product, market: FeedMarket): string[] {
     const main = own[0] ?? { src: variant.image.src };
     for (const size of product.sizes ?? []) {
       const stock = getSkuStock(product, variant.id, size.id) ?? 0;
-      const price = market.currency === "CHF" ? size.priceCHF : size.priceEUR;
+      const price = getPriceForCurrency(size.priceCHF, size.priceEUR, market.currency);
       items.push(
         [
           "    <item>",
@@ -135,7 +140,7 @@ function itemXml(product: Product, market: FeedMarket): string | null {
     tag("image_link", abs(main.src)),
     ...others.map((img) => tag("additional_image_link", abs(img.src))),
     tag("availability", isOut ? "out_of_stock" : "in_stock"),
-    tag("price", `${(market.currency === "CHF" ? product.priceCHF : product.priceEUR).toFixed(2)} ${market.currency}`),
+    tag("price", `${getPriceForCurrency(product.priceCHF, product.priceEUR, market.currency).toFixed(2)} ${market.currency}`),
     tag("condition", "new"),
     tag("brand", siteConfig.name),
     tag("identifier_exists", "no"),
@@ -158,7 +163,9 @@ function itemXml(product: Product, market: FeedMarket): string | null {
 }
 
 export function buildFeed(market: FeedMarket): Response {
+  const northAmerica = market.currency === "USD" || market.currency === "CAD";
   const items = getPublishedProducts()
+    .filter((p) => !northAmerica || isShippableToNorthAmerica(p))
     .flatMap((p) => (hasSizes(p) ? sizedItemsXml(p, market) : [itemXml(p, market)]))
     .filter((x): x is string => !!x)
     .join("\n");

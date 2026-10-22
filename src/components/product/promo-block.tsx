@@ -2,7 +2,7 @@
 
 import { Product } from "@/lib/types";
 import { Currency } from "@/lib/types";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { formatPrice, getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
 import { AUTUMN_CAMPAIGN } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
@@ -26,8 +26,7 @@ export function PromoBlock({
 }) {
   const { running } = useCampaign();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
-  const compareAt =
-    currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
+  const compareAt = getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, currency);
   const hasRealPromotion =
     product.promotion.active && !!compareAt && compareAt > price && (ignoreCampaign || running);
   const savings = hasRealPromotion ? compareAt! - price : 0;

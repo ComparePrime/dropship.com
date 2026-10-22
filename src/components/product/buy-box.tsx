@@ -23,6 +23,7 @@ import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { getPriceRange, getSkuStock, hasSizes, skuLabel } from "@/lib/sku";
 import { SizeGuideButton } from "@/components/product/size-guide-modal";
 import { MULTI_BUY } from "@/lib/multi-buy";
+import { isShippableToNorthAmerica } from "@/lib/shipping";
 import { StockInfo } from "@/lib/types";
 
 export function BuyBox({
@@ -411,6 +412,13 @@ export function BuyBox({
               </p>
             )}
           </>
+        )}
+
+        {(currency === "USD" || currency === "CAD") && !isShippableToNorthAmerica(product) && (
+          <p role="note" className="mt-4 rounded-lg bg-blush/30 px-3 py-2 text-center text-sm text-terracottaText">
+            Ce produit n&apos;est pas encore livrable aux États-Unis et au Canada. Il reste disponible pour l&apos;Europe
+            et la Suisse (choisissez EUR ou CHF).
+          </p>
         )}
 
         <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-ink/75">

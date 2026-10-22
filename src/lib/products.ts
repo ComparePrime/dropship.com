@@ -1,5 +1,6 @@
 import { Product } from "./types";
 import { declaredSkuStock, declaredStock } from "./stock-config";
+import { fromEur } from "./fx";
 import { ventilateurAntiMouchesReviews } from "./reviews-ventilateur-anti-mouches";
 import { vesteChienReviews } from "./reviews-veste-chien";
 import { lampeDiamantReviews } from "./reviews-lampe-diamant";
@@ -3727,10 +3728,30 @@ const catalog: Product[] = [
  * Applique le stock declare (src/lib/stock-config.ts) : source unique pour
  * modifier les quantites sans toucher aux fiches produit.
  */
+/**
+ * Devise de base : l'EURO. Les prix CHF saisis dans le catalogue sont ignores : le prix en francs suisses
+ * (prix, prix barre, lots, tailles) est calcule a partir du prix EUR avec le taux de lib/fx.ts.
+ * Le dollar americain et le dollar canadien sont calcules a l'affichage a partir du meme prix EUR.
+ */
+function withConvertedPrices(p: Product): Product {
+  const chf = (eur: number) => fromEur(eur, "CHF");
+  return {
+    ...p,
+    priceCHF: chf(p.priceEUR),
+    compareAtPriceCHF: p.compareAtPriceEUR !== undefined ? chf(p.compareAtPriceEUR) : undefined,
+    packOffers: p.packOffers?.map((o) => ({ ...o, priceCHF: chf(o.priceEUR) })),
+    sizes: p.sizes?.map((s) => ({
+      ...s,
+      priceCHF: chf(s.priceEUR),
+      compareAtPriceCHF: s.compareAtPriceEUR !== undefined ? chf(s.compareAtPriceEUR) : undefined,
+    })),
+  };
+}
+
 const products: Product[] = catalog.map((p) => {
   const declared = declaredStock[p.slug];
   const skuStock = declaredSkuStock[p.slug];
-  return { ...p, ...(declared ? { stock: declared } : {}), ...(skuStock ? { skuStock } : {}) };
+  return withConvertedPrices({ ...p, ...(declared ? { stock: declared } : {}), ...(skuStock ? { skuStock } : {}) });
 });
 
 /** Tous les produits, y compris les brouillons (usage interne/administratif uniquement). */

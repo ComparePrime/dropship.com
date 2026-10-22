@@ -21,7 +21,8 @@ function readCountry(req: NextRequest): string | null {
 }
 
 /**
- * Devise conseillee selon le pays : Suisse et Liechtenstein en CHF, tous les autres pays en EUR.
+ * Devise conseillee selon le pays : Suisse et Liechtenstein en CHF, Etats-Unis en USD, Canada en CAD,
+ * tous les autres pays en EUR.
  * Renvoie currency: null quand le pays est inconnu (le site garde alors la devise de la langue du navigateur).
  */
 export async function GET(req: NextRequest) {

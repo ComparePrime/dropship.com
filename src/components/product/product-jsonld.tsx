@@ -1,6 +1,9 @@
 import { Product } from "@/lib/types";
 import { siteConfig } from "@/lib/site-config";
 import { getPriceRange, hasSizes } from "@/lib/sku";
+import { getPriceForCurrency } from "@/lib/currency";
+import { isShippableToNorthAmerica } from "@/lib/shipping";
+import type { Currency } from "@/lib/types";
 
 export function ProductJsonLd({ product }: { product: Product }) {
   const url = `${siteConfig.domain}/produit/${product.slug}`;
@@ -11,6 +14,19 @@ export function ProductJsonLd({ product }: { product: Product }) {
     ? !Object.values(product.skuStock ?? {}).some((q) => q > 0)
     : !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;
   const skuCount = (product.variants?.length ?? 1) * (product.sizes?.length ?? 1);
+
+  // Une offre par devise : CHF (Suisse), EUR (reste de l'Europe), USD (Etats-Unis) et CAD (Canada) ;
+  // les deux dernieres seulement pour les produits livrables en Amerique du Nord.
+  const northAmerica = isShippableToNorthAmerica(product);
+  const offerCurrencies: Currency[] = northAmerica ? ["CHF", "EUR", "USD", "CAD"] : ["CHF", "EUR"];
+  const countriesFor = (currency: Currency): string[] =>
+    currency === "CHF"
+      ? ["CH"]
+      : currency === "USD"
+        ? ["US"]
+        : currency === "CAD"
+          ? ["CA"]
+          : siteConfig.markets.filter((c) => c !== "CH");
 
   const productSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -28,7 +44,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
           size: product.sizes?.map((s) => s.label),
         }
       : {}),
-    offers: (["CHF", "EUR"] as const).map((currency) => ({
+    offers: offerCurrencies.map((currency) => ({
       "@type": sized ? "AggregateOffer" : "Offer",
       url,
       priceCurrency: currency,
@@ -38,11 +54,11 @@ export function ProductJsonLd({ product }: { product: Product }) {
             highPrice: getPriceRange(product, currency).max.toFixed(2),
             offerCount: skuCount,
           }
-        : { price: (currency === "CHF" ? product.priceCHF : product.priceEUR).toFixed(2) }),
+        : { price: getPriceForCurrency(product.priceCHF, product.priceEUR, currency).toFixed(2) }),
       availability: isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
       shippingDetails: {
         "@type": "OfferShippingDetails",
-        shippingDestination: (currency === "CHF" ? ["CH"] : siteConfig.markets.filter((c) => c !== "CH")).map(
+        shippingDestination: countriesFor(currency).map(
           (country) => ({
             "@type": "DefinedRegion",
             addressCountry: country,
@@ -71,7 +87,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
       },
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
-        applicableCountry: currency === "CHF" ? ["CH"] : siteConfig.markets.filter((c) => c !== "CH"),
+        applicableCountry: countriesFor(currency),
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
         merchantReturnDays: product.shipping.returnDays,
         returnMethod: "https://schema.org/ReturnByMail",

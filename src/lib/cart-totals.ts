@@ -1,5 +1,5 @@
 import { CartLine, Currency } from "./types";
-import { getPriceForCurrency } from "./currency";
+import { getOptionalPrice, getPriceForCurrency } from "./currency";
 import { computeDiscountCents } from "./promo";
 import { getCampaignDeal } from "./campaign";
 import { getProductById } from "./products";
@@ -40,7 +40,8 @@ export function getCartTotals(
     const product = getProductById(line.productId);
     if (!product) continue;
     const pack = product.packOffers?.find((p) => p.label === line.variantLabel);
-    const compareAt = resolveLine(product, line.variantLabel)[currency === "CHF" ? "compareAtCHF" : "compareAtEUR"];
+    const resolvedLine = resolveLine(product, line.variantLabel);
+    const compareAt = getOptionalPrice(resolvedLine.compareAtCHF, resolvedLine.compareAtEUR, currency);
     if (compareAt !== undefined) {
       // Produit a tailles : le prix de reference est celui de la taille choisie.
       if (campaignRunning && compareAt > unitCents / 100) {

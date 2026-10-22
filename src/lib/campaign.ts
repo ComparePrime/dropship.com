@@ -1,4 +1,5 @@
 import { Currency, Product } from "./types";
+import { getOptionalPrice, getPriceForCurrency } from "./currency";
 
 /**
  * Campagne commerciale "Offre d'automne" : source UNIQUE pour les pages produits,
@@ -33,8 +34,8 @@ export interface CampaignDeal {
 
 /** Offre d'automne du produit dans la devise donnee, ou null s'il n'y en a pas (independamment de la date). */
 export function getCampaignDeal(product: Product, currency: Currency): CampaignDeal | null {
-  const price = currency === "CHF" ? product.priceCHF : product.priceEUR;
-  const reference = currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
+  const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
+  const reference = getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, currency);
   if (!product.promotion.active || !reference || reference <= price) return null;
   const savings = Math.round((reference - price) * 100) / 100;
   return { price, referencePrice: reference, savings, percent: Math.round((savings / reference) * 100) };

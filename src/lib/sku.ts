@@ -1,5 +1,5 @@
 import { Currency, Product, ProductSize, ProductVariant } from "./types";
-import { getPriceForCurrency } from "./currency";
+import { getOptionalPrice, getPriceForCurrency } from "./currency";
 
 /**
  * Produits declines en coloris x tailles : une ligne de panier est identifiee
@@ -41,7 +41,7 @@ export function getSkuStock(product: Product, variantId?: string, sizeId?: strin
 
 /** Prix de reference (prix barre) de la taille dans la devise, s'il y en a un reel. */
 export function getSizeCompareAt(size: ProductSize, currency: Currency): number | undefined {
-  const ref = currency === "CHF" ? size.compareAtPriceCHF : size.compareAtPriceEUR;
+  const ref = getOptionalPrice(size.compareAtPriceCHF, size.compareAtPriceEUR, currency);
   const price = getPriceForCurrency(size.priceCHF, size.priceEUR, currency);
   return ref && ref > price ? ref : undefined;
 }

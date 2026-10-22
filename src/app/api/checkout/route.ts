@@ -9,6 +9,7 @@ import { resolvePromo } from "@/lib/promo-server";
 import { markCodePending, markCodeUsed, Subscriber } from "@/lib/newsletter";
 import { getMultiBuyPercent, MULTI_BUY } from "@/lib/multi-buy";
 import { getSkuStock, hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
+import { allowedCountriesFor, isShippableToNorthAmerica } from "@/lib/shipping";
 import type Stripe from "stripe";
 
 /**
@@ -44,7 +45,8 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const lines: CartLine[] = Array.isArray(body.lines) ? body.lines : [];
-    const currency: Currency = body.currency === "EUR" ? "EUR" : "CHF";
+    const currency: Currency =
+      body.currency === "CHF" || body.currency === "USD" || body.currency === "CAD" ? body.currency : "EUR";
 
     if (lines.length === 0) {
       return NextResponse.json({ error: "Le panier est vide." }, { status: 400 });
@@ -116,6 +118,24 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Pays livrables : l'Amerique du Nord (US, CA) n'est proposee que si tous les articles y sont autorises.
+    const cartProducts = [...new Set(lines.map((l) => l.slug))].flatMap((slug) => {
+      const product = getProductBySlug(slug);
+      return product ? [product] : [];
+    });
+    const blocked = cartProducts.filter((p) => !isShippableToNorthAmerica(p));
+    if ((currency === "USD" || currency === "CAD") && blocked.length > 0) {
+      return NextResponse.json(
+        {
+          error: `Livraison aux États-Unis et au Canada indisponible pour le moment pour : ${blocked
+            .map((p) => p.name)
+            .join(", ")}. Retirez ces articles ou choisissez une autre devise (EUR/CHF) pour une livraison en Europe.`,
+        },
+        { status: 409 }
+      );
+    }
+    const allowedCountries = allowedCountriesFor(cartProducts);
+
     const line_items = lines.map((line) => {
       const product = getProductBySlug(line.slug);
       if (!product) {
@@ -183,18 +203,7 @@ export async function POST(req: NextRequest) {
         ? { customer_email: personal.subscriber?.email, metadata: { promo_code: personal.code, promo_kind: "personal" } }
         : {}),
       shipping_address_collection: {
-        allowed_countries: [
-          "CH",
-          "FR",
-          "BE",
-          "DE",
-          "IT",
-          "ES",
-          "NL",
-          "AT",
-          "PT",
-          "LU",
-        ],
+        allowed_countries: allowedCountries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
       },
       success_url: `${siteConfig.domain}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteConfig.domain}/panier`,

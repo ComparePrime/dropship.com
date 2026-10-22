@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Product } from "@/lib/types";
 import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
-import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { formatPrice, getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
 import { useCampaign } from "@/lib/use-campaign";
 import { getPriceRange, hasSizes } from "@/lib/sku";
 
@@ -16,8 +16,7 @@ export function StickyBar({ product }: { product: Product }) {
   const { addItem } = useCart();
   const sized = hasSizes(product);
   const price = sized ? getPriceRange(product, currency).min : getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
-  const compareAt =
-    currency === "CHF" ? product.compareAtPriceCHF : product.compareAtPriceEUR;
+  const compareAt = getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, currency);
   const hasRealPromotion = product.promotion.active && !!compareAt && compareAt > price && running;
   const isOutOfStock =
     !sized && !!product.stock && product.stock.source !== "none" && product.stock.quantity <= 0;

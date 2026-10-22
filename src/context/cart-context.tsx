@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { CartLine, Product } from "@/lib/types";
+import { getProductById } from "@/lib/products";
 import { hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 
 /** Ligne de panier d'un produit (prix du lot ou de la variante inclus), sans l'ajouter au panier. */
@@ -54,7 +55,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) setLines(JSON.parse(raw));
+      if (raw) {
+        // Les prix memorises dans le navigateur peuvent dater d'avant un changement de prix ou de taux :
+        // on les relit dans le catalogue (le paiement reste de toute facon recalcule cote serveur).
+        const stored: CartLine[] = JSON.parse(raw);
+        setLines(
+          stored.map((line) => {
+            const product = getProductById(line.productId);
+            if (!product) return line;
+            const resolved = resolveLine(product, line.variantLabel);
+            return { ...line, priceCHF: resolved.priceCHF, priceEUR: resolved.priceEUR };
+          })
+        );
+      }
     } catch {
       // ignore
     }

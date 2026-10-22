@@ -2,6 +2,9 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Currency } from "@/lib/types";
+import { CURRENCIES } from "@/lib/fx";
+
+const isCurrency = (value: unknown): value is Currency => CURRENCIES.includes(value as Currency);
 
 interface CurrencyContextValue {
   currency: Currency;
@@ -13,30 +16,30 @@ const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefine
 const STORAGE_KEY = "mf_currency";
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
-  const [currency, setCurrencyState] = useState<Currency>("CHF");
+  const [currency, setCurrencyState] = useState<Currency>("EUR");
 
   useEffect(() => {
     try {
-      // ?currency=EUR|CHF (liens des flux Google) : devise imposee, puis memorisee.
+      // ?currency=EUR|CHF|USD|CAD (liens des flux Google) : devise imposee, puis memorisee.
       const requested = new URLSearchParams(window.location.search).get("currency")?.toUpperCase();
-      if (requested === "CHF" || requested === "EUR") {
+      if (isCurrency(requested)) {
         setCurrencyState(requested);
         window.localStorage.setItem(STORAGE_KEY, requested);
         return;
       }
       const stored = window.localStorage.getItem(STORAGE_KEY) as Currency | null;
-      if (stored === "CHF" || stored === "EUR") {
+      if (isCurrency(stored)) {
         setCurrencyState(stored);
         return;
       }
-      // Sans choix explicite : devise du pays du visiteur (Suisse/Liechtenstein : CHF, ailleurs : EUR).
+      // Sans choix explicite : devise du pays du visiteur (CH/LI : CHF, US : USD, CA : CAD, ailleurs : EUR).
       // En attendant la reponse, ou si le pays est inconnu, on se base sur la langue du navigateur.
       const locale = navigator.language || "";
       setCurrencyState(locale.toLowerCase().includes("ch") ? "CHF" : "EUR");
       fetch("/api/geo", { cache: "no-store" })
         .then((res) => (res.ok ? res.json() : null))
         .then((data) => {
-          if (data?.currency === "CHF" || data?.currency === "EUR") {
+          if (isCurrency(data?.currency)) {
             // Le visiteur a pu changer de devise entre-temps : son choix prime.
             if (!window.localStorage.getItem(STORAGE_KEY)) setCurrencyState(data.currency);
           }

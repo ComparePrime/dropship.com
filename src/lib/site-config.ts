@@ -12,7 +12,7 @@ export const siteConfig = {
     pinterest: "https://pinterest.com",
   },
   markets: ["CH", "FR", "BE", "DE", "IT", "ES", "NL", "AT", "PT", "LU"] as const,
-  defaultCurrency: "CHF" as const,
+  defaultCurrency: "EUR" as const,
   shippingTrust: [
     { icon: "truck", label: "Livraison offerte" },
     { icon: "clock", label: "Expédition sous 24h" },
@@ -22,9 +22,11 @@ export const siteConfig = {
   ],
 };
 
-export const countryCurrencyMap: Record<string, "CHF" | "EUR"> = {
+export const countryCurrencyMap: Record<string, "CHF" | "EUR" | "USD" | "CAD"> = {
   CH: "CHF",
   LI: "CHF",
+  US: "USD",
+  CA: "CAD",
   FR: "EUR",
   BE: "EUR",
   DE: "EUR",

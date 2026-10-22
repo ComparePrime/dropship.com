@@ -196,7 +196,7 @@ export const categories: Category[] = [
     title: "Idées cadeaux",
     cardDescription: "Des attentions originales, choisies pour faire plaisir sans se tromper.",
     intro:
-      "Des idées cadeaux originales à moins de 40 francs : vases, bougeoir, plateau décoratif, lampe de table et petits objets pour la maison, à offrir pour une crémaillère ou une fête.",
+      "Des idées cadeaux originales à petit prix : vases, bougeoir, plateau décoratif, lampe de table et petits objets pour la maison, à offrir pour une crémaillère ou une fête.",
     subcategories: [
       { label: "Cadeaux originaux" },
       { label: "Petites attentions" },

@@ -1,4 +1,4 @@
-export type Currency = "CHF" | "EUR";
+export type Currency = "CHF" | "EUR" | "USD" | "CAD";
 
 export interface ProductImage {
   src: string;

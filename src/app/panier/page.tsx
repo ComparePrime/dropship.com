@@ -6,6 +6,8 @@ import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { ProductCardRating } from "@/components/product-card-price";
+import { isShippableToNorthAmerica } from "@/lib/shipping";
+import { getProductById } from "@/lib/products";
 import { getRecommendations } from "@/lib/recommendations";
 import { getCardImage } from "@/lib/product-images";
 import { Icon } from "@/components/icons";
@@ -28,6 +30,14 @@ export default function CartPage() {
     campaign.running
   );
   const totalSavings = Math.round((discount + includedSavings) * 100) / 100;
+
+  const blockedForNorthAmerica =
+    currency === "USD" || currency === "CAD"
+      ? lines.filter((l) => {
+          const product = getProductById(l.productId);
+          return product && !isShippableToNorthAmerica(product);
+        })
+      : [];
 
   const suggestions = getRecommendations(
     lines.map((l) => l.slug),
@@ -140,6 +150,13 @@ export default function CartPage() {
             {countMultiBuyUnits(lines) > 0 && countMultiBuyUnits(lines) < MULTI_BUY.minUnits && (
               <p className="mb-3 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
                 Ajoutez une 2ᵉ veste : −{MULTI_BUY.percent} % sur votre panier.
+              </p>
+            )}
+            {blockedForNorthAmerica.length > 0 && (
+              <p role="alert" className="mb-3 rounded-lg bg-blush/30 px-3 py-2 text-xs text-terracottaText">
+                Livraison aux États-Unis et au Canada indisponible pour :{" "}
+                {blockedForNorthAmerica.map((l) => l.name).join(", ")}. Retirez ces articles ou passez en EUR/CHF
+                (livraison Europe et Suisse).
               </p>
             )}
             <div className="mt-5 flex items-center justify-between text-sm text-stone">
