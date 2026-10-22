@@ -29,12 +29,19 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         setCurrencyState(stored);
         return;
       }
+      // Sans choix explicite : devise du pays du visiteur (Suisse/Liechtenstein : CHF, ailleurs : EUR).
+      // En attendant la reponse, ou si le pays est inconnu, on se base sur la langue du navigateur.
       const locale = navigator.language || "";
-      if (locale.toLowerCase().includes("ch")) {
-        setCurrencyState("CHF");
-      } else {
-        setCurrencyState("EUR");
-      }
+      setCurrencyState(locale.toLowerCase().includes("ch") ? "CHF" : "EUR");
+      fetch("/api/geo", { cache: "no-store" })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.currency === "CHF" || data?.currency === "EUR") {
+            // Le visiteur a pu changer de devise entre-temps : son choix prime.
+            if (!window.localStorage.getItem(STORAGE_KEY)) setCurrencyState(data.currency);
+          }
+        })
+        .catch(() => {});
     } catch {
       // ignore
     }
