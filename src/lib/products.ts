@@ -3485,6 +3485,242 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "arcade-souris",
+    slug: "jouet-chat-arcade-souris-fromage",
+    status: "published",
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 4,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 3,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner. A confirmer avec le fournisseur avant toute promesse supplementaire : mode de fonctionnement exact des leviers lateraux (manuel ou non), presence/absence de piles, matiere precise, usage du compartiment a friandises (visible sur un visuel), age/poids minimal du chat. Le titre fournisseur parle de 'prevenir l'etouffement' : formulation non reprise sur la fiche faute de precision. Dimensions communiquees : 23 x 15 x 7 cm.",
+    },
+    name: "L'Arcade à Souris",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE D'AUTOMNE",
+    headline: "Quatre souris à attraper, un chat qui ne s'ennuie plus.",
+    subtitle:
+      "Une arcade pour chat en forme de fromage : des petites souris dépassent des trous, des leviers sortent sur les côtés, et votre chat passe à l'action.",
+    heroBullets: [
+      "Boîtier en forme de fromage, 4 souris dans les trous",
+      "Leviers latéraux et pièces démontables",
+      "Compact : 23 × 15 × 7 cm, se pose sur une table ou au sol",
+      "Pour occuper un chat d'appartement et l'aider à se dépenser",
+    ],
+    h1: "Jouet interactif pour chat : arcade à souris en forme de fromage",
+    shortDescription:
+      "Arcade pour chat en forme de fromage, avec souris qui surgissent des trous et leviers latéraux. Jouet interactif compact (23 × 15 × 7 cm) pour occuper et faire dépenser son chat.",
+    description: [
+      "L'Arcade à Souris transforme un simple boîtier jaune en terrain de chasse. Elle ressemble à un morceau de fromage percé de trous : des petites souris grises en dépassent… et votre chat guette, tape, essaie de les attraper.",
+      "C'est un jouet interactif pensé pour les chats d'appartement : il aide à occuper les longues journées, à stimuler l'instinct de chasseur et à dépenser un peu d'énergie sans abîmer les meubles.",
+      "Le boîtier mesure 23 cm de large, 15 cm de long et 7 cm de haut : assez compact pour se poser sur une table basse, un coin du salon ou le sol de la cuisine. Les pièces se démontent, et un compartiment peut accueillir quelques croquettes ou friandises pour récompenser votre chat.",
+    ],
+    storytelling: {
+      eyebrow: "Pour les chats qui s'ennuient",
+      title: "Une arcade rien que pour lui.",
+      paragraphs: [
+        "Un chat qui vit à l'intérieur a besoin de chasser, même pour de faux. Quand il n'a rien à guetter, il invente ses propres jeux, rarement ceux que l'on aimerait.",
+        "L'Arcade à Souris lui offre exactement ce qu'il cherche : des cibles à attraper, un petit défi, et l'envie d'y revenir. Elle prend peu de place et s'installe en quelques secondes.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Quelle est la taille du jouet ?",
+        response: "Il mesure 23 cm de large, 15 cm de long et 7 cm de haut : un format compact.",
+      },
+      {
+        doubt: "Peut-on le démonter pour le nettoyer ?",
+        response:
+          "Oui, les petites pièces (souris, leviers) se retirent du boîtier, comme le montre la photo des pièces détachées.",
+      },
+      {
+        doubt: "Est-ce adapté à tous les chats ?",
+        response:
+          "Il est pensé pour les chats curieux et joueurs. Surveillez toujours les premières parties et retirez le jouet si votre chat tente de mâcher ou d'avaler une petite pièce.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si mon chat n'accroche pas ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Une arcade pour chat en forme de fromage, 4 souris",
+      "Leviers latéraux et pièces démontables",
+      "23 × 15 × 7 cm, compact",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+    ],
+    midCtaTexts: [
+      "Votre chat s'ennuie pendant que vous travaillez ?",
+      "Prêt à lancer la partie ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 39.99,
+    priceEUR: 39.99,
+    compareAtPriceCHF: 69.99,
+    compareAtPriceEUR: 69.99,
+    images: [
+      {
+        src: "/images/products/arcade-souris/chat-qui-joue.jpg",
+        alt: "Chat roux tigré qui attrape du bout de la patte une souris grise de l'arcade en forme de fromage jaune, posée sur une table blanche",
+        caption: "Un chat en pleine partie",
+      },
+      {
+        src: "/images/products/arcade-souris/vue-ensemble.jpg",
+        alt: "Arcade pour chat en forme de fromage jaune avec trois souris grises sorties des trous et deux leviers latéraux",
+        caption: "Le fromage, ses souris et ses leviers",
+      },
+      {
+        src: "/images/products/arcade-souris/vue-dessus.jpg",
+        alt: "Vue de dessus de l'arcade fromage pour chat avec quatre souris grises et quatre leviers à embout rond",
+        caption: "Quatre souris, quatre leviers",
+      },
+      {
+        src: "/images/products/arcade-souris/pieces-demontees.jpg",
+        alt: "Arcade pour chat en forme de fromage avec ses souris, leviers et petites pièces démontées posées à côté",
+        caption: "Pièces démontables",
+      },
+      {
+        src: "/images/products/arcade-souris/souris-et-leviers.jpg",
+        alt: "Arcade pour chat jaune posée sur une table, avec quatre souris dans les trous, un détail des leviers latéraux et une vue du dessus",
+        caption: "Détail des leviers et des souris",
+      },
+    ],
+    benefits: [
+      {
+        icon: "cat",
+        title: "Un défi pour l'instinct de chasseur",
+        description: "Des souris à guetter, à taper et à attraper, partie après partie.",
+      },
+      {
+        icon: "move",
+        title: "Pour se dépenser à l'intérieur",
+        description: "Un jeu actif pour les chats d'appartement qui manquent d'occupations.",
+      },
+      {
+        icon: "home",
+        title: "Compact, il se pose partout",
+        description: "23 × 15 × 7 cm : sur une table basse, au sol, dans un coin du salon.",
+      },
+      {
+        icon: "gift",
+        title: "Une idée cadeau originale",
+        description: "Un jouet drôle et reconnaissable, qui fait sourire autant les chats que leurs humains.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Chat d'appartement",
+        description: "Pour occuper les longues journées et varier les jeux.",
+      },
+      {
+        title: "Quand vous travaillez",
+        description: "Une activité qui détourne l'attention de votre chat pendant que vous êtes occupé.",
+      },
+      {
+        title: "Chaton ou adulte joueur",
+        description: "Pour les chats curieux qui aiment guetter, taper et attraper.",
+      },
+      {
+        title: "Idée cadeau",
+        description: "Un jouet original pour un propriétaire de chat ou un nouvel adopté.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions de l'arcade ?",
+        answer: "Elle mesure 23 cm de large, 15 cm de long et 7 cm de haut.",
+      },
+      {
+        question: "Combien de souris y a-t-il ?",
+        answer: "Les photos montrent quatre souris grises dans les trous du boîtier jaune.",
+      },
+      {
+        question: "Les pièces sont-elles démontables ?",
+        answer: "Oui, les souris et les leviers se retirent du boîtier, comme on le voit sur la photo des pièces détachées.",
+      },
+      {
+        question: "Peut-on y mettre des friandises ?",
+        answer:
+          "Un compartiment du boîtier peut recevoir quelques croquettes ou friandises, pour récompenser votre chat. Ne laissez pas votre chat sans surveillance avec de petites pièces.",
+      },
+      {
+        question: "À quel âge peut-on le donner à un chat ?",
+        answer:
+          "Le jouet convient aux chats curieux et joueurs. Surveillez les premières parties, et retirez-le si votre chat essaie de mâcher ou d'avaler une petite pièce.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Jouet interactif chat : arcade à souris fromage | Maison Loravie",
+      metaDescription:
+        "Arcade pour chat en forme de fromage : souris qui surgissent, leviers, pièces démontables. 23 × 15 × 7 cm. Livraison offerte, retours gratuits sous 30 jours.",
+      keywords: [
+        "jouet interactif chat",
+        "arcade pour chat",
+        "jouet souris chat",
+        "jouet chat intelligent",
+        "jouet chat d'appartement",
+        "occuper son chat",
+        "jouet chat fromage",
+        "idée cadeau chat",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre d'automne",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Avis de demonstration : voir reviews-arcade-souris.ts (lus par la section avis uniquement).
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["nos-compagnons", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /**

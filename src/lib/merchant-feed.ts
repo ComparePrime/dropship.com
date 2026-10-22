@@ -48,6 +48,7 @@ const GOOGLE_CATEGORY: Record<string, string> = {
   "plateau-vague-resine": "Home & Garden > Decor",
   "veste-chien-montagne": "Animals & Pet Supplies > Pet Supplies > Dog Supplies > Dog Apparel",
   "griffoir-accordeon": "Animals & Pet Supplies > Pet Supplies > Cat Supplies > Cat Toys",
+  "arcade-souris": "Animals & Pet Supplies > Pet Supplies > Cat Supplies > Cat Toys",
 };
 
 const escapeXml = (value: string) =>

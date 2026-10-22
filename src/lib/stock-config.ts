@@ -50,6 +50,7 @@ export const declaredStock: Record<string, StockInfo> = {
   "coussin-bras-allaitement-biberon": declare(21, 40),
   "bougeoir-ceramique-argente-reflet": declare(11, 40),
   "griffoir-chat-accordeon-balle": declare(14, 40),
+  "jouet-chat-arcade-souris-fromage": declare(10, 40),
 };
 
 /**
