@@ -169,7 +169,7 @@ export const categories: Category[] = [
       {
         heading: "Des objets pour les amoureux des chats",
         paragraphs: [
-          "Une lanterne à la silhouette de chat ou d'autres objets décoratifs inspirés de nos compagnons : de petites attentions pour la maison, à offrir ou à s'offrir.",
+          "Un griffoir accordéon avec balle à grelot pour offrir un coin à griffer aux chats, une lanterne à la silhouette de chat et d'autres objets inspirés de nos compagnons : de petites attentions pour la maison, à offrir ou à s'offrir.",
         ],
       },
     ],

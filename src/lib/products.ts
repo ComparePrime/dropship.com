@@ -3259,6 +3259,231 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "griffoir-accordeon",
+    slug: "griffoir-chat-accordeon-balle",
+    status: "published",
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 4,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 4,
+      returnRiskScore: 4,
+      estimatedMarginAfterCosts: 0,
+      notes:
+        "Cout fournisseur non communique : costPriceUSD et marge a renseigner. Matiere : la description IA du fournisseur parle de plastique, mais les photos montrent un carton ondulé plie en accordeon ; la fiche dit carton ondule, a confirmer avec le fournisseur. Dimensions (photo fournisseur) : Ø 24 cm deplie, 15 x 8 x 10 cm replie, balle Ø 4 cm.",
+    },
+    name: "Le Griffoir Accordéon",
+    brandLine: "Maison Loravie",
+    badge: "OFFRE D'AUTOMNE",
+    headline: "Un coin à griffer, une balle à pourchasser : le salon respire.",
+    subtitle:
+      "Un griffoir pour chat en carton plié en accordéon, avec une balle à grelot cachée à l'intérieur. Il se déplie en deux anneaux et se replie pour se ranger.",
+    heroBullets: [
+      "Griffoir en accordéon, Ø 24 cm une fois déplié",
+      "Balle à grelot incluse, pour jouer et attirer l'attention",
+      "Aucune pile nécessaire",
+      "Se replie en 15 × 8 × 10 cm pour se ranger facilement",
+    ],
+    h1: "Griffoir accordéon pour chat avec balle à grelot, jouet sans pile",
+    shortDescription:
+      "Griffoir pour chat en carton plié en accordéon, avec balle à grelot incluse. Se déplie en deux anneaux (Ø 24 cm), sans pile, pour jouer et préserver les meubles.",
+    description: [
+      "Le Griffoir Accordéon est à la fois un grattoir et un terrain de jeu. Son carton plié en accordéon se déplie en deux anneaux superposés, au centre desquels roule une balle à grelot : le chat gratte, pousse, guette la balle et recommence.",
+      "Il mesure environ 24 cm de diamètre une fois déplié, et se replie en 15 × 8 × 10 cm : assez compact pour trouver sa place dans un coin du salon ou d'un petit appartement, et facile à ranger quand il ne sert pas.",
+      "Aucune pile, aucun branchement : on le déplie, on le pose, et le jeu commence. Offrir un endroit où griffer aide à garder les canapés et les chaises tranquilles.",
+    ],
+    storytelling: {
+      eyebrow: "Pour les chats qui griffent",
+      title: "Un endroit à eux, pour ménager le canapé.",
+      paragraphs: [
+        "Griffer est un besoin naturel du chat. Lui proposer un endroit pour le faire, c'est souvent la première étape pour que les meubles soient épargnés.",
+        "Le Griffoir Accordéon ajoute un peu de jeu : la balle à grelot cachée entre les anneaux donne envie de revenir, sans qu'il faille brancher quoi que ce soit.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Ça fonctionne avec des piles ?",
+        response:
+          "Non, aucune pile ni aucun branchement. Le jouet se déplie à la main et la balle roule librement à l'intérieur.",
+      },
+      {
+        doubt: "Est-ce que ça prend beaucoup de place ?",
+        response:
+          "Une fois déplié, il mesure environ 24 cm de diamètre. Replié, il tient dans environ 15 × 8 × 10 cm.",
+      },
+      {
+        doubt: "La balle est-elle fournie ?",
+        response: "Oui, une balle à grelot d'environ 4 cm de diamètre est incluse.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si mon chat n'en veut pas ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et le retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Un griffoir en accordéon, Ø 24 cm déplié",
+      "Une balle à grelot incluse",
+      "Aucune pile nécessaire",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+    ],
+    midCtaTexts: [
+      "Le canapé a déjà trop souffert ?",
+      "Prêt à offrir un terrain de jeu à votre chat ?",
+    ],
+    costPriceUSD: 0,
+    priceCHF: 19.99,
+    priceEUR: 19.99,
+    compareAtPriceCHF: 29.99,
+    compareAtPriceEUR: 29.99,
+    images: [
+      {
+        src: "/images/products/griffoir-accordeon/principale.jpg",
+        alt: "Griffoir pour chat en carton plié en accordéon, déplié en deux anneaux avec une balle à grelot verte, et un modèle replié orné de pattes de chat",
+        caption: "Déplié en deux anneaux, avec sa balle",
+      },
+      {
+        src: "/images/products/griffoir-accordeon/dimensions.jpg",
+        alt: "Dimensions du griffoir : 24 cm de diamètre déplié, 15 cm de long, 8 cm de large et 10 cm de haut replié, balle de 4 cm",
+        caption: "Dimensions : Ø 24 cm déplié, 15 × 8 × 10 cm replié",
+        info: true,
+      },
+      {
+        src: "/images/products/griffoir-accordeon/chat-et-balle.jpg",
+        alt: "Chat blanc qui attrape du bout de la patte la balle à grelot cachée entre les anneaux du griffoir accordéon",
+        caption: "La balle cachée entre les anneaux",
+      },
+    ],
+    benefits: [
+      {
+        icon: "cat",
+        title: "Griffer au bon endroit",
+        description: "Un support pour satisfaire l'envie de griffer, loin du canapé.",
+      },
+      {
+        icon: "music",
+        title: "Une balle à grelot incluse",
+        description: "Elle roule entre les anneaux et attire l'attention du chat.",
+      },
+      {
+        icon: "battery",
+        title: "Aucune pile",
+        description: "On le déplie et on le pose : rien à recharger, rien à brancher.",
+      },
+      {
+        icon: "move",
+        title: "Se replie pour se ranger",
+        description: "15 × 8 × 10 cm replié, pratique pour les petits espaces.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Salon",
+        description: "Un coin à griffer près du canapé, pour détourner les griffes.",
+      },
+      {
+        title: "Petit appartement",
+        description: "Compact, il se replie et se range quand il ne sert pas.",
+      },
+      {
+        title: "Chats joueurs",
+        description: "La balle à grelot incite à jouer seul, sans effort pour vous.",
+      },
+      {
+        title: "Idée cadeau",
+        description: "Une attention simple pour un propriétaire de chat ou un nouvel adopté.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions du griffoir ?",
+        answer:
+          "Il mesure environ 24 cm de diamètre une fois déplié. Replié, il fait environ 15 cm de long, 8 cm de large et 10 cm de haut. La balle mesure environ 4 cm.",
+      },
+      {
+        question: "De quoi est-il fait ?",
+        answer: "D'un carton ondulé plié en accordéon, avec une balle à grelot en plastique.",
+      },
+      {
+        question: "Faut-il des piles ?",
+        answer: "Non, aucune pile ni aucun branchement.",
+      },
+      {
+        question: "La balle est-elle incluse ?",
+        answer: "Oui, une balle à grelot est fournie avec le griffoir.",
+      },
+      {
+        question: "Comment le replier ?",
+        answer: "Il se plie à la main sur lui-même, en accordéon, pour se ranger en environ 15 × 8 × 10 cm.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Griffoir accordéon pour chat avec balle | Maison Loravie",
+      metaDescription:
+        "Griffoir pour chat en accordéon avec balle à grelot, sans pile. Ø 24 cm déplié, se replie pour se ranger. Livraison offerte, retours gratuits sous 30 jours.",
+      keywords: [
+        "griffoir chat accordéon",
+        "griffoir carton chat",
+        "jouet chat balle à grelot",
+        "griffoir pour chat pas cher",
+        "jouet chat sans pile",
+        "griffoir chat appartement",
+        "idée cadeau chat",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre d'automne",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    // Avis de demonstration : voir reviews-griffoir-accordeon.ts (lus par la section avis uniquement).
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["nos-compagnons", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /**

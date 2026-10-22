@@ -1,5 +1,6 @@
 import { Review } from "./types";
 import { vesteChienReviews } from "./reviews-veste-chien";
+import { griffoirAccordeonReviews } from "./reviews-griffoir-accordeon";
 import { lanterneFelineReviews } from "./reviews-lanterne-feline";
 import { coussinAllaitementReviews } from "./reviews-coussin-allaitement";
 import { ventilateurPlafondReviews } from "./reviews-ventilateur-plafond";
@@ -18,6 +19,7 @@ import { plateauVagueReviews } from "./reviews-plateau-vague";
  */
 export const demoReviewsBySlug: Record<string, Review[]> = {
   "veste-chien-hiver-impermeable": vesteChienReviews,
+  "griffoir-chat-accordeon-balle": griffoirAccordeonReviews,
   "crochet-chat-lanterne": lanterneFelineReviews,
   "coussin-bras-allaitement-biberon": coussinAllaitementReviews,
   "ventilateur-plafond-invisible-led": ventilateurPlafondReviews,
