@@ -4,9 +4,11 @@ import { getPriceRange, hasSizes } from "@/lib/sku";
 import { getPriceForCurrency } from "@/lib/currency";
 import { isShippableToNorthAmerica } from "@/lib/shipping";
 import type { Currency } from "@/lib/types";
+import { localizePath, type Locale } from "@/i18n/config";
+import { translate } from "@/i18n/messages";
 
-export function ProductJsonLd({ product }: { product: Product }) {
-  const url = `${siteConfig.domain}/produit/${product.slug}`;
+export function ProductJsonLd({ product, locale = "fr" }: { product: Product; locale?: Locale }) {
+  const url = `${siteConfig.domain}${localizePath(`/produit/${product.slug}`, locale)}`;
   const realReviews = product.reviews.filter((r) => !r.demo);
   const sized = hasSizes(product);
   // Produit a tailles : le stock se suit par coloris x taille ; il est disponible tant qu'une combinaison l'est.
@@ -109,7 +111,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: siteConfig.domain },
+      { "@type": "ListItem", position: 1, name: translate(locale, "Accueil"), item: `${siteConfig.domain}${localizePath("/", locale)}` },
       { "@type": "ListItem", position: 2, name: product.name, item: url },
     ],
   };

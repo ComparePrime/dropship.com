@@ -5,16 +5,18 @@ import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { PromoBlock } from "@/components/product/promo-block";
 import { TrustBadges } from "@/components/trust-badges";
+import { useT } from "@/i18n/provider";
 
 /** Bloc commercial fort, reprenant l'offre réelle sans jamais fabriquer de fausse promotion. */
 export function OfferSection({ product }: { product: Product }) {
+  const t = useT();
   const { addItem } = useCart();
   const { currency } = useCurrency();
 
   return (
     <section className="bg-sand/50 py-16 md:py-24">
       <div className="container-content text-center">
-        <h2 className="section-title">Offre du moment</h2>
+        <h2 className="section-title">{t("Offre du moment")}</h2>
         <div className="mx-auto mt-8">
           <PromoBlock product={product} currency={currency} variant="full" />
         </div>
@@ -26,8 +28,7 @@ export function OfferSection({ product }: { product: Product }) {
           onClick={() => addItem(product, 1)}
           className="btn-primary mt-8"
         >
-          Ajouter au panier
-        </button>
+          {t("Ajouter au panier")}</button>
       </div>
     </section>
   );

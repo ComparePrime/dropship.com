@@ -7,15 +7,17 @@ import { useCurrency } from "@/context/currency-context";
 import { getCardImage } from "@/lib/product-images";
 import { ProductCardRating } from "@/components/product-card-price";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
+import { useT } from "@/i18n/provider";
 
 export function RelatedProducts({ products }: { products: Product[] }) {
+  const t = useT();
   const { currency } = useCurrency();
 
   if (products.length === 0) return null;
 
   return (
     <section className="container-content py-16 md:py-24">
-      <h2 className="section-title text-center">Vous pourriez également aimer</h2>
+      <h2 className="section-title text-center">{t("Vous pourriez également aimer")}</h2>
       <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {products.map((product) => (
           <Link

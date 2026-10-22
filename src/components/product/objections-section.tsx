@@ -1,17 +1,19 @@
 import { Objection } from "@/lib/types";
 import { Icon } from "@/components/icons";
+import { getT } from "@/i18n/server";
 
 /**
  * Traite directement les doutes qui empêchent l'achat, sous forme affirmative
  * (contrairement à la FAQ, qui reste une liste de questions factuelles).
  */
 export function ObjectionsSection({ objections }: { objections: Objection[] }) {
+  const t = getT();
   if (objections.length === 0) return null;
 
   return (
     <section className="bg-sand/60 py-16 md:py-24">
       <div className="container-content">
-        <h2 className="section-title text-center">Ce que vous vous demandez peut-être</h2>
+        <h2 className="section-title text-center">{t("Ce que vous vous demandez peut-être")}</h2>
         <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
           {objections.map((o) => (
             <div key={o.doubt} className="rounded-xl2 bg-white/60 p-6">

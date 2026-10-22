@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ShippingConfig } from "@/lib/types";
 import { Icon } from "@/components/icons";
+import { useT } from "@/i18n/provider";
 
 const Clock = Icon.clock;
 const Truck = Icon.truck;
@@ -17,6 +18,7 @@ function formatDate(date: Date) {
  * chiffre fixe écrit en dur. Les dates affichées sont donc toujours à jour.
  */
 export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
+  const t = useT();
   // Dates calculees dans le navigateur (jour reel de la visite) : le HTML genere a la
   // construction du site afficherait sinon la date du build et provoquerait un decalage a l'hydratation.
   const [range, setRange] = useState<string | null>(null);
@@ -35,8 +37,8 @@ export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
           <Clock className="h-4 w-4" strokeWidth={1.5} />
         </span>
         <div>
-          <p className="font-medium text-ink">Commande</p>
-          <p>Aujourd&apos;hui</p>
+          <p className="font-medium text-ink">{t("Commande")}</p>
+          <p>{t("Aujourd'hui")}</p>
         </div>
       </div>
       <div className="h-px flex-1 bg-ink/10" aria-hidden="true" />
@@ -45,8 +47,8 @@ export function DeliveryEstimate({ shipping }: { shipping: ShippingConfig }) {
           <Truck className="h-4 w-4" strokeWidth={1.5} />
         </span>
         <div>
-          <p className="font-medium text-ink">Livraison estimée</p>
-          <p>{range ?? `${shipping.minDays} à ${shipping.maxDays} jours ouvrables`}</p>
+          <p className="font-medium text-ink">{t("Livraison estimée")}</p>
+          <p>{range ?? t("{min} à {max} jours ouvrables", { min: shipping.minDays, max: shipping.maxDays })}</p>
         </div>
       </div>
     </div>

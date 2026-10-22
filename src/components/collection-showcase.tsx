@@ -8,6 +8,7 @@ import { getProductBySlug } from "@/lib/products";
 import { useCurrency } from "@/context/currency-context";
 import { formatPrice, getPriceForCurrency } from "@/lib/currency";
 import { Icon } from "@/components/icons";
+import { useT } from "@/i18n/provider";
 
 /**
  * Section "Decouvrez la collection" : une photo editoriale (jamais recadree
@@ -20,6 +21,7 @@ import { Icon } from "@/components/icons";
  * URL — a activer des que le vrai produit est identifie/publie.
  */
 export function CollectionShowcase() {
+  const t = useT();
   const { currency } = useCurrency();
   const [activeId, setActiveId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,8 +59,8 @@ export function CollectionShowcase() {
 
   return (
     <section className="container-content py-16 md:py-24">
-      <h2 className="section-title text-center">{title}</h2>
-      <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">{tagline}</p>
+      <h2 className="section-title text-center">{t(title)}</h2>
+      <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">{t(tagline)}</p>
 
       {/*
         Les points interactifs sont des freres du cadre image (pas des
@@ -70,7 +72,7 @@ export function CollectionShowcase() {
         <div className="relative aspect-[5/4] w-full overflow-hidden rounded-xl2 bg-sand md:aspect-[4/3]">
           <Image
             src={image.src}
-            alt={image.alt}
+            alt={t(image.alt)}
             fill
             sizes="(min-width: 1024px) 896px, 100vw"
             className="object-cover"
@@ -83,7 +85,7 @@ export function CollectionShowcase() {
             const price = product
               ? getPriceForCurrency(product.priceCHF, product.priceEUR, currency)
               : null;
-            const label = product ? product.name : hotspot.placeholderLabel ?? "Bientôt disponible";
+            const label = product ? t(product.name) : t(hotspot.placeholderLabel ?? "Bientôt disponible");
 
             return (
               <div
@@ -95,7 +97,7 @@ export function CollectionShowcase() {
                   type="button"
                   aria-haspopup="true"
                   aria-expanded={isActive}
-                  aria-label={product ? `Voir ${product.name}` : label}
+                  aria-label={product ? t("Voir {name}", { name: t(product.name) }) : label}
                   onMouseEnter={() => setActiveId(hotspot.id)}
                   onFocus={() => setActiveId(hotspot.id)}
                   onClick={() => setActiveId(hotspot.id)}
@@ -130,7 +132,7 @@ export function CollectionShowcase() {
                           </div>
                         )}
                         <div className="min-w-0">
-                          <p className="truncate text-xs font-medium text-ink">{product.name}</p>
+                          <p className="truncate text-xs font-medium text-ink">{t(product.name)}</p>
                           <p className="text-xs text-ink/60">{formatPrice(price!, currency)}</p>
                         </div>
                       </div>
@@ -139,8 +141,7 @@ export function CollectionShowcase() {
                         className="btn-primary mt-3 block py-2 text-center text-xs"
                         tabIndex={isActive ? 0 : -1}
                       >
-                        Découvrir
-                      </Link>
+                        {t("Découvrir")}</Link>
                     </>
                   ) : (
                     <p className="text-center text-xs text-ink/60">{label}</p>
@@ -172,7 +173,7 @@ export function CollectionShowcase() {
                     )}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-xs font-medium text-ink">{product.name}</p>
+                    <p className="truncate text-xs font-medium text-ink">{t(product.name)}</p>
                     <p className="text-xs text-ink/60">{formatPrice(price, currency)}</p>
                   </div>
                 </Link>

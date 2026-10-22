@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { defaultLocale, Locale } from "./config";
-import { translate, Vars } from "./messages";
+import { translate } from "./messages";
+import type { Vars } from "./translate";
 
 /**
  * Langue de la requete en cours, pour les composants SERVEUR. Chaque page (et chaque layout) appelle

@@ -1,8 +1,12 @@
+"use client";
+
 import { siteConfig } from "@/lib/site-config";
 import { Icon, IconName } from "@/components/icons";
 import clsx from "clsx";
+import { useT } from "@/i18n/provider";
 
 export function TrustBadges({ compact = false }: { compact?: boolean }) {
+  const t = useT();
   return (
     <ul
       className={clsx(
@@ -15,7 +19,7 @@ export function TrustBadges({ compact = false }: { compact?: boolean }) {
         return (
           <li key={item.label} className="flex items-center gap-2">
             <IconComp className="h-4 w-4 flex-shrink-0 text-sage" strokeWidth={1.5} />
-            <span>{item.label}</span>
+            <span>{t(item.label)}</span>
           </li>
         );
       })}

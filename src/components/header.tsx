@@ -8,10 +8,12 @@ import { Icon } from "@/components/icons";
 import { CurrencySwitcher } from "@/components/currency-switcher";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/categories";
+import { useT } from "@/i18n/provider";
 
 const ChevronDown = Icon["chevron-down"];
 
 export function Header() {
+  const t = useT();
   const { totalItems, openCart } = useCart();
   const [universesOpen, setUniversesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -47,7 +49,7 @@ export function Header() {
               aria-expanded={universesOpen}
               onClick={() => setUniversesOpen((v) => !v)}
             >
-              Univers
+              {t("Univers")}
               <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
             </button>
             {universesOpen && (
@@ -69,11 +71,9 @@ export function Header() {
             )}
           </div>
           <Link href="/a-propos" className="hover:text-ink">
-            À propos
-          </Link>
+            {t("À propos")}</Link>
           <Link href="/contact" className="hover:text-ink">
-            Contact
-          </Link>
+            {t("Contact")}</Link>
         </nav>
 
         <div className="flex items-center gap-1 md:gap-5">
@@ -83,11 +83,11 @@ export function Header() {
           <button
             type="button"
             onClick={openCart}
-            aria-label="Ouvrir le panier"
+            aria-label={t("Ouvrir le panier")}
             className="relative flex h-10 items-center gap-2 rounded-full border border-ink/15 bg-white/60 px-4 text-sm font-medium text-ink transition-colors hover:bg-sand"
           >
             <Icon.bag className="h-[18px] w-[18px]" strokeWidth={1.5} />
-            <span>Panier</span>
+            <span>{t("Panier")}</span>
             {totalItems > 0 && (
               <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-sage text-[11px] font-medium text-white">
                 {totalItems}
@@ -97,7 +97,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={mobileOpen ? t("Fermer le menu") : t("Ouvrir le menu")}
             aria-expanded={mobileOpen}
             className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-ink/5 md:hidden"
           >
@@ -118,8 +118,7 @@ export function Header() {
         <nav className="border-t border-ink/10 bg-cream md:hidden">
           <div className="container-content flex flex-col py-4 text-sm">
             <p className="px-1 pb-1 pt-3 text-xs font-medium uppercase tracking-widest text-stone">
-              Univers
-            </p>
+              {t("Univers")}</p>
             {categories.map((c) => (
               <Link
                 key={c.slug}
@@ -136,15 +135,13 @@ export function Header() {
                 className="block rounded-lg px-1 py-3 text-ink/85 hover:text-ink"
                 onClick={() => setMobileOpen(false)}
               >
-                À propos
-              </Link>
+                {t("À propos")}</Link>
               <Link
                 href="/contact"
                 className="block rounded-lg px-1 py-3 text-ink/85 hover:text-ink"
                 onClick={() => setMobileOpen(false)}
               >
-                Contact
-              </Link>
+                {t("Contact")}</Link>
             </div>
             <div className="mt-3 border-t border-ink/10 pt-4">
               <CurrencySwitcher />

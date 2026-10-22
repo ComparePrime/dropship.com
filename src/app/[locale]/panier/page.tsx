@@ -16,8 +16,10 @@ import { getCartTotals } from "@/lib/cart-totals";
 import { countMultiBuyUnits, MULTI_BUY } from "@/lib/multi-buy";
 import { useCheckout } from "@/lib/use-checkout";
 import { useCampaign } from "@/lib/use-campaign";
+import { useT } from "@/i18n/provider";
 
 export default function CartPage() {
+  const t = useT();
   const { lines, promo, updateQuantity, removeItem } = useCart();
   const { currency } = useCurrency();
   const { startCheckout, loading, error } = useCheckout();
@@ -46,14 +48,13 @@ export default function CartPage() {
 
   return (
     <section className="container-content py-14">
-      <h1 className="section-title">Votre panier</h1>
+      <h1 className="section-title">{t("Votre panier")}</h1>
 
       {lines.length === 0 ? (
         <div className="mt-10 text-center">
-          <p className="text-stone">Votre panier est vide pour le moment.</p>
+          <p className="text-stone">{t("Votre panier est vide pour le moment.")}</p>
           <Link href="/" className="btn-primary mt-6 inline-flex">
-            Continuer mes achats
-          </Link>
+            {t("Continuer mes achats")}</Link>
         </div>
       ) : (
         <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -84,7 +85,7 @@ export default function CartPage() {
                       </div>
                       <button
                         onClick={() => removeItem(line.productId, line.variantLabel)}
-                        aria-label="Retirer l'article"
+                        aria-label={t("Retirer l'article")}
                         className="text-stone hover:text-ink"
                       >
                         <Icon.close className="h-4 w-4" />
@@ -93,14 +94,14 @@ export default function CartPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 rounded-full border border-ink/15 px-2 py-1">
                         <button
-                          aria-label="Diminuer la quantité"
+                          aria-label={t("Diminuer la quantité")}
                           onClick={() => updateQuantity(line.productId, line.quantity - 1, line.variantLabel)}
                         >
                           <Icon.minus className="h-3.5 w-3.5" />
                         </button>
                         <span className="w-4 text-center text-sm">{line.quantity}</span>
                         <button
-                          aria-label="Augmenter la quantité"
+                          aria-label={t("Augmenter la quantité")}
                           onClick={() => updateQuantity(line.productId, line.quantity + 1, line.variantLabel)}
                         >
                           <Icon.plus className="h-3.5 w-3.5" />
@@ -121,7 +122,7 @@ export default function CartPage() {
 
             {suggestions.length > 0 && (
               <div className="mt-10">
-                <p className="text-sm font-medium text-ink">Vous pourriez aussi aimer</p>
+                <p className="text-sm font-medium text-ink">{t("Vous pourriez aussi aimer")}</p>
                 <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
                   {suggestions.map((p) => (
                     <Link key={p.id} href={`/produit/${p.slug}`} className="group">
@@ -149,41 +150,41 @@ export default function CartPage() {
 
             {countMultiBuyUnits(lines) > 0 && countMultiBuyUnits(lines) < MULTI_BUY.minUnits && (
               <p className="mb-3 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
-                Ajoutez une 2ᵉ veste : −{MULTI_BUY.percent} % sur votre panier.
+                {t("Ajoutez une 2ᵉ veste : −{percent} % sur votre panier.", { percent: MULTI_BUY.percent })}
               </p>
             )}
             {blockedForNorthAmerica.length > 0 && (
               <p role="alert" className="mb-3 rounded-lg bg-blush/30 px-3 py-2 text-xs text-terracottaText">
-                Livraison aux États-Unis et au Canada indisponible pour :{" "}
-                {blockedForNorthAmerica.map((l) => l.name).join(", ")}. Retirez ces articles ou passez en EUR/CHF
-                (livraison Europe et Suisse).
+                {t("Livraison aux États-Unis et au Canada indisponible pour : {names}. Retirez ces articles ou passez en EUR/CHF (livraison Europe et Suisse).", {
+                  names: blockedForNorthAmerica.map((l) => l.name).join(", "),
+                })}
               </p>
             )}
             <div className="mt-5 flex items-center justify-between text-sm text-stone">
-              <span>Sous-total</span>
+              <span>{t("Sous-total")}</span>
               <span>{formatPrice(subtotal, currency)}</span>
             </div>
             {discount > 0 && (
               <div className="mt-2 flex items-center justify-between text-sm text-sage">
                 <span>
                   {discountSource === "multi-buy"
-                    ? `${MULTI_BUY.label} (−${discountPercent} %)`
-                    : `Remise ${promo?.code} (−${discountPercent} %)`}
+                    ? `${t(MULTI_BUY.label)} (−${discountPercent} %)`
+                    : t("Remise {code} (−{percent} %)", { code: promo?.code ?? "", percent: discountPercent })}
                 </span>
                 <span>−{formatPrice(discount, currency)}</span>
               </div>
             )}
             <div className="mt-2 flex items-center justify-between text-sm text-stone">
-              <span>Livraison</span>
-              <span>Offerte</span>
+              <span>{t("Livraison")}</span>
+              <span>{t("Offerte")}</span>
             </div>
             <div className="mt-4 flex items-center justify-between border-t border-ink/10 pt-4 font-display text-xl">
-              <span>Total</span>
+              <span>{t("Total")}</span>
               <span>{formatPrice(total, currency)}</span>
             </div>
             {totalSavings > 0 && (
               <p className="mt-1 text-right text-sm font-medium text-sage">
-                Vous économisez {formatPrice(totalSavings, currency)}
+                {t("Vous économisez {amount}", { amount: formatPrice(totalSavings, currency) })}
               </p>
             )}
 
@@ -192,7 +193,7 @@ export default function CartPage() {
               disabled={loading || lines.length === 0}
               className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Redirection vers le paiement…" : "Passer au paiement"}
+              {loading ? t("Redirection vers le paiement…") : t("Passer au paiement")}
             </button>
             {error && (
               <p role="alert" className="mt-3 text-sm text-terracottaText">
@@ -200,8 +201,7 @@ export default function CartPage() {
               </p>
             )}
             <p className="mt-4 text-center text-xs text-stone">
-              Paiement sécurisé via Stripe · Retours gratuits 30 jours
-            </p>
+              {t("Paiement sécurisé via Stripe · Retours gratuits 30 jours")}</p>
           </div>
         </div>
       )}

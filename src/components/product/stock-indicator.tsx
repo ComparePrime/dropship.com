@@ -1,5 +1,6 @@
 import { StockInfo } from "@/lib/types";
 import { LOW_STOCK_THRESHOLD, URGENT_STOCK_THRESHOLD } from "@/lib/stock-config";
+import { useT } from "@/i18n/provider";
 
 /**
  * N'affiche rien si aucun stock n'est declare pour ce produit
@@ -9,6 +10,7 @@ import { LOW_STOCK_THRESHOLD, URGENT_STOCK_THRESHOLD } from "@/lib/stock-config"
  * visites (aucun tirage aleatoire, aucune baisse simulee).
  */
 export function StockIndicator({ stock }: { stock?: StockInfo }) {
+  const t = useT();
   if (!stock || stock.source === "none") return null;
 
   const { quantity, referenceCapacity } = stock;
@@ -18,17 +20,17 @@ export function StockIndicator({ stock }: { stock?: StockInfo }) {
   const isUrgent = !isOut && quantity <= URGENT_STOCK_THRESHOLD;
 
   const label = isOut
-    ? "Temporairement indisponible"
+    ? t("Temporairement indisponible")
     : isLow
-      ? `Plus que ${quantity} pièce${quantity > 1 ? "s" : ""} en stock`
-      : "En stock";
+      ? t(quantity > 1 ? "Plus que {count} pièces en stock" : "Plus que {count} pièce en stock", { count: quantity })
+      : t("En stock");
 
   return (
     <div className="mt-3">
       <p className={`text-sm font-medium ${isOut || isUrgent ? "text-terracottaText" : "text-sage"}`}>
         {label}
         {isUrgent && (
-          <span className="font-normal text-ink/70"> — commandez avant épuisement</span>
+          <span className="font-normal text-ink/70"> {t("— commandez avant épuisement")}</span>
         )}
       </p>
       {!isOut && (
@@ -38,7 +40,7 @@ export function StockIndicator({ stock }: { stock?: StockInfo }) {
           aria-valuenow={quantity}
           aria-valuemin={0}
           aria-valuemax={referenceCapacity}
-          aria-label="Niveau de stock disponible"
+          aria-label={t("Niveau de stock disponible")}
         >
           <div
             className={`h-full rounded-full ${isUrgent ? "bg-terracotta" : "bg-sage"} ${

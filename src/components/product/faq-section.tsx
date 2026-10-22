@@ -4,15 +4,17 @@ import { useState } from "react";
 import { FaqItem } from "@/lib/types";
 import { Icon } from "@/components/icons";
 import clsx from "clsx";
+import { useT } from "@/i18n/provider";
 
 const ChevronDown = Icon["chevron-down"];
 
 export function FaqSection({ faq }: { faq: FaqItem[] }) {
+  const t = useT();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="container-content py-16 md:py-24" id="faq">
-      <h2 className="section-title text-center">Questions fréquentes</h2>
+      <h2 className="section-title text-center">{t("Questions fréquentes")}</h2>
       <div className="mx-auto mt-10 max-w-2xl divide-y divide-ink/10">
         {faq.map((item, idx) => {
           const isOpen = openIndex === idx;

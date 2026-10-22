@@ -6,6 +6,7 @@ import { formatPrice, getOptionalPrice, getPriceForCurrency } from "@/lib/curren
 import { Icon } from "@/components/icons";
 import { AUTUMN_CAMPAIGN } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
+import { useT } from "@/i18n/provider";
 
 /**
  * N'affiche un prix barré / une économie que si une vraie promotion est
@@ -24,6 +25,7 @@ export function PromoBlock({
   /** Vrai quand le prix de reference n'est pas celui de la campagne (ex: prix d'un lot compare aux unites). */
   ignoreCampaign?: boolean;
 }) {
+  const t = useT();
   const { running } = useCampaign();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
   const compareAt = getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, currency);
@@ -64,7 +66,7 @@ export function PromoBlock({
 
       <div className="mt-3 flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
         <span className="whitespace-nowrap font-display text-3xl text-ink sm:text-4xl">{formatPrice(price, currency)}</span>
-        <span className="whitespace-nowrap text-base text-ink/40 line-through sm:text-lg" aria-label="Prix de référence">
+        <span className="whitespace-nowrap text-base text-ink/40 line-through sm:text-lg" aria-label={t("Prix de référence")}>
           {formatPrice(compareAt!, currency)}
         </span>
         {discountPercent > 0 && (
@@ -75,7 +77,7 @@ export function PromoBlock({
       </div>
 
       <p className="mt-2 text-center text-sm font-medium text-sage">
-        Vous économisez {formatPrice(savings, currency)}
+        {t("Vous économisez {amount}", { amount: formatPrice(savings, currency) })}
       </p>
     </div>
   );

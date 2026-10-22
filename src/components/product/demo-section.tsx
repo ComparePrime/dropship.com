@@ -1,12 +1,14 @@
 import { DemoStep } from "@/lib/types";
+import { getT } from "@/i18n/server";
 
 /** Permet de comprendre le produit sans avoir besoin de retourner sur la fiche fournisseur. */
 export function DemoSection({ steps }: { steps: DemoStep[] }) {
+  const t = getT();
   if (steps.length === 0) return null;
 
   return (
     <section className="container-content py-16 md:py-24">
-      <h2 className="section-title text-center">Comment ça fonctionne</h2>
+      <h2 className="section-title text-center">{t("Comment ça fonctionne")}</h2>
       <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-8 md:grid-cols-3">
         {steps.map((step, idx) => (
           <div key={step.title} className="text-center">

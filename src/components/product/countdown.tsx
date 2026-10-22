@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/i18n/provider";
 
 function getRemaining(endsAt: string) {
   const diff = new Date(endsAt).getTime() - Date.now();
@@ -14,6 +15,7 @@ function getRemaining(endsAt: string) {
 
 /** N'est rendu que si une vraie date de fin de promotion est configuree. */
 export function Countdown({ endsAt }: { endsAt?: string }) {
+  const t = useT();
   const [remaining, setRemaining] = useState(() => (endsAt ? getRemaining(endsAt) : null));
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export function Countdown({ endsAt }: { endsAt?: string }) {
 
   return (
     <div className="flex items-center gap-2 text-xs text-ink/70">
-      <span>Se termine dans</span>
+      <span>{t("Se termine dans")}</span>
       <div className="flex gap-1 font-medium tabular-nums">
         <span>{remaining.days}j</span>
         <span>{String(remaining.hours).padStart(2, "0")}h</span>

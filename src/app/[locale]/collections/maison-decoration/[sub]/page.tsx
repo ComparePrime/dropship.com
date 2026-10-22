@@ -10,32 +10,40 @@ import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-p
 import { getCardImage } from "@/lib/product-images";
 
 interface Props {
-  params: { sub: string };
+  params: { locale: string; sub: string };
 }
 
 import { locales } from "@/i18n/config";
+import { alternatesFor, asLocale, pageSetup } from "@/i18n/page";
+import { localizeSubcategory } from "@/i18n/data";
+import { localizeProducts } from "@/i18n/product-translation";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => subcategories.map((s) => ({ locale, sub: s.slug })));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const sub = getSubcategory(params.sub);
-  if (!sub) return {};
-  const url = `${siteConfig.domain}/collections/maison-decoration/${sub.slug}`;
+  const locale = asLocale(params.locale);
+  const base = getSubcategory(params.sub);
+  if (!base) return {};
+  const sub = localizeSubcategory(base, locale);
+  const alternates = alternatesFor(locale, `/collections/maison-decoration/${sub.slug}`);
+  const url = alternates.canonical;
   return {
     title: { absolute: sub.seoTitle },
     description: sub.metaDescription,
-    alternates: { canonical: url },
+    alternates,
     openGraph: { title: sub.seoTitle, description: sub.metaDescription, url, type: "website" },
   };
 }
 
 export default function SubcategoryPage({ params }: Props) {
-  const sub = getSubcategory(params.sub);
-  if (!sub) notFound();
+  const { t, locale } = pageSetup(params);
+  const base = getSubcategory(params.sub);
+  if (!base) notFound();
+  const sub = localizeSubcategory(base, locale);
 
-  const published = getPublishedProducts();
+  const published = localizeProducts(getPublishedProducts(), locale);
   const products = sub.productSlugs
     .map((slug) => published.find((p) => p.slug === slug))
     .filter((p): p is NonNullable<typeof p> => !!p);
@@ -44,8 +52,8 @@ export default function SubcategoryPage({ params }: Props) {
     <section className="pb-16 pt-8 md:pb-24">
       <Breadcrumbs
         items={[
-          { label: "Accueil", href: "/" },
-          { label: "Maison & décoration", href: "/collections/maison-decoration" },
+          { label: t("Accueil"), href: "/" },
+          { label: t("Maison & décoration"), href: "/collections/maison-decoration" },
           { label: sub.title },
         ]}
       />
@@ -78,8 +86,7 @@ export default function SubcategoryPage({ params }: Props) {
         </div>
         <p className="mt-10 text-sm text-ink/60">
           <Link href="/collections/maison-decoration" className="underline underline-offset-2">
-            Voir toute la sélection Maison &amp; décoration
-          </Link>
+            {t("Voir toute la sélection Maison & décoration")}</Link>
         </p>
       </div>
     </section>

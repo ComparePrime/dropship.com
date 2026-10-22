@@ -1,5 +1,6 @@
 import Link from "@/i18n/link";
 import { Icon } from "@/components/icons";
+import { getT } from "@/i18n/server";
 
 export interface Crumb {
   label: string;
@@ -9,8 +10,9 @@ export interface Crumb {
 const ChevronRight = Icon["chevron-right"];
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
+  const t = getT();
   return (
-    <nav aria-label="Fil d'Ariane" className="container-content flex items-center gap-1.5 pt-6 text-xs text-stone">
+    <nav aria-label={t("Fil d'Ariane")} className="container-content flex items-center gap-1.5 pt-6 text-xs text-stone">
       {items.map((item, idx) => (
         <span key={item.label} className="flex items-center gap-1.5">
           {idx > 0 && <ChevronRight className="h-3 w-3" />}

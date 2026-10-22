@@ -16,12 +16,14 @@ import { getProductById } from "@/lib/products";
 import { LOW_STOCK_THRESHOLD, URGENT_STOCK_THRESHOLD } from "@/lib/stock-config";
 import { CartLine } from "@/lib/types";
 import { useCampaign } from "@/lib/use-campaign";
+import { useT } from "@/i18n/provider";
 
 const lineKey = (l: CartLine) => `${l.productId}-${l.variantLabel ?? ""}`;
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function CartDrawer() {
+  const t = useT();
   const { lines, promo, isOpen, totalItems, closeCart, updateQuantity, removeItem } = useCart();
   const { currency } = useCurrency();
   const { startCheckout, loading, error } = useCheckout();
@@ -145,11 +147,11 @@ export function CartDrawer() {
 
   return (
     <CartPortal>
-      <div className="fixed inset-0 z-[999]" role="dialog" aria-modal="true" aria-label="Panier">
+      <div className="fixed inset-0 z-[999]" role="dialog" aria-modal="true" aria-label={t("Panier")}>
         {/* Fond : couvre tout le viewport, opaque a 40 %, ferme le panier au clic. */}
         <button
           type="button"
-          aria-label="Fermer le panier"
+          aria-label={t("Fermer le panier")}
           tabIndex={-1}
           className={`fixed inset-0 h-full w-full bg-ink/40 ${
             closing ? "motion-safe:animate-cart-fade-out" : "motion-safe:animate-cart-fade-in"
@@ -166,17 +168,17 @@ export function CartDrawer() {
         >
           <div className="flex flex-shrink-0 items-center justify-between border-b border-ink/10 px-5 py-4">
             <h2 className="font-display text-2xl text-ink">
-              Votre panier
+              {t("Votre panier")}
               {totalItems > 0 && (
                 <span className="ml-2 font-sans text-sm font-normal text-stone">
-                  ({totalItems} article{totalItems > 1 ? "s" : ""})
+                  ({t(totalItems > 1 ? "{count} articles" : "{count} article", { count: totalItems })})
                 </span>
               )}
             </h2>
             <button
               ref={closeButtonRef}
               onClick={requestClose}
-              aria-label="Fermer le panier"
+              aria-label={t("Fermer le panier")}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:bg-sand"
             >
               <Icon.close className="h-5 w-5" />
@@ -185,10 +187,9 @@ export function CartDrawer() {
 
           {lines.length === 0 ? (
             <div className="px-5 py-10 text-center">
-              <p className="text-sm text-stone">Votre panier est vide pour le moment.</p>
+              <p className="text-sm text-stone">{t("Votre panier est vide pour le moment.")}</p>
               <Link href="/collections" onClick={requestClose} className="btn-primary mt-6 inline-flex">
-                Découvrir la boutique
-              </Link>
+                {t("Découvrir la boutique")}</Link>
             </div>
           ) : (
             <>
@@ -215,20 +216,20 @@ export function CartDrawer() {
                         className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-sand"
                       >
                         {line.image && (
-                          <Image src={line.image} alt={line.name} fill sizes="96px" className="object-cover" />
+                          <Image src={line.image} alt={t(line.name)} fill sizes="96px" className="object-cover" />
                         )}
                       </Link>
                       <div className="flex min-w-0 flex-1 flex-col">
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
-                            <p className="break-words text-[15px] font-medium leading-snug text-ink">{line.name}</p>
-                            {line.packLabel && <p className="text-xs text-sage">{line.packLabel}</p>}
-                            {line.variantLabel && <p className="text-sm text-stone">{line.variantLabel}</p>}
-                            <p className="text-xs text-stone">{formatPrice(unitPrice, currency)} l&apos;unité</p>
+                            <p className="break-words text-[15px] font-medium leading-snug text-ink">{t(line.name)}</p>
+                            {line.packLabel && <p className="text-xs text-sage">{t(line.packLabel)}</p>}
+                            {line.variantLabel && <p className="text-sm text-stone">{t(line.variantLabel)}</p>}
+                            <p className="text-xs text-stone">{t("{price} l'unité", { price: formatPrice(unitPrice, currency) })}</p>
                           </div>
                           <button
                             onClick={() => requestRemove(line)}
-                            aria-label={`Retirer ${line.name}`}
+                            aria-label={t("Retirer {name}", { name: t(line.name) })}
                             className="flex-shrink-0 p-1 text-stone transition-colors hover:text-ink"
                           >
                             <Icon.close className="h-4 w-4" />
@@ -238,7 +239,7 @@ export function CartDrawer() {
                         <div className="mt-auto flex items-end justify-between pt-2">
                           <div className="flex items-center gap-1 rounded-full border border-ink/15 px-1">
                             <button
-                              aria-label="Diminuer la quantité"
+                              aria-label={t("Diminuer la quantité")}
                               onClick={() =>
                                 line.quantity <= 1
                                   ? requestRemove(line)
@@ -250,7 +251,7 @@ export function CartDrawer() {
                             </button>
                             <span className="w-5 text-center text-sm font-medium">{line.quantity}</span>
                             <button
-                              aria-label="Augmenter la quantité"
+                              aria-label={t("Augmenter la quantité")}
                               disabled={atLimit}
                               onClick={() => updateQuantity(line.productId, line.quantity + 1, line.variantLabel)}
                               className="flex h-8 w-8 items-center justify-center text-ink/70 hover:text-ink disabled:opacity-30"
@@ -265,8 +266,7 @@ export function CartDrawer() {
 
                         {atLimit ? (
                           <p className="mt-2 text-xs text-terracottaText">
-                            Quantité maximale disponible atteinte.
-                          </p>
+                            {t("Quantité maximale disponible atteinte.")}</p>
                         ) : (
                           showLow && (
                             <p
@@ -274,7 +274,7 @@ export function CartDrawer() {
                                 stock!.quantity <= URGENT_STOCK_THRESHOLD ? "text-terracottaText" : "text-stone"
                               }`}
                             >
-                              Plus que {stock!.quantity} disponible{stock!.quantity > 1 ? "s" : ""}
+                              {t(stock!.quantity > 1 ? "Plus que {count} disponibles" : "Plus que {count} disponible", { count: stock!.quantity })}
                             </p>
                           )
                         )}
@@ -290,49 +290,48 @@ export function CartDrawer() {
               >
                 {showMultiBuyNudge && (
                   <p className="mb-3 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
-                    Ajoutez une 2ᵉ veste : −{MULTI_BUY.percent} % sur votre panier.
+                    {t("Ajoutez une 2ᵉ veste : −{percent} % sur votre panier.", { percent: MULTI_BUY.percent })}
                   </p>
                 )}
                 {discountSource === "multi-buy" && !!promo && (
                   <p className="mb-3 text-xs text-stone">
-                    La remise automatique n&apos;est pas cumulable avec un code promo : la plus avantageuse est appliquée.
-                  </p>
+                    {t("La remise automatique n'est pas cumulable avec un code promo : la plus avantageuse est appliquée.")}</p>
                 )}
                 <PromoCodeField />
 
                 <dl className="mt-4 space-y-1.5 text-sm">
                   <div className="flex items-center justify-between text-stone">
-                    <dt>Sous-total</dt>
+                    <dt>{t("Sous-total")}</dt>
                     <dd>{formatPrice(subtotal, currency)}</dd>
                   </div>
                   {hasDiscount && (
                     <div className="motion-safe:animate-soft-in flex items-center justify-between text-sage">
                       <dt>
                         {discountSource === "multi-buy"
-                          ? `${MULTI_BUY.label} (−${discountPercent} %)`
-                          : `Code ${promo!.code} (−${discountPercent} %)`}
+                          ? `${t(MULTI_BUY.label)} (−${discountPercent} %)`
+                          : t("Code {code} (−{percent} %)", { code: promo!.code, percent: discountPercent })}
                       </dt>
                       <dd>−{formatPrice(discount, currency)}</dd>
                     </div>
                   )}
                   <div className="flex items-center justify-between text-stone">
-                    <dt>Livraison</dt>
-                    <dd>Offerte</dd>
+                    <dt>{t("Livraison")}</dt>
+                    <dd>{t("Offerte")}</dd>
                   </div>
                 </dl>
 
                 <div className="mt-3 flex items-baseline justify-between border-t border-ink/10 pt-3">
-                  <span className="font-display text-xl text-ink">Total</span>
+                  <span className="font-display text-xl text-ink">{t("Total")}</span>
                   <span key={total} className="motion-safe:animate-total-pop font-display text-2xl text-ink">
                     {formatPrice(total, currency)}
                   </span>
                 </div>
                 {totalSavings > 0 && (
                   <p className="motion-safe:animate-soft-in mt-1 text-right text-sm font-medium text-sage">
-                    Vous économisez {formatPrice(totalSavings, currency)}
+                    {t("Vous économisez {amount}", { amount: formatPrice(totalSavings, currency) })}
                     {hasDiscount && includedSavings > 0 && (
                       <span className="block text-xs font-normal text-stone">
-                        dont {formatPrice(includedSavings, currency)} déjà déduits des prix + {formatPrice(discount, currency)} {discountSource === "multi-buy" ? "de remise automatique" : "avec le code"}
+                        {t(discountSource === "multi-buy" ? "dont {included} déjà déduits des prix + {discount} de remise automatique" : "dont {included} déjà déduits des prix + {discount} avec le code", { included: formatPrice(includedSavings, currency), discount: formatPrice(discount, currency) })}
                       </span>
                     )}
                   </p>
@@ -345,7 +344,7 @@ export function CartDrawer() {
                   className="btn-primary mt-4 w-full gap-2 py-4 text-base disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <Icon.lock className="h-4 w-4" strokeWidth={1.75} />
-                  {loading ? "Redirection vers le paiement…" : "Passer au paiement"}
+                  {loading ? t("Redirection vers le paiement…") : t("Passer au paiement")}
                 </button>
                 {error && (
                   <p role="alert" className="mt-3 text-center text-sm text-terracottaText">
@@ -353,8 +352,7 @@ export function CartDrawer() {
                   </p>
                 )}
                 <p className="mt-3 text-center text-xs text-stone">
-                  Votre sélection est prête à être commandée · Paiement sécurisé via Stripe
-                </p>
+                  {t("Votre sélection est prête à être commandée · Paiement sécurisé via Stripe")}</p>
               </div>
             </>
           )}

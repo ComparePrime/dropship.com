@@ -11,23 +11,30 @@ import { ProductCardPrice, CampaignCardBadge } from "@/components/product-card-p
 import { getCardImage } from "@/lib/product-images";
 
 interface Props {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }
 
 import { locales } from "@/i18n/config";
+import { alternatesFor, asLocale, pageSetup } from "@/i18n/page";
+import { localizeCategory } from "@/i18n/data";
+import { localizeProducts } from "@/i18n/product-translation";
+import { localizePath } from "@/i18n/config";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => categories.map((c) => ({ locale, slug: c.slug })));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const category = getCategoryBySlug(params.slug);
-  if (!category) return {};
-  const url = `${siteConfig.domain}/collections/${category.slug}`;
+  const locale = asLocale(params.locale);
+  const base = getCategoryBySlug(params.slug);
+  if (!base) return {};
+  const category = localizeCategory(base, locale);
+  const alternates = alternatesFor(locale, `/collections/${category.slug}`);
+  const url = alternates.canonical;
   return {
     title: { absolute: category.seo.title },
     description: category.seo.metaDescription,
-    alternates: { canonical: url },
+    alternates,
     openGraph: {
       title: category.seo.title,
       description: category.seo.metaDescription,
@@ -38,18 +45,23 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function CollectionPage({ params }: Props) {
-  const category = getCategoryBySlug(params.slug);
-  if (!category) notFound();
+  const { t, locale } = pageSetup(params);
+  const base = getCategoryBySlug(params.slug);
+  if (!base) notFound();
+  const category = localizeCategory(base, locale);
 
-  const products = getPublishedProducts().filter((p) => p.collections.includes(category.slug));
+  const products = localizeProducts(
+    getPublishedProducts().filter((p) => p.collections.includes(category.slug)),
+    locale
+  );
   const CategoryIcon = Icon[category.icon];
 
   return (
     <section className="pb-16 pt-8 md:pb-24">
       <Breadcrumbs
         items={[
-          { label: "Accueil", href: "/" },
-          { label: "Univers", href: "/collections" },
+          { label: t("Accueil"), href: "/" },
+          { label: t("Univers"), href: "/collections" },
           { label: category.title },
         ]}
       />
@@ -115,15 +127,12 @@ export default function CollectionPage({ params }: Props) {
               <CategoryIcon className="h-6 w-6" strokeWidth={1.5} />
             </span>
             <h2 className="mt-5 font-display text-xl text-ink">
-              Cet univers se prépare avec soin
-            </h2>
+              {t("Cet univers se prépare avec soin")}</h2>
             <p className="mt-2 text-sm text-ink/70">
-              Nous sélectionnons actuellement les prochains objets de la catégorie{" "}
-              {category.title.toLowerCase()}. Revenez bientôt les découvrir.
+              {t("Nous sélectionnons actuellement les prochains objets de la catégorie {category}. Revenez bientôt les découvrir.", { category: category.title.toLowerCase() })}
             </p>
             <Link href="/collections" className="btn-secondary mt-6">
-              Découvrir nos autres univers
-            </Link>
+              {t("Découvrir nos autres univers")}</Link>
           </div>
         )}
       </div>
@@ -137,14 +146,14 @@ export default function CollectionPage({ params }: Props) {
               "@type": "CollectionPage",
               name: category.title,
               description: category.seo.metaDescription,
-              url: `${siteConfig.domain}/collections/${category.slug}`,
+              url: `${siteConfig.domain}${localizePath(`/collections/${category.slug}`, locale)}`,
               mainEntity: {
                 "@type": "ItemList",
                 numberOfItems: products.length,
                 itemListElement: products.map((p, i) => ({
                   "@type": "ListItem",
                   position: i + 1,
-                  url: `${siteConfig.domain}/produit/${p.slug}`,
+                  url: `${siteConfig.domain}${localizePath(`/produit/${p.slug}`, locale)}`,
                   name: p.name,
                 })),
               },
@@ -166,7 +175,7 @@ export default function CollectionPage({ params }: Props) {
         ))}
 
         <div>
-          <h2 className="font-display text-2xl text-ink">Questions fréquentes</h2>
+          <h2 className="font-display text-2xl text-ink">{t("Questions fréquentes")}</h2>
           <dl className="mt-4 divide-y divide-ink/10">
             {category.faq.map((item) => (
               <div key={item.question} className="py-4">

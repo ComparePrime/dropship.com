@@ -1,22 +1,22 @@
 import { Product, Review } from "@/lib/types";
 import { RatingStars } from "@/components/product/rating-stars";
 import { demoReviewsBySlug } from "@/lib/reviews-demo";
+import { getLocale, getT } from "@/i18n/server";
 
 const INITIAL_VISIBLE = 6;
 
 function ReviewCard({ review }: { review: Review }) {
+  const t = getT();
   return (
       <div className="rounded-xl2 border border-ink/10 bg-white/50 p-6">
         <div className="flex items-center justify-between">
           <RatingStars value={review.rating} />
           {review.demo ? (
             <span className="rounded-full bg-sand px-2 py-0.5 text-[10px] uppercase tracking-wide text-stone">
-              Demo
-            </span>
+              {t("Demo")}</span>
           ) : review.verified ? (
             <span className="rounded-full bg-sage/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-sage">
-              Achat vérifié
-            </span>
+              {t("Achat vérifié")}</span>
           ) : null}
         </div>
         <p className="mt-3 text-sm font-medium text-ink">{review.title}</p>
@@ -35,8 +35,12 @@ function ReviewCard({ review }: { review: Review }) {
 
 
 export function ReviewsSection({ product }: { product: Product }) {
+  const t = getT();
   const realReviews = product.reviews.filter((r) => !r.demo);
-  const demoReviews = [...product.reviews.filter((r) => r.demo), ...(demoReviewsBySlug[product.slug] ?? [])];
+  const locale = getLocale();
+  // Les avis de demonstration sont rediges en francais : ils ne sont affiches que sur la version francaise.
+  const demoReviews =
+    locale === "fr" ? [...product.reviews.filter((r) => r.demo), ...(demoReviewsBySlug[product.slug] ?? [])] : [];
   const hasRealReviews = realReviews.length > 0;
   const hasDemoReviews = demoReviews.length > 0;
   const visibleReviews = hasRealReviews
@@ -48,24 +52,21 @@ export function ReviewsSection({ product }: { product: Product }) {
   return (
     <section id="avis" className="container-content scroll-mt-24 py-16 md:py-24">
       <div className="text-center">
-        <h2 className="section-title">Avis clients</h2>
+        <h2 className="section-title">{t("Avis clients")}</h2>
 
         {hasRealReviews ? (
           <div className="mt-3 flex flex-col items-center gap-1">
             <RatingStars value={Math.round(product.ratingAverage)} />
             <p className="text-sm text-ink/70">
-              {product.ratingAverage.toFixed(1)}/5 · {product.ratingCount} avis
+              {product.ratingAverage.toFixed(1)}/5 · {t("{count} avis", { count: product.ratingCount })}
             </p>
           </div>
         ) : hasDemoReviews ? (
           <p className="mx-auto mt-3 max-w-lg text-xs uppercase tracking-wide text-stone">
-            Aperçu de mise en page — DEMO. Les avis réels de nos clients remplaceront cet
-            exemple dès les premières commandes.
-          </p>
+            {t("Aperçu de mise en page — DEMO. Les avis réels de nos clients remplaceront cet exemple dès les premières commandes.")}</p>
         ) : (
           <p className="mx-auto mt-3 max-w-lg text-sm text-stone">
-            Les avis clients seront affichés ici dès les premières commandes.
-          </p>
+            {t("Les avis clients seront affichés ici dès les premières commandes.")}</p>
         )}
       </div>
 
@@ -80,7 +81,7 @@ export function ReviewsSection({ product }: { product: Product }) {
       {extraDemoReviews.length > 0 && (
         <details className="group mt-8">
           <summary className="mx-auto w-fit cursor-pointer list-none rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink hover:bg-white/60 group-open:hidden">
-            Voir les {extraDemoReviews.length} autres avis (démo)
+            {t("Voir les {count} autres avis (démo)", { count: extraDemoReviews.length })}
           </summary>
           <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
             {extraDemoReviews.map((review) => (
@@ -92,7 +93,7 @@ export function ReviewsSection({ product }: { product: Product }) {
 
       {hasRealReviews && realReviews.length > INITIAL_VISIBLE && (
         <p className="mt-8 text-center text-sm text-stone">
-          + {realReviews.length - INITIAL_VISIBLE} autres avis vérifiés
+          {t("+ {count} autres avis vérifiés", { count: realReviews.length - INITIAL_VISIBLE })}
         </p>
       )}
     </section>

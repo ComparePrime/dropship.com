@@ -1,21 +1,22 @@
 import Image from "next/image";
 import { Product } from "@/lib/types";
+import { getT } from "@/i18n/server";
 
 /**
  * Photos d'ambiance du produit (marquees `inspiration` dans products.ts). Elles ne
  * doivent jamais etre presentees comme des temoignages ou des photos de clients.
  */
 export function InspirationSection({ product }: { product: Product }) {
+  const t = getT();
   const images = product.images.filter((img) => img.inspiration);
   if (images.length === 0) return null;
 
   return (
     <section className="py-14 md:py-20">
       <div className="container-content">
-        <h2 className="section-title">Dans votre intérieur</h2>
+        <h2 className="section-title">{t("Dans votre intérieur")}</h2>
         <p className="mt-3 max-w-xl text-ink/70">
-          Une lumière douce pour le soir, un cadeau qui marque, un détail qui change l&apos;ambiance.
-        </p>
+          {t("Une lumière douce pour le soir, un cadeau qui marque, un détail qui change l'ambiance.")}</p>
       </div>
 
       <div className="container-content">

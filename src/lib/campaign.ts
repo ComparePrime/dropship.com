@@ -21,6 +21,15 @@ export const AUTUMN_CAMPAIGN = {
   endsAtLabel: "31 octobre à 23 h 59",
 };
 
+/** Date de fin ecrite dans la langue du visiteur (heure suisse). */
+export function campaignEndLabel(locale: string): string {
+  if (locale === "fr") return AUTUMN_CAMPAIGN.endsAtLabel;
+  const end = new Date(AUTUMN_CAMPAIGN.endsAt);
+  const intl = (options: Intl.DateTimeFormatOptions) =>
+    new Intl.DateTimeFormat(locale, { timeZone: "Europe/Zurich", ...options }).format(end);
+  return `${intl({ day: "numeric", month: "long" })}, ${intl({ hour: "2-digit", minute: "2-digit" })}`;
+}
+
 export function isCampaignRunning(now: number = Date.now()): boolean {
   return now < new Date(AUTUMN_CAMPAIGN.endsAt).getTime();
 }

@@ -7,44 +7,59 @@ import { ShopTheLook } from "@/components/shop-the-look";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface Props {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }
 
 import { locales } from "@/i18n/config";
+import { alternatesFor, asLocale, pageSetup } from "@/i18n/page";
+import { localizeCategory } from "@/i18n/data";
+import { translate } from "@/i18n/messages";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => getPublishedScenes().map((s) => ({ locale, slug: s.slug })));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const scene = getSceneBySlug(params.slug);
-  if (!scene || scene.status !== "published") return {};
-  const url = `${siteConfig.domain}/mises-en-scene/${scene.slug}`;
+  const locale = asLocale(params.locale);
+  const base = getSceneBySlug(params.slug);
+  if (!base || base.status !== "published") return {};
+  const title = translate(locale, base.title);
+  const description = translate(locale, base.description);
+  const alternates = alternatesFor(locale, `/mises-en-scene/${base.slug}`);
+  const url = alternates.canonical;
   return {
-    title: { absolute: `${scene.title} | Maison Loravie` },
-    description: scene.description,
-    alternates: { canonical: url },
+    title: { absolute: `${title} | Maison Loravie` },
+    description,
+    alternates,
     openGraph: {
-      title: scene.title,
-      description: scene.description,
+      title,
+      description,
       url,
-      images: [{ url: scene.image.src }],
+      images: [{ url: base.image.src }],
       type: "website",
     },
   };
 }
 
 export default function ScenePage({ params }: Props) {
-  const scene = getSceneBySlug(params.slug);
-  if (!scene || scene.status !== "published") notFound();
+  const { t, locale } = pageSetup(params);
+  const base = getSceneBySlug(params.slug);
+  if (!base || base.status !== "published") notFound();
+  const scene = {
+    ...base,
+    title: t(base.title),
+    description: t(base.description),
+    image: { ...base.image, alt: t(base.image.alt) },
+  };
 
-  const category = getCategoryBySlug(scene.category);
+  const baseCategory = getCategoryBySlug(scene.category);
+  const category = baseCategory ? localizeCategory(baseCategory, locale) : undefined;
 
   return (
     <section className="pb-16 pt-8 md:pb-24">
       <Breadcrumbs
         items={[
-          { label: "Accueil", href: "/" },
+          { label: t("Accueil"), href: "/" },
           ...(category ? [{ label: category.title, href: `/collections/${category.slug}` }] : []),
           { label: scene.title },
         ]}

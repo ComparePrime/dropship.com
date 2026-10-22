@@ -8,8 +8,10 @@ import { useCart } from "@/context/cart-context";
 import { formatPrice, getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
 import { useCampaign } from "@/lib/use-campaign";
 import { getPriceRange, hasSizes } from "@/lib/sku";
+import { useT } from "@/i18n/provider";
 
 export function StickyBar({ product }: { product: Product }) {
+  const t = useT();
   const [visible, setVisible] = useState(false);
   const { running } = useCampaign();
   const { currency } = useCurrency();
@@ -56,7 +58,7 @@ export function StickyBar({ product }: { product: Product }) {
               </span>
             )}
             <span className="font-display text-lg">
-              {sized && <span className="mr-1 text-xs text-ink/60">Dès</span>}
+              {sized && <span className="mr-1 text-xs text-ink/60">{t("Dès")}</span>}
               {formatPrice(price, currency)}
             </span>
           </div>
@@ -75,7 +77,7 @@ export function StickyBar({ product }: { product: Product }) {
           disabled={isOutOfStock}
           className="btn-primary ml-auto flex-1 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isOutOfStock ? "Indisponible" : sized ? "Choisir ma taille" : hasVariants ? "Choisir une option" : "Ajouter au panier"}
+          {isOutOfStock ? t("Indisponible") : sized ? t("Choisir ma taille") : hasVariants ? t("Choisir une option") : t("Ajouter au panier")}
         </button>
       </div>
     </div>

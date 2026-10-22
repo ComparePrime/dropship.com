@@ -8,15 +8,17 @@ import { getRealRating } from "@/lib/ratings";
 import { Icon } from "@/components/icons";
 import { AUTUMN_CAMPAIGN, getCampaignDeal } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
+import { useT } from "@/i18n/provider";
 
 /**
  * Etoiles + nombre d'avis, uniquement si le produit a de vrais avis verifies
  * (jamais pour des avis demo). Rien n'est rendu sinon.
  */
 export function ProductCardRating({ product }: { product: Product }) {
+  const t = useT();
   const rating = getRealRating(product);
   if (!rating) return null;
-  const label = `${rating.average.toFixed(1).replace(".", ",")} sur 5, ${rating.count} avis`;
+  const label = t("{average} sur 5, {count} avis", { average: rating.average.toFixed(1).replace(".", ","), count: rating.count });
   return (
     <div className="mt-1 flex items-center gap-1.5" role="img" aria-label={label}>
       <span className="flex items-center gap-0.5" aria-hidden="true">
@@ -36,6 +38,7 @@ export function ProductCardRating({ product }: { product: Product }) {
 
 /** Prix d'une carte produit : prix actuel, et pendant l'Offre d'automne, prix de reference, remise et badge. */
 export function ProductCardPrice({ product }: { product: Product }) {
+  const t = useT();
   const { currency } = useCurrency();
   const { running } = useCampaign();
   const deal = running ? getCampaignDeal(product, currency) : null;
@@ -47,7 +50,7 @@ export function ProductCardPrice({ product }: { product: Product }) {
     <ProductCardRating product={product} />
     <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
       <span className={`text-sm ${deal ? "font-semibold text-ink" : "text-ink/70"}`}>
-        {sized && <span className="mr-1 font-normal text-ink/60">Dès</span>}
+        {sized && <span className="mr-1 font-normal text-ink/60">{t("Dès")}</span>}
         {formatPrice(price, currency)}
       </span>
       {deal && (

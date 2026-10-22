@@ -6,6 +6,7 @@ import { formatPrice } from "@/lib/currency";
 import { WELCOME_OFFER_PERCENT } from "@/lib/promo";
 import { OPEN_WELCOME_POPUP_EVENT } from "@/components/welcome-popup";
 import { Icon } from "@/components/icons";
+import { useT } from "@/i18n/provider";
 
 /**
  * Offre de bienvenue de la fiche produit. Le code est personnel : il s'obtient par inscription a
@@ -13,6 +14,7 @@ import { Icon } from "@/components/icons";
  * reellement deduite au paiement ; le montant affiche ici n'est jamais promis avant cela.
  */
 export function WelcomeOffer({ unitPrice, quantity }: { unitPrice: number; quantity: number }) {
+  const t = useT();
   const { currency } = useCurrency();
   const { promo } = useCart();
 
@@ -26,27 +28,29 @@ export function WelcomeOffer({ unitPrice, quantity }: { unitPrice: number; quant
         className="mt-4 flex items-center gap-2 rounded-xl2 bg-sage/15 px-4 py-3 text-sm font-medium text-sageDeep"
       >
         <Icon.check className="h-4 w-4 flex-shrink-0" strokeWidth={2.25} />
-        Code {promo.code} appliqué : −{promo.percent} % déduit à l&apos;étape de paiement
+        {t("Code {code} appliqué : −{percent} % déduit à l'étape de paiement", { code: promo.code, percent: promo.percent })}
       </p>
     );
   }
 
   return (
     <div className="mt-4 rounded-xl2 border border-dashed border-terracotta/50 bg-blush/20 p-4">
-      <p className="text-xs font-semibold uppercase tracking-widest text-terracottaText">Offre de bienvenue</p>
+      <p className="text-xs font-semibold uppercase tracking-widest text-terracottaText">{t("Offre de bienvenue")}</p>
       <p className="mt-1 font-display text-xl leading-snug text-ink">
-        −{percent} % sur votre première commande
+        {t("−{percent} % sur votre première commande", { percent })}
       </p>
       <p className="mt-1 text-sm text-ink/70">
-        Soit −{formatPrice(saving, currency)} sur cet article{quantity > 1 ? ` (×${quantity})` : ""}. Inscrivez-vous à
-        la newsletter pour recevoir votre code personnel.
+        {t("Soit −{amount} sur cet article{multiple}. Inscrivez-vous à la newsletter pour recevoir votre code personnel.", {
+          amount: formatPrice(saving, currency),
+          multiple: quantity > 1 ? ` (×${quantity})` : "",
+        })}
       </p>
       <button
         type="button"
         onClick={() => window.dispatchEvent(new Event(OPEN_WELCOME_POPUP_EVENT))}
         className="mt-3 w-full rounded-full border border-sage bg-cream px-5 py-2.5 text-sm font-medium text-sageDeep transition-colors hover:bg-sage hover:text-white"
       >
-        Débloquer mes {percent} %
+        {t("Débloquer mes {percent} %", { percent })}
       </button>
     </div>
   );

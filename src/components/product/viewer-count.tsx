@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/icons";
+import { useT } from "@/i18n/provider";
 
 const HEARTBEAT_MS = 20_000;
 /** En dessous, rien n'est affiche : un seul visiteur, c'est vous-meme. */
@@ -28,6 +29,7 @@ function getVisitorId(): string {
  * indisponible, rien ne s'affiche.
  */
 export function ViewerCount({ slug }: { slug: string }) {
+  const t = useT();
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export function ViewerCount({ slug }: { slug: string }) {
     <p className="mt-3 flex items-center gap-2 text-sm text-ink/70" aria-live="polite">
       <Icon.eye className="h-4 w-4 flex-shrink-0 text-sage" strokeWidth={1.5} />
       <span>
-        {count} personnes regardent ce produit en ce moment
+        {t("{count} personnes regardent ce produit en ce moment", { count })}
       </span>
     </p>
   );

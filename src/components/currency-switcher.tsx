@@ -3,16 +3,18 @@
 import { useCurrency } from "@/context/currency-context";
 import { CURRENCIES } from "@/lib/fx";
 import { Currency } from "@/lib/types";
+import { useT } from "@/i18n/provider";
 
 const LABELS: Record<Currency, string> = { EUR: "EUR €", CHF: "CHF", USD: "USD $", CAD: "CAD $" };
 
 /** Choix de la devise (EUR, CHF, USD, CAD) : liste deroulante compacte, adaptee au mobile. */
 export function CurrencySwitcher() {
+  const t = useT();
   const { currency, setCurrency } = useCurrency();
 
   return (
     <label className="relative inline-flex items-center">
-      <span className="sr-only">Devise</span>
+      <span className="sr-only">{t("Devise")}</span>
       <select
         value={currency}
         onChange={(e) => setCurrency(e.target.value as Currency)}

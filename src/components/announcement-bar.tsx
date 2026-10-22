@@ -1,8 +1,9 @@
 "use client";
 
-import { AUTUMN_CAMPAIGN } from "@/lib/campaign";
+import { AUTUMN_CAMPAIGN, campaignEndLabel } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
 import { CampaignCountdown } from "@/components/campaign-countdown";
+import { useLocale, useT } from "@/i18n/provider";
 
 /**
  * Bandeau defilant en haut du site. Les messages sont ceux qui sont reellement
@@ -11,21 +12,23 @@ import { CampaignCountdown } from "@/components/campaign-countdown";
  * demande de reduire les animations (le bandeau devient alors statique).
  */
 export function AnnouncementBar() {
+  const t = useT();
+  const locale = useLocale();
   const { running } = useCampaign();
 
   const messages = [
     ...(running
       ? [
           <span key="campaign">
-            <strong className="font-semibold uppercase">{AUTUMN_CAMPAIGN.name}</strong> · jusqu&apos;au{" "}
-            {AUTUMN_CAMPAIGN.endsAtLabel} · se termine dans <CampaignCountdown variant="bar" />
+            <strong className="font-semibold uppercase">{t(AUTUMN_CAMPAIGN.name)}</strong> · {t("jusqu'au")}{" "}
+            {campaignEndLabel(locale)} · {t("se termine dans")} <CampaignCountdown variant="bar" />
           </span>,
         ]
       : []),
-    <span key="ship">Livraison offerte</span>,
-    <span key="dispatch">Expédition sous 24h</span>,
-    <span key="returns">Retours gratuits sous 30 jours</span>,
-    <span key="pay">Paiement 100 % sécurisé</span>,
+    <span key="ship">{t("Livraison offerte")}</span>,
+    <span key="dispatch">{t("Expédition sous 24h")}</span>,
+    <span key="returns">{t("Retours gratuits sous 30 jours")}</span>,
+    <span key="pay">{t("Paiement 100 % sécurisé")}</span>,
   ];
 
   const track = (hidden: boolean) => (
@@ -48,8 +51,7 @@ export function AnnouncementBar() {
         {track(true)}
       </div>
       <p className="hidden px-4 text-center text-xs tracking-wide motion-reduce:block">
-        Livraison offerte · Expédition sous 24h · Retours gratuits sous 30 jours
-      </p>
+        {t("Livraison offerte · Expédition sous 24h · Retours gratuits sous 30 jours")}</p>
     </div>
   );
 }

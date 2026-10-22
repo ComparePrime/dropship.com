@@ -6,9 +6,11 @@ import { useCurrency } from "@/context/currency-context";
 import { formatPrice } from "@/lib/currency";
 import { getPriceRange, hasSizes } from "@/lib/sku";
 import { Icon } from "@/components/icons";
+import { useT } from "@/i18n/provider";
 
 /** Justifie le prix par ce qui est réellement inclus, sans faux prix barre. */
 export function ValueStackSection({ product }: { product: Product }) {
+  const t = useT();
   const { addItem } = useCart();
   const { currency } = useCurrency();
   const price = getPriceRange(product, currency).min;
@@ -18,8 +20,7 @@ export function ValueStackSection({ product }: { product: Product }) {
     <section className="container-content py-16 md:py-24">
       <div className="mx-auto max-w-xl rounded-xl2 border border-ink/10 bg-white/60 p-8 text-center md:p-12">
         <h2 className="font-display text-2xl font-semibold text-ink md:text-3xl">
-          Ce que vous obtenez
-        </h2>
+          {t("Ce que vous obtenez")}</h2>
         <ul className="mx-auto mt-6 flex max-w-sm flex-col gap-3 text-left">
           {product.valueStack.map((item) => (
             <li key={item} className="flex items-start gap-2 text-ink/80">
@@ -29,17 +30,15 @@ export function ValueStackSection({ product }: { product: Product }) {
           ))}
         </ul>
         <p className="mt-8 font-display text-3xl text-ink">
-          {sized && <span className="mr-2 text-lg text-ink/60">Dès</span>}
+          {sized && <span className="mr-2 text-lg text-ink/60">{t("Dès")}</span>}
           {formatPrice(price, currency)}
         </p>
         {sized ? (
           <a href="#acheter" className="btn-primary mt-6">
-            Choisir mon coloris et ma taille
-          </a>
+            {t("Choisir mon coloris et ma taille")}</a>
         ) : (
           <button type="button" onClick={() => addItem(product, 1)} className="btn-primary mt-6">
-            Ajouter au panier
-          </button>
+            {t("Ajouter au panier")}</button>
         )}
       </div>
     </section>

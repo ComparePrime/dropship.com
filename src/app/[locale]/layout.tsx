@@ -13,6 +13,8 @@ import { siteConfig } from "@/lib/site-config";
 import { LocaleProvider } from "@/i18n/provider";
 import { alternatesFor, isLiveLocale, isLocale, locales, Locale, ogLocales } from "@/i18n/config";
 import { notFound } from "next/navigation";
+import { setLocale } from "@/i18n/server";
+import { getMessages, translate } from "@/i18n/messages";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -37,10 +39,10 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
   return {
     metadataBase: new URL(siteConfig.domain),
     title: {
-      default: `${siteConfig.name} — ${siteConfig.slogan}`,
+      default: `${siteConfig.name} — ${translate(locale, siteConfig.slogan)}`,
       template: `%s | ${siteConfig.name}`,
     },
-    description: siteConfig.description,
+    description: translate(locale, siteConfig.description),
     alternates: alternatesFor(locale, "/"),
     // Langue pas encore ouverte : visible par adresse directe pour relecture, mais jamais indexee.
     ...(isLiveLocale(locale) ? {} : { robots: { index: false, follow: false } }),
@@ -69,10 +71,11 @@ export default function LocaleLayout({
 }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale;
+  setLocale(locale);
   return (
     <html lang={locale} className={`${cormorant.variable} ${manrope.variable}`}>
       <body>
-        <LocaleProvider locale={locale}>
+        <LocaleProvider locale={locale} messages={getMessages(locale)}>
         <CurrencyProvider>
           <CartProvider>
             <AnnouncementBar />

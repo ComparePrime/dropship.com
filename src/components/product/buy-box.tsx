@@ -25,6 +25,7 @@ import { SizeGuideButton } from "@/components/product/size-guide-modal";
 import { MULTI_BUY } from "@/lib/multi-buy";
 import { isShippableToNorthAmerica } from "@/lib/shipping";
 import { StockInfo } from "@/lib/types";
+import { useT } from "@/i18n/provider";
 
 export function BuyBox({
   product,
@@ -35,6 +36,7 @@ export function BuyBox({
   variantId?: string;
   onVariantChange: (id: string) => void;
 }) {
+  const t = useT();
   const { currency } = useCurrency();
   const { addItem, promo } = useCart();
   const { startCheckout, loading: buyLoading, error: buyError } = useCheckout();
@@ -126,7 +128,7 @@ export function BuyBox({
         <a href="#avis" className="mt-4 flex items-center gap-2 text-sm">
           <RatingStars value={Math.round(product.ratingAverage)} />
           <span className="text-ink/70">
-            {product.ratingAverage.toFixed(1)}/5 · {product.ratingCount} avis
+            {product.ratingAverage.toFixed(1)}/5 · {t("{count} avis", { count: product.ratingCount })}
           </span>
         </a>
       )}
@@ -144,7 +146,7 @@ export function BuyBox({
         )}
         {sized && !selectedSize && (
           <p className="mb-2 text-sm font-medium text-ink/70">
-            À partir de {formatPrice(priceFrom, currency)} — le prix dépend de la taille
+            {t("À partir de {price} — le prix dépend de la taille", { price: formatPrice(priceFrom, currency) })}
           </p>
         )}
         <PromoBlock
@@ -156,11 +158,11 @@ export function BuyBox({
 
         {promo && !(sized && !selectedSize) && (
           <p role="status" className="mt-3 rounded-lg bg-sage/10 px-3 py-2 text-sm text-sageDeep">
-            Avec votre code {promo.code} :{" "}
+            {t("Avec votre code {code} :", { code: promo.code })}{" "}
             <strong className="font-semibold">
               {formatPrice(Math.round(unitPrice * (100 - promo.percent)) / 100, currency)}
             </strong>{" "}
-            (−{promo.percent} %), déduit à l&apos;étape de paiement.
+            {t("(−{percent} %), déduit à l'étape de paiement.", { percent: promo.percent })}
           </p>
         )}
 
@@ -176,7 +178,7 @@ export function BuyBox({
         {product.variants && product.variants.length > 0 && (
           <div className="mt-5">
             <span className="text-sm font-medium text-ink/70">
-              {sized ? "Coloris" : "Choix"}
+              {sized ? t("Coloris") : t("Choix")}
               {selectedVariant ? ` — ${selectedVariant.label}` : ""}
             </span>
             <div className="mt-2 flex flex-wrap gap-2">
@@ -203,11 +205,11 @@ export function BuyBox({
           <div className="mt-5" id="choix-taille">
             <div className="flex items-baseline justify-between gap-3">
               <span className="text-sm font-medium text-ink/70">
-                Taille{selectedSize ? ` — ${selectedSize.label}` : ""}
+                {t("Taille")}{selectedSize ? ` — ${selectedSize.label}` : ""}
               </span>
             </div>
             {product.sizeGuide && <SizeGuideButton guide={product.sizeGuide} />}
-            <div className="mt-3 grid grid-cols-5 gap-2" role="group" aria-label="Choisir une taille">
+            <div className="mt-3 grid grid-cols-5 gap-2" role="group" aria-label={t("Choisir une taille")}>
               {product.sizes!.map((size) => {
                 const unavailable = !!selectedVariant && getSkuStock(product, selectedVariant.id, size.id) === 0;
                 const active = selectedSizeId === size.id;
@@ -221,7 +223,7 @@ export function BuyBox({
                       setQuantity(1);
                     }}
                     aria-pressed={active}
-                    title={unavailable ? "Indisponible dans ce coloris" : size.label}
+                    title={unavailable ? t("Indisponible dans ce coloris") : size.label}
                     className={`rounded-lg border-2 py-2 text-sm font-medium transition-colors ${
                       active
                         ? "border-sage bg-sage/10 text-ink"
@@ -235,21 +237,20 @@ export function BuyBox({
             </div>
             {sizeError && (
               <p role="alert" className="mt-2 text-sm text-terracottaText">
-                {selectedVariant ? "Choisissez la taille de votre chien pour continuer." : "Choisissez le coloris puis la taille pour continuer."}
+                {selectedVariant ? t("Choisissez la taille de votre chien pour continuer.") : t("Choisissez le coloris puis la taille pour continuer.")}
               </p>
             )}
             <p className="mt-2 text-xs text-ink/60">
-              Mesurez la longueur du dos de votre chien : en cas de doute entre deux tailles, prenez la plus grande.
-            </p>
+              {t("Mesurez la longueur du dos de votre chien : en cas de doute entre deux tailles, prenez la plus grande.")}</p>
             <p className="mt-2 rounded-lg bg-sage/10 px-3 py-2 text-xs font-medium text-sageDeep">
-              −{MULTI_BUY.percent} % sur votre panier dès la 2ᵉ veste, quels que soient la taille et le coloris.
+              {t("−{percent} % sur votre panier dès la 2ᵉ veste, quels que soient la taille et le coloris.", { percent: MULTI_BUY.percent })}
             </p>
           </div>
         )}
 
         {product.packOffers && product.packOffers.length > 0 && (
           <div className="mt-5">
-            <span className="text-sm font-medium text-ink/70">Choisissez votre formule</span>
+            <span className="text-sm font-medium text-ink/70">{t("Choisissez votre formule")}</span>
             <div className="mt-2 flex flex-col gap-2">
               {[undefined, ...product.packOffers].map((pack) => {
                 const unitCount = pack?.quantity ?? 1;
@@ -276,7 +277,7 @@ export function BuyBox({
                       className="h-4 w-4 flex-shrink-0 accent-sage"
                     />
                     <span className="flex-1 text-sm text-ink">
-                      {pack ? pack.label : "À l'unité"}
+                      {pack ? pack.label : t("À l'unité")}
                       {saving > 0 && (
                         <span className="ml-2 rounded-full bg-terracottaText px-2 py-0.5 text-xs font-semibold text-white">
                           −{saving}%
@@ -293,7 +294,7 @@ export function BuyBox({
 
         {addOns.length > 0 && (
           <div className="mt-5">
-            <span className="text-sm font-medium text-ink/70">Complétez votre commande</span>
+            <span className="text-sm font-medium text-ink/70">{t("Complétez votre commande")}</span>
             <div className="mt-2 flex flex-col gap-2">
               {addOns.map((addOn) => {
                 const addOnPrice = getPriceForCurrency(addOn.priceCHF, addOn.priceEUR, currency);
@@ -328,11 +329,11 @@ export function BuyBox({
 
         {!isOutOfStock && (
           <div className="mt-5 flex items-center gap-3">
-            <span className="text-sm font-medium text-ink/70">Quantité</span>
+            <span className="text-sm font-medium text-ink/70">{t("Quantité")}</span>
             <div className="flex items-center rounded-full border border-ink/15">
               <button
                 type="button"
-                aria-label="Diminuer la quantité"
+                aria-label={t("Diminuer la quantité")}
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 className="flex h-9 w-9 items-center justify-center text-ink/70 hover:text-ink"
               >
@@ -341,7 +342,7 @@ export function BuyBox({
               <span className="w-6 text-center text-sm font-medium text-ink">{quantity}</span>
               <button
                 type="button"
-                aria-label="Augmenter la quantité"
+                aria-label={t("Augmenter la quantité")}
                 onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
                 disabled={isTracked && quantity >= maxQuantity}
                 className="flex h-9 w-9 items-center justify-center text-ink/70 hover:text-ink disabled:opacity-30"
@@ -369,15 +370,15 @@ export function BuyBox({
           className="btn-primary mt-5 w-full gap-2 py-4 text-base shadow-card disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isOutOfStock ? (
-            sized ? "Indisponible dans ce coloris" : "Temporairement indisponible"
+            sized ? t("Indisponible dans ce coloris") : t("Temporairement indisponible")
           ) : (
             sized && !selectedSize ? (
-              selectedVariant ? "Choisir une taille" : "Choisir coloris et taille"
+              selectedVariant ? t("Choisir une taille") : t("Choisir coloris et taille")
             ) : (
             <>
               {selectedAddOnIds.length > 0
-                ? `Ajouter ${1 + selectedAddOnIds.length} articles au panier`
-                : "Ajouter au panier"}
+                ? t("Ajouter {count} articles au panier", { count: 1 + selectedAddOnIds.length })
+                : t("Ajouter au panier")}
               <span aria-hidden="true">•</span>
               <span>{formatPrice(ctaTotal, currency)}</span>
             </>
@@ -401,11 +402,10 @@ export function BuyBox({
               className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-base font-medium text-white transition-colors hover:bg-charcoal disabled:cursor-wait disabled:opacity-60"
             >
               <Icon.lock className="h-4 w-4" strokeWidth={1.75} />
-              {buyLoading ? "Redirection vers le paiement…" : "Acheter maintenant"}
+              {buyLoading ? t("Redirection vers le paiement…") : t("Acheter maintenant")}
             </button>
             <p className="mt-2 text-center text-xs text-ink/60">
-              Paiement express et sécurisé via Stripe
-            </p>
+              {t("Paiement express et sécurisé via Stripe")}</p>
             {buyError && (
               <p role="alert" className="mt-2 text-center text-sm text-terracottaText">
                 {buyError}
@@ -416,19 +416,17 @@ export function BuyBox({
 
         {(currency === "USD" || currency === "CAD") && !isShippableToNorthAmerica(product) && (
           <p role="note" className="mt-4 rounded-lg bg-blush/30 px-3 py-2 text-center text-sm text-terracottaText">
-            Ce produit n&apos;est pas encore livrable aux États-Unis et au Canada. Il reste disponible pour l&apos;Europe
-            et la Suisse (choisissez EUR ou CHF).
-          </p>
+            {t("Ce produit n'est pas encore livrable aux États-Unis et au Canada. Il reste disponible pour l'Europe et la Suisse (choisissez EUR ou CHF).")}</p>
         )}
 
         <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-ink/75">
           <li className="flex items-center gap-1.5">
             <Icon.check className="h-4 w-4 text-sage" strokeWidth={2.25} />
-            Retours gratuits {product.shipping.returnDays} jours
+            {t("Retours gratuits {days} jours", { days: product.shipping.returnDays })}
           </li>
           <li className="flex items-center gap-1.5">
             <Icon.check className="h-4 w-4 text-sage" strokeWidth={2.25} />
-            Livraison {product.shipping.minDays} à {product.shipping.maxDays} jours
+            {t("Livraison {min} à {max} jours", { min: product.shipping.minDays, max: product.shipping.maxDays })}
           </li>
         </ul>
 
@@ -445,12 +443,12 @@ export function BuyBox({
       </div>
 
       <div className="mt-5 rounded-xl2 bg-sand/70 p-5">
-        <p className="text-xs font-semibold uppercase tracking-widest text-sage">Votre commande comprend</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-sage">{t("Votre commande comprend")}</p>
         <dl className="mt-3 text-[15px]">
           {[
             [`${product.name}${chosenLabel ? ` · ${chosenLabel}` : ""}`, formatPrice(unitPrice, currency)],
-            ["Livraison", `Offerte, expédiée sous ${product.shipping.dispatchWithinHours} h`],
-            ["Retours", `Gratuits sous ${product.shipping.returnDays} jours`],
+            [t("Livraison"), t("Offerte, expédiée sous {hours} h", { hours: product.shipping.dispatchWithinHours })],
+            [t("Retours"), t("Gratuits sous {days} jours", { days: product.shipping.returnDays })],
           ].map(([label, value], i) => (
             <div
               key={label}

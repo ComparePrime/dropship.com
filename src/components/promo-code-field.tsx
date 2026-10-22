@@ -3,8 +3,10 @@
 import { FormEvent, useId, useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
+import { useT } from "@/i18n/provider";
 
 export function PromoCodeField() {
+  const t = useT();
   const { promo, applyPromo, removePromo } = useCart();
   const inputId = useId();
   const [value, setValue] = useState("");
@@ -29,7 +31,7 @@ export function PromoCodeField() {
           <p className="flex items-center gap-2 text-sm text-ink">
             <Icon.check className="h-4 w-4 flex-shrink-0 text-sage" strokeWidth={2} />
             <span>
-              Code <span className="font-medium">{promo.code}</span> appliqué : −{promo.percent} %
+              {t("Code {code} appliqué : −{percent} %", { code: promo.code, percent: promo.percent })}
             </span>
           </p>
           <button
@@ -40,8 +42,7 @@ export function PromoCodeField() {
             }}
             className="flex-shrink-0 text-xs text-stone underline underline-offset-2 hover:text-ink"
           >
-            Retirer
-          </button>
+            {t("Retirer")}</button>
         </div>
       </div>
     );
@@ -50,8 +51,7 @@ export function PromoCodeField() {
   return (
     <form onSubmit={handleSubmit} noValidate>
       <label htmlFor={inputId} className="text-sm font-medium text-ink">
-        Vous avez un code promo ?
-      </label>
+        {t("Vous avez un code promo ?")}</label>
       <div className="mt-2 flex gap-2">
         <input
           id={inputId}
@@ -61,7 +61,7 @@ export function PromoCodeField() {
             setValue(e.target.value);
             setError(null);
           }}
-          placeholder="Entrez votre code"
+          placeholder={t("Entrez votre code")}
           autoComplete="off"
           autoCapitalize="characters"
           aria-invalid={!!error}
@@ -73,7 +73,7 @@ export function PromoCodeField() {
           disabled={checking || value.trim() === ""}
           className="flex-shrink-0 rounded-full border border-sage px-5 py-2.5 text-sm font-medium text-sage transition-colors hover:bg-sage hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-sage"
         >
-          {checking ? "Vérification…" : "Appliquer"}
+          {checking ? t("Vérification…") : t("Appliquer")}
         </button>
       </div>
       {error && (

@@ -1,14 +1,18 @@
 import { UseCase } from "@/lib/types";
+import { getT } from "@/i18n/server";
 
 export function UseCasesSection({
   useCases,
-  title = "Où l'installer ?",
-  intro = "À quoi ressemblerait-il chez vous ? Voici les endroits où il trouve le plus naturellement sa place.",
+  title,
+  intro,
 }: {
   useCases: UseCase[];
   title?: string;
   intro?: string;
 }) {
+  const t = getT();
+  title = title ?? t("Où l'installer ?");
+  intro = intro ?? t("À quoi ressemblerait-il chez vous ? Voici les endroits où il trouve le plus naturellement sa place.");
   return (
     <section className="container-content py-16 md:py-24">
       <h2 className="section-title text-center">{title}</h2>

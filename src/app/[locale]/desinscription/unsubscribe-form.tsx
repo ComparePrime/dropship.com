@@ -2,9 +2,11 @@
 
 import Link from "@/i18n/link";
 import { useEffect, useState } from "react";
+import { useT } from "@/i18n/provider";
 
 /** Desinscription en un clic (le lien seul ne desinscrit pas : evite les clics automatiques des messageries). */
 export function UnsubscribeForm() {
+  const t = useT();
   const [token, setToken] = useState<string | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [message, setMessage] = useState<string | null>(null);
@@ -23,10 +25,10 @@ export function UnsubscribeForm() {
         body: JSON.stringify({ token }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error ?? "Désinscription impossible.");
+      if (!res.ok) throw new Error(data.error ?? t("Désinscription impossible."));
       setState("done");
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Désinscription impossible.");
+      setMessage(e instanceof Error ? e.message : t("Désinscription impossible."));
       setState("error");
     }
   };
@@ -35,11 +37,9 @@ export function UnsubscribeForm() {
     return (
       <>
         <p className="mt-4 max-w-md text-stone">
-          Vous êtes bien désinscrit(e) : vous ne recevrez plus nos communications marketing.
-        </p>
+          {t("Vous êtes bien désinscrit(e) : vous ne recevrez plus nos communications marketing.")}</p>
         <Link href="/" className="btn-primary mt-8">
-          Retour à la boutique
-        </Link>
+          {t("Retour à la boutique")}</Link>
       </>
     );
   }
@@ -48,12 +48,12 @@ export function UnsubscribeForm() {
     <>
       <p className="mt-4 max-w-md text-stone">
         {token
-          ? "Confirmez pour ne plus recevoir la newsletter de Maison Loravie."
-          : "Ce lien de désinscription est incomplet. Utilisez le lien présent dans le dernier e-mail reçu, ou écrivez-nous à info@maisonloravie.com."}
+          ? t("Confirmez pour ne plus recevoir la newsletter de Maison Loravie.")
+          : t("Ce lien de désinscription est incomplet. Utilisez le lien présent dans le dernier e-mail reçu, ou écrivez-nous à info@maisonloravie.com.")}
       </p>
       {token && (
         <button type="button" onClick={unsubscribe} disabled={state === "loading"} className="btn-primary mt-8 disabled:cursor-wait">
-          {state === "loading" ? "Désinscription…" : "Me désinscrire"}
+          {state === "loading" ? t("Désinscription…") : t("Me désinscrire")}
         </button>
       )}
       {state === "error" && (

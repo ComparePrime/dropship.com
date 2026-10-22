@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
 import { WELCOME_OFFER_PERCENT } from "@/lib/promo";
+import { useLocale, useT } from "@/i18n/provider";
+import { localizePath, stripLocale } from "@/i18n/config";
 
 export const OPEN_WELCOME_POPUP_EVENT = "ml:open-welcome-popup";
 
@@ -47,6 +49,8 @@ function writeStored(value: Stored) {
  * ou utilisee, elle ne revient pas (30 jours apres fermeture, jamais apres inscription).
  */
 export function WelcomePopup() {
+  const t = useT();
+  const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const { applyPromo, promo, isOpen: cartOpen } = useCart();
@@ -87,7 +91,7 @@ export function WelcomePopup() {
       const stored = readStored();
       if (stored?.state === "subscribed") return;
       if (stored?.state === "dismissed" && Date.now() - stored.at < SNOOZE_MS) return;
-      if (QUIET_PATHS.some((p) => window.location.pathname.startsWith(p))) return;
+      if (QUIET_PATHS.some((p) => stripLocale(window.location.pathname).path.startsWith(p))) return;
       let consentMade = false;
       try {
         consentMade = !!window.localStorage.getItem(COOKIE_CONSENT_KEY);
@@ -127,28 +131,29 @@ export function WelcomePopup() {
     if (submitting) return;
     setError(null);
     if (!consent) {
-      setError("Cochez la case pour recevoir votre code et la newsletter.");
+      setError(t("Cochez la case pour recevoir votre code et la newsletter."));
       return;
     }
     setSubmitting(true);
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-locale": locale },
         body: JSON.stringify({
           email,
           consent: true,
+          locale,
           website: honeypot,
           elapsedMs: Date.now() - openedAt.current,
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.code) throw new Error(data.error ?? "Inscription impossible. Réessayez.");
+      if (!res.ok || !data.code) throw new Error(data.error ?? t("Inscription impossible. Réessayez."));
       setCode(data.code);
       setEmailSent(data.emailSent === true);
       writeStored({ state: "subscribed", at: Date.now(), code: data.code });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Inscription impossible. Réessayez.");
+      setError(e instanceof Error ? e.message : t("Inscription impossible. Réessayez."));
     }
     setSubmitting(false);
   };
@@ -179,16 +184,16 @@ export function WelcomePopup() {
       setApplyMessage(result.message);
       return;
     }
-    if (window.location.pathname.startsWith("/produit/")) {
-      setApplyMessage(`Code appliqué : −${WELCOME_OFFER_PERCENT} % sera déduit à l'étape de paiement.`);
+    if (stripLocale(window.location.pathname).path.startsWith("/produit/")) {
+      setApplyMessage(t("Code appliqué : −{percent} % sera déduit à l'étape de paiement.", { percent: WELCOME_OFFER_PERCENT }));
     } else {
       setOpen(false);
-      router.push("/panier");
+      router.push(localizePath("/panier", locale));
     }
   };
 
   if (!open || cartOpen) return null;
-  if (QUIET_PATHS.some((p) => pathname.startsWith(p)) && !code) return null;
+  if (QUIET_PATHS.some((p) => stripLocale(pathname).path.startsWith(p)) && !code) return null;
 
   const applied = !!code && promo?.code === code;
 
@@ -201,7 +206,7 @@ export function WelcomePopup() {
       <button
         type="button"
         onClick={close}
-        aria-label="Fermer"
+        aria-label={t("Fermer")}
         className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-ink/60 transition-colors hover:bg-sand hover:text-ink"
       >
         <Icon.close className="h-4 w-4" />
@@ -209,13 +214,12 @@ export function WelcomePopup() {
 
       {code ? (
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-sage">Merci, c&apos;est enregistré</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sage">{t("Merci, c'est enregistré")}</p>
           <h2 id={titleId} className="mt-1 pr-8 font-display text-2xl leading-snug text-ink">
-            Voici votre code de bienvenue
-          </h2>
+            {t("Voici votre code de bienvenue")}</h2>
           <div className="mt-4 flex items-center gap-2">
             <span
-              aria-label={`Votre code : ${code}`}
+              aria-label={t("Votre code : {code}", { code })}
               className="flex-1 select-all rounded-xl border border-dashed border-terracotta/60 bg-blush/20 px-4 py-3 text-center font-mono text-base font-semibold tracking-widest text-terracottaText"
             >
               {code}
@@ -225,24 +229,23 @@ export function WelcomePopup() {
               onClick={copy}
               className="flex-shrink-0 rounded-full border border-ink/20 px-4 py-3 text-sm font-medium text-ink transition-colors hover:bg-sand"
             >
-              {copied ? "Copié ✓" : "Copier"}
+              {copied ? t("Copié ✓") : t("Copier")}
             </button>
           </div>
           {emailSent && (
-            <p className="mt-3 text-sm text-ink/70">Nous vous l&apos;avons aussi envoyé par e-mail.</p>
+            <p className="mt-3 text-sm text-ink/70">{t("Nous vous l'avons aussi envoyé par e-mail.")}</p>
           )}
           <p className="mt-3 text-sm text-ink/70">
-            −{WELCOME_OFFER_PERCENT} % sur votre première commande, à usage unique. Non cumulable avec une autre
-            remise : la plus avantageuse s&apos;applique.
+            {t("−{percent} % sur votre première commande, à usage unique. Non cumulable avec une autre remise : la plus avantageuse s'applique.", { percent: WELCOME_OFFER_PERCENT })}
           </p>
           {applied ? (
             <p role="status" className="mt-4 flex items-center gap-2 rounded-full bg-sage/15 px-4 py-2.5 text-sm font-medium text-sageDeep">
               <Icon.check className="h-4 w-4 flex-shrink-0" strokeWidth={2.25} />
-              {applyMessage ?? `Code appliqué : −${WELCOME_OFFER_PERCENT} % à l'étape de paiement`}
+              {applyMessage ?? t("Code appliqué : −{percent} % à l'étape de paiement", { percent: WELCOME_OFFER_PERCENT })}
             </p>
           ) : (
             <button type="button" onClick={apply} disabled={applying} className="btn-primary mt-4 w-full py-3.5 disabled:cursor-wait">
-              {applying ? "Application…" : `Appliquer mes ${WELCOME_OFFER_PERCENT} %`}
+              {applying ? t("Application…") : t("Appliquer mes {percent} %", { percent: WELCOME_OFFER_PERCENT })}
             </button>
           )}
           {applyMessage && !applied && (
@@ -253,18 +256,15 @@ export function WelcomePopup() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} noValidate>
-          <p className="text-xs font-semibold uppercase tracking-widest text-sage">Bienvenue chez Maison Loravie</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sage">{t("Bienvenue chez Maison Loravie")}</p>
           <h2 id={titleId} className="mt-1 pr-8 font-display text-2xl leading-snug text-ink">
-            Profitez de −{WELCOME_OFFER_PERCENT} % sur votre première commande
+            {t("Profitez de −{percent} % sur votre première commande", { percent: WELCOME_OFFER_PERCENT })}
           </h2>
           <p className="mt-2 text-sm text-ink/70">
-            Inscrivez-vous à notre newsletter pour recevoir votre code de bienvenue et découvrir nos nouveautés et
-            inspirations déco.
-          </p>
+            {t("Inscrivez-vous à notre newsletter pour recevoir votre code de bienvenue et découvrir nos nouveautés et inspirations déco.")}</p>
 
           <label htmlFor={emailId} className="sr-only">
-            Votre adresse e-mail
-          </label>
+            {t("Votre adresse e-mail")}</label>
           <input
             id={emailId}
             type="email"
@@ -275,7 +275,7 @@ export function WelcomePopup() {
               setEmail(e.target.value);
               setError(null);
             }}
-            placeholder="Votre adresse e-mail"
+            placeholder={t("Votre adresse e-mail")}
             required
             aria-invalid={!!error}
             className="mt-4 w-full rounded-full border border-ink/15 bg-white/80 px-5 py-3 text-base text-ink placeholder:text-stone focus:border-sage focus:outline-none"
@@ -303,15 +303,12 @@ export function WelcomePopup() {
               className="mt-0.5 h-4 w-4 flex-shrink-0 accent-sage"
             />
             <span>
-              J&apos;accepte de recevoir la newsletter de Maison Loravie (nouveautés, inspirations déco et offres). Je
-              peux me désinscrire à tout moment.
-            </span>
+              {t("J'accepte de recevoir la newsletter de Maison Loravie (nouveautés, inspirations déco et offres). Je peux me désinscrire à tout moment.")}</span>
           </label>
           <p className="mt-2 text-[11px] leading-relaxed text-ink/55">
-            Votre adresse sert à vous envoyer votre code et nos communications. Voir notre{" "}
+            {t("Votre adresse sert à vous envoyer votre code et nos communications. Voir notre")}{" "}
             <Link href="/confidentialite" className="underline underline-offset-2 hover:text-ink">
-              politique de confidentialité
-            </Link>
+              {t("politique de confidentialité")}</Link>
             .
           </p>
 
@@ -321,7 +318,7 @@ export function WelcomePopup() {
             </p>
           )}
           <button type="submit" disabled={submitting} className="btn-primary mt-4 w-full py-3.5 disabled:cursor-wait">
-            {submitting ? "Enregistrement…" : `Débloquer mes ${WELCOME_OFFER_PERCENT} %`}
+            {submitting ? t("Enregistrement…") : t("Débloquer mes {percent} %", { percent: WELCOME_OFFER_PERCENT })}
           </button>
         </form>
       )}

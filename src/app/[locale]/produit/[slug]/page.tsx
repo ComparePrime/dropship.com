@@ -28,27 +28,33 @@ import { ProductJsonLd } from "@/components/product/product-jsonld";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface Props {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }
 
 import { locales } from "@/i18n/config";
+import { alternatesFor, asLocale, pageSetup } from "@/i18n/page";
+import { localizeProduct, localizeProducts } from "@/i18n/product-translation";
+import type { Locale } from "@/i18n/config";
 
 export async function generateStaticParams() {
   return locales.flatMap((locale) => getAllProducts().map((product) => ({ locale, slug: product.slug })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = getProductBySlug(params.slug);
-  if (!product) return {};
+  const locale = asLocale(params.locale);
+  const base = getProductBySlug(params.slug);
+  if (!base) return {};
+  const product = localizeProduct(base, locale);
 
-  const url = `${siteConfig.domain}/produit/${product.slug}`;
+  const alternates = alternatesFor(locale, `/produit/${product.slug}`);
+  const url = alternates.canonical;
 
   return {
     // `absolute` : seo.title contient deja la marque, le gabarit du layout ne doit pas la rajouter.
     title: { absolute: product.status === "draft" ? `[Brouillon] ${product.seo.title}` : product.seo.title },
     description: product.seo.metaDescription,
     keywords: product.seo.keywords,
-    alternates: { canonical: url },
+    alternates,
     // Un brouillon reste accessible par lien direct pour relecture, mais ne doit jamais
     // etre indexe ni apparaitre dans le sitemap (voir getPublishedProducts).
     robots: product.status === "draft" ? { index: false, follow: false } : undefined,
@@ -72,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * (voir lib/products.ts) : la page n'impose donc pas le même gabarit à tous les
  * produits, seul le hero (galerie + BuyBox) et le pied de page restent fixes.
  */
-function renderSection(key: ProductSectionKey, product: Product) {
+function renderSection(key: ProductSectionKey, product: Product, locale: Locale, t: (text: string) => string) {
   switch (key) {
     case "storytelling":
       return <StorytellingSection key={key} content={product.storytelling} />;
@@ -93,8 +99,8 @@ function renderSection(key: ProductSectionKey, product: Product) {
         <UseCasesSection
           key={key}
           useCases={product.useCases}
-          title="Pour quelles sorties ?"
-          intro="Des promenades du quotidien aux week-ends à la neige, voici où la veste se révèle la plus utile."
+          title={t("Pour quelles sorties ?")}
+          intro={t("Des promenades du quotidien aux week-ends à la neige, voici où la veste se révèle la plus utile.")}
         />
       ) : (
         <UseCasesSection key={key} useCases={product.useCases} />
@@ -118,7 +124,7 @@ function renderSection(key: ProductSectionKey, product: Product) {
     case "faq":
       return <FaqSection key={key} faq={product.faq} />;
     case "related":
-      return <RelatedProducts key={key} products={getRecommendations(product.slug, { limit: 3 })} />;
+      return <RelatedProducts key={key} products={localizeProducts(getRecommendations(product.slug, { limit: 3 }), locale)} />;
     case "final-cta":
       return <FinalCtaSection key={key} product={product} />;
     default:
@@ -127,24 +133,25 @@ function renderSection(key: ProductSectionKey, product: Product) {
 }
 
 export default function ProductPage({ params }: Props) {
-  const product = getProductBySlug(params.slug);
-  if (!product) notFound();
+  const { t, locale } = pageSetup(params);
+  const base = getProductBySlug(params.slug);
+  if (!base) notFound();
+  const product = localizeProduct(base, locale);
 
   return (
     <>
-      <ProductJsonLd product={product} />
+      <ProductJsonLd product={product} locale={locale} />
       {product.status === "draft" && (
         <div className="bg-terracotta py-2 text-center text-xs font-medium uppercase tracking-wide text-white">
-          Brouillon — non publie, non indexe, visible uniquement par ce lien direct
-        </div>
+          {t("Brouillon — non publie, non indexe, visible uniquement par ce lien direct")}</div>
       )}
-      <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: product.name }]} />
+      <Breadcrumbs items={[{ label: t("Accueil"), href: "/" }, { label: product.name }]} />
 
       <section className="container-content grid grid-cols-1 gap-10 py-8 md:grid-cols-2 md:gap-16 md:py-14">
         <ProductHero product={product} />
       </section>
 
-      {product.layout.map((key) => renderSection(key, product))}
+      {product.layout.map((key) => renderSection(key, product, locale, t))}
 
       <StickyBar product={product} />
     </>

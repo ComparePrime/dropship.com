@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { CartLine } from "@/lib/types";
+import { useLocale, useT } from "@/i18n/provider";
 
 /**
  * Lance le vrai paiement : le panier est envoye a /api/checkout, qui recalcule
@@ -11,6 +12,8 @@ import { CartLine } from "@/lib/types";
  * redirige vers la page de paiement Stripe. Utilise par le panier ET le tiroir.
  */
 export function useCheckout() {
+  const t = useT();
+  const locale = useLocale();
   const { lines, promo } = useCart();
   const { currency } = useCurrency();
   const [loading, setLoading] = useState(false);
@@ -27,16 +30,16 @@ export function useCheckout() {
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines: payload, currency, promoCode: promo?.code ?? null }),
+        headers: { "Content-Type": "application/json", "x-locale": locale },
+        body: JSON.stringify({ lines: payload, currency, promoCode: promo?.code ?? null, locale }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.url) {
-        throw new Error(data.error ?? "Impossible de lancer le paiement. Votre panier est conservé, réessayez.");
+        throw new Error(data.error ?? t("Impossible de lancer le paiement. Votre panier est conservé, réessayez."));
       }
       window.location.href = data.url;
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Une erreur est survenue. Votre panier est conservé.");
+      setError(e instanceof Error ? e.message : t("Une erreur est survenue. Votre panier est conservé."));
       setLoading(false);
       inFlight.current = false;
     }

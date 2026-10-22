@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { SizeGuide } from "@/lib/types";
 import { SizeGuideTable } from "@/components/product/size-guide-table";
+import { getT } from "@/i18n/server";
 
 /** Guide des tailles en pleine page (texte lisible par les moteurs de recherche et les lecteurs d'ecran). */
 export function SizeGuideSection({ guide }: { guide: SizeGuide }) {
+  const t = getT();
   return (
     <section className="container-content scroll-mt-24 py-16 md:py-24" id="guide-des-tailles">
       <h2 className="section-title text-center">{guide.title}</h2>
@@ -20,8 +22,7 @@ export function SizeGuideSection({ guide }: { guide: SizeGuide }) {
             className="rounded-xl2"
           />
           <figcaption className="mt-2 text-center text-xs text-ink/60">
-            Les trois mesures à prendre : longueur du dos, tour de cou, tour de poitrail.
-          </figcaption>
+            {t("Les trois mesures à prendre : longueur du dos, tour de cou, tour de poitrail.")}</figcaption>
         </figure>
       )}
 

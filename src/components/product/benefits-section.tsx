@@ -1,11 +1,13 @@
 import { ProductBenefit } from "@/lib/types";
 import { Icon } from "@/components/icons";
+import { getT } from "@/i18n/server";
 
 /** Avantages en cartes : pastille verte cochee, titre fort, explication courte. */
 export function BenefitsSection({ benefits }: { benefits: ProductBenefit[] }) {
+  const t = getT();
   return (
     <section className="container-content py-14 md:py-20">
-      <h2 className="section-title">Pourquoi vous allez l&apos;aimer</h2>
+      <h2 className="section-title">{t("Pourquoi vous allez l'aimer")}</h2>
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {benefits.map((benefit) => (
           <div

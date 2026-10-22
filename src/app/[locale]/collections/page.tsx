@@ -2,21 +2,25 @@ import Link from "@/i18n/link";
 import type { Metadata } from "next";
 import { categories } from "@/lib/categories";
 import { Icon } from "@/components/icons";
+import { alternatesFor, asLocale, metaT, pageSetup, LocaleParams } from "@/i18n/page";
 
-export const metadata: Metadata = {
-  title: "Nos univers",
-  description:
-    "Découvrez les univers Maison Loravie : Maison & décoration, Bébé & famille, Nos compagnons et Idées cadeaux.",
-};
+export function generateMetadata({ params }: { params: LocaleParams }): Metadata {
+  const locale = asLocale(params.locale);
+  const t = metaT(locale);
+  return {
+    title: t("Nos univers"),
+    description: t("Découvrez les univers Maison Loravie : Maison & décoration, Bébé & famille, Nos compagnons et Idées cadeaux."),
+    alternates: alternatesFor(locale, "/collections"),
+  };
+}
 
-export default function CollectionsPage() {
+export default function CollectionsPage({ params }: { params: LocaleParams }) {
+  const { t } = pageSetup(params);
   return (
     <section className="container-content py-14">
-      <h1 className="section-title">Nos univers</h1>
+      <h1 className="section-title">{t("Nos univers")}</h1>
       <p className="mt-3 max-w-xl text-ink/70">
-        Maison Loravie organise sa sélection en quatre univers éditoriaux, pour vous aider à
-        trouver plus facilement ce que vous cherchez.
-      </p>
+        {t("Maison Loravie organise sa sélection en quatre univers éditoriaux, pour vous aider à trouver plus facilement ce que vous cherchez.")}</p>
       <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
         {categories.map((c) => {
           const CategoryIcon = Icon[c.icon];
@@ -33,8 +37,7 @@ export default function CollectionsPage() {
                 <h2 className="font-display text-2xl text-ink">{c.title}</h2>
                 <p className="mt-2 text-stone">{c.cardDescription}</p>
                 <span className="mt-3 inline-block text-sm font-medium text-sage group-hover:underline">
-                  Découvrir →
-                </span>
+                  {t("Découvrir →")}</span>
               </div>
             </Link>
           );

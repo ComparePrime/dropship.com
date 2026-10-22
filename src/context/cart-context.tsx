@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { CartLine, Product } from "@/lib/types";
 import { getProductById } from "@/lib/products";
+import { useLocale, useT } from "@/i18n/provider";
 import { hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 
 /** Ligne de panier d'un produit (prix du lot ou de la variante inclus), sans l'ajouter au panier. */
@@ -47,6 +48,8 @@ const STORAGE_KEY = "mf_cart";
 const PROMO_KEY = "mf_promo";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
+  const t = useT();
+  const locale = useLocale();
   const [lines, setLines] = useState<CartLine[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
@@ -176,20 +179,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await fetch("/api/promo", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-locale": locale },
         body: JSON.stringify({ code }),
       });
       const data = await res.json();
-      if (!res.ok) return { ok: false, message: data.error ?? "Ce code promo n'est pas valide." };
+      if (!res.ok) return { ok: false, message: data.error ?? t("Ce code promo n'est pas valide.") };
       setPromo({ code: data.code, percent: data.percent });
       try {
         window.localStorage.setItem(PROMO_KEY, data.code);
       } catch {
         // ignore
       }
-      return { ok: true, message: `Code ${data.code} appliqué : −${data.percent} % sur votre commande.` };
+      return { ok: true, message: t("Code {code} appliqué : −{percent} % sur votre commande.", { code: data.code, percent: data.percent }) };
     } catch {
-      return { ok: false, message: "Impossible de vérifier le code pour le moment. Réessayez." };
+      return { ok: false, message: t("Impossible de vérifier le code pour le moment. Réessayez.") };
     }
   };
 

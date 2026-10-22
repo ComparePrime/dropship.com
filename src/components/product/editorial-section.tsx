@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { Product } from "@/lib/types";
+import { getT } from "@/i18n/server";
 
 export function EditorialSection({ product }: { product: Product }) {
+  const t = getT();
   // Premiere photo secondaire qui n'est ni un visuel d'information (dimensions...) ni
   // une photo d'ambiance deja montree dans la section "Dans votre interieur".
   const image =
@@ -18,7 +20,7 @@ export function EditorialSection({ product }: { product: Product }) {
           )}
         </div>
         <div>
-          <h2 className="section-title">Un objet pensé dans le détail</h2>
+          <h2 className="section-title">{t("Un objet pensé dans le détail")}</h2>
           <div className="mt-6 flex flex-col gap-4 text-ink/80">
             {product.description.map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
