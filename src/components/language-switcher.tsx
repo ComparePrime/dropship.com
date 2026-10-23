@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { liveLocales, localeNames, localizePath, stripLocale, Locale } from "@/i18n/config";
 import { useLocale, useT } from "@/i18n/provider";
+import { LANG_CHOSEN_KEY } from "@/context/currency-context";
 
 /**
  * Choix de la langue : liste déroulante compacte. Chaque langue ouverte renvoie vers la même page dans
@@ -16,6 +17,11 @@ export function LanguageSwitcher() {
 
   const { path } = stripLocale(pathname);
   const go = (target: Locale) => {
+    try {
+      window.localStorage.setItem(LANG_CHOSEN_KEY, target);
+    } catch {
+      // ignore
+    }
     // Rechargement complet : l'adresse change de préfixe et les textes viennent d'un autre dictionnaire.
     window.location.assign(`${localizePath(path, target)}${window.location.search}${window.location.hash}`);
   };
