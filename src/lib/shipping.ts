@@ -13,7 +13,14 @@ export const NORTH_AMERICA_COUNTRIES = ["US", "CA"];
  * Pour au contraire l'exclure : l'ajouter a NORTH_AMERICA_EXCLUDED_SLUGS.
  */
 const NORTH_AMERICA_EXCLUDED_SLUGS = new Set<string>();
-const NORTH_AMERICA_ALLOWED_SLUGS = new Set<string>();
+const NORTH_AMERICA_ALLOWED_SLUGS = new Set<string>([
+  // Conformité confirmée par le vendeur (octobre 2026).
+  "lampe-table-led-diamant-usb",
+  "ventilateur-plafond-invisible-led",
+  "ventilateur-anti-mouches-table",
+  "meduse-dansante-jouet-interactif",
+  "coussin-bras-allaitement-biberon",
+]);
 
 export function isShippableToNorthAmerica(product: Product): boolean {
   if (NORTH_AMERICA_EXCLUDED_SLUGS.has(product.slug)) return false;
