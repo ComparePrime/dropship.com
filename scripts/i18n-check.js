@@ -97,7 +97,19 @@ const data = (mod, pick) => {
 };
 data("lib/categories");
 data("lib/subcategories");
-data("lib/blog");
+// Le journal : un article n'a besoin d'être traduit que dans les langues où il est publié.
+const blogLib = load("lib/blog");
+const blogKeys = {};
+for (const post of blogLib.getAllBlogPosts()) {
+  for (const locale of post.languages.filter((l) => l !== "fr")) {
+    const set = (blogKeys[locale] = blogKeys[locale] || new Set());
+    [post.title, post.seoTitle, post.metaDescription, post.excerpt, post.cover.alt].forEach((k) => set.add(k));
+    post.body.trim().split(/\n\s*\n/).forEach((chunk) => !chunk.trim().startsWith(":::") && set.add(chunk.trim()));
+    post.faq.forEach((f) => (set.add(f.question), set.add(f.answer)));
+    const c = blogLib.getBlogCategory(post.category);
+    [c.title, c.intro, c.seoTitle, c.metaDescription].forEach((k) => set.add(k));
+  }
+}
 data("lib/scenes");
 data("lib/collection-showcase");
 data("lib/campaign", (m) => m.AUTUMN_CAMPAIGN);
@@ -123,9 +135,10 @@ let failed = false;
 for (const locale of LOCALES) {
   if (only && locale !== only) continue;
   const messages = load(`i18n/messages/${locale}`).default;
-  const missing = sourceKeys.filter((k) => !(k in messages));
-  const unused = Object.keys(messages).filter((k) => !keys.has(k));
-  console.log(`\n[${locale}] textes : ${sourceKeys.length - missing.length}/${sourceKeys.length} traduits` + (unused.length ? `, ${unused.length} entrée(s) inutilisée(s)` : ""));
+  const localeKeys = [...new Set([...sourceKeys, ...(blogKeys[locale] || [])])];
+  const missing = localeKeys.filter((k) => !(k in messages));
+  const unused = Object.keys(messages).filter((k) => !keys.has(k) && !(blogKeys[locale] && blogKeys[locale].has(k)));
+  console.log(`\n[${locale}] textes : ${localeKeys.length - missing.length}/${localeKeys.length} traduits` + (unused.length ? `, ${unused.length} entrée(s) inutilisée(s)` : ""));
   if (missing.length) failed = true;
   if (list) unused.forEach((k) => console.log("   inutilisée :", JSON.stringify(k.length > 110 ? k.slice(0, 107) + "…" : k)));
   if (list) missing.forEach((k) => console.log("   manque :", JSON.stringify(k.length > 110 ? k.slice(0, 107) + "…" : k)));

@@ -31,6 +31,9 @@ const nextConfig = {
     return [
       { source: "/fr", destination: "/", permanent: true },
       { source: "/fr/:path*", destination: "/:path*", permanent: true },
+      // Article remplacé par un guide plus complet (même sujet, nouvelle adresse).
+      { source: "/blog/choisir-taille-veste-chien", destination: "/blog/choisir-manteau-chien", permanent: true },
+      { source: "/:locale(en|de|it|es|pt)/blog/choisir-taille-veste-chien", destination: "/blog", permanent: true },
     ];
   },
 };

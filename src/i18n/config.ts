@@ -94,18 +94,19 @@ export function absoluteUrl(path: string, locale: Locale): string {
 }
 
 /** Adresses completes d'une page dans chaque langue (pour les balises hreflang et le sitemap). */
-export function alternateUrls(path: string): Record<Locale, string> {
+export function alternateUrls(path: string, only?: Locale[]): Record<Locale, string> {
   const urls = {} as Record<Locale, string>;
-  for (const locale of isFrenchOnly(path) ? [defaultLocale] : liveLocales) urls[locale] = absoluteUrl(path, locale);
+  const available = liveLocales.filter((l) => !only || only.includes(l));
+  for (const locale of isFrenchOnly(path) ? [defaultLocale] : available) urls[locale] = absoluteUrl(path, locale);
   return urls;
 }
 
 /** Bloc `alternates` des metadonnees : adresse canonique de la langue + hreflang de toutes les langues. */
-export function alternatesFor(locale: Locale, path: string) {
-  const urls = alternateUrls(path);
+export function alternatesFor(locale: Locale, path: string, only?: Locale[]) {
+  const urls = alternateUrls(path, only);
   const canonical = absoluteUrl(path, locale);
-  // hreflang uniquement quand au moins deux langues sont ouvertes.
-  return liveLocales.length > 1 && !isFrenchOnly(path)
+  // hreflang uniquement quand au moins deux versions de la page existent dans des langues ouvertes.
+  return Object.keys(urls).length > 1 && !isFrenchOnly(path)
     ? { canonical, languages: { ...urls, "x-default": urls[defaultLocale] } }
     : { canonical };
 }

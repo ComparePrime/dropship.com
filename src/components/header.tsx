@@ -71,6 +71,8 @@ export function Header() {
               </div>
             )}
           </div>
+          <Link href="/blog" className="hover:text-ink">
+            {t("Journal")}</Link>
           <Link href="/a-propos" className="hover:text-ink">
             {t("À propos")}</Link>
           <Link href="/contact" className="hover:text-ink">
@@ -132,6 +134,12 @@ export function Header() {
               </Link>
             ))}
             <div className="mt-2 border-t border-ink/10 pt-2">
+              <Link
+                href="/blog"
+                className="block rounded-lg px-1 py-3 text-ink/85 hover:text-ink"
+                onClick={() => setMobileOpen(false)}
+              >
+                {t("Journal")}</Link>
               <Link
                 href="/a-propos"
                 className="block rounded-lg px-1 py-3 text-ink/85 hover:text-ink"

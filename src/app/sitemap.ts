@@ -4,14 +4,15 @@ import { getAllBlogPosts } from "@/lib/blog";
 import { getPublishedScenes } from "@/lib/scenes";
 import { categories } from "@/lib/categories";
 import { subcategories } from "@/lib/subcategories";
-import { absoluteUrl, alternateUrls, defaultLocale, isFrenchOnly, liveLocales } from "@/i18n/config";
+import { absoluteUrl, alternateUrls, defaultLocale, isFrenchOnly, liveLocales, type Locale } from "@/i18n/config";
+import { blogCategories } from "@/lib/blog";
 
 type Entry = MetadataRoute.Sitemap[number];
 
 /** Une entrée par langue ouverte pour chaque page, avec les liens hreflang vers les autres langues. */
-function entries(path: string, lastModified: Date): Entry[] {
-  const languages = alternateUrls(path);
-  const locales = isFrenchOnly(path) ? [defaultLocale] : liveLocales;
+function entries(path: string, lastModified: Date, only?: Locale[]): Entry[] {
+  const languages = alternateUrls(path, only);
+  const locales = isFrenchOnly(path) ? [defaultLocale] : liveLocales.filter((l) => !only || only.includes(l));
   const multi = locales.length > 1;
   return locales.map((locale) => ({
     url: absoluteUrl(path, locale),
@@ -23,7 +24,8 @@ function entries(path: string, lastModified: Date): Entry[] {
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const staticRoutes = ["/", "/collections", "/blog", "/a-propos", "/livraison", "/retours", "/contact", "/confidentialite"].flatMap(
+  const blogIndex = entries("/blog", now, liveLocales.filter((l) => getAllBlogPosts().some((p) => p.languages.includes(l))));
+  const staticRoutes = ["/", "/collections", "/a-propos", "/livraison", "/retours", "/contact", "/confidentialite"].flatMap(
     (path) => entries(path, now)
   );
   const productRoutes = getPublishedProducts().flatMap((product) => entries(`/produit/${product.slug}`, now));
@@ -33,7 +35,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...subcategories.flatMap((s) => entries(`/collections/maison-decoration/${s.slug}`, now)),
   ];
   const sceneRoutes = getPublishedScenes().flatMap((s) => entries(`/mises-en-scene/${s.slug}`, now));
-  const blogRoutes = getAllBlogPosts().flatMap((post) => entries(`/blog/${post.slug}`, new Date(post.publishedAt)));
+  const blogRoutes = [
+    ...getAllBlogPosts().flatMap((post) => entries(`/blog/${post.slug}`, new Date(post.updatedAt ?? post.publishedAt), post.languages)),
+    ...blogCategories.flatMap((c) => {
+      const posts = getAllBlogPosts().filter((p) => p.category === c.slug);
+      if (posts.length === 0) return [];
+      const only = liveLocales.filter((l) => posts.some((p) => p.languages.includes(l)));
+      const latest = posts.map((p) => p.updatedAt ?? p.publishedAt).sort().pop()!;
+      return entries(`/blog/categorie/${c.slug}`, new Date(latest), only);
+    }),
+  ];
 
-  return [...staticRoutes, ...productRoutes, ...collectionRoutes, ...subcategoryRoutes, ...sceneRoutes, ...blogRoutes];
+  return [...staticRoutes, ...blogIndex, ...productRoutes, ...collectionRoutes, ...subcategoryRoutes, ...sceneRoutes, ...blogRoutes];
 }

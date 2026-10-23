@@ -1,6 +1,6 @@
 import type { Category } from "@/lib/categories";
 import type { Subcategory } from "@/lib/subcategories";
-import type { BlogPost } from "@/lib/blog";
+import type { BlogCategory, BlogPost } from "@/lib/blog";
 import type { Locale } from "./config";
 import { translate } from "./messages";
 
@@ -38,5 +38,31 @@ export function localizeSubcategory(sub: Subcategory, locale: Locale): Subcatego
 export function localizeBlogPost(post: BlogPost, locale: Locale): BlogPost {
   if (locale === "fr") return post;
   const t = (s: string) => translate(locale, s);
-  return { ...post, title: t(post.title), excerpt: t(post.excerpt), content: post.content.map(t) };
+  return {
+    ...post,
+    title: t(post.title),
+    seoTitle: t(post.seoTitle),
+    metaDescription: t(post.metaDescription),
+    excerpt: t(post.excerpt),
+    cover: { ...post.cover, alt: t(post.cover.alt) },
+    // Le corps est traduit bloc par bloc (un bloc = un texte du dictionnaire).
+    body: post.body
+      .trim()
+      .split(/\n\s*\n/)
+      .map((chunk) => (chunk.trim().startsWith(":::") ? chunk.trim() : t(chunk.trim())))
+      .join("\n\n"),
+    faq: post.faq.map((f) => ({ question: t(f.question), answer: t(f.answer) })),
+  };
+}
+
+export function localizeBlogCategory(category: BlogCategory, locale: Locale): BlogCategory {
+  if (locale === "fr") return category;
+  const t = (s: string) => translate(locale, s);
+  return {
+    ...category,
+    title: t(category.title),
+    intro: t(category.intro),
+    seoTitle: t(category.seoTitle),
+    metaDescription: t(category.metaDescription),
+  };
 }
