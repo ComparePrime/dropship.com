@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "@/i18n/link";
 import { loadGoogleTag } from "@/lib/google-tag";
+import { loadMetaPixel } from "@/lib/meta-pixel";
 import { useT } from "@/i18n/provider";
 
 const CONSENT_KEY = "ml_cookie_consent";
@@ -30,7 +31,10 @@ export function CookieBanner() {
 
   useEffect(() => {
     const stored = readConsent();
-    if (stored === "granted") loadGoogleTag();
+    if (stored === "granted") {
+      loadGoogleTag();
+      loadMetaPixel();
+    }
     if (stored === null) setVisible(true);
 
     const reopen = () => setVisible(true);
@@ -48,6 +52,7 @@ export function CookieBanner() {
     setVisible(false);
     if (choice === "granted") {
       loadGoogleTag();
+      loadMetaPixel();
     } else if (previous === "granted") {
       // Une balise deja chargee ne peut pas etre retiree a chaud : on recharge la page.
       window.location.reload();
@@ -64,7 +69,7 @@ export function CookieBanner() {
     >
       <p className="font-display text-lg text-ink">{t("Vos choix concernant les cookies")}</p>
       <p className="mt-2 text-sm text-ink/75">
-        {t("Nous utilisons des cookies de mesure d'audience et de publicité (Google Analytics et Google Ads) pour comprendre comment le site est utilisé et mesurer nos annonces. Ils ne sont activés qu'avec votre accord. Les cookies nécessaires au panier fonctionnent dans tous les cas. Plus de détails dans notre")}{" "}
+        {t("Nous utilisons des cookies de mesure d'audience et de publicité (Google Analytics, Google Ads et Pixel Meta) pour comprendre comment le site est utilisé et mesurer nos annonces. Ils ne sont activés qu'avec votre accord. Les cookies nécessaires au panier fonctionnent dans tous les cas. Plus de détails dans notre")}{" "}
         <Link href="/confidentialite" className="underline underline-offset-2">
           {t("politique de confidentialité")}</Link>
         .

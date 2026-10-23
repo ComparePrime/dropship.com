@@ -146,7 +146,7 @@ const messages: Messages = {
   "Voir {name}": "See {name}",
   "Gestion des cookies": "Cookie management",
   "Vos choix concernant les cookies": "Your cookie choices",
-  "Nous utilisons des cookies de mesure d'audience et de publicité (Google Analytics et Google Ads) pour comprendre comment le site est utilisé et mesurer nos annonces. Ils ne sont activés qu'avec votre accord. Les cookies nécessaires au panier fonctionnent dans tous les cas. Plus de détails dans notre": "We use audience measurement and advertising cookies (Google Analytics and Google Ads) to understand how the site is used and to measure our ads. They are only enabled with your consent. The cookies needed for the cart work in all cases. More details in our",
+  "Nous utilisons des cookies de mesure d'audience et de publicité (Google Analytics, Google Ads et Pixel Meta) pour comprendre comment le site est utilisé et mesurer nos annonces. Ils ne sont activés qu'avec votre accord. Les cookies nécessaires au panier fonctionnent dans tous les cas. Plus de détails dans notre": "We use audience measurement and advertising cookies (Google Analytics, Google Ads and Meta Pixel) to understand how the site is used and to measure our ads. They are only enabled with your consent. The cookies needed for the cart work in all cases. More details in our",
   "politique de confidentialité": "privacy policy",
   "Tout refuser": "Reject all",
   "Accepter": "Accept",

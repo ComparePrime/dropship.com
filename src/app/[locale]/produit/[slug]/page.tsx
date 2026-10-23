@@ -25,6 +25,7 @@ import { FaqSection } from "@/components/product/faq-section";
 import { RelatedProducts } from "@/components/product/related-products";
 import { FinalCtaSection } from "@/components/product/final-cta-section";
 import { ProductJsonLd } from "@/components/product/product-jsonld";
+import { MetaViewContent } from "@/components/meta-pixel-tracker";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface Props {
@@ -141,6 +142,7 @@ export default function ProductPage({ params }: Props) {
   return (
     <>
       <ProductJsonLd product={product} locale={locale} />
+      <MetaViewContent id={product.slug} name={product.name} value={product.priceEUR} />
       {product.status === "draft" && (
         <div className="bg-terracotta py-2 text-center text-xs font-medium uppercase tracking-wide text-white">
           {t("Brouillon — non publie, non indexe, visible uniquement par ce lien direct")}</div>

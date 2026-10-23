@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { AnnouncementBar } from "@/components/announcement-bar";
 import { CartDrawer } from "@/components/cart-drawer";
 import { CookieBanner } from "@/components/cookie-banner";
+import { MetaPixelRouteTracker } from "@/components/meta-pixel-tracker";
 import { WelcomePopup } from "@/components/welcome-popup";
 import { siteConfig } from "@/lib/site-config";
 import { LocaleProvider } from "@/i18n/provider";
@@ -84,6 +85,7 @@ export default function LocaleLayout({
             <Footer />
             <CartDrawer />
             <CookieBanner />
+            <MetaPixelRouteTracker />
             <WelcomePopup />
           </CartProvider>
         </CurrencyProvider>

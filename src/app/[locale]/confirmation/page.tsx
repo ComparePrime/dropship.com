@@ -3,6 +3,7 @@
 import Link from "@/i18n/link";
 import { useEffect } from "react";
 import { trackPurchase } from "@/lib/google-tag";
+import { trackMetaPurchase } from "@/lib/meta-pixel";
 import { useCart } from "@/context/cart-context";
 import { Icon } from "@/components/icons";
 import { useT } from "@/i18n/provider";
@@ -17,7 +18,10 @@ export default function ConfirmationPage() {
       fetch(`/api/order-summary?session_id=${encodeURIComponent(sessionId)}`)
         .then((res) => (res.ok ? res.json() : null))
         .then((data) => {
-          if (data?.transactionId) trackPurchase(data);
+          if (data?.transactionId) {
+            trackPurchase(data);
+            trackMetaPurchase(data);
+          }
         })
         .catch(() => {});
     }

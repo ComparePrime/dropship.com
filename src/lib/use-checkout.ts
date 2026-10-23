@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { CartLine } from "@/lib/types";
+import { trackMeta } from "@/lib/meta-pixel";
 import { useLocale, useT } from "@/i18n/provider";
 
 /**
@@ -27,6 +28,13 @@ export function useCheckout() {
     inFlight.current = true;
     setLoading(true);
     setError(null);
+    trackMeta("InitiateCheckout", {
+      value: payload.reduce((sum, l) => sum + l.priceEUR * l.quantity, 0),
+      currency: "EUR",
+      num_items: payload.reduce((n, l) => n + l.quantity, 0),
+      content_ids: payload.map((l) => l.slug),
+      content_type: "product",
+    });
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
