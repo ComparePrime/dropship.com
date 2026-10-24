@@ -60,7 +60,7 @@ Une lampe d'ambiance se voit la journée, quand elle est éteinte. Choisissez-la
 
 Évitez les formes très complexes si votre salon est déjà riche en objets.
 
-:::produits lampe-table-led-diamant-usb lampe-chevet-rechargeable-cristal-doree | Deux lampes d'ambiance rechargeables
+:::produits lampe-table-led-diamant-usb lampe-chevet-rechargeable-cristal-doree lampe-de-table-rechargeable-doree-cannelee | Trois lampes d'ambiance rechargeables
 
 ## Alimentation : câble, pile ou batterie
 

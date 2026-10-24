@@ -3966,6 +3966,250 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "lampe-cannelee",
+    slug: "lampe-de-table-rechargeable-doree-cannelee",
+    status: "published",
+    compliance: {
+      categories: ["electrical"],
+      verified: false,
+      notes:
+        "Fiche fournisseur recue (4 images, dont un visuel de caracteristiques) le 2026-10-24. Le visuel annonce : luminosite reglable (3 rendus de lumiere montres), commande tactile, recharge Type-C avec batterie integree incluse, abat-jour 'en cristal', hauteur 28 cm, socle 13 cm. Aucune certification, aucun rapport de batterie, aucune capacite (mAh), autonomie ou temps de charge fournis : rien de tout cela n'est repris comme fait sur la fiche. Les photos montrent un petit bouton sur le socle alors que le visuel parle de commande tactile (le doigt appuie sur le dessus de l'abat-jour) : mode de commande et niveaux a verifier sur un exemplaire. Matiere de l'abat-jour a confirmer (le visuel dit 'cristal', l'aspect est celui d'un abat-jour transparent cannele). Les photos d'ambiance montrent deux lampes : le produit est vendu a l'unite. Livraison US/CA non ouverte (conformite non confirmee pour ce produit).",
+    },
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 2,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0.604,
+      notes:
+        "Cout complet 19,79 EUR livraison incluse (AliExpress). Prix 59,99 EUR TTC, reference 99,99 EUR (-40 %). Marge brute 60,4 % en France (TVA 20 %), 64,3 % en Suisse, 67,0 % hors TVA, avant publicite et frais de paiement. Produit tres proche de La Lampe Coupole (47,99 EUR) et de La Lampe Diamant (19,99 EUR) : risque de cannibalisation et prix eleve, a surveiller. Stock declare par l'operateur : 12.",
+    },
+    name: "La Lampe Cannelée",
+    brandLine: "Maison Loravie",
+    badge: "NOUVEAUTÉ",
+    headline: "Un abat-jour ciselé, une lumière qui se règle.",
+    subtitle:
+      "Une lampe de table rechargeable à l'abat-jour transparent cannelé et au pied doré, avec une luminosité réglable et une recharge USB-C, pour la chambre, le salon ou une console.",
+    heroBullets: [
+      "Abat-jour transparent cannelé, sur un pied doré",
+      "Luminosité réglable, lumière chaude",
+      "Batterie rechargeable intégrée, recharge USB-C",
+      "28 cm de haut, socle de 13 cm",
+    ],
+    h1: "Lampe de table rechargeable dorée, abat-jour transparent cannelé",
+    shortDescription:
+      "Une lampe de table rechargeable au pied doré et à l'abat-jour transparent cannelé, avec une luminosité réglable et une recharge USB-C. 28 cm de haut.",
+    description: [
+      "La Lampe Cannelée se reconnaît à son abat-jour transparent aux cannelures en relief, qui découpent la lumière en fines lignes sur le mur. Il repose sur un pied doré tout en finesse et un socle arrondi.",
+      "Une batterie rechargeable est intégrée à la lampe, qui se recharge en USB-C : plus besoin de prise à proximité, on la pose sur une table de nuit, une console ou une table à manger, et on la déplace d'une pièce à l'autre. Sa luminosité est réglable, d'une veilleuse douce à un éclairage d'ambiance.",
+      "Avec ses 28 cm de haut et son socle de 13 cm, elle prend peu de place et s'accorde aussi bien avec un intérieur naturel qu'avec une décoration plus moderne.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "La lumière dessine aussi la pièce.",
+      paragraphs: [
+        "Un abat-jour travaillé ne sert pas qu'à éclairer : il projette des lignes, des reflets, une atmosphère. C'est ce qui donne du caractère à un coin de chambre ou à une console, même sans y toucher.",
+        "La Lampe Cannelée a été choisie pour cette façon de jouer avec la lumière, et pour sa liberté : une batterie, une recharge USB-C, aucun câble à faire courir.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "La lumière est-elle assez douce pour une chambre ?",
+        response:
+          "La lumière annoncée est chaude et la luminosité est réglable : on adapte l'intensité à l'heure et à l'usage.",
+      },
+      {
+        doubt: "Faut-il la brancher en permanence ?",
+        response:
+          "Non : elle fonctionne sur une batterie rechargeable intégrée, qui se recharge en USB-C. L'autonomie exacte n'est pas encore communiquée par le fournisseur.",
+      },
+      {
+        doubt: "Qu'est-ce qui la distingue d'une lampe classique ?",
+        response:
+          "Son abat-jour transparent cannelé, qui découpe la lumière en lignes fines, et son pied doré : c'est un objet décoratif autant qu'une source de lumière.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si la lampe ne me convient pas une fois reçue ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et la retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Une lampe rechargeable à abat-jour transparent cannelé",
+      "Luminosité réglable, recharge USB-C",
+      "28 cm de haut, finition dorée",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+    ],
+    midCtaTexts: [
+      "Séduit par cet abat-jour ciselé ?",
+      "Prêt à lui trouver sa place chez vous ?",
+    ],
+    costPriceUSD: 22.19,
+    priceCHF: 59.99,
+    priceEUR: 59.99,
+    compareAtPriceCHF: 99.99,
+    compareAtPriceEUR: 99.99,
+    images: [
+      {
+        src: "/images/products/lampe-cannelee/chevet.jpg",
+        alt: "Lampe de table dorée allumée, à l'abat-jour transparent cannelé, posée sur une table de chevet blanche",
+        caption: "Allumée, sur une table de chevet",
+      },
+      {
+        src: "/images/products/lampe-cannelee/caracteristiques.webp",
+        alt: "Caractéristiques de la lampe : hauteur 28 cm, socle 13 cm, luminosité réglable, commande tactile, recharge Type-C avec batterie intégrée, abat-jour en cristal",
+        caption: "Les caractéristiques en un coup d'œil",
+        info: true,
+      },
+      {
+        src: "/images/products/lampe-cannelee/beton.jpg",
+        alt: "Lampe de table dorée à l'abat-jour transparent cannelé, allumée, devant un mur en béton gris",
+        caption: "Devant un mur de béton",
+      },
+      {
+        src: "/images/products/lampe-cannelee/duo.jpg",
+        alt: "Deux lampes dorées à l'abat-jour transparent cannelé allumées, l'une sur un cube blanc, l'autre sur une étagère, devant un mur sombre",
+        caption: "En duo, pour une ambiance chaude (la lampe est vendue à l'unité)",
+        inspiration: true,
+      },
+    ],
+    benefits: [
+      {
+        icon: "lamp",
+        title: "Un abat-jour cannelé",
+        description: "Des cannelures en relief qui découpent la lumière en lignes fines.",
+      },
+      {
+        icon: "lightbulb",
+        title: "Luminosité réglable",
+        description: "Une intensité à ajuster, d'une veilleuse douce à une lumière d'ambiance.",
+      },
+      {
+        icon: "battery",
+        title: "Batterie et recharge USB-C",
+        description: "Pas de fil à brancher en continu : on la recharge comme un téléphone.",
+      },
+      {
+        icon: "gift",
+        title: "Une idée cadeau élégante",
+        description: "Un objet doré et raffiné, facile à offrir pour Noël, un anniversaire ou un emménagement.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Table de nuit",
+        description: "Une lumière douce pour lire ou se coucher, sans allumer le plafonnier.",
+      },
+      {
+        title: "Console ou entrée",
+        description: "Un point de lumière élégant qui accueille dès la porte.",
+      },
+      {
+        title: "Table de repas",
+        description: "Un éclairage d'appoint pour un dîner, sans câble sur la table.",
+      },
+      {
+        title: "Salon",
+        description: "Une lumière tamisée sur un buffet ou un meuble bas, pour les soirées d'hiver.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions de la lampe ?",
+        answer: "Elle mesure 28 cm de hauteur, avec un socle de 13 cm de diamètre.",
+      },
+      {
+        question: "Comment se recharge-t-elle ?",
+        answer:
+          "Elle se recharge en USB-C, avec une batterie intégrée, selon les informations du fournisseur. L'autonomie et le temps de charge seront précisés dès que la fiche technique complète sera disponible.",
+      },
+      {
+        question: "La luminosité est-elle réglable ?",
+        answer:
+          "Oui, la luminosité est réglable. Le détail du réglage (nombre de niveaux, geste de commande) sera précisé dès que nous aurons confirmé le fonctionnement avec le fournisseur.",
+      },
+      {
+        question: "Quelle est la couleur de la lumière ?",
+        answer: "Le fournisseur annonce une lumière chaude, adaptée à une chambre ou à un salon.",
+      },
+      {
+        question: "De quoi est faite la lampe ?",
+        answer:
+          "Le fournisseur indique un pied en métal de finition dorée et un abat-jour décrit comme « en cristal ». La matière exacte de l'abat-jour sera confirmée dès la fiche technique complète.",
+      },
+      {
+        question: "La lampe est-elle vendue seule ou par deux ?",
+        answer:
+          "Elle est vendue à l'unité. Certaines photos montrent deux lampes pour illustrer une ambiance.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Lampe de table rechargeable dorée, abat-jour cannelé | Maison Loravie",
+      metaDescription:
+        "La Lampe Cannelée : lampe de table rechargeable USB-C, pied doré et abat-jour transparent cannelé, luminosité réglable. 28 cm. Livraison offerte, retours 30 jours.",
+      keywords: [
+        "lampe de table rechargeable",
+        "lampe sans fil dorée",
+        "lampe de table sans fil",
+        "lampe rechargeable usb-c",
+        "lampe abat-jour cannelé",
+        "lampe d'ambiance dorée",
+        "idée cadeau lampe",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre d'automne",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /**

@@ -6,6 +6,7 @@ import griffoir from "./en/griffoir-chat-accordeon-balle";
 import arcade from "./en/jouet-chat-arcade-souris-fromage";
 import lampe from "./en/lampe-table-led-diamant-usb";
 import lampeCoupole from "./en/lampe-chevet-rechargeable-cristal-doree";
+import lampeCannelee from "./en/lampe-de-table-rechargeable-doree-cannelee";
 import meduse from "./en/meduse-dansante-jouet-interactif";
 import pendule from "./en/pendule-newton-metal-bureau";
 import plateau from "./en/plateau-decoratif-rond-resine-vague";
@@ -23,6 +24,7 @@ const translations: ProductTranslations = {
   "jouet-chat-arcade-souris-fromage": arcade,
   "lampe-table-led-diamant-usb": lampe,
   "lampe-chevet-rechargeable-cristal-doree": lampeCoupole,
+  "lampe-de-table-rechargeable-doree-cannelee": lampeCannelee,
   "meduse-dansante-jouet-interactif": meduse,
   "pendule-newton-metal-bureau": pendule,
   "plateau-decoratif-rond-resine-vague": plateau,
