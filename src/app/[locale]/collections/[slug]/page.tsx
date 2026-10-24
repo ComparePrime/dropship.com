@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPublishedProducts } from "@/lib/products";
+import { sortForCollection } from "@/lib/collection-order";
 import { categories, getCategoryBySlug } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { Icon } from "@/components/icons";
@@ -51,7 +52,10 @@ export default function CollectionPage({ params }: Props) {
   const category = localizeCategory(base, locale);
 
   const products = localizeProducts(
-    getPublishedProducts().filter((p) => p.collections.includes(category.slug)),
+    sortForCollection(
+      getPublishedProducts().filter((p) => p.collections.includes(category.slug)),
+      category.slug
+    ),
     locale
   );
   const CategoryIcon = Icon[category.icon];

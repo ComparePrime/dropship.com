@@ -22,7 +22,13 @@ export const subcategories: Subcategory[] = [
     seoTitle: "Lampes de table et éclairage d'ambiance | Maison Loravie",
     metaDescription:
       "Lampe de table à facettes, rechargeable et tactile, ventilateur plafonnier lumineux : découvrez la sélection éclairage et ambiance de Maison Loravie.",
-    productSlugs: ["lampe-table-led-diamant-usb", "ventilateur-plafond-invisible-led"],
+    productSlugs: [
+      "lampe-table-led-diamant-usb",
+      "lampe-chevet-rechargeable-cristal-doree",
+      "lampe-de-table-rechargeable-doree-cannelee",
+      "lampe-lanterne-rechargeable-tactile-cristal",
+      "ventilateur-plafond-invisible-led",
+    ],
   },
   {
     slug: "maison-et-confort",
