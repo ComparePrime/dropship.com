@@ -63,7 +63,7 @@ Une lampe de chevet fait partie de la décoration. Quelques repères :
 - **Chambre plus contemporaine :** une lampe transparente ou à facettes joue avec la lumière et reste discrète quand elle est éteinte.
 - **Chambre chargée :** une lampe très simple évite d'ajouter du bruit visuel.
 
-:::produits lampe-table-led-diamant-usb | Une lampe d'appoint rechargeable
+:::produits lampe-table-led-diamant-usb lampe-chevet-rechargeable-cristal-doree | Deux lampes d'appoint rechargeables
 
 ## Les points de sécurité à vérifier
 

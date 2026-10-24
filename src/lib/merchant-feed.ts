@@ -49,6 +49,7 @@ const GOOGLE_CATEGORY: Record<string, string> = {
   "vase-arche": "Home & Garden > Decor",
   "trio-vases-wabi-sabi": "Home & Garden > Decor",
   "lampe-diamant-led": "Home & Garden > Lighting",
+  "lampe-coupole": "Home & Garden > Lighting",
   "pendule-newton": "Home & Garden > Decor",
   "plateau-vague-resine": "Home & Garden > Decor",
   "veste-chien-montagne": "Animals & Pet Supplies > Pet Supplies > Dog Supplies > Dog Apparel",

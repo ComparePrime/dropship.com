@@ -3722,6 +3722,250 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "lampe-coupole",
+    slug: "lampe-chevet-rechargeable-cristal-doree",
+    status: "published",
+    compliance: {
+      categories: ["electrical"],
+      verified: false,
+      notes:
+        "Fiche fournisseur recue (texte + 4 images) le 2026-10-24. Le fournisseur declare CE, FCC et RoHS (modele DLT6001) : aucun document fourni, donc aucune certification reprise sur la fiche. Le texte parle d'une batterie 'lithium metal' : probablement une erreur de traduction pour lithium rechargeable, a faire confirmer (type, capacite en mAh, autonomie, temps de charge, rapport de securite batterie). Alimentation annoncee DC 3,6 V / 5 V, 0 a 5 W : type de cable de charge non precise. Le texte annonce une 'commande tactile' alors que les photos montrent un petit bouton sur le socle : mode de commande, nombre de niveaux de luminosite et teinte exacte (chaude selon le texte ; la photo 2 montre une lumiere plus froide) a verifier sur un exemplaire. Matiere de l'abat-jour non precisee (le texte dit 'cristal', les photos montrent un abat-jour transparent a facettes) ; corps en aluminium finition doree selon le fournisseur. Dimensions lues sur le visuel fourni : hauteur 29,5 cm, abat-jour 15 cm, socle 10,5 cm. Livraison US/CA non ouverte (conformite non confirmee pour ce produit).",
+    },
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 3,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 3,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0.603,
+      notes:
+        "Cout complet 15,89 EUR livraison incluse (fournisseur AliExpress, modele DLT6001, coloris or). Prix 47,99 EUR TTC, reference 79,99 EUR (-40 %). Marge brute 60,3 % en France (TVA 20 %), 64,2 % en Suisse, 66,9 % hors TVA, avant publicite et frais de paiement. Prix eleve face a la Lampe Diamant (19,99 EUR) : surveiller le taux de conversion. Stock declare par l'operateur : 14.",
+    },
+    name: "La Lampe Coupole",
+    brandLine: "Maison Loravie",
+    badge: "NOUVEAUTÉ",
+    headline: "Une lumière douce, posée sur un pied doré.",
+    subtitle:
+      "Une lampe de chevet rechargeable à l'abat-jour transparent à facettes et au pied doré, avec une luminosité réglable, pour la chambre, le salon ou une console.",
+    heroBullets: [
+      "Abat-jour transparent aux facettes en relief, sur un pied doré",
+      "Luminosité réglable, lumière chaude annoncée",
+      "Batterie rechargeable intégrée : aucun fil à brancher en continu",
+      "29,5 cm de haut, pour une table de nuit, une console ou une table",
+    ],
+    h1: "Lampe de chevet rechargeable dorée, abat-jour transparent à facettes",
+    shortDescription:
+      "Une lampe de chevet rechargeable, au pied doré et à l'abat-jour transparent à facettes, avec une luminosité réglable. 29,5 cm de haut.",
+    description: [
+      "La Lampe Coupole associe un abat-jour transparent aux facettes en relief et un pied fin à la finition dorée, posé sur un socle arrondi. Éteinte, c'est un petit objet décoratif ; allumée, elle diffuse une lumière douce qui se reflète dans les facettes.",
+      "Sa batterie rechargeable intégrée la libère du fil : on la pose sur une table de nuit, une console ou un coin de table, et on la déplace d'une pièce à l'autre selon l'envie. La luminosité se règle pour passer d'une lumière de veille à une lumière d'ambiance.",
+      "Avec ses 29,5 cm de haut et son socle de 10,5 cm de diamètre, elle reste discrète sur un petit meuble, tout en donnant un peu d'allure à une chambre, un salon ou un bureau.",
+    ],
+    storytelling: {
+      eyebrow: "Les petits détails comptent",
+      title: "Une lampe qu'on a plaisir à voir, même éteinte.",
+      paragraphs: [
+        "Une lampe de chevet s'allume tous les soirs, mais elle se regarde toute la journée. Autant qu'elle ait de l'allure : un pied doré, un abat-jour travaillé, des proportions fines.",
+        "La Lampe Coupole a été choisie pour cet équilibre : un objet élégant, une lumière douce et réglable, et une batterie qui évite le fil sur la table de nuit.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "La lumière est-elle assez douce pour une chambre ?",
+        response:
+          "Le fournisseur annonce une lumière chaude et une luminosité réglable, pour adapter l'intensité au moment de la soirée.",
+      },
+      {
+        doubt: "Faut-il la brancher en permanence ?",
+        response:
+          "Non : elle fonctionne avec une batterie rechargeable intégrée. L'autonomie exacte n'est pas encore communiquée par le fournisseur.",
+      },
+      {
+        doubt: "Est-ce qu'elle va bien avec mon intérieur ?",
+        response:
+          "Son pied doré et son abat-jour transparent s'accordent avec des intérieurs naturels comme modernes, sur une table de nuit, une console ou une table.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si la lampe ne me convient pas une fois reçue ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et la retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Une lampe rechargeable à abat-jour transparent à facettes",
+      "Luminosité réglable, batterie intégrée",
+      "29,5 cm de haut, finition dorée",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+    ],
+    midCtaTexts: [
+      "Séduit par cette lumière douce et dorée ?",
+      "Prêt à lui trouver sa place sur votre table de nuit ?",
+    ],
+    costPriceUSD: 17.82,
+    priceCHF: 47.99,
+    priceEUR: 47.99,
+    compareAtPriceCHF: 79.99,
+    compareAtPriceEUR: 79.99,
+    images: [
+      {
+        src: "/images/products/lampe-coupole/principale.jpg",
+        alt: "Lampe de chevet dorée allumée, à l'abat-jour transparent à facettes, posée sur un plan de marbre à côté d'une tasse",
+        caption: "Allumée, sur un plan de marbre",
+      },
+      {
+        src: "/images/products/lampe-coupole/luminosite.webp",
+        alt: "Lampe de chevet dorée allumée à côté d'une tasse et d'un feuillage, avec la mention luminosité réglable",
+        caption: "Une luminosité réglable",
+        inspiration: true,
+      },
+      {
+        src: "/images/products/lampe-coupole/dimensions.jpg",
+        alt: "Dimensions de la lampe : 29,5 cm de hauteur, 15 cm de largeur pour l'abat-jour, 10,5 cm de diamètre pour le socle",
+        caption: "Dimensions : 29,5 cm de haut, abat-jour de 15 cm",
+        info: true,
+      },
+      {
+        src: "/images/products/lampe-coupole/table-ronde.jpg",
+        alt: "Lampe de chevet dorée à l'abat-jour transparent à facettes sur une table ronde blanche, devant un rideau et une plante",
+        caption: "Sur une table ronde",
+      },
+    ],
+    benefits: [
+      {
+        icon: "lamp",
+        title: "Un abat-jour à facettes",
+        description: "Un abat-jour transparent aux facettes en relief, qui joue avec la lumière.",
+      },
+      {
+        icon: "lightbulb",
+        title: "Luminosité réglable",
+        description: "Une intensité à ajuster, d'une lumière de veille à une lumière d'ambiance.",
+      },
+      {
+        icon: "battery",
+        title: "Batterie rechargeable",
+        description: "Pas de fil à brancher en continu : elle se déplace où vous en avez besoin.",
+      },
+      {
+        icon: "gift",
+        title: "Une idée cadeau élégante",
+        description: "Un objet sobre et doré, facile à offrir pour un anniversaire, Noël ou un emménagement.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Table de nuit",
+        description: "Une lumière douce pour lire ou se coucher, sans plafonnier.",
+      },
+      {
+        title: "Console ou commode",
+        description: "Un point de lumière élégant dans une entrée ou un salon.",
+      },
+      {
+        title: "Table de salle à manger",
+        description: "Un éclairage d'appoint pour un dîner, sans câble à faire courir.",
+      },
+      {
+        title: "Bureau",
+        description: "Une petite lumière d'ambiance près d'un livre ou d'une plante.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions de la lampe ?",
+        answer:
+          "Elle mesure 29,5 cm de hauteur, avec un abat-jour de 15 cm de large et un socle de 10,5 cm de diamètre.",
+      },
+      {
+        question: "Comment fonctionne l'alimentation ?",
+        answer:
+          "La lampe contient une batterie rechargeable. Le fournisseur indique une alimentation de 3,6 V / 5 V et une consommation de 0 à 5 W. Le type de câble de charge, le temps de charge et l'autonomie seront précisés dès que la fiche technique complète sera disponible.",
+      },
+      {
+        question: "La luminosité est-elle réglable ?",
+        answer:
+          "Oui, la luminosité est réglable. Le détail du réglage (nombre de niveaux, geste de commande) sera précisé dès que nous aurons confirmé le fonctionnement avec le fournisseur.",
+      },
+      {
+        question: "Quelle est la couleur de la lumière ?",
+        answer: "Le fournisseur annonce une lumière chaude, adaptée à une chambre ou à un salon.",
+      },
+      {
+        question: "De quelle matière est la lampe ?",
+        answer:
+          "Le fournisseur indique un corps en aluminium finition dorée. La matière exacte de l'abat-jour transparent sera confirmée dès la fiche technique complète.",
+      },
+      {
+        question: "La batterie est-elle fournie ?",
+        answer: "Oui, la lampe est livrée avec sa batterie rechargeable intégrée, prête à l'emploi.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Lampe de chevet rechargeable dorée, abat-jour à facettes | Maison Loravie",
+      metaDescription:
+        "La Lampe Coupole : lampe de chevet rechargeable au pied doré et à l'abat-jour transparent à facettes, luminosité réglable. 29,5 cm. Livraison offerte, retours 30 jours.",
+      keywords: [
+        "lampe de chevet rechargeable",
+        "lampe sans fil rechargeable",
+        "lampe de table dorée",
+        "lampe de chevet dorée",
+        "lampe abat-jour transparent",
+        "lampe d'ambiance rechargeable",
+        "idée cadeau lampe",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre d'automne",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /**

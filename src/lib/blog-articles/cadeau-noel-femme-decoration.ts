@@ -35,7 +35,7 @@ Quand on ne connaît pas bien l'intérieur, mieux vaut des teintes neutres (blan
 
 **4. Un plateau décoratif.** Utile pour regrouper une bougie, un vase et quelques objets, ou pour structurer une table basse. À offrir à quelqu'un qui aime composer des petits décors.
 
-:::produits lampe-table-led-diamant-usb vase-sculpture-fleurs-sechees bougeoir-ceramique-argente-reflet plateau-decoratif-rond-resine-vague | Quatre idées de cadeaux déco
+:::produits lampe-chevet-rechargeable-cristal-doree vase-sculpture-fleurs-sechees bougeoir-ceramique-argente-reflet plateau-decoratif-rond-resine-vague | Quatre idées de cadeaux déco
 
 ## Pour une femme qui aime les matières naturelles
 

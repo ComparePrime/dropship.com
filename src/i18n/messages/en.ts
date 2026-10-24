@@ -521,6 +521,7 @@ const messages: Messages = {
   "Chiens et chats : conseils pratiques et idées cadeaux": "Dogs and cats: practical advice and gift ideas",
   "Protéger son chien du froid, choisir un manteau, aménager un coin confortable pour son chat, idées cadeaux pour animaux. Le journal Maison Loravie.": "Protecting your dog from the cold, choosing a coat, setting up a cozy spot for your cat, gift ideas for pets. The Maison Loravie journal.",
   "Griffoir pour chat en carton plié en accordéon, déplié en deux anneaux avec une balle à grelot verte, et un modèle replié orné de pattes de chat": "Accordion-folded cardboard cat scratcher, unfolded into two rings with a green bell ball, and a folded model decorated with cat paws",
+  "La Lampe Coupole": "The Dome Lamp",
 };
 
 export default messages;
