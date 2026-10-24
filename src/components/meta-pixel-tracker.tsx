@@ -19,14 +19,14 @@ export function MetaPixelRouteTracker() {
 }
 
 /** Evenement ViewContent d'une fiche produit. */
-export function MetaViewContent({ id, name, value }: { id: string; name: string; value: number }) {
+export function MetaViewContent({ id, name, value, group = false }: { id: string; name: string; value: number; group?: boolean }) {
   useEffect(() => {
     // Le pixel peut se charger juste après l'affichage : courte attente avant l'envoi.
     const timer = window.setTimeout(
-      () => trackMeta("ViewContent", { content_ids: [id], content_name: name, content_type: "product", value, currency: "EUR" }),
+      () => trackMeta("ViewContent", { content_ids: [id], content_name: name, content_type: group ? "product_group" : "product", value, currency: "EUR" }),
       800
     );
     return () => window.clearTimeout(timer);
-  }, [id, name, value]);
+  }, [id, name, value, group]);
   return null;
 }

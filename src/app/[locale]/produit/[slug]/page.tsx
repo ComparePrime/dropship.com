@@ -142,7 +142,7 @@ export default function ProductPage({ params }: Props) {
   return (
     <>
       <ProductJsonLd product={product} locale={locale} />
-      <MetaViewContent id={product.slug} name={product.name} value={product.priceEUR} />
+      <MetaViewContent id={product.id} name={product.name} value={product.priceEUR} group={hasSizes(product)} />
       {product.status === "draft" && (
         <div className="bg-terracotta py-2 text-center text-xs font-medium uppercase tracking-wide text-white">
           {t("Brouillon — non publie, non indexe, visible uniquement par ce lien direct")}</div>

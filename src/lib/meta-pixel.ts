@@ -1,4 +1,20 @@
+import { getProductById } from "./products";
+import { hasSizes, parseSkuLabel } from "./sku";
+
 export const META_PIXEL_ID = "473111698599994";
+
+/**
+ * Identifiant du produit tel qu'il figure dans le flux du catalogue (g:id), pour que Meta relie les événements
+ * aux produits : l'identifiant du produit, ou « produit-coloris-taille » pour un produit décliné en tailles.
+ */
+export function metaContentId(productId: string, variantLabel?: string): string {
+  const product = getProductById(productId);
+  if (product && hasSizes(product)) {
+    const sku = parseSkuLabel(product, variantLabel);
+    if (sku) return `${product.id}-${sku.variant.id}-${sku.size.id}`;
+  }
+  return productId;
+}
 
 type Fbq = ((...args: unknown[]) => void) & {
   callMethod?: (...args: unknown[]) => void;

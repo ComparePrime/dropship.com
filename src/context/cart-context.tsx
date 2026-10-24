@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { CartLine, Product } from "@/lib/types";
 import { getProductById } from "@/lib/products";
 import { useLocale, useT } from "@/i18n/provider";
-import { trackMeta } from "@/lib/meta-pixel";
+import { metaContentId, trackMeta } from "@/lib/meta-pixel";
 import { hasSizes, parseSkuLabel, resolveLine } from "@/lib/sku";
 
 /** Ligne de panier d'un produit (prix du lot ou de la variante inclus), sans l'ajouter au panier. */
@@ -143,7 +143,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       ];
     });
     trackMeta("AddToCart", {
-      content_ids: [product.slug],
+      content_ids: [metaContentId(product.id, variantLabel)],
       content_name: product.name,
       content_type: "product",
       value: resolved.priceEUR * quantity,
