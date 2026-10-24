@@ -524,6 +524,12 @@ const messages: Messages = {
   "La Lampe Coupole": "The Dome Lamp",
   "La Lampe Cannelée": "The Fluted Lamp",
   "Trois lampes d'ambiance rechargeables": "Three rechargeable ambient lamps",
+  "La Lampe Lanterne": "The Lantern Lamp",
+  "Doré": "Gold",
+  "Argenté": "Silver",
+  "Lampe lanterne noire allumée": "Lit black lantern lamp",
+  "Lampe lanterne dorée allumée": "Lit gold lantern lamp",
+  "Lampe lanterne argentée allumée": "Lit silver lantern lamp",
 };
 
 export default messages;

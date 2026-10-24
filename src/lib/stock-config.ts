@@ -53,6 +53,7 @@ export const declaredStock: Record<string, StockInfo> = {
   "jouet-chat-arcade-souris-fromage": declare(10, 40),
   "lampe-chevet-rechargeable-cristal-doree": declare(14, 40),
   "lampe-de-table-rechargeable-doree-cannelee": declare(12, 40),
+  "lampe-lanterne-rechargeable-tactile-cristal": declare(11, 40),
 };
 
 /**

@@ -4210,6 +4210,280 @@ const catalog: Product[] = [
       "final-cta",
     ],
   },
+  {
+    id: "lampe-lanterne",
+    slug: "lampe-lanterne-rechargeable-tactile-cristal",
+    status: "published",
+    compliance: {
+      categories: ["electrical"],
+      verified: false,
+      notes:
+        "Fiche fournisseur recue (texte + 5 images) le 2026-10-24. Le fournisseur declare CE et RoHS : aucun document fourni, donc aucune certification reprise sur la fiche. Batterie integree de 2000 mAh annoncee dans le texte (non verifiee ; autonomie et temps de charge non fournis). Recharge USB-C d'apres le visuel. Flux annonce '249 a 2000 lm' : implausible pour ce format, non publie. Texte 'alimentation par courant alternatif, 5 V' : incoherent avec une lampe a batterie, non publie. Le texte et une photo evoquent un usage au jardin ou en camping : aucune indication d'etancheite (indice IP), la fiche est donc presentee pour un usage interieur. Dimensions lues sur le visuel : 17,5 cm de haut, socle de 9 cm. Corps 'en cristal et alliage d'aluminium' selon le titre fournisseur : matiere du cylindre a confirmer (aspect de verre ou d'acrylique transparent). Commande 'tactile' (visuel : un doigt touche le dessus de la cage) alors que les photos montrent aussi un petit bouton lateral sur le socle : mode de commande a verifier. Trois couleurs de lumiere montrees sur le visuel (chaude, neutre, froide) sans indication en kelvins. Une photo (camping) porte le logo d'une marque tierce : non utilisee. Les photos des trois finitions sont des visuels de presentation ; les images des coloris sont des recadrages de la photo des trois lampes. Livraison US/CA non ouverte (conformite non confirmee pour ce produit).",
+    },
+    evaluation: {
+      demandScore: 4,
+      differentiationScore: 4,
+      supplierQualityScore: 3,
+      competitionScore: 3,
+      priceScore: 2,
+      returnRiskScore: 3,
+      estimatedMarginAfterCosts: 0.603,
+      notes:
+        "Cout 22,19 EUR communique par l'operateur (livraison supposee incluse, a confirmer). Prix 66,99 EUR TTC, reference 111,99 EUR (-40,2 %). Marge brute 60,3 % en France (TVA 20 %), 64,2 % en Suisse, 66,9 % hors TVA, avant publicite et frais de paiement. Quatrieme lampe rechargeable du catalogue : surveiller la cannibalisation. Stock declare par l'operateur : 11, toutes finitions confondues (le stock est suivi par produit, pas par finition).",
+    },
+    name: "La Lampe Lanterne",
+    brandLine: "Maison Loravie",
+    badge: "NOUVEAUTÉ",
+    headline: "Une petite lanterne de table, à poser où vous voulez.",
+    subtitle:
+      "Une lampe rechargeable en forme de lanterne, avec un cylindre transparent dans une cage en métal, trois couleurs de lumière et une recharge USB-C. En noir, doré ou argenté.",
+    heroBullets: [
+      "Cylindre transparent dans une cage en métal, 3 finitions au choix",
+      "3 couleurs de lumière, luminosité réglable",
+      "Batterie rechargeable intégrée, recharge USB-C",
+      "17,5 cm de haut : se glisse partout",
+    ],
+    h1: "Lampe lanterne rechargeable tactile, cylindre transparent et cage en métal",
+    shortDescription:
+      "Une lampe de table rechargeable en forme de lanterne, avec un cylindre transparent dans une cage en métal, trois couleurs de lumière et une recharge USB-C. 17,5 cm de haut, en 3 finitions.",
+    description: [
+      "La Lampe Lanterne reprend la silhouette d'une lanterne : un cylindre transparent au centre, entouré d'une fine cage en métal, posé sur un socle rond. Allumée, elle donne l'impression d'une flamme douce enfermée dans un petit objet d'art.",
+      "Elle fonctionne sur une batterie rechargeable intégrée (2 000 mAh annoncés par le fournisseur) qui se recharge en USB-C : aucun fil à faire courir sur la table. On la pose sur un buffet, une table de nuit, une table de repas ou une étagère, et on la déplace selon la soirée.",
+      "Trois couleurs de lumière permettent de passer d'un éclairage chaud et enveloppant à une lumière plus neutre. Avec ses 17,5 cm de haut et son socle de 9 cm, elle est assez compacte pour se glisser partout, et se décline en noir, en doré et en argenté.",
+    ],
+    storytelling: {
+      eyebrow: "Une lumière à emporter",
+      title: "Une lanterne qui n'a pas besoin de prise.",
+      paragraphs: [
+        "Une bonne lumière d'ambiance se déplace avec la soirée : sur la table pour le dîner, sur le buffet ensuite, sur la table de nuit pour finir. Encore faut-il qu'elle ne dépende pas d'une prise.",
+        "La Lampe Lanterne a été choisie pour cette liberté et pour sa silhouette : un cylindre transparent, une cage fine, et trois finitions pour s'accorder à votre intérieur.",
+      ],
+    },
+    objections: [
+      {
+        doubt: "Quelle lumière donne-t-elle ?",
+        response:
+          "Trois couleurs de lumière sont annoncées, de la lumière chaude à la lumière plus neutre, avec une luminosité réglable.",
+      },
+      {
+        doubt: "Faut-il la brancher en permanence ?",
+        response:
+          "Non : elle fonctionne sur une batterie rechargeable intégrée, qui se recharge en USB-C. L'autonomie exacte n'est pas encore communiquée par le fournisseur.",
+      },
+      {
+        doubt: "Peut-on l'utiliser dehors ?",
+        response:
+          "Elle est présentée pour un usage intérieur : aucune indication de résistance à l'eau n'est fournie, mieux vaut la tenir à l'abri de la pluie.",
+      },
+      {
+        doubt: "Combien de temps vais-je attendre ma commande ?",
+        response:
+          "Votre commande est expédiée sous 24h, pour une réception estimée entre 4 et 8 jours ouvrables.",
+      },
+      {
+        doubt: "Et si la lampe ne me convient pas une fois reçue ?",
+        response:
+          "Vous disposez de 30 jours après réception pour changer d'avis et la retourner gratuitement.",
+      },
+    ],
+    valueStack: [
+      "Une lampe lanterne rechargeable, 3 finitions au choix",
+      "3 couleurs de lumière, luminosité réglable",
+      "17,5 cm de haut, recharge USB-C",
+      "Livraison offerte, expédition sous 24h",
+      "Retours gratuits sous 30 jours",
+    ],
+    midCtaTexts: [
+      "Séduit par cette petite lanterne ?",
+      "Prêt à choisir votre finition ?",
+    ],
+    costPriceUSD: 24.88,
+    priceCHF: 66.99,
+    priceEUR: 66.99,
+    compareAtPriceCHF: 111.99,
+    compareAtPriceEUR: 111.99,
+    images: [
+      {
+        src: "/images/products/lampe-lanterne/trois-finitions.webp",
+        alt: "Trois lampes lanternes allumées en noir, doré et argenté, posées sur un plan de travail en marbre",
+        caption: "Les trois finitions : noir, doré et argenté",
+      },
+      {
+        src: "/images/products/lampe-lanterne/caracteristiques.webp",
+        alt: "Caractéristiques de la lampe lanterne : hauteur 17,5 cm, socle 9 cm, commande tactile, 3 couleurs de lumière, batterie rechargeable en USB-C",
+        caption: "Les caractéristiques en un coup d'œil",
+        info: true,
+      },
+      {
+        src: "/images/products/lampe-lanterne/noir-livres.jpg",
+        alt: "Lampe lanterne noire allumée, posée sur une pile de livres devant un rideau et une plante",
+        caption: "Sur une pile de livres",
+        variantId: "noir",
+      },
+      {
+        src: "/images/products/lampe-lanterne/detail-argente.jpg",
+        alt: "Gros plan sur la cage en métal et le cylindre transparent éclairé de la lampe lanterne",
+        caption: "Le détail du cylindre et de la cage",
+      },
+    ],
+    variants: [
+      {
+        id: "noir",
+        label: "Noir",
+        image: {
+          src: "/images/products/lampe-lanterne/noir.webp",
+          alt: "Lampe lanterne noire allumée",
+        },
+      },
+      {
+        id: "dore",
+        label: "Doré",
+        image: {
+          src: "/images/products/lampe-lanterne/dore.webp",
+          alt: "Lampe lanterne dorée allumée",
+        },
+      },
+      {
+        id: "argente",
+        label: "Argenté",
+        image: {
+          src: "/images/products/lampe-lanterne/argente.webp",
+          alt: "Lampe lanterne argentée allumée",
+        },
+      },
+    ],
+    benefits: [
+      {
+        icon: "lamp",
+        title: "Une silhouette de lanterne",
+        description: "Un cylindre transparent dans une fine cage en métal : un petit objet d'art, même éteint.",
+      },
+      {
+        icon: "lightbulb",
+        title: "3 couleurs de lumière",
+        description: "De la lumière chaude à une lumière plus neutre, avec une luminosité réglable.",
+      },
+      {
+        icon: "battery",
+        title: "Batterie et recharge USB-C",
+        description: "Aucun fil à brancher en continu : on la recharge comme un téléphone.",
+      },
+      {
+        icon: "gift",
+        title: "3 finitions au choix",
+        description: "Noir, doré ou argenté, pour s'accorder à votre intérieur ou à celui de la personne à qui vous l'offrez.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Table de repas",
+        description: "Une lumière d'ambiance pour le dîner, sans câble sur la table.",
+      },
+      {
+        title: "Buffet ou console",
+        description: "Un petit point de lumière qui habille un meuble bas.",
+      },
+      {
+        title: "Table de nuit",
+        description: "Une lumière douce pour lire ou se coucher.",
+      },
+      {
+        title: "Idée cadeau",
+        description: "Un objet lumineux original, facile à offrir en trois finitions.",
+      },
+    ],
+    faq: [
+      {
+        question: "Quelles sont les dimensions de la lampe ?",
+        answer: "Elle mesure 17,5 cm de hauteur, avec un socle de 9 cm de diamètre.",
+      },
+      {
+        question: "Comment se recharge-t-elle ?",
+        answer:
+          "Elle se recharge en USB-C. Le fournisseur annonce une batterie intégrée de 2 000 mAh ; l'autonomie et le temps de charge seront précisés dès que la fiche technique complète sera disponible.",
+      },
+      {
+        question: "Quelles sont les couleurs de lumière ?",
+        answer:
+          "Le fournisseur annonce trois couleurs de lumière (de chaude à plus neutre) et une luminosité réglable. Les températures exactes seront précisées dès la fiche technique complète.",
+      },
+      {
+        question: "Comment s'allume-t-elle ?",
+        answer:
+          "Le fournisseur annonce une commande tactile. Le détail (geste, niveaux de luminosité) sera précisé dès que nous aurons confirmé le fonctionnement avec le fournisseur.",
+      },
+      {
+        question: "Quelles finitions sont disponibles ?",
+        answer: "Trois finitions : noir, doré et argenté.",
+      },
+      {
+        question: "Peut-on l'utiliser à l'extérieur ?",
+        answer:
+          "Elle est présentée pour un usage intérieur. Aucune indication de résistance à l'eau n'est fournie : évitez l'humidité et la pluie.",
+      },
+      {
+        question: "La lampe est-elle vendue seule ou par deux ?",
+        answer: "Elle est vendue à l'unité. Certaines photos montrent plusieurs lampes pour illustrer une ambiance.",
+      },
+      {
+        question: "Combien de temps faut-il pour recevoir ma commande ?",
+        answer: "Votre commande est expédiée sous 24h. Le délai de livraison estimé est de 4 à 8 jours ouvrables.",
+      },
+      {
+        question: "La livraison est-elle gratuite ?",
+        answer: "Oui, la livraison est offerte pour toutes les commandes, sans minimum d'achat.",
+      },
+      {
+        question: "Puis-je retourner le produit ?",
+        answer:
+          "Oui, vous disposez de 30 jours après réception pour changer d'avis et retourner votre commande gratuitement.",
+      },
+    ],
+    seo: {
+      title: "Lampe lanterne rechargeable tactile, 3 finitions | Maison Loravie",
+      metaDescription:
+        "La Lampe Lanterne : lampe rechargeable USB-C en forme de lanterne, cylindre transparent et cage en métal, 3 couleurs de lumière. Noir, doré, argenté. Livraison offerte.",
+      keywords: [
+        "lampe lanterne rechargeable",
+        "lampe sans fil",
+        "lampe de table sans fil",
+        "lampe d'ambiance rechargeable",
+        "lampe tactile usb-c",
+        "lampe de table design",
+        "idée cadeau lampe",
+      ],
+    },
+    promotion: {
+      active: true,
+      label: "Offre d'automne",
+      endsAt: undefined,
+    },
+    shipping: {
+      freeShipping: true,
+      dispatchWithinHours: 24,
+      minDays: 4,
+      maxDays: 8,
+      returnDays: 30,
+    },
+    reviews: [],
+    ratingAverage: 0,
+    ratingCount: 0,
+    collections: ["maison-decoration", "idees-cadeaux"],
+    layout: [
+      "storytelling",
+      "benefits",
+      "cta-1",
+      "useCases",
+      "objections",
+      "value",
+      "cta-2",
+      "reviews",
+      "shipping-returns",
+      "faq",
+      "related",
+      "final-cta",
+    ],
+  },
 ];
 
 /**
