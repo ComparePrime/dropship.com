@@ -149,6 +149,22 @@ const tr: ProductTranslation = {
       caption: "The ball hidden between the rings",
     },
   ],
+  labels: ["No batteries", "Bell ball included", "Folds flat", "Compact size"],
+  specs: [
+    { label: "Dimensions", value: "Ø 24 cm unfolded; 15 × 8 × 10 cm folded" },
+    { label: "Material", value: "Accordion-folded corrugated cardboard, plastic bell ball" },
+    { label: "Ball", value: "About 4 cm in diameter, included" },
+    { label: "Power", value: "No batteries, no plug" },
+    { label: "Storage", value: "Folds by hand" },
+  ],
+  inBox: [
+    "1 accordion cardboard scratcher",
+    "1 bell ball (about 4 cm)",
+  ],
+  gap: {
+    today: "A sofa or a chair that serves as a scratching post, for lack of a place meant for it.",
+    withProduct: "A scratching spot that is also a playground, with its ball hidden between the rings, as an alternative to the furniture.",
+  },
 };
 
 export default tr;

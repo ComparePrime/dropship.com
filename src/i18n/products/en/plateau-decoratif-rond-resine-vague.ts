@@ -137,6 +137,22 @@ const tr: ProductTranslation = {
       caption: "On a coffee table, as part of an arrangement",
     },
   ],
+  labels: ["Ø 23 cm", "White resin", "Wavy edge", "Decorative use"],
+  specs: [
+    { label: "Diameter", value: "About 23 cm (9 inches)" },
+    { label: "Material", value: "Resin" },
+    { label: "Color", value: "White, raised wavy edge" },
+    { label: "Use", value: "Decorative: not suitable for contact with food" },
+    { label: "Sale", value: "Tray only: candle, diffuser and vase in the photos not included" },
+  ],
+  inBox: [
+    "The decorative tray only",
+    "Not included: the objects in the photos (candle, diffuser, vase)",
+  ],
+  gap: {
+    today: "A coffee table or console where small objects lie around without forming an arrangement.",
+    withProduct: "A tray that gathers a candle, a vase or a diffuser, to turn a corner of a table into an arrangement.",
+  },
 };
 
 export default tr;

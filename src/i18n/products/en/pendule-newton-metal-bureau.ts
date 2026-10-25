@@ -146,6 +146,17 @@ const tr: ProductTranslation = {
       caption: "In motion",
     },
   ],
+  labels: ["No batteries", "Chrome-plated metal", "Desk size", "Gift idea"],
+  specs: [
+    { label: "Dimensions", value: "About 9 cm high, 9 cm wide, 7.5 cm deep" },
+    { label: "Material", value: "Chrome-plated metal frame, metal balls suspended by threads" },
+    { label: "How it works", value: "Mechanical: no battery, no plug" },
+    { label: "Use", value: "Pull one ball aside and release it: the motion starts" },
+  ],
+  gap: {
+    today: "A desk or shelf with nothing that invites you to look up from the screen.",
+    withProduct: "A mechanical classic that works as a pause of a few seconds, and as a decorative object in chrome-plated metal.",
+  },
 };
 
 export default tr;

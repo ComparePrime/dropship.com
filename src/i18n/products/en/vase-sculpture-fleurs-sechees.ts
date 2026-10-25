@@ -139,6 +139,18 @@ const tr: ProductTranslation = {
       caption: "With dried flowers",
     },
   ],
+  labels: ["Sculptural silhouette", "Dried flowers", "Mineral texture", "Two openings"],
+  specs: [
+    { label: "Use", value: "Dried flowers and decorative branches" },
+    { label: "Water", value: "Watertightness not confirmed: use without water" },
+    { label: "Texture", value: "Mineral, raised" },
+    { label: "Openings", value: "Two, for asymmetrical arrangements" },
+    { label: "Care", value: "Dust with a dry or slightly damp cloth" },
+  ],
+  gap: {
+    today: "A low cabinet or a niche that lacks a focal point, without making you want to crowd it.",
+    withProduct: "A sculptural vase, beautiful even without flowers, enough on its own to dress a corner of the room.",
+  },
 };
 
 export default tr;

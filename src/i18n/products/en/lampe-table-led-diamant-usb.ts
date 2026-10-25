@@ -170,6 +170,19 @@ const tr: ProductTranslation = {
       caption: "A detail that changes the mood",
     },
   ],
+  labels: ["USB rechargeable", "3 light settings", "Touch switch", "Packs of 1 to 4"],
+  specs: [
+    { label: "Dimensions", value: "26 cm high, 12 cm wide at the shade" },
+    { label: "Power", value: "USB-rechargeable battery, no fixed cable" },
+    { label: "Lighting", value: "LED, 3 light settings to choose from" },
+    { label: "Control", value: "Touch on/off switch" },
+    { label: "Shade", value: "Transparent acrylic with diamond-cut facets" },
+    { label: "Options", value: "Single, or packs of 2, 3 or 4 lamps" },
+  ],
+  gap: {
+    today: "A desk or bedside table lit by a ceiling light that is too bright, or limited by the nearest outlet.",
+    withProduct: "A small cordless lamp to place wherever you like, that switches on with a touch and gives a softer light in the evening.",
+  },
 };
 
 export default tr;

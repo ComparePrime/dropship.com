@@ -177,6 +177,25 @@ const tr: ProductTranslation = {
       caption: "The features at a glance",
     },
   ],
+  labels: ["Built-in LED lighting", "Remote control included", "Retractable blades", "White or black"],
+  specs: [
+    { label: "Dimensions", value: "Light body Ø 48 cm (2.5 cm thick), blades deployed Ø 120 cm, total height 23 cm" },
+    { label: "Voltage", value: "220 V AC, 90 to 260 V range (compatible with 230 V mains)" },
+    { label: "Lighting", value: "Built-in LED, not separately replaceable, adjustable intensity" },
+    { label: "Control", value: "Remote control supplied (batteries not included)" },
+    { label: "Installation", value: "Fixed to the ceiling on a mounting plate; assembly required; installation by a qualified electrician recommended" },
+    { label: "Finishes", value: "White or black" },
+    { label: "Noise level", value: "Stated as quiet by the supplier; decibel measurement not available" },
+  ],
+  inBox: [
+    "1 ceiling fan with built-in LED lighting",
+    "1 remote control",
+    "Not included: remote control batteries",
+  ],
+  gap: {
+    today: "A ceiling where you have to choose between a light and a fan, or stack two objects that don't really work together.",
+    withProduct: "A single object that lights and ventilates, with discreet blades and a remote control to adjust speed and light without getting up.",
+  },
 };
 
 export default tr;

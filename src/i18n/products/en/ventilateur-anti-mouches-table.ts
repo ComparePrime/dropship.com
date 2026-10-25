@@ -175,6 +175,23 @@ const tr: ProductTranslation = {
       description: "The airflow it creates naturally keeps flies away, with a stated battery life of up to 48 hours.",
     },
   ],
+  labels: ["Set of 2", "No insecticide", "USB or batteries", "Compact size"],
+  specs: [
+    { label: "Contents", value: "Set of 2 table fans" },
+    { label: "How it works", value: "Steady airflow, no insecticide or spray" },
+    { label: "Power", value: "USB cable or standard dry batteries (batteries not included)" },
+    { label: "Stated battery life", value: "Up to 48 hours, according to the manufacturer" },
+    { label: "Use", value: "Indoors and outdoors: table, terrace, picnic" },
+    { label: "Operation", value: "A single button, no complicated settings" },
+  ],
+  inBox: [
+    "2 anti-fly table fans",
+    "Not included: batteries",
+  ],
+  gap: {
+    today: "A meal on the terrace, a picnic or a summer evening, with flies circling the plates.",
+    withProduct: "A steady airflow set in the middle of the table, to help keep flies at a distance, with no chemicals.",
+  },
 };
 
 export default tr;

@@ -30,6 +30,10 @@ export interface ProductTranslation {
   faq?: { question: string; answer: string }[];
   seo?: { title: string; metaDescription: string; keywords: string[] };
   promotionLabel?: string;
+  labels?: string[];
+  specs?: { label: string; value: string }[];
+  inBox?: string[];
+  gap?: { today: string; withProduct: string };
   /** Textes des photos, dans l'ordre de `product.images`. */
   images?: { alt: string; caption?: string }[];
   demoSteps?: { title: string; description: string }[];
@@ -75,6 +79,10 @@ export function localizeProduct(product: Product, locale: Locale): Product {
     faq: tr.faq ?? product.faq,
     seo: tr.seo ?? product.seo,
     promotion: { ...product.promotion, label: tr.promotionLabel ?? product.promotion.label },
+    labels: tr.labels ?? product.labels,
+    specs: tr.specs ?? product.specs,
+    inBox: tr.inBox ?? product.inBox,
+    gap: tr.gap ?? product.gap,
     images: mapArray(product.images, tr.images, (img, o) => ({ ...img, alt: o.alt, caption: o.caption ?? img.caption })) ?? product.images,
     demoSteps: mapArray(product.demoSteps, tr.demoSteps, (s, o) => ({ ...s, ...o })),
     variants: product.variants?.map((v) => ({ ...v })),

@@ -149,6 +149,18 @@ const tr: ProductTranslation = {
       caption: "With a tea light",
     },
   ],
+  labels: ["Mirror finish", "Taper candle or tea light", "Sold individually", "Gift idea"],
+  specs: [
+    { label: "Dimensions", value: "About 7.5 cm in diameter × 4.1 cm high; central opening of about 2.2 cm" },
+    { label: "Material", value: "Ceramic, silver finish that looks like mirror chrome" },
+    { label: "Compatible candles", value: "Taper (conical) candle or tea light" },
+    { label: "Sale", value: "Individually" },
+    { label: "Care", value: "Soft cloth" },
+  ],
+  gap: {
+    today: "A table, desk or console with no point of light and no detail that catches the eye.",
+    withProduct: "A small candle holder with a mirror finish that catches the light of a candle and adds depth to a table or a shelf.",
+  },
 };
 
 export default tr;

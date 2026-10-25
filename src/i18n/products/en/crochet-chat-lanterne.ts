@@ -172,6 +172,17 @@ const tr: ProductTranslation = {
       caption: "A feline touch on a desk",
     },
   ],
+  labels: ["Gift idea", "Ambient light", "Compact size", "For cat lovers"],
+  specs: [
+    { label: "Shape", value: "Cat silhouette with a hook and a small built-in lantern" },
+    { label: "Lighting", value: "Soft, decorative light, not a main light source" },
+    { label: "Setup", value: "Placed or fixed on a shelf, a ledge or a flat surface, no complicated tools" },
+    { label: "Care", value: "Dust with a dry or slightly damp cloth" },
+  ],
+  gap: {
+    today: "A shelf or bedside table that feels a bit neutral, with no little detail that says something about you.",
+    withProduct: "A cat silhouette that doubles as a hook, and a small soft light in the evening: enough to give a corner of the room some character.",
+  },
 };
 
 export default tr;

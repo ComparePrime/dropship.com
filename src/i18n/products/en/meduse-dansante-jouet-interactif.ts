@@ -148,6 +148,23 @@ const tr: ProductTranslation = {
       caption: "The Dancing Jellyfish in pink",
     },
   ],
+  labels: ["From 3 years", "Music and LED lights", "Spins 360°", "2 colors"],
+  specs: [
+    { label: "Recommended age", value: "From 3 years old, according to the supplier" },
+    { label: "Power", value: "3 AA batteries (not included)" },
+    { label: "Material", value: "Plastic" },
+    { label: "Colors", value: "Mint green or pink" },
+    { label: "Functions", value: "Music, colorful LED lights, 360° rotation, moves in every direction" },
+    { label: "Obstacle detection", value: "Stated by the manufacturer; not independently tested by us" },
+  ],
+  inBox: [
+    "1 dancing jellyfish, in the color you choose",
+    "Not included: 3 AA batteries",
+  ],
+  gap: {
+    today: "A child who is bored in their room, or a few minutes to fill while dinner finishes cooking.",
+    withProduct: "A toy that dances, spins and lights up on its own, that the child watches roam around the room (obstacle detection stated by the manufacturer).",
+  },
 };
 
 export default tr;

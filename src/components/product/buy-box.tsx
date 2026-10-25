@@ -12,8 +12,6 @@ import { useCheckout } from "@/lib/use-checkout";
 import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
 import { RatingStars } from "@/components/product/rating-stars";
-import { CampaignCountdown } from "@/components/campaign-countdown";
-import { getCampaignDeal } from "@/lib/campaign";
 import { WelcomeOffer } from "@/components/product/welcome-offer";
 import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
@@ -121,6 +119,16 @@ export function BuyBox({
 
       <p className="mt-3 text-base text-ink/70">{product.subtitle}</p>
 
+      {product.labels && product.labels.length > 0 && (
+        <ul className="mt-4 flex flex-wrap gap-2" aria-label={t("Points clés")}>
+          {product.labels.map((label) => (
+            <li key={label} className="rounded-full border border-sage/30 bg-sage/5 px-3 py-1 text-xs font-medium text-sageDeep">
+              {t(label)}
+            </li>
+          ))}
+        </ul>
+      )}
+
       {/*
         Etoiles/note affichees uniquement si des avis réels existent (regle
         "note réelle uniquement"). Sinon, simple lien discret vers la section avis.
@@ -140,11 +148,6 @@ export function BuyBox({
         d'achat se prenne sans devoir chercher l'information ailleurs.
       */}
       <div className="mt-6 rounded-xl2 border border-sage/30 bg-white/60 p-4 shadow-card sm:p-5 md:p-6">
-        {!selectedPack && (sized ? !!(selectedSize ? displayedProduct.compareAtPriceCHF : product.compareAtPriceCHF) : !!getCampaignDeal(product, currency)) && (
-          <div className="mb-3">
-            <CampaignCountdown />
-          </div>
-        )}
         {sized && !selectedSize && (
           <p className="mb-2 text-sm font-medium text-ink/70">
             {t("À partir de {price} — le prix dépend de la taille", { price: formatPrice(priceFrom, currency) })}

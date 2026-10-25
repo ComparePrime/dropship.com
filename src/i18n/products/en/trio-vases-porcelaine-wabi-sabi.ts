@@ -141,6 +141,22 @@ const tr: ProductTranslation = {
       caption: "The three silhouettes: bottle, pebble and sphere",
     },
   ],
+  labels: ["Set of 3 vases", "Unglazed porcelain", "Artificial flowers", "Wabi-sabi style"],
+  specs: [
+    { label: "Contents", value: "3 vases: bottle shape, pebble shape, sphere shape" },
+    { label: "Bottle", value: "About 20.5 cm high × 7.2 cm wide, 3 cm opening" },
+    { label: "Pebble", value: "About 16.6 cm high × 10.7 cm wide, 3.5 cm opening" },
+    { label: "Sphere", value: "About 12 cm high × 10.2 cm wide, 3 cm opening" },
+    { label: "Material", value: "Unglazed porcelain, in its natural state (slight variations in texture possible)" },
+    { label: "Use", value: "Artificial flowers; not designed to hold water" },
+  ],
+  inBox: [
+    "3 vases: bottle shape, pebble shape, sphere shape",
+  ],
+  gap: {
+    today: "A shelf or a tray that lacks a simple, coherent arrangement.",
+    withProduct: "Three complementary silhouettes in the same material, ready to set together for a wabi-sabi-inspired arrangement, with artificial flowers.",
+  },
 };
 
 export default tr;

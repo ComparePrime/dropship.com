@@ -226,6 +226,22 @@ const tr: ProductTranslation = {
     imageAlt:
       "How to measure your dog: back length, neck girth and chest girth, on a Beagle wearing the jacket",
   },
+  labels: ["Waterproof", "Windproof collar", "XS to 6XL", "6 colors"],
+  specs: [
+    { label: "Sizes", value: "10 sizes, from XS to 6XL (size guide in centimeters)" },
+    { label: "Colors", value: "6: lime green, blue, pink, red, purple, orange (black body)" },
+    { label: "Fabric", value: "Waterproof outer, PP cotton padding" },
+    { label: "Collar", value: "High, windproof" },
+    { label: "Fastening", value: "Zip, with a D-ring for the leash" },
+    { label: "Choosing a size", value: "Back length, chest girth, neck girth; if in doubt between two sizes, take the larger one" },
+  ],
+  inBox: [
+    "1 jacket, in the color and size you choose",
+  ],
+  gap: {
+    today: "Autumn and winter walks where your dog shivers as soon as it leaves the door, especially if it is small or short-haired.",
+    withProduct: "A waterproof jacket with a windproof collar, easy to put on, that makes the outing more comfortable (size to choose with the measuring guide).",
+  },
 };
 
 export default tr;

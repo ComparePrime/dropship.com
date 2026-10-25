@@ -177,6 +177,7 @@ export interface ProductEvaluation {
  * sans jamais forcer le même gabarit pour tous les produits.
  */
 export type ProductSectionKey =
+  | "keyfacts"
   | "storytelling"
   | "benefits"
   | "cta-1"
@@ -259,6 +260,22 @@ export interface Product {
   /** Stock reel par couple coloris x taille, cle `<variantId>:<sizeId>` (voir lib/sku.ts). */
   skuStock?: Record<string, number>;
   sizeGuide?: SizeGuide;
+  /**
+   * Repères courts (3 à 4 au plus) affichés sous le titre : uniquement des faits documentés sur le produit
+   * (ex. « Rechargeable USB », « Dès 3 ans »). Jamais de mention générique ni de certification non vérifiée.
+   */
+  labels?: string[];
+  /** Caractéristiques essentielles (dimensions, matière, alimentation...) : uniquement des informations confirmées. */
+  specs?: ProductSpec[];
+  /** Ce qui est réellement livré dans le colis, et ce qui ne l'est pas quand c'est utile (piles, etc.). */
+  inBox?: string[];
+  /** L'écart que le produit comble : la situation actuelle, puis ce que le produit change de façon réaliste. */
+  gap?: { today: string; withProduct: string };
+}
+
+export interface ProductSpec {
+  label: string;
+  value: string;
 }
 
 /**

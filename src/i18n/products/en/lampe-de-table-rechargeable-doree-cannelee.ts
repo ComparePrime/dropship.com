@@ -158,6 +158,22 @@ const tr: ProductTranslation = {
       caption: "As a pair, for a warm mood (the lamp is sold individually)",
     },
   ],
+  labels: ["USB-C rechargeable", "Adjustable brightness", "Golden stand", "Gift idea"],
+  specs: [
+    { label: "Dimensions", value: "28 cm high; base Ø 13 cm" },
+    { label: "Charging", value: "USB-C, built-in battery" },
+    { label: "Battery life and charging", value: "Battery life and charging time not provided by the supplier to date" },
+    { label: "Light", value: "Warm, adjustable brightness (according to the supplier)" },
+    { label: "Material", value: "Metal stand with a golden finish; transparent fluted shade" },
+    { label: "Use", value: "Indoors: bedroom, living room, console, table" },
+  ],
+  inBox: [
+    "1 table lamp with built-in rechargeable battery",
+  ],
+  gap: {
+    today: "A bedside table or console with no soft light, or too far from the outlet.",
+    withProduct: "A cordless lamp whose fluted shade draws lines of light on the wall, to place on a bedside table, a console or a table.",
+  },
 };
 
 export default tr;

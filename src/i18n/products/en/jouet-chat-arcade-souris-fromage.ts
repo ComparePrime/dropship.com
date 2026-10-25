@@ -160,6 +160,21 @@ const tr: ProductTranslation = {
       caption: "Detail of the levers and the mice",
     },
   ],
+  labels: ["Indoor cats", "4 mice", "Removable parts", "Compact size"],
+  specs: [
+    { label: "Dimensions", value: "23 cm wide × 15 cm long × 7 cm high" },
+    { label: "Visible contents", value: "4 grey mice in the holes, levers on the sides" },
+    { label: "Parts", value: "Mice and levers are removable" },
+    { label: "Compartment", value: "Can hold a few kibbles or treats" },
+    { label: "Precaution", value: "Supervise the first games; take the toy away if the cat chews a small part" },
+  ],
+  inBox: [
+    "1 cheese-shaped arcade, with its mice and removable levers",
+  ],
+  gap: {
+    today: "An indoor cat that gets bored while you work, and invents its own games.",
+    withProduct: "Little mice to stalk, tap and catch, to stimulate its hunting instinct without damaging the furniture.",
+  },
 };
 
 export default tr;

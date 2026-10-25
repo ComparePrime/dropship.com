@@ -168,6 +168,20 @@ const tr: ProductTranslation = {
       caption: "A comfortable support for bottle-feeding",
     },
   ],
+  labels: ["8 patterns", "Breastfeeding and bottle", "Compact size", "Newborn gift idea"],
+  specs: [
+    { label: "Dimensions", value: "About 25 cm wide × 23 cm high" },
+    { label: "Weight", value: "About 180 g" },
+    { label: "Patterns", value: "8 to choose from: grey chevron, savannah, pink stars, fish, crowns, mauve stars, rainbow, night forest" },
+    { label: "Use", value: "Arm support during breastfeeding or bottle-feeding; not for putting baby to sleep" },
+  ],
+  inBox: [
+    "1 arm cushion, in the pattern you choose",
+  ],
+  gap: {
+    today: "A long feed or bottle, and an arm or shoulder that tires before it's over.",
+    withProduct: "A small cushion slipped under the arm to support baby more comfortably and ease the shoulder.",
+  },
 };
 
 export default tr;

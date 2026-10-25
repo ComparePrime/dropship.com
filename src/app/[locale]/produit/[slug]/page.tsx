@@ -26,6 +26,7 @@ import { RelatedProducts } from "@/components/product/related-products";
 import { FinalCtaSection } from "@/components/product/final-cta-section";
 import { ProductJsonLd } from "@/components/product/product-jsonld";
 import { MetaViewContent } from "@/components/meta-pixel-tracker";
+import { KeyFactsSection } from "@/components/product/key-facts-section";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface Props {
@@ -81,8 +82,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 function renderSection(key: ProductSectionKey, product: Product, locale: Locale, t: (text: string) => string) {
   switch (key) {
+    case "keyfacts":
+      return <KeyFactsSection key={key} product={product} />;
     case "storytelling":
-      return <StorytellingSection key={key} content={product.storytelling} />;
+      return <StorytellingSection key={key} content={product.storytelling} gap={product.gap} productName={product.name} />;
     case "benefits":
       return <BenefitsSection key={key} benefits={product.benefits} />;
     case "cta-1":

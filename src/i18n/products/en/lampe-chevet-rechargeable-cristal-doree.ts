@@ -159,6 +159,22 @@ const tr: ProductTranslation = {
       caption: "On a round table",
     },
   ],
+  labels: ["Rechargeable", "Adjustable brightness", "Golden stand", "Gift idea"],
+  specs: [
+    { label: "Dimensions", value: "29.5 cm high; shade 15 cm; base Ø 10.5 cm" },
+    { label: "Power", value: "Built-in rechargeable battery (3.6 V / 5 V stated)" },
+    { label: "Battery life and charging", value: "Battery life, charging time and cable type not provided by the supplier to date" },
+    { label: "Light", value: "Warm, adjustable brightness (according to the supplier)" },
+    { label: "Material", value: "Aluminium stand with a golden finish (according to the supplier), transparent faceted shade" },
+    { label: "Use", value: "Indoors: bedroom, living room, console" },
+  ],
+  inBox: [
+    "1 bedside lamp with built-in rechargeable battery",
+  ],
+  gap: {
+    today: "A bedside table or console lit by a ceiling light that is too bright, with an outlet too far away.",
+    withProduct: "A cordless lamp with a warm, adjustable light, that moves wherever you need it and stays decorative even switched off.",
+  },
 };
 
 export default tr;

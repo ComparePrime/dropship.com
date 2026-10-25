@@ -164,6 +164,23 @@ const tr: ProductTranslation = {
       caption: "The detail of the cylinder and the cage",
     },
   ],
+  labels: ["USB-C rechargeable", "3 light colors", "3 finishes", "Indoor use"],
+  specs: [
+    { label: "Dimensions", value: "17.5 cm high; base Ø 9 cm" },
+    { label: "Charging", value: "USB-C; built-in 2,000 mAh battery stated by the supplier" },
+    { label: "Battery life", value: "Not provided by the supplier to date" },
+    { label: "Light", value: "3 light colors, adjustable brightness" },
+    { label: "Finishes", value: "Black, gold or silver" },
+    { label: "Material", value: "Transparent cylinder in a metal cage (cylinder material to be confirmed)" },
+    { label: "Use", value: "Indoors: no water resistance rating" },
+  ],
+  inBox: [
+    "1 lantern lamp with built-in rechargeable battery, in the finish you choose",
+  ],
+  gap: {
+    today: "A dining table or sideboard that lacks a point of light, with no outlet nearby.",
+    withProduct: "A small cordless lantern to place and move around as the evening goes, with three light colors.",
+  },
 };
 
 export default tr;
