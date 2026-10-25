@@ -141,6 +141,7 @@ for (const locale of LOCALES) {
   console.log(`\n[${locale}] textes : ${localeKeys.length - missing.length}/${localeKeys.length} traduits` + (unused.length ? `, ${unused.length} entrée(s) inutilisée(s)` : ""));
   if (missing.length) failed = true;
   if (list) unused.forEach((k) => console.log("   inutilisée :", JSON.stringify(k.length > 110 ? k.slice(0, 107) + "…" : k)));
+  if (process.env.I18N_DUMP) fs.writeFileSync(process.env.I18N_DUMP, JSON.stringify(missing, null, 1));
   if (list) missing.forEach((k) => console.log("   manque :", JSON.stringify(k.length > 110 ? k.slice(0, 107) + "…" : k)));
 
   const tr = load(`i18n/products/${locale}`).default;

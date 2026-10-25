@@ -1,15 +1,16 @@
 "use client";
 
 import { useCurrency } from "@/context/currency-context";
-import { CURRENCIES } from "@/lib/fx";
+import { currenciesForLocale } from "@/lib/fx";
 import { Currency } from "@/lib/types";
-import { useT } from "@/i18n/provider";
+import { useLocale, useT } from "@/i18n/provider";
 
 const LABELS: Record<Currency, string> = { EUR: "EUR €", CHF: "CHF", USD: "USD $", CAD: "CAD $" };
 
 /** Choix de la devise (EUR, CHF, USD, CAD) : liste deroulante compacte, adaptee au mobile. */
 export function CurrencySwitcher() {
   const t = useT();
+  const locale = useLocale();
   const { currency, setCurrency } = useCurrency();
 
   return (
@@ -20,7 +21,7 @@ export function CurrencySwitcher() {
         onChange={(e) => setCurrency(e.target.value as Currency)}
         className="cursor-pointer appearance-none rounded-full border border-ink/15 bg-transparent py-1.5 pl-3 pr-7 text-xs font-medium text-ink/80 transition-colors hover:border-ink/30 focus:border-sage focus:outline-none"
       >
-        {CURRENCIES.map((c) => (
+        {currenciesForLocale(locale).map((c) => (
           <option key={c} value={c}>
             {LABELS[c]}
           </option>

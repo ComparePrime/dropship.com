@@ -19,6 +19,14 @@ export const FX_RATES_PER_EUR: Record<Currency, number> = {
 
 export const CURRENCIES: Currency[] = ["EUR", "CHF", "USD", "CAD"];
 
+/** Langues proposees en EUR et CHF uniquement (marches europeens) ; les autres langues gardent les quatre devises. */
+const EUR_CHF_ONLY_LOCALES = ["de"];
+
+/** Devises proposees dans une langue. */
+export function currenciesForLocale(locale: string): Currency[] {
+  return EUR_CHF_ONLY_LOCALES.includes(locale) ? CURRENCIES.filter((c) => c === "EUR" || c === "CHF") : CURRENCIES;
+}
+
 /** Arrondi commercial : la valeur la plus proche de la forme n,99 (ex. 36,79 -> 36,99 ; 44,84 -> 44,99). */
 export function retailRound(amount: number): number {
   return Math.max(0.99, Math.round(Math.round(amount - 0.99) * 100 + 99) / 100);

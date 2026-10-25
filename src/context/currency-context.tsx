@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Currency } from "@/lib/types";
-import { CURRENCIES } from "@/lib/fx";
+import { CURRENCIES, currenciesForLocale } from "@/lib/fx";
 import { formatPrice as formatPriceFor } from "@/lib/currency";
 import { useLocale } from "@/i18n/provider";
 import { isLiveLocale, localizePath, stripLocale } from "@/i18n/config";
@@ -39,7 +39,9 @@ const STORAGE_KEY = "mf_currency";
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
-  const [currency, setCurrencyState] = useState<Currency>("EUR");
+  const [rawCurrency, setCurrencyState] = useState<Currency>("EUR");
+  // Dans une langue limitee a EUR/CHF (allemand), un dollar memorise ou detecte devient l'euro.
+  const currency: Currency = currenciesForLocale(locale).includes(rawCurrency) ? rawCurrency : "EUR";
 
   useEffect(() => {
     try {
