@@ -13,7 +13,7 @@ export const defaultLocale: Locale = "fr";
  * Langues OUVERTES au public. Une langue en cours de traduction n'est ni indexee (noindex), ni dans le
  * sitemap, ni dans les balises hreflang, ni dans le selecteur de langue : on l'ajoute ici quand elle est complete.
  */
-export const liveLocales: Locale[] = ["fr", "en"];
+export const liveLocales: Locale[] = ["fr", "en", "de"];
 
 export function isLiveLocale(locale: Locale): boolean {
   return liveLocales.includes(locale);
