@@ -12,6 +12,8 @@ import { useCheckout } from "@/lib/use-checkout";
 import { Countdown } from "@/components/product/countdown";
 import { PromoBlock } from "@/components/product/promo-block";
 import { RatingStars } from "@/components/product/rating-stars";
+import { getCampaignDeal } from "@/lib/campaign";
+import { useCampaign } from "@/lib/use-campaign";
 import { WelcomeOffer } from "@/components/product/welcome-offer";
 import { StockIndicator } from "@/components/product/stock-indicator";
 import { ViewerCount } from "@/components/product/viewer-count";
@@ -39,6 +41,9 @@ export function BuyBox({
   const { currency, formatPrice } = useCurrency();
   const { addItem, promo } = useCart();
   const { startCheckout, loading: buyLoading, error: buyError } = useCheckout();
+  const campaign = useCampaign();
+  // Pendant Black Month, les lots se comparent au prix de reference (prix barre) du produit.
+  const campaignDeal = campaign.running ? getCampaignDeal(product, currency) : null;
   const [quantity, setQuantity] = useState(1);
   const selectedVariantId = variantId;
   const setSelectedVariantId = onVariantChange;
@@ -72,8 +77,8 @@ export function BuyBox({
         ...product,
         priceCHF: selectedPack.priceCHF,
         priceEUR: selectedPack.priceEUR,
-        compareAtPriceCHF: product.priceCHF * selectedPack.quantity,
-        compareAtPriceEUR: product.priceEUR * selectedPack.quantity,
+        compareAtPriceCHF: (product.compareAtPriceCHF && campaign.running ? product.compareAtPriceCHF : product.priceCHF) * selectedPack.quantity,
+        compareAtPriceEUR: (product.compareAtPriceEUR && campaign.running ? product.compareAtPriceEUR : product.priceEUR) * selectedPack.quantity,
         packLabel: selectedPack.label,
       }
     : product;
@@ -157,7 +162,7 @@ export function BuyBox({
           product={displayedProduct}
           currency={currency}
           variant="compact"
-          ignoreCampaign={!!selectedPack}
+          ignoreCampaign={!!selectedPack && !campaign.running}
         />
 
         {promo && !(sized && !selectedSize) && (
@@ -264,7 +269,8 @@ export function BuyBox({
                   currency
                 );
                 const singlePrice = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
-                const saving = Math.round((1 - packPrice / (singlePrice * unitCount)) * 100);
+                const basePrice = campaignDeal ? campaignDeal.referencePrice : singlePrice;
+                const saving = Math.round((1 - packPrice / (basePrice * unitCount)) * 100);
                 const checked = selectedPackLabel === pack?.label;
                 return (
                   <label
@@ -288,7 +294,14 @@ export function BuyBox({
                         </span>
                       )}
                     </span>
-                    <span className="text-sm font-medium text-ink">{formatPrice(packPrice, currency)}</span>
+                    <span className="flex flex-wrap items-baseline justify-end gap-x-2 text-sm font-medium text-ink">
+                      {campaignDeal && (
+                        <span className="text-xs font-normal text-ink/40 line-through">
+                          {formatPrice(Math.round(basePrice * unitCount * 100) / 100, currency)}
+                        </span>
+                      )}
+                      {formatPrice(packPrice, currency)}
+                    </span>
                   </label>
                 );
               })}

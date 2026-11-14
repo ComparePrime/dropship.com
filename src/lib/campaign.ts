@@ -16,6 +16,7 @@ import { getOptionalPrice, getPriceForCurrency } from "./currency";
 export const BLACK_MONTH_CAMPAIGN = {
   id: "black-month",
   name: "Black Month",
+  startsAt: "2026-11-01T00:00:00+01:00",
   endsAt: "2026-11-30T23:59:59+01:00",
   endsAtLabel: "30 novembre 2026",
 };
@@ -46,3 +47,6 @@ export function getCampaignDeal(product: Product, currency: Currency): CampaignD
   const savings = Math.round((reference - price) * 100) / 100;
   return { price, referencePrice: reference, savings, percent: Math.round((savings / reference) * 100) };
 }
+
+/** Periode de la campagne au format des flux Google/Meta (sale_price_effective_date). */
+export const CAMPAIGN_FEED_DATES = "2026-11-01T00:00+0100/2026-11-30T23:59+0100";

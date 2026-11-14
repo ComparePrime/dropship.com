@@ -3,14 +3,16 @@ import { categories } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { Product } from "@/lib/types";
 import { getSkuStock, hasSizes } from "@/lib/sku";
-import { getPriceForCurrency } from "@/lib/currency";
+import { getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
+import { CAMPAIGN_FEED_DATES, isCampaignRunning } from "@/lib/campaign";
 import { isShippableToNorthAmerica } from "@/lib/shipping";
 
 /**
  * Flux produits pour Google Merchant Center (RSS 2.0 + espace de noms g:), genere a
  * partir du catalogue : il suit les prix, le stock declare et les photos a chaque
- * deploiement. Prix actuel uniquement (jamais de prix de reference ni de prix soldes
- * dans le flux, pour rester identique a ce que la page affiche).
+ * deploiement. Hors campagne : prix actuel uniquement. Pendant la campagne Black Month, le flux
+ * suit la page : `price` = prix de reference (prix barre), `sale_price` = prix actuel, avec les dates
+ * de la campagne (Google et Meta mettent fin a la promotion tout seuls a la date de fin).
  *
  * Un flux par marche (devise + pays livres). Ne declarer ici que les pays que la
  * page de paiement accepte reellement (voir shipping_address_collection dans
@@ -67,6 +69,15 @@ const escapeXml = (value: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
+/** Balises de prix : prix + prix promotionnel (avec dates) tant que la campagne est en cours. */
+function priceTags(current: number, reference: number | undefined, currency: string): string[] {
+  const fmt = (n: number) => `${n.toFixed(2)} ${currency}`;
+  if (isCampaignRunning() && reference !== undefined && reference > current) {
+    return [tag("price", fmt(reference)), tag("sale_price", fmt(current)), tag("sale_price_effective_date", CAMPAIGN_FEED_DATES)];
+  }
+  return [tag("price", fmt(current))];
+}
+
 const tag = (name: string, value: string | number) => `      <g:${name}>${escapeXml(String(value))}</g:${name}>`;
 
 /** Photos utilisables par Google : ni visuels d'information (dimensions...) ni photos avec texte superpose. */
@@ -99,7 +110,7 @@ function sizedItemsXml(product: Product, market: FeedMarket): string[] {
           tag("link", `${siteConfig.domain}/produit/${product.slug}${market.linkSuffix}`),
           tag("image_link", abs(main.src)),
           tag("availability", stock > 0 ? "in_stock" : "out_of_stock"),
-          tag("price", `${price.toFixed(2)} ${market.currency}`),
+          ...priceTags(price, getOptionalPrice(size.compareAtPriceCHF, size.compareAtPriceEUR, market.currency), market.currency),
           tag("condition", "new"),
           tag("brand", siteConfig.name),
           tag("identifier_exists", "no"),
@@ -143,7 +154,13 @@ function itemXml(product: Product, market: FeedMarket): string | null {
     tag("image_link", abs(main.src)),
     ...others.map((img) => tag("additional_image_link", abs(img.src))),
     tag("availability", isOut ? "out_of_stock" : "in_stock"),
-    tag("price", `${getPriceForCurrency(product.priceCHF, product.priceEUR, market.currency).toFixed(2)} ${market.currency}`),
+    ...(product.promotion.active
+      ? priceTags(
+          getPriceForCurrency(product.priceCHF, product.priceEUR, market.currency),
+          getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, market.currency),
+          market.currency
+        )
+      : priceTags(getPriceForCurrency(product.priceCHF, product.priceEUR, market.currency), undefined, market.currency)),
     tag("condition", "new"),
     tag("brand", siteConfig.name),
     tag("identifier_exists", "no"),

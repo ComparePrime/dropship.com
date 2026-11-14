@@ -48,7 +48,9 @@ export function getCartTotals(
         includedCents += Math.round(compareAt * 100 - unitCents) * line.quantity;
       }
     } else if (pack) {
-      const singleCents = Math.round(getPriceForCurrency(product.priceCHF, product.priceEUR, currency) * 100);
+      // Pendant la campagne, le lot se compare au prix de reference du produit ; sinon au prix a l'unite.
+      const reference = campaignRunning ? getOptionalPrice(product.compareAtPriceCHF, product.compareAtPriceEUR, currency) : undefined;
+      const singleCents = Math.round((reference ?? getPriceForCurrency(product.priceCHF, product.priceEUR, currency)) * 100);
       includedCents += Math.max(0, singleCents * pack.quantity - unitCents) * line.quantity;
     } else if (campaignRunning) {
       const deal = getCampaignDeal(product, currency);
