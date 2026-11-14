@@ -139,7 +139,7 @@ const tr: ProductTranslation = {
       "lamp gift idea",
     ],
   },
-  promotionLabel: "Autumn offer",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Lit golden table lamp with a transparent fluted shade, placed on a white bedside table",

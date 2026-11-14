@@ -1,8 +1,7 @@
 "use client";
 
-import { AUTUMN_CAMPAIGN, campaignEndLabel } from "@/lib/campaign";
+import { BLACK_MONTH_CAMPAIGN, campaignEndLabel } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
-import { CampaignCountdown } from "@/components/campaign-countdown";
 import { useLocale, useT } from "@/i18n/provider";
 
 /**
@@ -20,8 +19,8 @@ export function AnnouncementBar() {
     ...(running
       ? [
           <span key="campaign">
-            <strong className="font-semibold uppercase">{t(AUTUMN_CAMPAIGN.name)}</strong> · {t("jusqu'au")}{" "}
-            {campaignEndLabel(locale)} · {t("se termine dans")} <CampaignCountdown variant="bar" />
+            <strong className="font-semibold uppercase text-gold">{t(BLACK_MONTH_CAMPAIGN.name)}</strong> · {t("jusqu'au")}{" "}
+            {campaignEndLabel(locale)}
           </span>,
         ]
       : []),
@@ -45,7 +44,7 @@ export function AnnouncementBar() {
   );
 
   return (
-    <div className="overflow-hidden bg-sage py-2.5 text-white">
+    <div className={`overflow-hidden py-2.5 text-white ${running ? "bg-noir" : "bg-sage"}`}>
       <div className="group flex w-max motion-safe:animate-marquee motion-safe:hover:[animation-play-state:paused] motion-reduce:hidden">
         {track(false)}
         {track(true)}

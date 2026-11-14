@@ -145,7 +145,7 @@ const tr: ProductTranslation = {
       "lamp gift idea",
     ],
   },
-  promotionLabel: "Autumn offer",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Three lit lantern lamps in black, gold and silver, placed on a marble countertop",

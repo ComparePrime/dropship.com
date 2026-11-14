@@ -6,7 +6,7 @@ import { useCurrency } from "@/context/currency-context";
 import { getPriceRange, hasSizes } from "@/lib/sku";
 import { getRealRating } from "@/lib/ratings";
 import { Icon } from "@/components/icons";
-import { AUTUMN_CAMPAIGN, getCampaignDeal } from "@/lib/campaign";
+import { BLACK_MONTH_CAMPAIGN, getCampaignDeal } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
 import { useT } from "@/i18n/provider";
 
@@ -36,7 +36,7 @@ export function ProductCardRating({ product }: { product: Product }) {
   );
 }
 
-/** Prix d'une carte produit : prix actuel, et pendant l'Offre d'automne, prix de reference, remise et badge. */
+/** Prix d'une carte produit : prix actuel, et pendant Black Month, prix de reference, remise et badge. */
 export function ProductCardPrice({ product }: { product: Product }) {
   const t = useT();
   const { currency, formatPrice } = useCurrency();
@@ -56,7 +56,7 @@ export function ProductCardPrice({ product }: { product: Product }) {
       {deal && (
         <>
           <span className="text-xs text-ink/40 line-through">{formatPrice(deal.referencePrice, currency)}</span>
-          <span className="rounded-full bg-terracottaText px-2 py-0.5 text-[11px] font-semibold text-white">
+          <span className="rounded-full bg-noir px-2 py-0.5 text-[11px] font-semibold text-gold">
             −{deal.percent}%
           </span>
         </>
@@ -66,15 +66,15 @@ export function ProductCardPrice({ product }: { product: Product }) {
   );
 }
 
-/** Badge a poser sur la photo d'une carte produit pendant l'Offre d'automne. */
+/** Badge a poser sur la photo d'une carte produit pendant Black Month. */
 export function CampaignCardBadge({ product }: { product: Product }) {
   const t = useT();
   const { currency, formatPrice } = useCurrency();
   const { running } = useCampaign();
   if (!running || !getCampaignDeal(product, currency)) return null;
   return (
-    <span className="absolute left-3 top-3 z-10 rounded-full bg-terracotta px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow-card">
-      {t(AUTUMN_CAMPAIGN.name)}
+    <span className="absolute left-3 top-3 z-10 rounded-full border border-gold/60 bg-noir px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold shadow-card">
+      {t(BLACK_MONTH_CAMPAIGN.name)}
     </span>
   );
 }

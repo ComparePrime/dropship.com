@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AUTUMN_CAMPAIGN } from "./campaign";
+import { BLACK_MONTH_CAMPAIGN } from "./campaign";
 
 export interface CampaignState {
   running: boolean;
@@ -12,7 +12,7 @@ export interface CampaignState {
 }
 
 function compute(): CampaignState {
-  const diff = new Date(AUTUMN_CAMPAIGN.endsAt).getTime() - Date.now();
+  const diff = new Date(BLACK_MONTH_CAMPAIGN.endsAt).getTime() - Date.now();
   if (diff <= 0) return { running: false, days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
     running: true,

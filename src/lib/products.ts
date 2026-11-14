@@ -3063,7 +3063,7 @@ const catalog: Product[] = [
     },
     name: "La Veste Montagne",
     brandLine: "Maison Loravie",
-    badge: "OFFRE D'AUTOMNE",
+    badge: "BLACK MONTH",
     headline: "Quand le froid arrive, il reste bien au chaud.",
     subtitle:
       "Une veste matelassée pour chien, imperméable, avec col montant coupe-vent et fermeture zippée. Du XS au 6XL, en 6 coloris.",
@@ -3392,7 +3392,7 @@ const catalog: Product[] = [
     },
     promotion: {
       active: true,
-      label: "Offre d'automne",
+      label: "Black Month",
       endsAt: undefined,
     },
     shipping: {
@@ -3455,7 +3455,7 @@ const catalog: Product[] = [
     },
     name: "Le Griffoir Accordéon",
     brandLine: "Maison Loravie",
-    badge: "OFFRE D'AUTOMNE",
+    badge: "BLACK MONTH",
     headline: "Un coin à griffer, une balle à pourchasser : le salon respire.",
     subtitle:
       "Un griffoir pour chat en carton plié en accordéon, avec une balle à grelot cachée à l'intérieur. Il se déplie en deux anneaux et se replie pour se ranger.",
@@ -3633,7 +3633,7 @@ const catalog: Product[] = [
     },
     promotion: {
       active: true,
-      label: "Offre d'automne",
+      label: "Black Month",
       endsAt: undefined,
     },
     shipping: {
@@ -3696,7 +3696,7 @@ const catalog: Product[] = [
     },
     name: "L'Arcade à Souris",
     brandLine: "Maison Loravie",
-    badge: "OFFRE D'AUTOMNE",
+    badge: "BLACK MONTH",
     headline: "Quatre souris à attraper, un chat qui ne s'ennuie plus.",
     subtitle:
       "Une arcade pour chat en forme de fromage : des petites souris dépassent des trous, des leviers sortent sur les côtés, et votre chat passe à l'action.",
@@ -3885,7 +3885,7 @@ const catalog: Product[] = [
     },
     promotion: {
       active: true,
-      label: "Offre d'automne",
+      label: "Black Month",
       endsAt: undefined,
     },
     shipping: {
@@ -4145,7 +4145,7 @@ const catalog: Product[] = [
     },
     promotion: {
       active: true,
-      label: "Offre d'automne",
+      label: "Black Month",
       endsAt: undefined,
     },
     shipping: {
@@ -4405,7 +4405,7 @@ const catalog: Product[] = [
     },
     promotion: {
       active: true,
-      label: "Offre d'automne",
+      label: "Black Month",
       endsAt: undefined,
     },
     shipping: {
@@ -4695,7 +4695,7 @@ const catalog: Product[] = [
     },
     promotion: {
       active: true,
-      label: "Offre d'automne",
+      label: "Black Month",
       endsAt: undefined,
     },
     shipping: {

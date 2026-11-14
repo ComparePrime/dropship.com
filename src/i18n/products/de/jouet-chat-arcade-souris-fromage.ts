@@ -2,7 +2,7 @@ import type { ProductTranslation } from "../../product-translation";
 
 const tr: ProductTranslation = {
   name: "Die Mäuse-Arcade",
-  badge: "HERBSTANGEBOT",
+  badge: "BLACK MONTH",
   headline: "Vier Mäuse zum Fangen, eine Katze, die sich nie langweilt.",
   subtitle:
     "Eine Katzen-Arcade in Käseform: Kleine Mäuse schauen aus den Löchern, an den Seiten ragen Hebel heraus, und Ihre Katze kommt in Bewegung.",
@@ -137,7 +137,7 @@ const tr: ProductTranslation = {
       "Geschenkidee für Katzen",
     ],
   },
-  promotionLabel: "Herbstangebot",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Rot getigerte Katze, die mit der Pfotenspitze eine graue Maus aus der gelben Arcade in Käseform auf einem weissen Tisch fängt",

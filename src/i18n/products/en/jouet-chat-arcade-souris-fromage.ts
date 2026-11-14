@@ -2,7 +2,7 @@ import type { ProductTranslation } from "../../product-translation";
 
 const tr: ProductTranslation = {
   name: "The Mouse Arcade",
-  badge: "AUTUMN OFFER",
+  badge: "BLACK MONTH",
   headline: "Four mice to catch, a cat that never gets bored.",
   subtitle:
     "A cheese-shaped cat arcade: little mice poke out of the holes, levers stick out of the sides, and your cat springs into action.",
@@ -137,7 +137,7 @@ const tr: ProductTranslation = {
       "cat gift idea",
     ],
   },
-  promotionLabel: "Autumn offer",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Ginger tabby cat catching, with the tip of its paw, a gray mouse from the yellow cheese-shaped arcade placed on a white table",

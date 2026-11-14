@@ -139,7 +139,7 @@ const tr: ProductTranslation = {
       "Lampe Geschenkidee",
     ],
   },
-  promotionLabel: "Herbstangebot",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Eingeschaltete goldene Tischlampe mit transparentem Riffelschirm auf einem weissen Nachttisch",

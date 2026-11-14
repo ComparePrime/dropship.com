@@ -5,9 +5,9 @@ import { Currency } from "@/lib/types";
 import { getOptionalPrice, getPriceForCurrency } from "@/lib/currency";
 import { useCurrency } from "@/context/currency-context";
 import { Icon } from "@/components/icons";
-import { AUTUMN_CAMPAIGN } from "@/lib/campaign";
+import { BLACK_MONTH_CAMPAIGN, campaignEndLabel } from "@/lib/campaign";
 import { useCampaign } from "@/lib/use-campaign";
-import { useT } from "@/i18n/provider";
+import { useLocale, useT } from "@/i18n/provider";
 
 /**
  * N'affiche un prix barré / une économie que si une vraie promotion est
@@ -27,6 +27,7 @@ export function PromoBlock({
   ignoreCampaign?: boolean;
 }) {
   const t = useT();
+  const locale = useLocale();
   const { formatPrice } = useCurrency();
   const { running } = useCampaign();
   const price = getPriceForCurrency(product.priceCHF, product.priceEUR, currency);
@@ -47,17 +48,19 @@ export function PromoBlock({
     );
   }
 
+  const black = !ignoreCampaign;
+  const frame = black ? "border-gold/50 bg-ivory" : "border-terracotta/25 bg-blush/25";
   return (
     <div
       className={
         variant === "full"
-          ? "mx-auto max-w-md rounded-xl2 border border-terracotta/25 bg-blush/25 p-6 text-center md:p-8"
-          : "rounded-xl2 border border-terracotta/25 bg-blush/25 p-4"
+          ? `mx-auto max-w-md rounded-xl2 border p-6 text-center md:p-8 ${frame}`
+          : `rounded-xl2 border p-4 ${frame}`
       }
     >
-      <span className="motion-safe:animate-promo-pulse inline-flex items-center gap-1.5 rounded-full bg-terracotta px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-        <Icon.flame className="h-3.5 w-3.5" strokeWidth={2} />
-        {t(ignoreCampaign ? product.promotion.label : AUTUMN_CAMPAIGN.name)}
+      <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase ${black ? "bg-noir tracking-[0.16em] text-gold" : "motion-safe:animate-promo-pulse bg-terracotta tracking-wide text-white"}`}>
+        {!black && <Icon.flame className="h-3.5 w-3.5" strokeWidth={2} />}
+        {t(ignoreCampaign ? product.promotion.label : BLACK_MONTH_CAMPAIGN.name)}
       </span>
 
       {product.packLabel && (
@@ -72,7 +75,7 @@ export function PromoBlock({
           {formatPrice(compareAt!, currency)}
         </span>
         {discountPercent > 0 && (
-          <span className="rounded-full bg-terracottaText px-2.5 py-0.5 text-sm font-semibold text-white">
+          <span className={`rounded-full px-2.5 py-0.5 text-sm font-semibold ${black ? "bg-noir text-gold" : "bg-terracottaText text-white"}`}>
             −{discountPercent}%
           </span>
         )}
@@ -81,6 +84,11 @@ export function PromoBlock({
       <p className="mt-2 text-center text-sm font-medium text-sage">
         {t("Vous économisez {amount}", { amount: formatPrice(savings, currency) })}
       </p>
+      {black && (
+        <p className="mt-1 text-center text-xs text-ink/60">
+          {t("Offre valable jusqu'au {date}", { date: campaignEndLabel(locale) })}
+        </p>
+      )}
     </div>
   );
 }

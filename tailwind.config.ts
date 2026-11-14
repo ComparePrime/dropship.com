@@ -17,6 +17,12 @@ const config: Config = {
         terracotta: "#A56B52",
         terracottaText: "#7A4A37",
         blush: "#D8C7B5",
+        // Campagne Black Month : noir profond, or doux, ivoire.
+        noir: "#14110F",
+        noirSoft: "#201C18",
+        gold: "#C9A45C",
+        goldDeep: "#8A6B2E",
+        ivory: "#FBF8F1",
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],

@@ -2,7 +2,7 @@ import type { ProductTranslation } from "../../product-translation";
 
 const tr: ProductTranslation = {
   name: "The Mountain Jacket",
-  badge: "AUTUMN OFFER",
+  badge: "BLACK MONTH",
   headline: "When the cold arrives, they stay nice and warm.",
   subtitle:
     "A quilted waterproof dog jacket with a windproof high collar and a zip fastening. From XS to 6XL, in 6 colors.",
@@ -159,7 +159,7 @@ const tr: ProductTranslation = {
       "French bulldog coat",
     ],
   },
-  promotionLabel: "Autumn offer",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Labrador sitting in the snow wearing a black quilted jacket with a lime green stripe, shown with the blue, pink, red and lime green colors, and details of the waterproof fabric, the lining, the leash ring and the windproof collar",

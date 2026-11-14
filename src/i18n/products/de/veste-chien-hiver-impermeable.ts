@@ -2,7 +2,7 @@ import type { ProductTranslation } from "../../product-translation";
 
 const tr: ProductTranslation = {
   name: "Die Berg-Jacke",
-  badge: "HERBST-ANGEBOT",
+  badge: "BLACK MONTH",
   headline: "Wenn es kalt wird, bleibt Ihr Hund schön warm.",
   subtitle:
     "Eine gesteppte, wasserdichte Hundejacke mit windabweisendem Stehkragen und Reissverschluss. Von XS bis 6XL, in 6 Farben.",
@@ -159,7 +159,7 @@ const tr: ProductTranslation = {
       "Französische Bulldogge Mantel",
     ],
   },
-  promotionLabel: "Herbst-Angebot",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Labrador im Schnee sitzend mit einer schwarzen gesteppten Jacke mit limettengrünem Streifen, dazu die Farben Blau, Rosa, Rot und Limettengrün sowie Detailansichten von wasserdichtem Stoff, Futter, Leinenring und windabweisendem Kragen",

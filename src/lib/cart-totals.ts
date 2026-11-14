@@ -17,7 +17,7 @@ export interface CartTotals {
   total: number;
   /**
    * Economies deja incluses dans les prix du panier : prix de reference de
-   * l'Offre d'automne (tant qu'elle est en cours) et remise de lot. N'est PAS
+   * l'offre Black Month (tant qu'elle est en cours) et remise de lot. N'est PAS
    * deduit une seconde fois du total.
    */
   includedSavings: number;

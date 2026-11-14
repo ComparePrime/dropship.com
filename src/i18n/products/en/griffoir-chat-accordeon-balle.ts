@@ -2,7 +2,7 @@ import type { ProductTranslation } from "../../product-translation";
 
 const tr: ProductTranslation = {
   name: "The Accordion Scratcher",
-  badge: "AUTUMN OFFER",
+  badge: "BLACK MONTH",
   headline: "A spot to scratch, a ball to chase: the living room can breathe.",
   subtitle:
     "A cat scratcher made of accordion-folded cardboard, with a bell ball hidden inside. It unfolds into two rings and folds flat to store away.",
@@ -134,7 +134,7 @@ const tr: ProductTranslation = {
       "cat gift idea",
     ],
   },
-  promotionLabel: "Autumn offer",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Accordion-folded cardboard cat scratcher, unfolded into two rings with a green bell ball, and a folded model decorated with cat paws",

@@ -140,7 +140,7 @@ const tr: ProductTranslation = {
       "lamp gift idea",
     ],
   },
-  promotionLabel: "Autumn offer",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Lit golden bedside lamp with a transparent faceted shade, placed on a marble surface next to a cup",

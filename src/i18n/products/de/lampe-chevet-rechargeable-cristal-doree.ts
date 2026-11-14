@@ -140,7 +140,7 @@ const tr: ProductTranslation = {
       "Lampe als Geschenkidee",
     ],
   },
-  promotionLabel: "Herbstangebot",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Eingeschaltete goldene Nachttischlampe mit transparentem Facettenschirm auf einer Marmorfläche neben einer Tasse",

@@ -2,7 +2,7 @@ import type { ProductTranslation } from "../../product-translation";
 
 const tr: ProductTranslation = {
   name: "Der Akkordeon-Kratzer",
-  badge: "HERBSTANGEBOT",
+  badge: "BLACK MONTH",
   headline: "Ein Platz zum Kratzen, ein Ball zum Jagen: Das Wohnzimmer kann aufatmen.",
   subtitle:
     "Ein Katzenkratzer aus ziehharmonikaförmig gefaltetem Karton mit einem versteckten Glöckchenball. Er entfaltet sich zu zwei Ringen und lässt sich flach zusammenlegen.",
@@ -134,7 +134,7 @@ const tr: ProductTranslation = {
       "Geschenkidee Katze",
     ],
   },
-  promotionLabel: "Herbstangebot",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Katzenkratzer aus ziehharmonikaförmig gefaltetem Karton, zu zwei Ringen entfaltet, mit grünem Glöckchenball, daneben ein zusammengefaltetes Modell mit Katzenpfoten-Motiv",

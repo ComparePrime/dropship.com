@@ -145,7 +145,7 @@ const tr: ProductTranslation = {
       "Lampe Geschenkidee",
     ],
   },
-  promotionLabel: "Herbstangebot",
+  promotionLabel: "Black Month",
   images: [
     {
       alt: "Drei eingeschaltete Laternenlampen in Schwarz, Gold und Silber auf einer Marmorplatte",
